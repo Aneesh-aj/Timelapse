@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>collection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" class="style">
+    <link rel="stylesheet" href="style.css" class="style">
+    <title>product </title>
+</head>
+<body>
+      <%- include('navbar.ejs') %>
+       <content>
+       
+        <div class="container-fluid  nav-height " id="body-color">
+            <div class=" d-flex   profile-main" style="height: auto;">
+                <div class=" row homepage-main4 d-flex ">             
+                    <div class="col-12 col-sm-12   col-md-12 col-lg-6 product-photo ">
+                         <div class="w-100    d-flex  single-product-height "  >
+                             <div class="w-25 ">
+                                <% for(let i=0; i < product.product_image.length-1 ; i++){ %>
+                                         
+                                    <div class=" mb-1 border sub-image ">
+                                        <img onclick="change_image(this)" class="sub-image" src="/filename/<%= product.product_image[i] %>" style="">
+                                      </div>
+                               <% }  %>
+                             
+                            </div>
+                            <div class=" img-zoom-container product-image-fit w-75">
+                                <img class=" " src="/filename/<%= product.product_image[0]%>" id="myimage" >
+                                <div class="img-zoom-lens"></div>
+                             
+                            </div>
+                            <div id="myresult" class="img-zoom-result">  </div>
+                         </div>
+                          <div  class="  w-100  product-buy-wishbutton">
+                                 <a class="btn btn-warning product-button-cart " >Add to cart</a>
+                                 <a class="btn btn-danger product-button-buynow "  href="/checkout?product_id=<%=product._id%>">Buy now</a>
+                         </div>
+                    </div>
+                    <div class=" col-12 col-sm-12 col-md-12 col-lg-6 product-show " >
+                     
+                        
+                        <div class="product-dete">
+                            <h1 class="product-name"><%= product.product_name %>  </h1>   
+                            <h4 class="product-name">watch - <%=product.gender%></h4>
+                             <h3 class="special-price">special price</h3>
+                            <h1 class="product-price">&#8377 <%= product.price %></h1>
+
+                        </div>
+                        <h4 class="padding-start product-subname">product details</h4>
+                        <div class="product-details-container padding-start">
+                            <div class="product-details-labels">
+                                <ul class="cate-text">
+                                    <li>Display Type</li>
+                                    <li>Strap Color</li>
+                                    <li>Dial Color</li>
+                                    <li>Gender</li>
+                                    <li>Shape</li>
+                                    <li>Case</li>
+                                </ul>
+                            </div>
+                            <div class="product-details-values">
+                                <ul>
+                                    <li>:   <%= product.display_type %></li>
+                                    <li>:   <%= product.strap_color %></li>
+                                    <li>:   <%= product.dial_color %></li>
+                                    <li>:   <%= product.gender %></li>
+                                    <li>:   <%= product.shape %></li>
+                                    <li>:   <%= product.watch_case %></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="ps-5">
+                            <h1 class="product-subname">Discription</h1>
+                            <p class="product-para"><%= product.discription %></p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+      
+        
+    </content>
+    <footer>
+        <div class="container-fluid footer-color">
+           <div class="container d-flex ">
+                 <div class="">
+                      <div class="footer-div1 d-flex justify-content-center">
+                           <h1 class="heading  pt-4">About us</h1>
+                      </div>
+                     <div class="footer-div1">
+                  
+                         <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch Universe, we're passionate about bringing you the finest selection of watches that blend elegance, precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's most stunning watches with watch enthusiasts and collectors alike.</p>
+                         
+                     </div>
+                 </div>
+           </div>
+        </div>
+        <div class="container-fluid footer-color d-flex justify-content-center">
+          <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+        </div>
+     </footer>
+    
+     <script>
+          function change_image(clickedImage) {
+            var mainImage = document.getElementById("myimage");
+            var newSrc = clickedImage.getAttribute("src");
+            mainImage.src = newSrc;
+        }
+
+       
+        document.addEventListener("DOMContentLoaded", function () {
+            imageZoom("myimage", "myresult");
+        });
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+    imageZoom("myimage", "myresult");
+});
+
+function imageZoom(imgID, resultID) {
+    var img, lens, result;
+    img = document.getElementById(imgID);
+    result = document.getElementById(resultID);
+
+    /* Create lens */
+    lens = document.createElement("DIV");
+    lens.setAttribute("class", "img-zoom-lens");
+    img.parentElement.insertBefore(lens, img);
+
+    /* Execute a function when someone moves the cursor over the image, or the lens */
+    lens.addEventListener("mousemove", moveLens);
+    img.addEventListener("mousemove", moveLens);
+
+    /* And also for touch screens */
+    lens.addEventListener("touchmove", moveLens);
+    img.addEventListener("touchmove", moveLens);
+
+    function moveLens(e) {
+        var pos, x, y;
+
+        /* Prevent any other actions that may occur when moving over the image */
+        e.preventDefault();
+
+        /* Get the cursor's x and y positions */
+        pos = getCursorPos(e);
+
+        /* Calculate the position of the lens */
+        x = pos.x - (lens.offsetWidth / 2);
+        y = pos.y - (lens.offsetHeight / 2);
+
+        /* Prevent the lens from being positioned outside the image */
+        if (x > img.width - lens.offsetWidth) { x = img.width - lens.offsetWidth; }
+        if (x < 0) { x = 0; }
+        if (y > img.height - lens.offsetHeight) { y = img.height - lens.offsetHeight; }
+        if (y < 0) { y = 0; }
+
+        /* Set the position of the lens */
+        lens.style.left = x + "px";
+        lens.style.top = y + "px";
+
+        /* Calculate the background position based on the cursor's position within the lens */
+        var backgroundX = -x * (img.width / lens.offsetWidth);
+        var backgroundY = -y * (img.height / lens.offsetHeight);
+
+        /* Display what the lens "sees" */
+        result.style.backgroundImage = "url('" + img.src + "')";
+        result.style.backgroundSize = (img.width * img.width / lens.offsetWidth) + "px " + (img.height * img.height / lens.offsetHeight) + "px";
+        result.style.backgroundPosition = backgroundX + "px " + backgroundY + "px";
+    }
+
+    function getCursorPos(e) {
+        var a, x = 0, y = 0;
+        e = e || window.event;
+
+        /* Get the x and y positions of the image */
+        a = img.getBoundingClientRect();
+
+        /* Calculate the cursor's x and y coordinates, relative to the image */
+        x = e.pageX - a.left;
+        y = e.pageY - a.top;
+
+        /* Consider any page scrolling */
+        x = x - window.pageXOffset;
+        y = y - window.pageYOffset;
+
+        return { x: x, y: y };
+    }
+}
+
+     </script>
+    
+    
+    
+    
+</body>
+
+   
+</html>

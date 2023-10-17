@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/style.css" class="style">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+  <title>product-managment</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg nav-height "> <!--nav-height  -->
+    <div class="container-fluid ">
+      <div class=" nav-div1">
+
+        <div class="ms-5">
+          <span class="">
+            <a class="nav-link active nav-texts" aria-current="page" href="/home">Home</a>
+          </span>
+        </div>
+      </div>
+      <div class=" d-flex  nav-div2 ">
+
+        <div class=" span-div  d-flex  justify-content-center">
+          <span><a class="nav-link nav-texts" href="#">Top</a></span>
+        </div>
+        <div class="span-div d-flex  justify-content-center ">
+          <span><a class="nav-link nav-texts" href="/collection?gender=kids">Kids</a></span>
+        </div>
+        <div class="span-div d-flex  justify-content-center ">
+          <span><a class="nav-link nav-texts" href="/collection?gender=men">Mens</a></span>
+        </div>
+        <div class=" span-div d-flex  justify-content-center ">
+          <span><a class="nav-link nav-texts" href="/collection?gender=women">Women</a></span>
+        </div>
+        <div class="span-div d-flex justify-content-center ">
+          <span><a class="nav-link nav-texts" href="/collection?collection=true">collection</a></span>
+        </div>
+      </div>
+      <div class=" d-flex  nav-div3  justify-content-end ">
+        <a href="/admin/logout" class="btn btn-outline-light">logout</a>
+
+      </div>
+
+      <div class=" d-flex pe-4 nav-div4 justify-content-start">
+
+        <div class="span-div d-flex justify-content-center ">
+
+          <div class="selector-image" style="background-image: url(shopping-cart\ \(1\).png); "></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <content>
+    <div class="container-fluid   " id="body-color">
+      <div class=" d-flex h-auto  profile-main">
+        <div class="profile-div ">
+          <div class="profile-photo d-flex align-items-center ">
+            <div class=" hii d-flex justify-content-center align-items-center">
+              <div class="profile-picture "
+                style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
+              </div>
+            </div>
+            <div class=" hello d-flex align-items-center">
+              <span><a href="/admin" style="text-decoration: none; outline: none; color: black;">Admin</a></span>
+            </div>
+          </div>
+          <div class="profile-selection">
+            <div class="selector  d-flex align-items-center">
+              <div class=" hii d-flex align-items-center justify-content-center">
+                <div class="selector-image"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/order-details" style="text-decoration: none; outline: none; color: black;">order
+                    details</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center" style="background-color: rgb(238, 236, 236);">
+              <div class=" hii  d-flex align-items-center justify-content-center">
+                <div class="selector-image"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); "></div>
+              </div>
+              <div class=" hello d-flex align-items-center">
+                <span><a href="/admin/product-managment"
+                    style="text-decoration: none; outline: none; color: black;">product</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center align-items-center">
+              <div class="hii d-flex justify-content-center align-items-center">
+                <div class="selector-image bg-light"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/user-managment"
+                    style="text-decoration: none; outline: none; color: black;">users</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center align-items-center">
+              <div class="hii d-flex justify-content-center align-items-center">
+                <div class="selector-image bg-light"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/category"
+                    style="text-decoration: none; outline: none; color: black;">category</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center align-items-center">
+              <div class="hii d-flex justify-content-center align-items-center">
+                <div class="selector-image bg-light"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/coupon"
+                    style="text-decoration: none; outline: none; color: black;">coupon</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+
+          </div>
+        </div>
+        <div class="profile-div2  ">
+          <div class="p-5">
+            <div class="w-100">
+              <h1>Order Details</h1>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-center">
+              <div class="w-50 ">
+                <h1 class="heading">Order information</h1>
+
+                <p>Order id:  <%= order._id%></p>
+                <p>Date :   <%= order.createdAt.toLocaleString()%></p>
+                <p>Payment Method :  <%= order.paymentMethod %></p>
+                <p>Status :  <%=order.status %></p>
+              </div>
+              <div class="w-50 ">
+                <h1 class="heading">Shipping information</h1>
+                <p>Name:     <%=order.user_id.name %></p>
+                <P>Address:  <%=order.first_address%>,<%= order.country%>,<%=order.state %>,<%= order.town %>,<%= order.locality %></P>
+                <p>Phone:    <%= order.user_id.number %></p>
+              </div>
+            </div>
+            <hr>
+            <div>
+              <h1 class="heading">Order items</h1>
+            </div>
+            <table>
+
+              <tr>
+                <th>No</th>
+                <th>image</th>
+                <th>proudct</th>
+                <th>price</th>
+                <th>quantity</th>
+                <th>Total</th>
+              </tr>
+
+              <tbody>
+                <%locals.product.product || "" %>
+                  <%if(locals.product.product.length){%>
+                    <% for(let i=0; i < product.product.length;i++){ %>
+                      <tr class="border-bottom ">
+                        <td>
+                          <%=i+1 %>
+                        </td>
+                        <td>
+                          <div style="width: 4rem; height: 4rem;" class="m-2">
+                            <img style="width: 100%; height: 100%;"
+                              src="/filename/<%=product.product[i].product_id.product_image[0] %>">
+                          </div>
+                        </td>
+                        <td>
+                          <%=product.product[i].product_id.product_name %>,<%=product.product[i].product_id.dial_color%>
+                              <%=product.product[i].product_id.watch_case %>
+                        </td>
+                        <td>
+                          <%=product.product[i].quantity%>
+                        </td>
+                        <td>
+                          <%= product.product[i].price %>
+                        </td>
+                        <td>
+                          <%=product.product[i].totalPrice %>
+                        </td>
+                        
+                          
+                      </tr>
+                  
+                     
+                      
+                      <% }%>
+                      
+                        <%}%>
+
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                            <td>
+                              Total Amount :
+                            </td>
+                            <td>
+                              <%=order.totalamount %>
+                            </td>
+                          </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+
+
+        </div>
+      </div>
+
+
+
+  </content>
+
+  <footer>
+    <div class="container-fluid footer-color">
+      <div class="container d-flex ">
+        <div class="">
+          <div class="footer-div1 d-flex justify-content-center">
+            <h1 class="heading  pt-4">About us</h1>
+          </div>
+          <div class="footer-div1">
+
+            <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
+              Universe, we're passionate about bringing you the finest selection of watches that blend elegance,
+              precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's
+              most stunning watches with watch enthusiasts and collectors alike.</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid footer-color d-flex justify-content-center">
+      <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+    </div>
+  </footer>
+
+
+
+</body>
+
+
+
+
+</html>

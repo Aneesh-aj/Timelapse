@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/style.css" class="style">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+  
+  <title>product-managment</title>
+</head>
+
+<body>
+  <%-include('navbar.ejs') %>
+  <content class="nav-height">
+    <div class="container-fluid   " id="body-color">
+      <div class=" d-flex h-auto  profile-main">
+        <div class="profile-div ">
+          <div class="profile-photo d-flex align-items-center ">
+            <div class=" hii d-flex justify-content-center align-items-center">
+              <div class="profile-picture "
+                style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
+              </div>
+            </div>
+            <div class=" hello d-flex align-items-center">
+              <span><a href="/admin" style="text-decoration: none; outline: none; color: black;">Admin</a></span>
+            </div>
+          </div>
+          <div class="profile-selection">
+            <div class="selector  d-flex align-items-center" style="background-color: rgb(238, 236, 236);">
+              <div class=" hii d-flex align-items-center justify-content-center">
+                <div class="selector-image"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/order-details" style="text-decoration: none; outline: none; color: black;">order
+                    details</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center" >
+              <div class=" hii  d-flex align-items-center justify-content-center">
+                <div class="selector-image"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); "></div>
+              </div>
+              <div class=" hello d-flex align-items-center">
+                <span><a href="/admin/product-managment"
+                    style="text-decoration: none; outline: none; color: black;">product</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center align-items-center">
+              <div class="hii d-flex justify-content-center align-items-center">
+                <div class="selector-image bg-light"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/user-managment"
+                    style="text-decoration: none; outline: none; color: black;">users</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center align-items-center">
+              <div class="hii d-flex justify-content-center align-items-center">
+                <div class="selector-image bg-light"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/category"
+                    style="text-decoration: none; outline: none; color: black;">category</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center align-items-center">
+              <div class="hii d-flex justify-content-center align-items-center">
+                <div class="selector-image bg-light"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/coupon"
+                    style="text-decoration: none; outline: none; color: black;">coupon</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+
+          </div>
+        </div>
+        <div class="profile-div2  ">
+            <div class="p-2" >
+
+                <table id="example" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No:</th>
+                            <th>order Date</th>
+                            <th>order ID</th>
+                            <th>No:of items</th>
+                            <th>Amount</th>
+                            <th>Payment method</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%  for(let i=0; i < order.length; i++){ %>
+                            <tr>
+                                <td><%= i+1 %></td>
+                                <td><%= order[i].createdAt.toLocaleString() %></td>
+                                <td><a class="text-decoration-none" href="/admin/orders/orderdetails?id=<%=order[i]._id %>"><%= order[i]._id %></a></td>
+                                <td><%=order[i].product.length %></td>
+                                <td><%= order[i].totalamount %></td>
+                                <td><%= order[i].paymentMethod %></td>
+                                <td>
+                                    <%if(order[i].status =="cancelled"){ %>
+                                             <label for="">Cancelled</label>
+                                   <% }else{ %>
+                                    <select class="btn bg-light" style="outline: 7px;" onchange="updateOrderStatus('<%= order[i]._id %>', this.value)">
+                                      <option value="<%=order[i].status %>" selected><%=order[i].status %></option>
+                                          <%if(order[i].status !='shipped' && order[i].status !='return-pending' && order[i].status != 'return-conformed'){ %>
+                                                
+                                          <option value="cancelled">Cancel</option>
+                                    
+                                         <% } %> 
+                                      <% if (order[i].status =='pending') { %>
+                                          <option value="Conform">Conform</option>
+                                      <% } %>
+                                      <% if (order[i].status != 'cancelled' && order[i].status != 'Delivered' && order[i].status != 'returned') { %>
+                                          <% if (order[i].status == 'Conform') { %>
+                                              <option value="packed">Packed</option>
+                                          <% } %>
+                                          <% if (order[i].status =='packed') { %>
+                                              <option value="shipped">Shipped</option>
+                                          <% } %>
+                                          <% if (order[i].status =='shipped') { %>
+                                              <option value="Delivered">Delivered</option>
+                                          <% } %>
+                                      <% } %>
+                                      <% if (order[i].status != 'cancelled' && order[i].status != 'returned') { %>
+                                          <% if (order[i].status == 'return-pending') { %>
+                                              <option value="return-conformed">Return Conform</option>
+                                          <% } %>
+                                          <% if (order[i].status =='return-conformed') { %>
+                                              <option value="returned">Returned</option>
+                                          <% } %>
+                                      <% } %>
+                                  </select>
+                                  <% } %>
+                                
+                                </td>
+                                <td>
+                                    <%if(order[i].status != 'cancelled' && order[i].status !='Delivered' && order[i].status != 'return-pending' && order[i].status !='return-conformed' && order[i].status != 'shipped' &&order[i].status !='returned'){ %>
+                                      <button class="btn bg-danger"  onclick="cancelOrder('<%= order[i]._id %>')">cancel</button>
+                                   <%   } %>
+                                </td>
+                            </tr>
+                       <% } %>
+                       
+                    </tbody>
+                   
+                </table>
+             
+            </div>
+        
+            
+        </div>
+    </div>
+
+
+
+  </content>
+  
+  <footer>
+    <div class="container-fluid footer-color">
+      <div class="container d-flex ">
+        <div class="">
+          <div class="footer-div1 d-flex justify-content-center">
+            <h1 class="heading  pt-4">About us</h1>
+          </div>
+          <div class="footer-div1">
+
+            <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
+              Universe, we're passionate about bringing you the finest selection of watches that blend elegance,
+              precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's
+              most stunning watches with watch enthusiasts and collectors alike.</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid footer-color d-flex justify-content-center">
+      <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+    </div>
+  </footer>
+
+  <script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            searching: true // Enable searching
+        });
+    });
+
+    function updateOrderStatus(orderId, newStatus) {
+
+       console.log("calling -------------------------------------------------------------------")
+
+      console.log("-----------id",orderId)
+      console.log("updated status",newStatus)
+  fetch('/admin/update-order-status', {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ orderId, newStatus }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+         window.location.reload()
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
+
+
+function cancelOrder(orderId) {
+    fetch(`/admin/cancel-order?orderId=${orderId}`, {
+      method: 'POST', // You can use 'DELETE' or 'PUT' depending on your server route
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Handle success, e.g., update the UI
+          console.log(`Order ${orderId} has been cancelled.`);
+          window.location.reload()
+        } else {
+          // Handle error
+          console.error(`Failed to cancel order ${orderId}.`);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
+</script>
+
+</body>
+
+
+
+
+</html>

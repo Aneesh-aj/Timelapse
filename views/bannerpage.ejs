@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <title>login</title>
+</head>
+
+<body>
+    <%- include('navbar.ejs') %>
+        <content class="nav-height">
+            <div class="container-fluid d-flex justify-content-center" id="body-color">
+                <div class=" d-flex h-auto d-flex justify-content-center w-100 profile-main">
+                    <div class="profile-div ms-2 ">
+                        <div class="profile-photo d-flex align-items-center ">
+                            <div class=" hii d-flex justify-content-center align-items-center">
+                                <div class="profile-picture "
+                                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
+                                </div>
+                            </div>
+                            <div class=" hello d-flex align-items-center">
+                                <span><a href="/admin"
+                                        style="text-decoration: none; outline: none; color: black;">Admin</a></span>
+                            </div>
+                        </div>
+                        <div class="profile-selection">
+                            <div class="selector  d-flex align-items-center">
+                                <div class=" hii d-flex align-items-center justify-content-center">
+                                    <div class="selector-image"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); ">
+                                    </div>
+                                </div>
+                                <div class="hello d-flex align-items-center">
+                                    <span><a href="/admin/orders"
+                                            style="text-decoration: none; outline: none; color: black;">order
+                                            details</a></span>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="selector  d-flex align-items-center">
+                                <div class=" hii  d-flex align-items-center justify-content-center">
+                                    <div class="selector-image"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); ">
+                                    </div>
+                                </div>
+                                <div class=" hello d-flex align-items-center">
+                                    <span><a href="/admin/product-managment"
+                                            style="text-decoration: none; outline: none; color: black;">product</a></span>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="selector  d-flex align-items-center align-items-center">
+                                <div class="hii d-flex justify-content-center align-items-center">
+                                    <div class="selector-image bg-light"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
+                                    </div>
+                                </div>
+                                <div class="hello d-flex align-items-center">
+                                    <span><a href="/admin/user-managment"
+                                            style="text-decoration: none; outline: none; color: black;">users</a></span>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="selector  d-flex align-items-center align-items-center">
+                                <div class="hii d-flex justify-content-center align-items-center">
+                                    <div class="selector-image bg-light"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
+                                    </div>
+                                </div>
+                                <div class="hello d-flex align-items-center">
+                                    <span><a href="/admin/category"
+                                            style="text-decoration: none; outline: none; color: black;">category</a></span>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="selector  d-flex align-items-center align-items-center">
+                                <div class="hii d-flex justify-content-center align-items-center">
+                                    <div class="selector-image bg-light"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
+                                    </div>
+                                </div>
+                                <div class="hello d-flex align-items-center">
+                                    <span><a href="/admin/coupon"
+                                            style="text-decoration: none; outline: none; color: black;">coupon</a></span>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+
+                        </div>
+                    </div>
+                    <div class="profile-div2 w-100 me-2 d-flex justify-content-center">
+                        <div class="w-100 m-5 ">
+                        
+                            <div>
+                                <h4>carousel image</h4>
+                            </div>
+                            <% for (let i = 0; i < 4; i++) { %>
+                                <% let flag = 0; %>
+                                <% if (i ===3){ %>
+                                    <h4> Banner image </h4>
+
+                               <% } %>
+                                <% for (let j = 0; j < banner.length; j++) { %>
+                                    <% if (banner[j].index === i) { %>
+                                        <% flag = 1; %>
+                                        <div class="w-100 d-flex ">
+                                            <div class="w-75  mb-4 d-flex justify-content-center align-items-center" style="height: 12rem; object-fit: cover; background-color: rgb(173, 174, 176);">
+                                                <% if (banner[j].banner) { %>
+                                                    <img src="/banner/<%= banner[j].banner %>" data-index="<%= banner[j].index %>" class="w-100 h-100">
+                                                <% } else { %>
+                                                    <input type="file" name="image" id="fileInput<%= j %>" style="display: none;" onchange="uploadImage( j)">
+                                                    <button class="addbanner" onclick="document.getElementById('fileInput<%= j %>').click(); return false;">add banner</button>
+                                                <% } %>
+                                            </div>
+                                            <div class="w-25">
+                                                <button class="btn btn-primary" onclick="removeBanner('<%=i%>')">remove</button>
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                <% } %>
+                                <% if (flag === 0) { %>
+                                    <div class="w-100 d-flex ps-5 ">
+                                        <div class="w-75  mb-4 d-flex justify-content-center align-items-center" style="height: 12rem; object-fit: cover; background-color: rgb(191, 193, 194);">
+                                            <input type="file" name="image" id="fileInput<%= i %>" style="display: none;" onchange="uploadImage('<%= i %>')">
+                                            <button class="addbanner" onclick="document.getElementById('fileInput<%= i %>').click(); return false;">add banner</button>
+                                        </div>
+                                        <div class="w-25">
+                                        </div>
+                                    </div>
+                                <% } %>
+                            <% } %>
+                            
+                            
+                            <div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </content>
+        <footer>
+            <div class="container-fluid footer-color">
+                <div class="container d-flex ">
+                    <div class="">
+                        <div class="footer-div1 d-flex justify-content-center">
+                            <h1 class="heading  pt-4">About us</h1>
+                        </div>
+                        <div class="footer-div1">
+
+                            <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite
+                                timepieces. At
+                                Watch Universe, we're passionate about bringing you the finest selection of watches that
+                                blend elegance, precision, and style.Our journey started with a love for craftsmanship
+                                and a
+                                desire to share the world's most stunning watches with watch enthusiasts and collectors
+                                alike.</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid footer-color d-flex justify-content-center">
+                <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+            </div>
+        </footer>
+        <script>
+        
+        async function uploadImage(index) {
+    var fileInput = document.getElementById(`fileInput${index}`);
+    var file = fileInput.files[0];
+
+    if (file) {
+        var formData = new FormData();
+        formData.append('image', file);
+        formData.append('index', index);
+
+        try {
+            const response = await fetch('/admin/banneradding', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                console.log(`Image ${index} uploaded successfully`);
+            
+                location.reload();
+            } else {
+                // Handle error response
+                console.error(`Error uploading image ${index}`);
+            }
+        } catch (error) {
+            // Handle network or other errors
+            console.error(`Error uploading image ${index}: ${error}`);
+        }
+    } else {
+        // No file selected
+        console.log('Please select an image');
+    }
+}
+
+
+function removeBanner(index) {
+    console.log("JS is coming here");
+
+    fetch('/admin/removeBanner', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ index: index }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error removing banner ${index}`);
+        }
+        console.log(`Banner ${index} removed successfully`);
+        window.location.reload()
+    })
+    .catch(error => {
+        console.error(error.message);
+    });
+}
+
+
+
+
+        </script>
+</body>
+
+</html>

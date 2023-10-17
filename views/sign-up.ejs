@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css" class="style">
+    <title>Signup</title>
+</head>
+<body>
+
+   <content>
+       <div class="container-fluid   " id="body-color">
+           <div class="container-xl d-flex h-auto  profile-main ">
+               
+               <div class="sign  d-flex justify-content-center ">             
+                <div class="form bg-white " style="height: 600px;">
+                    <div class=" ">
+                        <form action="/signup" method="POST" class="" >
+                            <header>SIGN-UP</header>
+                            <div class="input-control ">
+                                <label class="text-label  ">Name</label>
+                                <input  type="text" placeholder="Name" class="input" name="name" type="name" id="name"  >
+                                <div class="error"></div>
+                            </div>
+                            <div class="input-control ">
+                                <label class="text-label pt-3 ">Email</label>
+                                <input  type="email" name="email" placeholder="Email" class="input" id="email" >
+                                <div class="error"></div>
+                            </div>
+                            <div class="input-control ">
+                                <label class="text-label pt-3  ">password</label>
+                                <input type="password" name="password" placeholder="Password" class="password" id="password" >
+                                <div class="error"></div>
+                                
+                            </div>
+                             <label class="text-label pt-3  ">password repeat</label>
+                            <div class="input-control ">
+                                <input type="password" name="password2" placeholder="Password" class="password" id="password2">
+                                <div class="error"></div>
+                                <i class='bx bx-hide eye-icon'></i>
+                                <% if (typeof error !== 'undefined') { %>
+                                    <div class="error-message"><%= error %></div>
+                                <% } %>
+                                
+                            </div>
+                            
+                            
+                                <button  type="submit" onclick="return validateInputs()" id="signupButton">signup</button>
+                            
+                        </form>
+                        <div class="form-link">
+                            <span>Already a user? <a href="/login" class="link signup-link">Log-in</a></span>
+                        </div>
+                    </div>
+                   
+                </div>
+           </div>
+       </div>
+      </div> 
+   </content>
+   <footer>
+      <div class="container-fluid footer-color">
+         <div class="container d-flex ">
+               <div class="">
+                    <div class="footer-div1 d-flex justify-content-center">
+                         <h1 class="heading  pt-4">About us</h1>
+                    </div>
+                   <div class="footer-div1">
+                
+                       <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch Universe, we're passionate about bringing you the finest selection of watches that blend elegance, precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's most stunning watches with watch enthusiasts and collectors alike.</p>
+                       
+                   </div>
+               </div>
+         </div>
+      </div>
+      <div class="container-fluid footer-color d-flex justify-content-center">
+        <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+      </div>
+   </footer>
+   <script>
+      
+      function validateInputs() {
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const password2 = document.getElementById('password2');
+
+    const setError = (element, message) => {
+        const inputControl = element.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+
+        errorDisplay.innerText = message;
+        inputControl.classList.add('error');
+        inputControl.classList.remove('success');
+    }
+
+    const setSuccess = element => {
+        const inputControl = element.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+
+        errorDisplay.innerText = '';
+        inputControl.classList.add('success');
+        inputControl.classList.remove('error');
+    };
+
+    const isValidEmail = email => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    let isValid = true; // A flag to track overall validation
+
+    const nameValue = name.value.trim();
+    const emailValue = email.value.trim();
+    const passwordValue = password.value.trim();
+    const password2Value = password2.value.trim();
+
+    if (nameValue === '') {
+        setError(name, 'Name is required');
+        isValid = false;
+    } else {
+        setSuccess(name);
+    }
+
+    if (emailValue === '') {
+        setError(email, 'Email is required');
+        isValid = false;
+    } else if (!isValidEmail(emailValue)) {
+        setError(email, 'Provide a valid email address');
+        isValid = false;
+    } else {
+        setSuccess(email);
+    }
+
+    if (passwordValue === '') {
+        setError(password, 'Password is required');
+        isValid = false;
+    } else if (passwordValue.length < 8) {
+        setError(password, 'Password must be at least 8 characters.');
+        isValid = false;
+    } else {
+        setSuccess(password);
+    }
+
+    if (password2Value === '') {
+        setError(password2, 'Please confirm your password');
+        isValid = false;
+    } else if (password2Value !== passwordValue) {
+        setError(password2, "Passwords don't match");
+        isValid = false;
+    } else {
+        setSuccess(password2);
+    }
+
+    return isValid;
+}
+
+
+</script>
+
+</body>
+</html>

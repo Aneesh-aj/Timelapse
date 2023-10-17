@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>collection</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css" class="style">
+  <link rel="stylesheet" href="style.css" class="style">
+  <title>user product-managment</title>
+</head>
+
+<body>
+
+ 
+  <%- include('navbar.ejs') %>
+  <content >
+
+    <div class="banner-height w-100" >
+
+
+      <div id="carouselExampleAutoplaying" class="carousel slide banner-height" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/53wpIkbEsTrst.webp" class="d-block w-100 banner-height" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/276pIkbEsTF5w.webp" class="d-block w-100 banner-height" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/f12f28f99b8bcba0441b67c5334bca1e.jpg" class="d-block banner-height w-100" alt="...">
+          </div>
+        </div>
+      
+      
+      </div>
+    </div>
+    <div class="white ">
+      <div class=" d-flex bg-white justify-content-center">
+        <h1 class="latest-product-text p-2  pt-lg-5">Latest products</h1>
+      </div>
+      <div class="container pt-3">
+        <div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-4 g-3 ">
+          <% for(let i=0;i < product.length; i++) {%>
+            <div class="col mb-3">
+              <div class="card">
+                <div class="card-body latest-product-card"
+                  style="background-image: url(/filename/<%=product[i].product_image[0]%>);aspect-ratio: 1;"></div>
+                <div class="">
+                  <div class=" d-flex latest-product-subdiv ">
+                    <label class="latest-product-subtext">
+                      <%=product[i].product_name %>
+                    </label>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <a href="/product?id=<%=product[i]._id%>" class="rounded-1 home-cardbuttonview home-card-text2">
+                      <label class="home-card-text2">view</label>
+
+                      <svg class="svg-size2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);">
+                        <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z">
+                        </path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <%} %>
+
+        </div>
+      </div>
+    </div>
+    <div class="white home-cardaling w-100">
+      <div class="container pt-3">
+        <div class="row row-cols-3 row-cols-sm-3 row-cols-md-3 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-3 g-lg-3 g-sm-2 g-md-2">
+          <div class="col mb-3">
+            <div class="card">
+              <div class="card-body home-card" style="background-image: url(/card1.jpeg);">
+                <a class="btn home-cardbutton" href="/collection?gender=men">
+                  <svg class="svg-size" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    style="fill: rgb(255, 255, 255);">
+                    <path
+                      d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z">
+                    </path>
+                  </svg>
+                  <label class="home-card-text">Men</label>
+
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col mb-3">
+            <div class="card">
+              <div class="card-body home-card" style="background-image:url(/card2.jpeg);">
+                <a class="btn home-cardbutton" href="/collection?gender=women">
+                  <svg class="svg-size" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    style="fill: rgb(255, 255, 255);">
+                    <path
+                      d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z">
+                    </path>
+                  </svg>
+                  <label class="home-card-text">women</label>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col mb-3">
+            <div class="card">
+              <div class="card-body home-card" style="background-image: url(/card3.jpeg);">
+                <a class="btn home-cardbutton" href="/collection?gender=kids">
+                  <svg class="svg-size" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    style="fill: rgb(255, 255, 255);">
+                    <path
+                      d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z">
+                    </path>
+                  </svg>
+                  <label class="home-card-text">kids</label>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="banner-2 bg-success " style="background-image: url(/maindiv2.avif); ">
+      <div class="w-100 h-100 d-flex align-items-end  blurred-background   "  >
+        <div class="mb-2">
+          <h1 class="front-text ">New arivals</h1>
+          <p class="home-para">  Experience the joy of exploration and find the perfect <br>timepiece for every moment, only a click away.</p>
+          <a class="btn home-cardbuttonCollection" href="/collection?gender=men">
+           
+            <label class="home-card-textcollection">collection</label>
+
+            <svg class="svg-size2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);">
+            <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z">
+            </path>
+          </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="banner-2 bg-white">
+    </div>
+  </content>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <!-- Add this in the <head> section -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Add this before the closing </body> tag -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" class="style">
+  <title>login</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg nav-height "> <!--nav-height  -->
+    <div class="container-fluid ">
+      <div class=" nav-div1">
+
+        <div class="ms-5">
+          <span class="">
+            <a class="nav-link active nav-texts" aria-current="page" href="/home">Home</a>
+          </span>
+        </div>
+      </div>
+      <div class=" d-flex  nav-div2 ">
+
+        <div class=" span-div  d-flex  justify-content-center">
+          <span><a class="nav-link nav-texts" href="#">Top</a></span>
+        </div>
+        <div class="span-div d-flex  justify-content-center ">
+          <span><a class="nav-link nav-texts" href="/collection?gender=kids">Kids</a></span>
+        </div>
+        <div class="span-div d-flex  justify-content-center ">
+          <span><a class="nav-link nav-texts" href="/collection?gender=men">Mens</a></span>
+        </div>
+        <div class=" span-div d-flex  justify-content-center ">
+          <span><a class="nav-link nav-texts" href="/collection?gender=women">Women</a></span>
+        </div>
+        <div class="span-div d-flex justify-content-center ">
+          <span><a class="nav-link nav-texts" href="/collection?collection=true">collection</a></span>
+        </div>
+      </div>
+      <div class=" d-flex  nav-div3  justify-content-end ">
+        <form class="d-flex search-1" role="search" action="/collection" method="get">
+          <input class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search"
+            name="searchvalue" vlaue="">
+          <button class="btn btn-outline-light d-flex flex-column justify-content-center" type="submit">
+            <span class="d-flex align-text-topb">search</span>
+          </button>
+        </form>
+
+      </div>
+
+      <div class=" d-flex pe-4 nav-div4 justify-content-start">
+
+        <div class="span-div d-flex justify-content-center ">
+
+          <a href="/cart">
+            <div class="selector-image" style="background-image: url('shopping-cart (1).png');">
+
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <content>
+
+    <div class="container-fluid d-flex justify-content-center   " id="body-color">
+      <div class="container  container-lg container-fluid">
+        <div class=" d-flex h-auto  profile-main justify-content-center">
+          <div class="profile-div ">
+            <div class="profile-photo d-flex align-items-center ">
+              <div class=" hii d-flex justify-content-center align-items-center">
+                <div class="profile-picture "
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
+                </div>
+              </div>
+              <div class=" hello d-flex align-items-center">
+                <span class="text-label">user</span>
+              </div>
+            </div>
+            <div class="profile-selection">
+              <div class="selector  d-flex align-items-center">
+                <div class=" hii d-flex align-items-center justify-content-center">
+                  <div class="selector-image"
+                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); "></div>
+                </div>
+                <div class="hello d-flex align-items-center">
+                    <span><a href="/profile" style="text-decoration: none; outline: none; color: black;">profile
+                    </a></span>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="selector  d-flex align-items-center">
+                <div class=" hii  d-flex align-items-center justify-content-center">
+                  <div class="selector-image"
+                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); "></div>
+                </div>
+                <div class=" hello d-flex align-items-center">
+                  <span>wishlist</span>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="selector  d-flex align-items-center align-items-center">
+                <div class="hii d-flex justify-content-center align-items-center">
+                  <div class="selector-image bg-light"
+                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+                </div>
+                <div class="hello d-flex align-items-center">
+                  <span><a href="/order" style="text-decoration: none; outline: none; color: black;">order
+                    </a></span>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="d-flex align-content-end">
+                <div class="selector  d-flex align-items-center align-items-center">
+                  <div class="hii d-flex justify-content-center align-items-center">
+                    <div class="selector-image bg-light"
+                      style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+                  </div>
+                  <div class="hello d-flex align-items-center">
+                    <form class="" method="post" action="/logout">
+                      <button type="submit" class="btn btn-primary  rounded-2">logout</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="profile-div3  w-75 ">
+            <div class="h-auto w-100">
+              <div class="col-lg-12 usr-details">
+                <div class="card ps-5 pb-3">
+                  <div class="bg-white d-flex  pe-5  pt-3 rounded-3 d-flex align-items-center">
+                    <h2 class="heading">Wishlist(<%=user.wishlist.length %>)</h2>
+
+                  </div>
+              
+                </div>
+              </div>
+
+            </div>
+            <div class="h-auto bg-white w-100 rounded-2 mt-2" >
+           
+                <% for(let i=0; i < user.wishlist.length;i++){ %>
+                       
+              <div class="">
+                <div class="accordion-item p-3 d-flex justify-content-evenly">
+                    <div class="" style="height: 6rem; width: 6rem;">
+                           <img src="/filename/<%=user.wishlist[i].product_id.product_image[0] %>" style="height: 100%; width: 100%;">
+                    </div>
+                    <div class="ps-5 w-50">
+                        <div class="w-100"><j class=""  style="font-family: 'Roboto', sans-serif; font-weight: 600;"><%=user.wishlist[i].product_id.product_name %>-<%=user.wishlist[i].product_id.gender %></j></div>
+                        <div class="w-100  price-g">Base price</div>
+                        <div class="w-100" ><h3 class=""  style="font-family: 'Roboto', sans-serif; font-weight: 800;"> &#8377; <%= user.wishlist[i].product_id.price %></h3></div>
+                    </div>
+                    <div class="w-25  d-flex  align-items-center">
+                         <div class="d-flex w-100 h-25 justify-content-end align-content-center ">
+                        </div>
+                    </div>
+                    <div class="d-flex ps-2 align-items-center justify-content-end  w-25">
+                     
+                        <div class="d-flex w-100  justify-content-end ">
+                            <button type="button" onclick="addinCart('<%=user.wishlist[i].product_id._id%>','<%= user.wishlist[i].product_id.product_name%>','<%=user.wishlist[i].product_id.price %>')" class="p-1  border-0  bg-white" style="width:3rem; height: 2.5rem;"> <img class="w-100 h-100 bg-white " src="/cart-shopping.svg"></button>
+                            <button  class="p-1 border-0 bg-white" onclick="removeWishlist('<%= user.wishlist[i].product_id._id %>')" style="width:4rem; height: 2.5rem;"><img class="w-50  h-100 bg-white " src="/delete.png"></button>
+
+                         </div>
+                     </div>
+                </div>
+
+
+              </div>
+              <hr>
+
+               <% } %>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  
+
+
+  </content>
+  <footer>
+    <div class="container-fluid footer-color">
+      <div class="container d-flex ">
+        <div class="">
+          <div class="footer-div1 d-flex justify-content-center">
+            <h1 class="heading  pt-4">About us</h1>
+          </div>
+          <div class="footer-div1">
+
+            <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
+              Universe, we're passionate about bringing you the finest selection of watches that blend elegance,
+              precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's
+              most stunning watches with watch enthusiasts and collectors alike.</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid footer-color d-flex justify-content-center">
+      <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+    </div>
+  </footer>
+     
+  <script>
+       function addinCart(productId, productName, price) {
+    const quantity = 1; 
+
+    console.log("entering"); 
+
+    const data = {
+        productId,
+        product_name: productName,
+        quantity,
+        price
+    };
+
+    fetch('/api/addingtocart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(responseData => {
+        if (responseData.success) {
+          console.log("it's success"); 
+          
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Product added to cart successfully!',
+          }).then(() => {
+                window.location.reload();
+            });
+
+
+        } else if(responseData.noUser){
+            window.location.href="/login";
+        } else if(responseData.outofStock){
+            Swal.fire({
+                icon: 'error',
+                title: 'Out of Stock',
+                text: 'This product is out of stock.',
+            });
+        } else {
+            alert('Failed to add the product to the cart.');
+        }
+    })
+    .catch(error => {
+        console.error('Error adding to cart:', error);
+    });
+}
+    function removeWishlist (productId){
+
+      console.log("entering th delete")
+        
+      fetch('/removefromwishlist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId: productId })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Product removed from cart.');
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error removing product from cart:', error);
+        });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" class="style">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.js"></script>
+    <title>productCollection</title>
+</head>
+
+<body>
+     <%- include('navbar.ejs') %>
+    <content>
+  
+        <div class="container-fluid   " style="padding-top: 6rem;" id="body-color">
+            <div class=" d-flex h-auto flex-column  flex-md-row">
+                  <div class="filter-btn-div">
+                    <button class="btn btn-primary normal-btn" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Filter</button>
+
+                  </div>
+                <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+                    id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Filter</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="filter-div  h-auto">
+
+                            <div class="filter-selection bg-ligh p-3 h-100">
+                                <div class="selector-filter  d-flex align-items-center">
+                                    <div class=" hii d-flex align-items-center justify-content-center">
+                                        <div class="selector-image">
+                                            <h5>Filter</h5>
+                                        </div>
+                                    </div>
+                                    <a class="btn btn-primary" href="/collection?reset=true"> reset</a>
+
+                                </div>
+                                <div class="line"></div>
+                                <div class="  align-items-center">
+                                    <div class="  d-flex align-items-center ps-5"
+                                        style="background-color: rgb(246, 246, 246);">
+                                        <div class="p-2">
+                                            <span>amount</span>
+                                        </div>
+                                    </div>
+                                    <div class="line opacity-25"></div>
+                                    <div class="pt-3 pb-3">
+                                        <% const priceRanges=[ { min: 0, max: 1000, label: 'below 1000' }, { min: 1000,
+                                            max: 2000, label: '1000 to 2000' }, { min: 2000, max: 3000,
+                                            label: '2000 - 3000' }, { min: 3000, max: Infinity, label: 'above 3000' },
+                                            ]; %>
+                                            <% priceRanges.forEach(range=> { %>
+                                                <div class="filter-input d-flex align-content-center">
+                                                    <a class="a-text"
+                                                        href="/collection?price1=<%= range.min %>&price2=<%= range.max %>&gender=<%=gender %>&watch_type=<%= watchType%>&searchvalue=<%=searchvalue %>">
+                                                        <%= range.label %>
+                                                    </a>
+                                                </div>
+                                                <% }); %>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="line"></div>
+                                <div class=" align-items-center">
+                                    <div class="   d-flex align-items-center ps-5 "
+                                        style="background-color: rgb(246, 246, 246);">
+                                        <div class="p-2 ">
+                                            <span>Gender</span>
+                                        </div>
+                                    </div>
+                                    <div class="line opacity-25"></div>
+                                    <div class="p-3">
+                                        <% const genders=['men', 'women' , 'kids' , 'uni' ]; %>
+                                            <% genders.forEach(gender=> { %>
+                                                <div class="filter-input d-flex align-content-center">
+                                                    <a class="a-text"
+                                                        href="/collection?price1=<%= pr1 %>&price2=<%= pr2 %>&gender=<%= gender %>&watch_type=<%=watchType %>&searchvalue=<%=searchvalue%>">
+                                                        <%= gender %>
+                                                    </a>
+                                                </div>
+                                                <% }); %>
+                                    </div>
+
+                                </div>
+                                <div class="line"></div>
+
+                                <div class=" align-items-center">
+                                    <div class="   d-flex align-items-center ps-5"
+                                        style="background-color: rgb(246, 246, 246);">
+                                        <div class="p-2 ">
+                                            <span>Category</span>
+                                        </div>
+                                    </div>
+                                    <div class="line opacity-50 "></div>
+                                    <div class="p-3">
+
+                                        <% for(let i=0; i < watchtype.length; i++){ %>
+                                            <div class="filter-input d-flex align-content-center">
+                                                <a class="a-text"
+                                                    href="/collection?price1=<%= pr1 %>&price2=<%= pr2 %>&gender=<%= gender %>&watch_type=<%=watchtype[i]._id%>&searchvalue=<%=searchvalue %>">
+                                                    <%= watchtype[i].watch_type %>
+                                                </a>
+                                            </div>
+                                            <% } %>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+
+                                <div class=" align-items-center">
+
+                                    <div class="p-3 ">
+
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="  collection-div ">
+                    <!-- HTML -->
+
+                    <div class="d-flex">
+                         <div class="filter-btn-div2">
+                            <button class=" normal-btn" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Filter</button>
+        
+                         </div>
+                        <h1 class="filtered-text p-3">Filter :
+
+                            <% if(pr1 !=0 && pr2 !="infinity" || pr1==0 && pr2==1000 ){ %>
+
+                                <%=pr1%>-<%= pr2%> :
+                                        <% } %>
+                                  <% if(gender.length !=0 ){ %>
+
+                                <%=gender %> :
+                                 <% } %>
+                             <% if(watchType.length !=0 ){ %>
+
+                                    <%=watch.watch_type%> :
+                              <% } %>
+
+                        </h1>
+                    </div>
+                    <div class="container-fluid" id="body-color">
+                        <div class="row d-flex gap-1 pt-3 row-arrange ">
+                            <% for (let i=0; i < database.length; i++) { %>
+                                <div class="product-card ">
+                                    <div style="width: 100%;">
+                                        <div class="d-flex justify-content-end">
+                                            <img src="/heart.svg" class="" id="heart-icon" alt="Heart Icon">
+                                        </div>
+                                        <div class="d-flex justify-content-center"
+                                            style="height: 100%; aspect-ratio: 1;">
+                                            <a href="/product?id=<%=database[i]._id %>">
+                                                <img src="/filename/<%= database[i].product_image[0] %>"
+                                                    style="width:100%; height:100%;" class="card-img" alt="...">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white">
+                                        <div class="card-title">
+                                            <%= database[i].product_name %>
+                                        </div>
+                                        <div class="card-price">&#8377; <%= database[i].price %>
+                                        </div>
+                                        <div class="card-gender">
+                                            <%= database[i].gender %>
+                                        </div>
+                                        <div class="card-watchtype">
+                                            <%=database[i].watch_type.watch_type %>
+                                        </div>
+                                        <div class="card-rating d-flex gap-1">
+                                            <button
+                                                onclick="addToCart('<%= database[i]._id %>', '<%= database[i].product_name %>', '<%= database[i].price %>')"
+                                                class="singleaddtocartButton rounded-2 bg-primary">
+                                                cart
+                                                <input name="quantity" value="1" type="hidden">
+                                                <input name="product_name" value="<%= database[i].product_name %>"
+                                                    type="hidden">
+                                                <input name="price" value="<%= database[i].price %>" type="hidden">
+                                            </button>
+                                            <!-- <a href="#" class="btn btn-primary" style="width: 48%;" onclick="addtoWishlist('<%= database[i]._id %>')">To wishlist</a> -->
+                                            <button class="bg-primary rounded-2 singleaddtowishlist"
+                                                onclick="addtoWishlist('<%= database[i]._id %>')">wishlist</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
+                    </div>
+
+
+                    <!-- Pagination Links -->
+                    <div class="d-flex justify-content-center p-4">
+
+                        <% if(totalPages !=1){ %>
+                            <div class="pagination">
+                                <% if (currentPage> 1) { %>
+                                    <a href="?page=<%= currentPage - 1 %>" class="page-link">&laquo; Previous</a>
+                                    <% } %>
+
+                                        <% for (let i=1; i <=totalPages; i++) { %>
+                                            <a href="?page=<%= i %>"
+                                                class="page-link <%= i === currentPage ? 'active' : '' %>">
+                                                <%= i %>
+                                            </a>
+                                            <% } %>
+
+                                                <% if (currentPage < totalPages) { %>
+                                                    <a href="?page=<%= currentPage + 1 %>" class="page-link">Next
+                                                        &raquo;</a>
+                                                    <% } %>
+                            </div>
+
+                            <% } %>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </content>
+    <footer>
+        <div class="container-fluid footer-color">
+            <div class="container d-flex ">
+                <div class="">
+                    <div class="footer-div1 d-flex justify-content-center">
+                        <h1 class="heading  pt-4">About us</h1>
+                    </div>
+                    <div class="footer-div1">
+
+                        <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At
+                            Watch Universe, we're passionate about bringing you the finest selection of watches that
+                            blend elegance, precision, and style.Our journey started with a love for craftsmanship and a
+                            desire to share the world's most stunning watches with watch enthusiasts and collectors
+                            alike.</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid footer-color d-flex justify-content-center">
+            <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        function addToCart(productId, productName, price) {
+            const quantity = 1;
+
+
+
+            const data = {
+                productId,
+                product_name: productName,
+                quantity,
+                price
+            };
+
+            fetch('/api/add-to-cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(responseData => {
+                    if (responseData.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Product added to cart successfully!',
+                        });
+                    } else if (responseData.noUser) {
+                        window.location.href = "/login"
+                    }
+                    else if (responseData.outofStock) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Out of Stock',
+                            text: 'This product is out of stock.',
+                        });
+                    }
+                    else {
+                        alert('Failed to add the product to the cart.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding to cart:', error);
+                });
+        }
+
+
+        function addtoWishlist(productId) {
+            const product = {
+                productId,
+            }
+
+            fetch("/addtoWishlist", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(product)
+            })
+
+                .then(response => response.json())
+                .then(responseData => {
+                    if (responseData.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Product added to wishlist succesfury!',
+                        });
+                    } else if (responseData.noUser) {
+                        window.location.href = "/login"
+                    }
+                    else {
+                        alert('Failed to add the product to the cart.');
+                    }
+                })
+        }
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" class="style">
+    <title>login</title>
+</head>
+<body>
+   <nav class="navbar navbar-expand-lg nav-height ">  <!--nav-height  -->
+    <div class="container-fluid ">
+      <div class=" nav-div1">
+       
+         <div class="ms-5">
+           <span class="">
+             <a class="nav-link active nav-texts" aria-current="page" href="#">Home</a>
+          </span>
+        </div>
+      </div>
+     <div class=" d-flex  nav-div2 ">
+             
+              <div class=" span-div  d-flex  justify-content-center" >
+                  <span><a class="nav-link nav-texts" href="#">Top</a></span>
+              </div>
+              <div class="span-div d-flex  justify-content-center ">
+                  <span><a class="nav-link nav-texts" href="">Kids</a></span>
+              </div>
+              <div class="span-div d-flex  justify-content-center ">
+                   <span><a class="nav-link nav-texts" href="#">Mens</a></span>
+              </div>
+              <div class=" span-div d-flex  justify-content-center ">
+                   <span><a class="nav-link nav-texts" href="">Women</a></span>
+              </div>
+              <div class="span-div d-flex justify-content-center ">
+                  <span><a class="nav-link nav-texts" href="#">collection</a></span>
+              </div>
+      </div>
+      <div class=" d-flex  nav-div3  justify-content-end ">
+          <form class="d-flex  search-1" role="search">
+            <input class="form-control me-2 search " type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-light " type="submit"><span class="d-flex align-text-topb">search</span></button>
+          </form>
+    
+       </div>
+     
+       <div class=" d-flex pe-4 nav-div4 justify-content-start">
+    
+            <div class="span-div d-flex justify-content-center ">
+                
+                <div class="selector-image" style="background-image: url(shopping-cart\ \(1\).png); "></div>
+            </div>
+       </div>
+     </div>
+   </nav>
+   <content>
+       <div class="container-fluid   " id="body-color">
+           <div class="container-xl d-flex h-auto  profile-main">
+             
+               <div class="profile-div2 d-flex justify-content-center">             
+                       
+                       <div class="form">
+                        <div class="form-content">
+                            <header>OTP Verification</header>
+                            <form action="/otpverification" method="post">
+                             
+                                <label class="text-label pt-3">Enter OTP</label>
+                                <div class="field input-field">
+                                    <input type="text" name="otp" placeholder="Enter OTP" class="input">
+                                     <% if (error){%>
+                                        <div class="error-message"><%= error %></div>
+                                      <% } %>
+                                </div>
+                                <div class="field button-field">
+                                    <button type="submit">Verify OTP</button>
+                                </div>
+                            </form>
+                            <div class="form-link">
+                                <span><a href="/resend-otp" class="link signup-link">Resend OTP</a></span>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+       </div>
+       
+   </content>
+   <footer>
+      <div class="container-fluid footer-color">
+         <div class="container d-flex ">
+               <div class="">
+                    <div class="footer-div1 d-flex justify-content-center">
+                         <h1 class="heading  pt-4">About us</h1>
+                    </div>
+                   <div class="footer-div1">
+                
+                       <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch Universe, we're passionate about bringing you the finest selection of watches that blend elegance, precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's most stunning watches with watch enthusiasts and collectors alike.</p>
+                       
+                   </div>
+               </div>
+         </div>
+      </div>
+      <div class="container-fluid footer-color d-flex justify-content-center">
+        <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+      </div>
+   </footer>
+</body>
+</html>

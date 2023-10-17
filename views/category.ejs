@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/style.css" class="style">
+  <title>category-managment</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg nav-height ">  <!--nav-height  -->
+    <div class="container-fluid ">
+      <div class=" nav-div1">
+       
+         <div class="ms-5">
+           <span class="">
+             <a class="nav-link active nav-texts" aria-current="page" href="/home">Home</a>
+          </span>
+        </div>
+      </div>
+     <div class=" d-flex  nav-div2 ">
+             
+              <div class=" span-div  d-flex  justify-content-center">
+                  <span><a class="nav-link nav-texts" href="#">Top</a></span>
+              </div>
+              <div class="span-div d-flex  justify-content-center ">
+                  <span><a class="nav-link nav-texts" href="/collection?gender=kids">Kids</a></span>
+              </div>
+              <div class="span-div d-flex  justify-content-center ">
+                   <span><a class="nav-link nav-texts" href="/collection?gender=men">Mens</a></span>
+              </div>
+              <div class=" span-div d-flex  justify-content-center ">
+                   <span><a  class="nav-link nav-texts" href="/collection?gender=women">Women</a></span>
+              </div>
+              <div class="span-div d-flex justify-content-center ">
+                  <span><a class="nav-link nav-texts" href="/collection">collection</a></span>
+              </div>
+      </div>
+      <div class=" d-flex  nav-div3  justify-content-end ">
+           <a href="/admin/logout" class="btn btn-outline-light">logout</a>
+    
+       </div>
+     
+       <div class=" d-flex pe-4 nav-div4 justify-content-start">
+    
+            <div class="span-div d-flex justify-content-center ">
+                
+                <div class="selector-image" style="background-image: url(shopping-cart\ \(1\).png); "></div>
+            </div>
+       </div>
+     </div>
+   </nav>
+  <content>
+    <div class="container-fluid   " id="body-color">
+      <div class=" d-flex h-auto  profile-main">
+        <div class="profile-div ">
+          <div class="profile-photo d-flex align-items-center ">
+            <div class=" hii d-flex justify-content-center align-items-center">
+              <div class="profile-picture "
+                style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
+              </div>
+            </div>
+            <div class=" hello d-flex align-items-center">
+              <span><a href="/admin" style="text-decoration: none; outline: none; color: black;">Admin</a></span>
+            </div>
+          </div>
+          <div class="profile-selection">
+            <div class="selector  d-flex align-items-center">
+              <div class=" hii d-flex align-items-center justify-content-center">
+                <div class="selector-image"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/order-details" style="text-decoration: none; outline: none; color: black;">order
+                    details</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center">
+              <div class=" hii  d-flex align-items-center justify-content-center">
+                <div class="selector-image"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); "></div>
+              </div>
+              <div class=" hello d-flex align-items-center">
+                <span><a href="/admin/product-managment"
+                    style="text-decoration: none; outline: none; color: black;">product</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center align-items-center">
+              <div class="hii d-flex justify-content-center align-items-center">
+                <div class="selector-image bg-light"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/user-managment"
+                    style="text-decoration: none; outline: none; color: black;">users</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center align-items-center"  style="background-color: rgb(238, 236, 236);">
+              <div class="hii d-flex justify-content-center align-items-center">
+                <div class="selector-image bg-light"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/category"
+                    style="text-decoration: none; outline: none; color: black;">category</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+            <div class="selector  d-flex align-items-center align-items-center" >
+              <div class="hii d-flex justify-content-center align-items-center">
+                <div class="selector-image bg-light"
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+              </div>
+              <div class="hello d-flex align-items-center">
+                <span><a href="/admin/coupon"
+                    style="text-decoration: none; outline: none; color: black;">coupon</a></span>
+              </div>
+            </div>
+            <div class="line"></div>
+
+          </div>
+        </div>
+        <div class="profile-div2  ">
+
+          <div class="table-2 p-4">
+            <div class="container">
+              <div class="row">
+                <!-- Left Table: Watch Type -->
+                <div class="col-md-6">
+                  <h2>Watch Type</h2>
+                  <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCategoryModalLeft">Add
+                    Category</button>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+
+                          <th>Name</th>
+                          <th>Edit</th>
+                          <th>List</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <%for(let i=0; i < watchtype.length ;i++){ %>
+                          <!-- Add your left table data here -->
+                          <tr>
+
+                            <td>
+                              <%= watchtype[i].watch_type %>
+                            </td>
+                            <td> <button class="btn btn-outline-primary btn-sm"
+                                onclick="openEditModal('<%= watchtype[i].watch_type %>','<%= watchtype[i]._id%>')">Edit</button>
+                            </td>
+                            <td><a href="/admin/category/list?_id=<%= watchtype[i]._id %>"
+                                class="btn btn-info btn-sm"> <%= watchtype[i].list ? 'List' : 'Unlist' %></a></td>
+
+                          </tr>
+
+                          <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Right Table: Brand -->
+                <div class="col-md-6">
+                  <h2>Brand</h2>
+                  <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCategoryModalRight">Add
+                    Category</button>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+
+                          <th>Name</th>
+                          <th>Edit</th>
+                          <th>List</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Add your right table data here -->
+                        <%for(let i=0; i < brands.length ;i++){ %>
+                          <tr>
+
+                            <td>
+                              <%= brands[i].brand_category %>
+                            </td>
+                            <td><button class="btn btn-outline-primary  btn-sm">Edit</button></td>
+                            <td><a
+                                href="/admin/category/brand-list?_id=<%= encodeURIComponent(brands[i]._id) %>"
+                                class="btn btn-info btn-sm"><%= brands[i].list ? 'List' : 'Unlist' %></a></td>
+                          </tr>
+                          <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+  </content>
+  <!-- Button trigger modal -->
+
+
+  <div class="modal fade" id="addCategoryModalLeft" tabindex="-1" role="dialog"
+    aria-labelledby="addCategoryModalLabelLeft" aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="post" action="/admin/category" onsubmit=" return validateWatchtype()">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="categoryName">Watch type</label>
+              <input type="text" class="input-control" name="watch_type" value="" class="form-control" id="categoryName"
+                placeholder="Enter watch type ">
+              <div class="error"></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="submit">Add watchtype</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="addCategoryModalRight" tabindex="-1" role="dialog"
+    aria-labelledby="addCategoryModalLabelRight" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="post" action="/admin/category/brands" onsubmit="return validatebrands()">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="categoryName">Watch Brand</label>
+              <input type="text" name="brand_category" placeholder="Enter Brand Name">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            <button type="submit" class="btn btn-primary">Add Category</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- Edit Watch Type Modal -->
+  <div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="post" action="/admin/category/edit">
+          <!-- Adjust the action attribute accordingly -->
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="editCategoryName">New Watch Type</label>
+              <input type="text" class="input-control" name="watch_type" value="<%= watchtype.watch_type %>"
+                class="form-control" id="editCategoryName" placeholder="Enter new watch type">
+              <input type="hidden" value="<%= watchtype._id %>" name="_id" id="editCategoryId">
+              <div class="error"></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="submit">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <footer>
+
+
+    <div class="container-fluid footer-color">
+      <div class="container d-flex ">
+        <div class="">
+          <div class="footer-div1 d-flex justify-content-center">
+            <h1 class="heading  pt-4">About us</h1>
+          </div>
+          <div class="footer-div1">
+
+            <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
+              Universe, we're passionate about bringing you the finest selection of watches that blend elegance,
+              precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's
+              most stunning watches with watch enthusiasts and collectors alike.</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid footer-color d-flex justify-content-center">
+      <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+    </div>
+  </footer>
+
+</body>
+<script>
+  function validateWatchtype() {
+
+    const name = document.getElementById('categoryName');
+    const errorDisplay = name.nextElementSibling; // Error message container
+
+    const nameValue = name.value.trim();
+
+    if (nameValue === '') {
+      setError(name, 'Watch type is required');
+      return false; // Prevent form submission
+    } else {
+      setSuccess(name);
+    }
+
+
+    return true;
+  }
+
+  function validatebrands() {
+
+    const name = document.getElementById('brandCategory');
+    const errorDisplay = name.nextElementSibling; // Error message container
+
+    const nameValue = name.value.trim();
+
+    if (nameValue === '') {
+      setError(name, 'brand name is required');
+      return false; // Prevent form submission
+    } else {
+      setSuccess(name);
+    }
+
+
+    return true;
+  }
+  // Replace this with your actual function to check for duplicates in the database
+
+
+  function setError(element, message) {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.error');
+
+    errorDisplay.innerText = message;
+    inputControl.classList.add('error');
+    inputControl.classList.remove('success');
+  }
+
+  function setSuccess(element) {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.error');
+
+    errorDisplay.innerText = '';
+    inputControl.classList.add('success');
+    inputControl.classList.remove('error');
+  }
+
+
+  function openEditModal(currentWatchType, currentId) {
+    const editModal = document.getElementById('editCategoryModal');
+    const editCategoryName = document.getElementById('editCategoryName');
+    const editCategoryId = document.getElementById('editCategoryId'); // Add this line
+
+    // Set the current watch type as the default value in the input field
+    editCategoryName.value = currentWatchType;
+    editCategoryId.value = currentId
+    // Show the edit modal
+    $(editModal).modal('show');
+  }
+
+
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</html>

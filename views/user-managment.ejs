@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css" >
+    <title>user product-managment</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg nav-height ">  <!--nav-height  -->
+    <div class="container-fluid ">
+      <div class=" nav-div1">
+       
+         <div class="ms-5">
+           <span class="">
+             <a class="nav-link active nav-texts" aria-current="page" href="/home">Home</a>
+          </span>
+        </div>
+      </div>
+     <div class=" d-flex  nav-div2 ">
+             
+              <div class=" span-div  d-flex  justify-content-center">
+                  <span><a class="nav-link nav-texts" href="#">Top</a></span>
+              </div>
+              <div class="span-div d-flex  justify-content-center ">
+                  <span><a class="nav-link nav-texts" href="/collection?gender=kids">Kids</a></span>
+              </div>
+              <div class="span-div d-flex  justify-content-center ">
+                   <span><a class="nav-link nav-texts" href="/collection?gender=men">Mens</a></span>
+              </div>
+              <div class=" span-div d-flex  justify-content-center ">
+                   <span><a  class="nav-link nav-texts" href="/collection?gender=women">Women</a></span>
+              </div>
+              <div class="span-div d-flex justify-content-center ">
+                  <span><a class="nav-link nav-texts" href="/collection">collection</a></span>
+              </div>
+      </div>
+      <div class=" d-flex  nav-div3  justify-content-end ">
+           <a href="/admin/logout" class="btn btn-outline-light">logout</a>
+    
+       </div>
+     
+       <div class=" d-flex pe-4 nav-div4 justify-content-start">
+    
+            <div class="span-div d-flex justify-content-center ">
+                
+                <div class="selector-image" style="background-image: url(shopping-cart\ \(1\).png); "></div>
+            </div>
+       </div>
+     </div>
+   </nav>
+   <content>
+       <div class="container-fluid   " id="body-color">
+           <div class=" d-flex h-auto  profile-main">
+            <div class="profile-div  ">
+              <div class="profile-photo d-flex align-items-center ">
+                <div class=" hii d-flex justify-content-center align-items-center">
+                  <div class="profile-picture "
+                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
+                  </div>
+                </div>
+                <div class=" hello d-flex align-items-center">
+                  <span><a href="/admin" style="text-decoration: none; outline: none; color: black;">Admin</a></span>
+                </div>
+              </div>
+              <div class="profile-selection">
+                <div class="selector  d-flex align-items-center">
+                  <div class=" hii d-flex align-items-center justify-content-center">
+                    <div class="selector-image"
+                      style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); "></div>
+                  </div>
+                  <div class="hello d-flex align-items-center">
+                    <span><a href="/admin/order-details" style="text-decoration: none; outline: none; color: black;">order
+                        details</a></span>
+                  </div>
+                </div>
+                <div class="line"></div>
+                <div class="selector  d-flex align-items-center" >
+                  <div class=" hii  d-flex align-items-center justify-content-center">
+                    <div class="selector-image"
+                      style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); "></div>
+                  </div>
+                  <div class=" hello d-flex align-items-center">
+                    <span><a href="/admin/product-managment"
+                        style="text-decoration: none; outline: none; color: black;">product</a></span>
+                  </div>
+                </div>
+                <div class="line"></div>
+                <div class="selector  d-flex align-items-center align-items-center"  style="background-color: rgb(238, 236, 236);">
+                  <div class="hii d-flex justify-content-center align-items-center">
+                    <div class="selector-image bg-light"
+                      style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+                  </div>
+                  <div class="hello d-flex align-items-center">
+                    <span><a href="/admin/user-managment"
+                        style="text-decoration: none; outline: none; color: black;">users</a></span>
+                  </div>
+                </div>
+                <div class="line"></div>
+                <div class="selector  d-flex align-items-center align-items-center">
+                  <div class="hii d-flex justify-content-center align-items-center">
+                    <div class="selector-image bg-light"
+                      style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+                  </div>
+                  <div class="hello d-flex align-items-center">
+                    <span><a href="/admin/category"
+                        style="text-decoration: none; outline: none; color: black;">category</a></span>
+                  </div>
+                </div>
+                <div class="line"></div>
+                <div class="selector  d-flex align-items-center align-items-center">
+                  <div class="hii d-flex justify-content-center align-items-center">
+                    <div class="selector-image bg-light"
+                      style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+                  </div>
+                  <div class="hello d-flex align-items-center">
+                    <span><a href="/admin/coupon"
+                        style="text-decoration: none; outline: none; color: black;">coupon</a></span>
+                  </div>
+                </div>
+                <div class="line"></div>
+    
+              </div>
+            </div>
+               <div class="profile-div2 ">             
+                     <div class="table-1 d-flex justify-content-around ">
+                        <form class="d-flex  search-1" role="search" method="get" action="/admin/user-managment">
+                            <input class="form-control me-2 search " id="user-search" type="search" placeholder="Search" aria-label="Search" name="searchvalue">
+                            <button class="btn btn-outline-light flex-column justify-content-center" id="user-searchbtn" type="submit"><span class="d-flex align-text-topb">search</span></button>
+                         </form>
+                     </div>
+                   <div class="table-2 p-4">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for(let i=0; i < database.length ; i++){ %>
+                        <tr>
+                          <td><%= i+1 %></td>
+                          <td><%= database[i].name %></td>
+                          <td><%= database[i].email %></td>
+                          <td>
+                            <div class="form-check form-switch h-50 w-50">
+                              <input class="form-check-input" type="checkbox" id="blockSwitch<%= database[i]._id %>"
+                                  <%= database[i].block ? 'checked' : '' %>
+                                  data-user-id="<%= database[i]._id %>">
+                              <label class="form-check-label" for="blockSwitch<%= database[i]._id %>">
+                                  <%= database[i].block ? 'Unblock' : 'Block' %>
+                              </label>
+                            </div>
+                          </td>
+                        </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+                   </div>
+                   
+               </div>
+           </div>
+       </div>
+       
+   </content>
+   <footer>
+      <div class="container-fluid footer-color">
+         <div class="container d-flex ">
+               <div class="">
+                    <div class="footer-div1 d-flex justify-content-center">
+                         <h1 class="heading  pt-4">About us</h1>
+                    </div>
+                   <div class="footer-div1">
+                
+                       <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch Universe, we're passionate about bringing you the finest selection of watches that blend elegance, precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's most stunning watches with watch enthusiasts and collectors alike.</p>
+                       
+                   </div>
+               </div>
+         </div>
+      </div>
+      <div class="container-fluid footer-color d-flex justify-content-center">
+        <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+      </div>
+   </footer>
+   <script>
+    // Event listener for toggling the label text
+    const checkboxes = document.querySelectorAll('.form-check-input');
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener('change', function () {
+        const userId = checkbox.getAttribute('data-user-id');
+        const label = document.querySelector(`label[for="blockSwitch${userId}"]`);
+        label.textContent = checkbox.checked ? 'Unblock' : 'Block';
+      });
+    });
+  
+    // Event listener for sending AJAX request to update block status
+    document.addEventListener('DOMContentLoaded', function () {
+      const userBlockToggles = document.querySelectorAll('.form-check-input');
+  
+      userBlockToggles.forEach(function (toggle) {
+        toggle.addEventListener('click', function () {
+          const userId = toggle.getAttribute('data-user-id');
+          const isBlocked = toggle.checked;
+  
+          fetch(`/admin/user-managment/block?_id=${userId}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId, isBlocked }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log('User block status updated:', data);
+  
+              // Update the label text based on the new block status
+              const label = document.querySelector(`label[for="blockSwitch${userId}"]`);
+              label.textContent = isBlocked ? 'Unblock' : 'Block';
+            })
+            .catch((error) => {
+              console.error('Error updating user block status:', error);
+            });
+        });
+      });
+  
+      // Add event listeners for other functionality if needed.
+    });
+  </script>
+  
+  
+  
+</body>
+</html>

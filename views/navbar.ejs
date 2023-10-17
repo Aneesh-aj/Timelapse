@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style2.css">
+</head>
+<body>
+        <header class=" header  w-100" id="header" >
+            <nav class="navbar container">
+               <a href="" class="brand">Brand</a>
+               <div class="burger" id="burger">
+                  <span class="burger-line"></span>
+                  <span class="burger-line"></span>
+                  <span class="burger-line"></span>
+               </div>
+               <span class="overlay"></span>
+               <div class="menu" id="menu">
+                  <ul class="menu-inner">
+                     <li class="menu-item"><a class="menu-link" href="/home">Home</a></li>
+                     <li class="menu-item"><a class="menu-link" href="/collection">collection</a></li>
+                     <li class="menu-item"><a class="menu-link" href="/collection?gender=men">mens</a></li>
+                     <li class="menu-item"><a class="menu-link" href="/collection?gender=women">women</a></li>
+                     <li class="menu-item"><a class="menu-link" href="/collection?gender=kids">kids</a></li>
+                  </ul>
+               </div>
+               <span><i class="bx bx-search search-toggle"></i></span>
+               <div class="search-block">
+                  <form class="search-form">
+                     <span><i class="bx bx-arrow-back search-cancel"></i></span>
+                     <input type="search" name="search" class="search-input" placeholder="Search here...">
+                  </form>
+               </div>
+            </nav>
+         </header>
+    <script>
+        // Open and Close Navbar Menu
+const navbarMenu = document.getElementById("menu");
+const burgerMenu = document.getElementById("burger");
+const bgOverlay = document.querySelector(".overlay");
+
+if (burgerMenu && bgOverlay) {
+   burgerMenu.addEventListener("click", () => {
+      navbarMenu.classList.add("is-active");
+      bgOverlay.classList.toggle("is-active");
+   });
+
+   bgOverlay.addEventListener("click", () => {
+      navbarMenu.classList.remove("is-active");
+      bgOverlay.classList.toggle("is-active");
+   });
+}
+
+// Close Navbar Menu on Links Click
+document.querySelectorAll(".menu-link").forEach((link) => {
+   link.addEventListener("click", () => {
+      navbarMenu.classList.remove("is-active");
+      bgOverlay.classList.remove("is-active");
+   });
+});
+
+// Open and Close Search Bar Toggle
+const searchBlock = document.querySelector(".search-block");
+const searchToggle = document.querySelector(".search-toggle");
+const searchCancel = document.querySelector(".search-cancel");
+
+if (searchToggle && searchCancel) {
+   searchToggle.addEventListener("click", () => {
+      searchBlock.classList.add("is-active");
+   });
+
+   searchCancel.addEventListener("click", () => {
+      searchBlock.classList.remove("is-active");
+   });
+}
+
+    </script>
+</body>
+</html>
