@@ -150,10 +150,10 @@
           <div class="h-auto bx-sh">
             <% if(singleproduct){ %>
               <div class="rounded-1 w-100 d-flex pt-3 pb-3">
-                <div class="d-flex justify-content-center" style="width: 25%; height: 8rem;">
-                  <div class="bg-danger-" style="width: 8rem; height: 8rem;">
+                <div class="d-flex justify-content-center bg-success" style="width: 25%; height: 8rem;">
+                  <div class="bg-danger" style="width: 8rem; height: 8rem;">
                     <% if (singleproduct.product_id && singleproduct.product_id.product_image.length> 0) { %>
-                      <img src="/filename/<%=singleproduct.product_image[0] %>" style="height: 100%; width: 100%;">
+                      <img class="checkout-image" src="/filename/<%=singleproduct.product_image[0] %>" >
                       <% } %>
                   </div>
                 </div>
@@ -212,11 +212,11 @@
                   <% for (let i=0; i < cart.length; i++) { %>
 
                     <div class="rounded-1 w-100 d-flex pt-3 pb-3">
-                      <div class="d-flex justify-content-center" style="width: 25%; height: 8rem;">
-                        <div class="bg-danger-" style="width: 8rem; height: 8rem;">
+                      <div class="d-flex justify-content-center" style="width: 25%; height: 9rem;">
+                        <div class="bg-danger" style="width: 8rem; height: 7rem;">
                           <% if (cart[i].product_id && cart[i].product_id.product_image.length> 0) { %>
                             <img src="/filename/<%= cart[i].product_id.product_image[0] %>"
-                              style="height: 100%; width: 100%;">
+                             >
                             <% } %>
                         </div>
                       </div>
@@ -354,13 +354,13 @@
               </div>
               <input type="hidden" name="alltotal" value="<%=totalprice%>">
             </div>
-            <div class="cart-priceDetails  d-flex">
-              <div class="cart-priceSub">
-                  <input  name="coupon_apply" id="couponCodeInput" placeholder="apply any coupon code ">
+            <div class="cart-priceDetails mt-2 d-flex ">
+              <div class="cart-priceSub w-75 d-flex align-content-center ">
+                  <input class="inputcoupon"  name="coupon_apply" id="couponCodeInput" placeholder="apply any coupon code ">
               </div>
-              <div class="cart-priceSub2 ">
+              <div class="cart-priceSub2  w-25 d-flex  justify-content-center">
                 <p id="displayedTotalPrice">
-                    <button class="btn btn-outline-warning" onclick="applycoupon()">apply</button>
+                    <button class="btn btn-outline-warning applybtn"  onclick="applycoupon()">apply</button>
                 </p>
               </div>
               <input type="hidden" name="alltotal" value="<%=totalprice%>">
@@ -566,6 +566,9 @@ async function applycoupon() {
     const displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
   const amount = displayedTotalPriceElement.innerText;
 
+  var button = document.querySelector('.applybtn');
+
+
  console.log("the amount",amount)
      
     if (useWalletCheckbox.checked) {
@@ -604,8 +607,12 @@ async function applycoupon() {
         return response.json();
       })
       .then(result => {
+          
+        button.style.display = "none";
+
         const updatedTotalPrice = result.totalprice.toFixed(2);
-  displayedTotalPriceElement.innerText = updatedTotalPrice;
+         
+        displayedTotalPriceElement.innerText = updatedTotalPrice;
       })
       .catch(error => {
         console.error('Error applying coupon code:', error);
@@ -810,7 +817,7 @@ async function applycoupon() {
 
         if (useWalletCheckbox.checked) {
           const discountedPrice = 1
-          
+
 
            if(totalprice > walletBalance){
                  discountedPrice = totalprice- walletBalance
