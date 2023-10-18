@@ -1542,8 +1542,8 @@ const applycoupn = async (req,res)=>{
          
         const totalprice = parseFloat(amount) - parseFloat(coupon.coupon_value);
          console.log("the total",totalprice)  
-          let takencoupon = coupon
-        res.json({totalprice,takencoupon})
+          
+        res.json({totalprice})
        }else{
         console.log('Invalid coupon or no discount amount');
         res.status(400).json({ error: 'Invalid coupon or no discount amount' });
