@@ -809,7 +809,12 @@ async function applycoupon() {
         const totalprice = parseFloat('<%= totalprice.toFixed(2) %>');
 
         if (useWalletCheckbox.checked) {
-          const discountedPrice = totalprice - walletBalance;
+          const discountedPrice = 1
+          
+
+           if(totalprice > walletBalance){
+                 discountedPrice = totalprice- walletBalance
+           }
           displayedTotalPriceElement.innerText = discountedPrice.toFixed(2);
           totalpriceInput.value = discountedPrice;
         } else {

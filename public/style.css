@@ -798,7 +798,7 @@ th {
 
 .banner-height {
     height: 32rem;
-    margin-top:2rem ;
+    margin-top:0.3rem ;
     background-repeat: no-repeat;
 
     background-size: cover;
@@ -1902,7 +1902,6 @@ footer {
 
     .banner-height {
         height: 25rem;
-        margin-top: 2.0rem;
     }
     .nav-height{
         margin-top: 4rem;
@@ -1944,7 +1943,6 @@ footer {
 
     .banner-height {
         height: 9rem;
-        margin-top: 2rem;
     }
    
     .home-height{
