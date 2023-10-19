@@ -1540,8 +1540,7 @@ const applycoupn = async (req,res)=>{
 
        if(coupon && coupon.coupon_value){
          
-        const totalprice = parseFloat(amount) - parseFloat(coupon.coupon_value);
-         console.log("the total",totalprice)  
+        const  totalprice = parseFloat(amount) - parseFloat(coupon.coupon_value);
           
         res.json({totalprice})
        }else{
