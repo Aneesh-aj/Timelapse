@@ -1425,7 +1425,7 @@ const addingtocart = async (req, res) => {
 
         await user.save();
 
-        console.log("latest user", user)
+        console.log("latest user",user)
 
 
 
@@ -1442,11 +1442,11 @@ const deletewishlist = async (req, res) => {
 
         console.log("entering to --------------")
         const { productId } = req.body;
-        const user = await usersModel.findOne({ email: req.session.email });
+        const user = await usersModel.findOne({ email:req.session.email});
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
-        }
+        }       
 
 
 
