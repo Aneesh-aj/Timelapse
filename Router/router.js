@@ -58,5 +58,6 @@ router.post("/ordercheckout",controller.ordercheckout)
 router.get("/wallet",controller.wallet)
 router.post("/returnrequest",controller.returnOrder)
 router.post("/apply-coupon",controller.applycoupn)
+router.get("/invoice",controller.invoiceget)
 
 module.exports = router

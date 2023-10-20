@@ -1553,8 +1553,29 @@ const applycoupn = async (req,res)=>{
     }
 }
 
+const invoiceget = async (req,res)=>{
+     try{
+          
+        console.log("query ",req.query.productid)
+
+        const order = await orderModel.findOne({_id:req.query.productid}).populate("product.product_id")
+      
+        console.log("---invoice products",order)
+        console.log("after ==",order.product)
+        const user = await usersModel.find({email:req.session.email})
+
+        console.log("user",user)
+        res.render("invoice",{order,user})
+
+
+     }catch(error){
+
+        console.log(error)
+
+     }
+}
 
 
 
 
-module.exports = {applycoupn,returnOrder,wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails, isuser, ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, checkUserStatus, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }
+module.exports = {invoiceget,applycoupn,returnOrder,wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails, isuser, ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, checkUserStatus, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }
