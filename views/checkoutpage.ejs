@@ -611,8 +611,10 @@ async function applycoupon() {
         button.style.display = "none";
 
         const updatedTotalPrice = result.totalprice.toFixed(2);
+        
          
         displayedTotalPriceElement.innerText = updatedTotalPrice;
+        
       })
       .catch(error => {
         console.error('Error applying coupon code:', error);
@@ -808,8 +810,11 @@ async function applycoupon() {
 
       cashOnDeliveryCheckbox.addEventListener('change', function () {
         if (cashOnDeliveryCheckbox.checked) {
-          useWalletCheckbox.checked = false; // Uncheck the "Use Wallet" checkbox when Cash on Delivery is selected
+
+          useWalletCheckbox.checked = false; 
         }
+        button.style.display = "block";
+
       });
 
       useWalletCheckbox.addEventListener('change', function () {
@@ -837,13 +842,14 @@ async function applycoupon() {
         const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
         const selectedproductId = document.querySelector('input[name="productId"]');
         const totalpriceElement = document.getElementById('displayedTotalPrice');
+      
 
         const totalprice = parseFloat(totalpriceElement.innerText);
 
         const alltotal = document.querySelector('input[name="alltotal"]');
-        const alltotalvalue = alltotal.value
+      
         console.log("000000====", alltotal.value);
-
+        const alltotalvalue = alltotal.value
 
 
         if (!selectedAddress) {

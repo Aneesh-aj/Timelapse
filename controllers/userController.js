@@ -1025,6 +1025,7 @@ const placeorder = async (req, res) => {
         const addressId = req.body.addressId
         const productid = req.session.singleproductid
         const totalamount = req.body.alltotal
+        const amount = req.body.amount
         const user = await usersModel.findOne({ email: req.session.email })
 
         if (!user) {
@@ -1040,6 +1041,7 @@ const placeorder = async (req, res) => {
                 await user.save()
             }
         }
+        
 
 
 
@@ -1067,12 +1069,12 @@ const placeorder = async (req, res) => {
             product.stock = product.stock - qnt
             product.save()
 
-            let totalprice = qnt * product.price
+            let amount = qnt * product.price
             const singlePrd = {
                 product_id: product._id,
                 quantity: qnt,
                 price: product.price,
-                totalPrice: totalprice
+                totalPrice: amount
             }
 
 
@@ -1087,7 +1089,7 @@ const placeorder = async (req, res) => {
                 locality: orderaddress.locality,
                 pincode: orderaddress.pincode,
                 paymentMethod: paymentMethod,
-                totalamount: totalamount,
+                totalamount: amount,
                 status: "pending"
             })
 
@@ -1129,7 +1131,7 @@ const placeorder = async (req, res) => {
                 town: orderaddress.town,
                 pincode: orderaddress.pincode,
                 paymentMethod: paymentMethod,
-                totalamount: totalamount,
+                totalamount: amount,
                 status: "pending"
 
             });
@@ -1541,8 +1543,9 @@ const applycoupn = async (req,res)=>{
        if(coupon && coupon.coupon_value){
          
         const  totalprice = parseFloat(amount) - parseFloat(coupon.coupon_value);
+        const discountamount = parseFloat(coupon.coupon_value)
           
-        res.json({totalprice})
+        res.json({totalprice,discountamount})
        }else{
         console.log('Invalid coupon or no discount amount');
         res.status(400).json({ error: 'Invalid coupon or no discount amount' });
@@ -1561,9 +1564,9 @@ const invoiceget = async (req,res)=>{
         const order = await orderModel.findOne({_id:req.query.productid}).populate("product.product_id")
       
         console.log("---invoice products",order)
-        console.log("after ==",order.product)
+        console.log("after ==",order.product[0].product_id.product_name)
         const user = await usersModel.find({email:req.session.email})
-
+        console.log("order---",order.product.name)
         console.log("user",user)
         res.render("invoice",{order,user})
 

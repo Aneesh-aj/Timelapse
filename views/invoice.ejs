@@ -99,60 +99,46 @@
                                         </tr>
                                     </thead><!-- end thead -->
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">01</th>
-                                            <td>
-                                                <div>
-                                                    <h5 class="text-truncate font-size-14 mb-1">Black Strap A012</h5>
-                                                    <p class="text-muted mb-0">Watch, Black</p>
-                                                </div>
-                                            </td>
-                                            <td>$ 245.50</td>
-                                            <td>1</td>
-                                            <td class="text-end">$ 245.50</td>
-                                        </tr>
-                                        <!-- end tr -->
-                                        <tr>
-                                            <th scope="row">02</th>
-                                            <td>
-                                                <div>
-                                                    <h5 class="text-truncate font-size-14 mb-1">Stainless Steel S010
-                                                    </h5>
-                                                    <p class="text-muted mb-0">Watch, Gold</p>
-                                                </div>
-                                            </td>
-                                            <td>$ 245.50</td>
-                                            <td>2</td>
-                                            <td class="text-end">$491.00</td>
-                                        </tr>
-                                        <!-- end tr -->
-                                        <tr>
+                                        <% for(let i=0; i < order.product.length;i++){ %>
+                                            <tr>
+                                                <th scope="row"><%i+1 %></th>
+                                                <td>
+                                                    <div>
+                                                        <h5 class="text-truncate font-size-14 mb-1"><%= order.product[i].product_id.product_name%></h5>
+                                                        <p class="text-muted mb-0"><%= order.product[i].product_id.dial_color %></p>
+                                                    </div>
+                                                </td>
+                                                <td> <%= order.product[i].price %></td>
+                                                <td><%= order.product[i].quantity %></td>
+                                                <td class="text-end"><%= order.product[i].totalPrice %> </td>
+                                            </tr>
+                                          
+                                     <%  } %>
+                                 
+                                        <!-- <tr>
                                             <th scope="row" colspan="4" class="text-end">Sub Total</th>
                                             <td class="text-end">$732.50</td>
                                         </tr>
-                                        <!-- end tr -->
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">
                                                 Discount :</th>
                                             <td class="border-0 text-end">- $25.50</td>
                                         </tr>
-                                        <!-- end tr -->
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">
                                                 Shipping Charge :</th>
                                             <td class="border-0 text-end">$20.00</td>
                                         </tr>
-                                        <!-- end tr -->
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">
                                                 Tax</th>
                                             <td class="border-0 text-end">$12.00</td>
                                         </tr>
-                                        <!-- end tr -->
-                                        <tr>
+                                       -->
+                                        <tr> 
                                             <th scope="row" colspan="4" class="border-0 text-end">Total</th>
                                             <td class="border-0 text-end">
-                                                <h4 class="m-0 fw-semibold">$739.00</h4>
+                                                <h4 class="m-0 fw-semibold"><%= order.totalamount%></h4>
                                             </td>
                                         </tr>
                                         <!-- end tr -->
