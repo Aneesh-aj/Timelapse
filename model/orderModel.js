@@ -20,7 +20,8 @@ const orderSchema = mongoose.Schema({
       pincode:{type:Number},
       orderdate:{type:Date},
       totalamount:{type:Number},
-      status:{type:String}
+      status:{type:String},
+      discountamount:{type:String}
     
 },{timestamps: true})
 

@@ -330,7 +330,9 @@
                 <p>discount</p>
               </div>
               <div class="cart-priceSub2 ">
-                <p>----</p>
+            
+                        <p id="discount"> <%=discountamount%></p> 
+                
               </div>
             </div>
             <div class="cart-priceDetails d-flex">
@@ -565,6 +567,12 @@ async function applycoupon() {
     const useWalletCheckbox = document.getElementById('useWallet');
     const displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
   const amount = displayedTotalPriceElement.innerText;
+  const discount = document.getElementById('discount')
+
+  console.log("-----cu ",discount)
+
+  const discountingamount = discount.innerText
+  console.log("-",discountingamount)
 
   var button = document.querySelector('.applybtn');
 
@@ -612,8 +620,9 @@ async function applycoupon() {
 
         const updatedTotalPrice = result.totalprice.toFixed(2);
         
-         
+         console.log("the total d",result.discountamount)
         displayedTotalPriceElement.innerText = updatedTotalPrice;
+        discount.innerText = result.discountamount
         
       })
       .catch(error => {

@@ -799,7 +799,8 @@ const checkoutView = async (req, res) => {
         console.log("and the user id is ", user._id)
 
         const coupon = await couponModel.find({})
-        res.render("checkoutpage", { user, qnt, coupon,totalprice, address, singleproduct, singleproductid })
+        let discountamount =0
+        res.render("checkoutpage", {discountamount, user, qnt, coupon,totalprice, address, singleproduct, singleproductid })
 
     } catch (error) {
         console.log(error)
@@ -1543,7 +1544,9 @@ const applycoupn = async (req,res)=>{
        if(coupon && coupon.coupon_value){
          
         const  totalprice = parseFloat(amount) - parseFloat(coupon.coupon_value);
-        const discountamount = parseFloat(coupon.coupon_value)
+        let discountamount = parseFloat(coupon.coupon_value)
+
+        console.log("d--------",discountamount)
           
         res.json({totalprice,discountamount})
        }else{
