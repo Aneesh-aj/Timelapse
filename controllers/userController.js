@@ -1026,7 +1026,7 @@ const placeorder = async (req, res) => {
         const addressId = req.body.addressId
         const productid = req.session.singleproductid
         const totalamount = req.body.alltotal
-        const amount = req.body.amount
+        let amount = req.body.amount
         const user = await usersModel.findOne({ email: req.session.email })
 
         if (!user) {
@@ -1040,6 +1040,8 @@ const placeorder = async (req, res) => {
 
                 user.wallet.balance = user.wallet.balance - minus
                 await user.save()
+
+                amount = (totalamount-req.body.discount)-1
             }
         }
         

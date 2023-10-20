@@ -351,7 +351,7 @@
               </div>
               <div class="cart-priceSub2 ">
                 <p id="displayedTotalPrice">
-                  <%=totalprice.toFixed(2)%>
+                  <%=totalprice %>
                 </p>
               </div>
               <input type="hidden" name="alltotal" value="<%=totalprice%>">
@@ -801,27 +801,34 @@ async function applycoupon() {
       const displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
       const totalpriceInput = document.querySelector('input[name="totalprice"]');
       const walletBalance = parseFloat('<%= user.wallet.balance.toFixed(2) %>');
+      const discount = document.getElementById('discount')
 
       
 
       useWalletCheckbox.style.display = 'none';
       walletOption.style.display = 'none';
 
+  
+
       addressCheckboxes.forEach(function (checkbox) {
         checkbox.addEventListener('change', function () {
           addressCheckboxes.forEach(function (otherCheckbox) {
             if (otherCheckbox !== checkbox) {
-              otherCheckbox.checked = false; // Uncheck other address checkboxes
+              otherCheckbox.checked = false; 
+
             }
+            
           });
         });
       });
 
       cashOnDeliveryCheckbox.addEventListener('change', function () {
-        if (cashOnDeliveryCheckbox.checked) {
-
+        if (cashOnDeliveryCheckbox.checked) {    
           useWalletCheckbox.checked = false; 
+
         }
+
+      
         button.style.display = "block";
 
       });
@@ -834,12 +841,12 @@ async function applycoupon() {
 
 
            if(totalprice > walletBalance){
-                 discountedPrice = totalprice- walletBalance
+                 discountedPrice = discount.innerText- walletBalance
            }
           displayedTotalPriceElement.innerText = discountedPrice.toFixed(2);
           totalpriceInput.value = discountedPrice;
         } else {
-          displayedTotalPriceElement.innerText = totalprice.toFixed(2);
+          displayedTotalPriceElement.innerText = parseFloat(totalprice-discount.innerText);
           totalpriceInput.value = totalprice;
         }
       });
@@ -851,15 +858,17 @@ async function applycoupon() {
         const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
         const selectedproductId = document.querySelector('input[name="productId"]');
         const totalpriceElement = document.getElementById('displayedTotalPrice');
-      
-
+        const discount = document.getElementById('discount')
+        
+          
         const totalprice = parseFloat(totalpriceElement.innerText);
 
         const alltotal = document.querySelector('input[name="alltotal"]');
       
         console.log("000000====", alltotal.value);
         const alltotalvalue = alltotal.value
-
+        
+        const discountvalue = discount.innerText 
 
         if (!selectedAddress) {
           Swal.fire({
@@ -890,7 +899,8 @@ async function applycoupon() {
           paymentMethod: selectedPaymentValue,
           productId: productId,
           amount: totalprice,
-          alltotal: alltotalvalue
+          alltotal: alltotalvalue,
+          discount:discountvalue
         };
 
 
@@ -964,7 +974,6 @@ async function applycoupon() {
             walletOption.style.display = 'none'; // Hide the entire wallet option
 
             // Reset displayed total amount when changing from online to cash on delivery
-            displayedTotalPriceElement.innerText = parseFloat('<%= totalprice.toFixed(2) %>');
             totalpriceInput.value = parseFloat('<%= totalprice.toFixed(2) %>');
           }
         });
