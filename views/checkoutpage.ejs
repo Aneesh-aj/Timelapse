@@ -798,7 +798,7 @@ async function applycoupon() {
       const onlinePaymentCheckbox = document.getElementById('onlinePayment');
       const cashOnDeliveryCheckbox = document.getElementById('cashOnDelivery');
       const walletOption = document.getElementById('walletOption');
-      const displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
+      let displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
       const totalpriceInput = document.querySelector('input[name="totalprice"]');
       const walletBalance = parseFloat('<%= user.wallet.balance.toFixed(2) %>');
       const discount = document.getElementById('discount')
@@ -837,11 +837,13 @@ async function applycoupon() {
         const totalprice = parseFloat('<%= totalprice.toFixed(2) %>');
 
         if (useWalletCheckbox.checked) {
-          const discountedPrice = 1
+          let discountedPrice = 1
 
 
-           if(totalprice > walletBalance){
-                 discountedPrice = discount.innerText- walletBalance
+           if(displayedTotalPriceElement.innerText > walletBalance){
+                  console.log("entering to here")
+                 discountedPrice = displayedTotalPriceElement.innerText- walletBalance
+                 console.log("here",discountedPrice)
            }
           displayedTotalPriceElement.innerText = discountedPrice.toFixed(2);
           totalpriceInput.value = discountedPrice;
