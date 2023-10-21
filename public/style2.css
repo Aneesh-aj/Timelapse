@@ -91,7 +91,7 @@ img {
   font-weight: 600;
   line-height: 1.5;
   letter-spacing: -1px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   color: var(--color-blue-200);
   text-decoration: none;
 }

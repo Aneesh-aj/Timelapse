@@ -6,6 +6,7 @@
     --color-white: #fff;
     --color-body: #e4e9f7;
     --color-light: #e0e0e0;
+    --color-black:#000000;
 }
 
 .container-width {
@@ -50,22 +51,39 @@ body{
         color: white;
     }
 
+.sidebar-div{
+    width:78px ;
+    
 
+}
 
 .sidebar {
-    min-height: 100vh;
+    min-height: 80vh;
     width: 78px;
-    padding: 6px 14px;
+    padding: 0;
     z-index: 99;
-    background-color: var(--color-default);
+    /* background-color: var(--color-white); */
     transition: all .5s ease;
     position: absolute;
     border-radius: 4px;
 
-
+}
+.side-subdiv{
+    min-height: 18vh;
+    width: 100%;
+    display: block;
+    border-radius: 3px;
 
 }
-
+.side-subdiv2{
+    background-color: #FFF;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    height: 80vh;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    
+}
 .sidebar.open {
     width: 250px;
 }
@@ -75,6 +93,7 @@ body{
     display: flex;
     align-items: center;
     position: relative;
+    display:none;
 }
 
 .sidebar .logo_details .icon {
@@ -111,10 +130,11 @@ body{
 
 .sidebar.open .logo_details #btn {
     text-align: right;
+    display: none;
 }
 
 .sidebar i {
-    color: var(--color-white);
+    color: var(--color-black);
     height: 60px;
     line-height: 60px;
     min-width: 50px;
@@ -129,7 +149,7 @@ body{
 
 .sidebar li {
     position: relative;
-    margin: 8px 0;
+    margin: 0px 0;
     list-style: none;
 }
 
@@ -138,7 +158,7 @@ body{
     top: -20px;
     left: calc(100% + 15px);
     z-index: 3;
-    background-color: var(--color-white);
+    background-color: var(--color-black);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     padding: 6px 14px;
     font-size: 15px;
@@ -174,7 +194,7 @@ body{
 
 .sidebar input {
     font-size: 15px;
-    color: var(--color-white);
+    color: var(--color-black);
     font-weight: 400;
     outline: none;
     height: 35px;
@@ -209,11 +229,14 @@ body{
     display: flex;
     height: 100%;
     width: 100%;
+    padding: 10px;
     align-items: center;
     text-decoration: none;
-    background-color: var(--color-default);
+    background-color:var(--color-white);
+
     position: relative;
     transition: all .5s ease;
+    border-radius: 3px;
     z-index: 12;
 }
 
@@ -232,11 +255,11 @@ body{
 
 .sidebar li a:hover::after {
     transform: scaleX(1);
-    color: var(--color-default)
+    color: var(--color-black)
 }
 
 .sidebar li a .link_name {
-    color: var(--color-white);
+    color: var(--color-black);
     font-size: 15px;
     font-weight: 400;
     white-space: nowrap;
@@ -249,7 +272,7 @@ body{
 .sidebar li a:hover .link_name,
 .sidebar li a:hover i {
     transition: all 0.5s ease;
-    color: var(--color-default)
+    color: var(--color-black)
 }
 
 .sidebar.open li a .link_name {
@@ -2696,7 +2719,7 @@ footer {
         width: 100%;
         align-items: center;
         text-decoration: none;
-        background-color: var(--color-default);
+        background-color: var(--color-white);
         position: relative;
         transition: all .5s ease;
         z-index: 12;
@@ -2821,6 +2844,22 @@ footer {
 }
 
 @media screen and (max-width:400px) {
+    .side-subdiv{
+        min-height: 18vh;
+        width: 100%;
+        display: none;
+        border-radius: 3px;
+    
+    }
+    .side-subdiv2{
+        background-color: white;
+        margin-top: 0.5rem;
+        padding-top: 1rem;
+        height: 80vh;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.0);
+        
+    }
     .cart-div2 {
         position: relative;
         top: 0;
@@ -3385,7 +3424,7 @@ footer {
         width: 60px;
         padding-right: 12px;
 
-        background-color: var(--color-default);
+        background-color: var(--color-white);
         transition: all .5s ease;
         position: absolute;
         z-index: 2;
@@ -3418,6 +3457,7 @@ footer {
         display: flex;
         align-items: center;
         position: relative;
+        display: none;
     }
 
     .sidebar .logo_details .icon {
@@ -3436,7 +3476,7 @@ footer {
     }
 
     .sidebar i {
-        color: var(--color-white);
+        color: var(--color-black);
         height: 60px;
         line-height: 60px;
         min-width: 0px;
@@ -3512,7 +3552,7 @@ footer {
         width: 100%;
         align-items: center;
         text-decoration: none;
-        background-color: var(--color-default);
+        background-color: var(--color-white);
         position: relative;
         transition: all .5s ease;
         z-index: 12;
