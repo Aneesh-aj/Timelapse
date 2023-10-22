@@ -41,6 +41,9 @@ app.use("/",require("./Router/router"))
 
 app.use("/admin", require("./Router/adminRouter"))
 
-
+app.use((req,res)=>{
+    res.status(404)
+    res.render("errorpage")
+})
 
 app.listen(3000,()=>console.log("http://localhost:3000"))

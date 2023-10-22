@@ -20,6 +20,40 @@ body{
     height: 100vh;
 }
 
+/*======================
+    404 page
+=======================*/
+
+
+.page_404{ padding:40px 0; background:#fff; font-family: 'Arvo', serif;
+}
+
+.page_404  img{ width:100%;}
+
+.four_zero_four_bg{
+ 
+ background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 400px;
+    background-position: center;
+ }
+ 
+ 
+ .four_zero_four_bg h1{
+ font-size:80px;
+ }
+ 
+  .four_zero_four_bg h3{
+			 font-size:80px;
+			 }
+			 
+			 .link_404{			 
+	color: #fff!important;
+    padding: 10px 20px;
+    background: #39ac31;
+    margin: 20px 0;
+    display: inline-block;}
+	.contant_box_404{ margin-top:-50px;}
+
 * {
     padding: 0%;
     margin: 0%;
@@ -61,7 +95,7 @@ body{
     min-height: 80vh;
     width: 78px;
     padding: 0;
-    z-index: 99;
+    z-index: 1;
     /* background-color: var(--color-white); */
     transition: all .5s ease;
     position: absolute;
@@ -253,10 +287,6 @@ body{
     z-index: -2;
 }
 
-.sidebar li a:hover::after {
-    transform: scaleX(1);
-    color: var(--color-black)
-}
 
 .sidebar li a .link_name {
     color: var(--color-black);
@@ -1041,6 +1071,7 @@ th {
 }
 
 .singleaddtowishlist {
+    color: white;
     width: 48%;
     color: fff;
     height: 2rem;
@@ -1324,7 +1355,7 @@ th {
     margin: 0;
     background-color: #fff;
     border-radius: 5px;
-    transition: transform 0.2s;
+    transition: transform 0.1s;
     /* margin: 0 10px 20px; */
 
     flex-basis: 24.9999;
@@ -2197,7 +2228,7 @@ footer {
         background-color: #fff;
         /* width:9rem; */
         border-radius: 5px;
-        transition: transform 0.2s;
+        transition: transform 0.1s;
         /* margin: 0 10px 20px; */
         padding: 0px;
         margin: 0px;
@@ -2847,7 +2878,7 @@ footer {
     .side-subdiv{
         min-height: 18vh;
         width: 100%;
-        display: none;
+        display:none !important;
         border-radius: 3px;
     
     }
@@ -2857,6 +2888,7 @@ footer {
         padding-top: 1rem;
         height: 80vh;
         border-radius: 5px;
+        
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.0);
         
     }

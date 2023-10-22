@@ -18,81 +18,18 @@
 
 <body>
     <%- include('navbar.ejs') %>
-    <content>
+    <content class="nav-height">
+        <div class="container-fluid d-flex justify-content-center pt-3   " id="body-color">
+            <div class="container-width">
+                <%- include('sidebar.ejs') %>
+                <section class="home-section ">
 
-        <div class="container-fluid d-flex justify-content-center   " id="body-color">
-            <div class="container">
-                <div class=" d-flex h-auto  profile-main justify-content-center">
-                    <div class="profile-div ">
-                        <div class="profile-photo d-flex align-items-center ">
-                            <div class=" hii d-flex justify-content-center align-items-center">
-                                <div class="profile-picture "
-                                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
-                                </div>
-                            </div>
-                            <div class=" hello d-flex align-items-center">
-                                <span class="text-label">user</span>
-                            </div>
-                        </div>
-                        <div class="profile-selection">
-                            <div class="selector  d-flex align-items-center">
-                                <div class=" hii d-flex align-items-center justify-content-center">
-                                    <div class="selector-image"
-                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); ">
-                                    </div>
-                                </div>
-                                <div class="hello d-flex align-items-center">
-                                    <span>profile</span>
-                                </div>
-                            </div>
-                            <div class="line"></div>
-                            <div class="selector  d-flex align-items-center">
-                                <div class=" hii  d-flex align-items-center justify-content-center">
-                                    <div class="selector-image"
-                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); ">
-                                    </div>
-                                </div>
-                                <div class=" hello d-flex align-items-center">
-                                    <span>wishlist</span>
-                                </div>
-                            </div>
-                            <div class="line"></div>
-                            <div class="selector  d-flex align-items-center align-items-center">
-                                <div class="hii d-flex justify-content-center align-items-center">
-                                    <div class="selector-image bg-light"
-                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
-                                    </div>
-                                </div>
-                                <div class="hello d-flex align-items-center">
-                                    <span><a href="/order"
-                                            style="text-decoration: none; outline: none; color: black;">order
-                                        </a></span>
-                                </div>
-                            </div>
-                            <div class="line"></div>
-                            <div class="d-flex align-content-end">
-                                <div class="selector  d-flex align-items-center align-items-center">
-                                    <div class="hii d-flex justify-content-center align-items-center">
-                                        <div class="selector-image bg-light"
-                                            style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
-                                        </div>
-                                    </div>
-                                    <div class="hello d-flex align-items-center">
-                                        <form class="" method="post" action="/logout">
-                                            <button type="submit" class="btn btn-primary  rounded-2">logout</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="white  profile-div3 h-auto mb-2 w-75 " style="height: 42.3rem;">
+                    <div class="white  profile-div3 h-auto mb-2  " style="height: 42.3rem;">
                         <div class=" w-100 ">
                             <div class="col-lg-12 usr-details">
                                 <div class="card ps-5 pb-3 pt-3">
                                     <h1 class="heading"> order list</h1>
-
+                    
                                 </div>
                             </div>
                             
@@ -138,18 +75,15 @@
                         
                        
                     </div>
-                    
-
-                </div>
+                 </section>
             </div>
         </div>
 
-    </div>  
-</div>  
-
-</div>  
-</div>  
+ 
+ 
 </content>
+  
+
 
 
 
