@@ -1307,24 +1307,18 @@ th {
 
     font-family: "Your Custom Font", Arial, sans-serif;
     font-size: 25px;
-    /* Adjust the font size as needed */
     font-weight: bold;
-    /* Other font properties (e.g., color, text-decoration, etc.) */
 }
 
 .product-price {
     font-family: "Your Custom Font", Arial, sans-serif;
-    /* Replace "Your Custom Font" with the actual font name you want to use */
     font-size: 35px;
-    /* padding-left: 1rem; */
     font-weight: bold;
 }
 
 .product-subname {
-    /* padding-left: 1rem; */
 
     font-family: "Your Custom Font", Arial, sans-serif;
-    /* Replace "Your Custom Font" with the actual font name you want to use */
     font-size: 22px;
     /* Adjust the font size as needed */
     font-weight: bold;
