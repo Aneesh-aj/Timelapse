@@ -1572,18 +1572,13 @@ th {
 
 #heart-icon {
     width: 30px;
-    /* Adjust the size as needed */
     height: 30px;
-    /* Adjust the size as needed */
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* Styling for the glowing effect */
 .wishlist-button.clicked #heart-icon {
     color: red;
-    /* Change the color to make it "glow" */
     transform: scale(1.2);
-    /* Increase the size for the glowing effect */
 }
 
 .product-dete {
