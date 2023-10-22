@@ -1306,11 +1306,9 @@ th {
     /* padding-left: 1rem; */
 
     font-family: "Your Custom Font", Arial, sans-serif;
-    /* Replace "Your Custom Font" with the actual font name you want to use */
     font-size: 25px;
     /* Adjust the font size as needed */
     font-weight: bold;
-    /* You can set the font weight (e.g., bold) */
     /* Other font properties (e.g., color, text-decoration, etc.) */
 }
 
