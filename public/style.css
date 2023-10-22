@@ -1322,7 +1322,6 @@ th {
     font-size: 22px;
     /* Adjust the font size as needed */
     font-weight: bold;
-    /* You can set the font weight (e.g., bold) */
     /* Other font properties (e.g., color, text-decoration, etc.) */
 }
 
@@ -1330,7 +1329,6 @@ th {
     /* padding-left: 1rem; */
 
     font-family: "Your Custom Font", Arial, sans-serif;
-    /* Replace "Your Custom Font" with the actual font name you want to use */
     font-size: 15px;
     /* Adjust the font size as needed */
     font-weight: 800
@@ -1440,10 +1438,6 @@ th {
     flex: 2;
 }
 
-/* Add more CSS styles as needed to match your design */
-
-
-/* CSS for the semi-transparent background */
 
 .con-color {
     background-color: #f1f3f6;
