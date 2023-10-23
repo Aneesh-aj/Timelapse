@@ -2195,7 +2195,6 @@ footer {
     }
 
 
-    /* for collectioin showing now */
 
     .product-card {
         background-color: #fff;
@@ -2291,7 +2290,6 @@ footer {
 
     .normal-filter {
         display: none;
-        /* Hide when screen size is 400px or less */
     }
 
     .offcanvas {
@@ -2321,7 +2319,6 @@ footer {
         border-radius: 3px;
         padding: 0.4rem;
 
-        /* background-color: #0171d3; */
 
     }
 
@@ -2330,7 +2327,6 @@ footer {
         margin-top: 4rem;
 
         border-radius: 3px;
-        /* background-color: brown; */
     }
 
     .profile-main {
