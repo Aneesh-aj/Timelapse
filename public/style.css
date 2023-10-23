@@ -1911,7 +1911,6 @@ footer {
 
     .svg-size {
         height: 50%;
-        /* Set the height of the SVG icon to 100% of the button's height */
         width: auto;
         /* Allow the width to adjust automatically */
         fill: rgb(255, 255, 255);
