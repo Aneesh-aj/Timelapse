@@ -1694,7 +1694,6 @@ th {
 }
 
 .normal-btn {
-    /* margin: 1rem; */
     width: 3rem;
     height: 3rem;
 }
@@ -1800,7 +1799,6 @@ th {
 
 }
 
-/* Common styles for all screen sizes */
 
 .container-fluid {
     padding: 0;
