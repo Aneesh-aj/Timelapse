@@ -1906,13 +1906,11 @@ footer {
         /* Set the height of the button in pixels or any other unit */
         width: 100%;
         padding: 0.1rem;
-        /* Optional: Add padding to the button */
     }
 
     .svg-size {
         height: 50%;
         width: auto;
-        /* Allow the width to adjust automatically */
         fill: rgb(255, 255, 255);
     }
 
