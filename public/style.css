@@ -1822,7 +1822,6 @@ footer {
     color: #000;
 }
 
-/* Make it responsive for smaller screens */
 
 
 
@@ -1832,7 +1831,6 @@ footer {
 
     .collection-div {
         margin-left: 0;
-        /* Remove left margin when profile-udiv is hidden */
     }
 
     .toggler-button {
