@@ -171,6 +171,7 @@
                   </div>
                   <div class="w-100 h-25">
                     <h5 class="proudct-price">&#8377 <%= singleproduct.price %>
+                            
                     </h5>
 
                   </div>
@@ -196,6 +197,9 @@
 
 
                                     const { quantity, index,productid } = req.body;
+                            <% if(count <=0){ %>
+                                 <p style="color: red;">Out of stock</p>
+                          <% } %>
                       </select>
                     </div>
 

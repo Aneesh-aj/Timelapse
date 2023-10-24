@@ -178,18 +178,24 @@
                                     <div class="bg-white">
                                         <div class="card-title">
                                             <%= database[i].product_name %>
+
                                         </div>
                                         <div class="card-price">&#8377; <%= database[i].price %>
                                         </div>
-                                        <div class="card-gender">
-                                            <%= database[i].gender %>
+                                        <div class="card-gender d-flex">
+                                             <div class="w-25"> <%= database[i].gender %></div>
+
+                                             <div class="w-75"> <% if(database[i].stock <=0){%>
+                                                   <span style="color: red;"> out of stock</span>
+                                            <% }%></div>
+                                          
                                         </div>
                                         <div class="card-watchtype">
                                             <%=database[i].watch_type.watch_type %>
                                         </div>
                                         <div class="card-rating d-flex gap-1">
                                             <button
-                                                onclick="addToCart('<%= database[i]._id %>', '<%= database[i].product_name %>', '<%= database[i].price %>')"
+                                                onclick="addToCart('<%= database[i]._id %>', '<%= database[i].product_name %>', '<%= database[i].price %>','<%=database[i].stock %>')"
                                                 class="singleaddtocartButton rounded-2 bg-primary">
                                                 cart
                                                 <input name="quantity" value="1" type="hidden">
@@ -269,9 +275,18 @@
 
     <script>
 
-        function addToCart(productId, productName, price) {
+        function addToCart(productId, productName, price,stock) {
             const quantity = 1;
 
+            console.log("console.oog",stock)
+             
+            if(stock <=0){
+              return  Swal.fire({
+                    icon:'error',
+                    tittle:'out of Stock',
+                    text:'produc is out of stock'
+                })
+            }
 
 
             const data = {

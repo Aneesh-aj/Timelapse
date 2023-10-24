@@ -13,49 +13,8 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg nav-height ">  <!--nav-height  -->
-    <div class="container-fluid ">
-      <div class=" nav-div1">
-       
-         <div class="ms-5">
-           <span class="">
-             <a class="nav-link active nav-texts" aria-current="page" href="/home">Home</a>
-          </span>
-        </div>
-      </div>
-     <div class=" d-flex  nav-div2 ">
-             
-              <div class=" span-div  d-flex  justify-content-center">
-                  <span><a class="nav-link nav-texts" href="#">Top</a></span>
-              </div>
-              <div class="span-div d-flex  justify-content-center ">
-                  <span><a class="nav-link nav-texts" href="/collection?gender=kids">Kids</a></span>
-              </div>
-              <div class="span-div d-flex  justify-content-center ">
-                   <span><a class="nav-link nav-texts" href="/collection?gender=men">Mens</a></span>
-              </div>
-              <div class=" span-div d-flex  justify-content-center ">
-                   <span><a  class="nav-link nav-texts" href="/collection?gender=women">Women</a></span>
-              </div>
-              <div class="span-div d-flex justify-content-center ">
-                  <span><a class="nav-link nav-texts" href="/collection">collection</a></span>
-              </div>
-      </div>
-      <div class=" d-flex  nav-div3  justify-content-end ">
-           <a href="/admin/logout" class="btn btn-outline-light">logout</a>
-    
-       </div>
-     
-       <div class=" d-flex pe-4 nav-div4 justify-content-start">
-    
-            <div class="span-div d-flex justify-content-center ">
-                
-                <div class="selector-image" style="background-image: url(shopping-cart\ \(1\).png); "></div>
-            </div>
-       </div>
-     </div>
-   </nav>
-  <content>
+   <%- include('navbar2.ejs') %>
+  <content class="nav-height">
     <div class="container-fluid   " id="body-color">
       <div class=" d-flex h-auto  profile-main">
         <div class="profile-div ">

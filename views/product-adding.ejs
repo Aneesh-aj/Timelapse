@@ -5,52 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css" class="style">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>Product-adding</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg nav-height ">  <!--nav-height  -->
-        <div class="container-fluid ">
-          <div class=" nav-div1">
-           
-             <div class="ms-5">
-               <span class="">
-                 <a class="nav-link active nav-texts" aria-current="page" href="/home">Home</a>
-              </span>
-            </div>
-          </div>
-         <div class=" d-flex  nav-div2 ">
-                 
-                  <div class=" span-div  d-flex  justify-content-center">
-                      <span><a class="nav-link nav-texts" href="#">Top</a></span>
-                  </div>
-                  <div class="span-div d-flex  justify-content-center ">
-                      <span><a class="nav-link nav-texts" href="/collection?gender=kids">Kids</a></span>
-                  </div>
-                  <div class="span-div d-flex  justify-content-center ">
-                       <span><a class="nav-link nav-texts" href="/collection?gender=men">Mens</a></span>
-                  </div>
-                  <div class=" span-div d-flex  justify-content-center ">
-                       <span><a  class="nav-link nav-texts" href="/collection?gender=women">Women</a></span>
-                  </div>
-                  <div class="span-div d-flex justify-content-center ">
-                      <span><a class="nav-link nav-texts" href="/collection">collection</a></span>
-                  </div>
-          </div>
-          <div class=" d-flex  nav-div3  justify-content-end ">
-               <a href="/admin/logout" class="btn btn-outline-light">logout</a>
-        
-           </div>
-         
-           <div class=" d-flex pe-4 nav-div4 justify-content-start">
-        
-                <div class="span-div d-flex justify-content-center ">
-                    
-                    <div class="selector-image" style="background-image: url(shopping-cart\ \(1\).png); "></div>
-                </div>
-           </div>
-         </div>
-       </nav>
-   <content>
+      <%- include('navbar2.ejs') %>
+   <content class="nav-height">
        <div class="container-fluid   " id="body-color">
            <div class=" d-flex h-auto  profile-main">
                <div class="profile-div ">
@@ -102,104 +63,108 @@
                  </div>
                </div>
                <div class="profile-div2  " style="height: auto; margin-bottom: 15px;">             
-                    <form method="post" action="/admin/product-managment/adding" enctype="multipart/form-data">
-                        <div class="w-100 h-100 ">
-                            <div class="w-100 d-flex ">
-                             <div class="product-img mt-5">
-                                 <div class=" " style="width: 60%; height: 2.5rem; margin-left: 5rem;">
-                                      <h5>product-image:</h5>
-                                 </div>
-                                 <div class=" " style="width: 50%; height: 13rem; margin-left: 5rem; background-color: rgb(163, 163, 163); border: black solid 1px;">
-                                           <input type="file" name="filename"  multiple>
-                                 </div>
-                                 
-                             </div>
-                             <div class="product-img-side mt-5">
-                                 <div class=" d-flex " style="width: 60%; height: 2.5rem; ">
-                                     <h5>product-name:</h5>
-                                 </div>
-                                 <div class=" " style="width: 60%; height: 2.5rem;  ">
-                                      <input class="w-100 h-100 "for="proudct_name" name="product_name" required style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" >
-                                 </div>
-                                 <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
-                                     <h5>product price:</h5>
-                                 </div>
-                                 <div class=" " style="width: 60%; height: 2.5rem; ">
-                                      <input class="w-100 h-100 "for="price" name="price" required style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" >
-                                 </div>
-                                 <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
-                                     <h5>Category:</h5>
-                                 </div>
-                                 <div class=" " style="width: 60%; height: 2.5rem; ">
-                                      <!-- <input class="w-100 h-100 " style="border-radius: 3px; background-color: rgb(237, 237, 237);"> -->
-                                      <select class="form-select w-100 h-100" name="watch_type" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" aria-label="Default select example">
-                                        <option selected>add watch type</option>
+                <form method="post" action="/admin/product-managment/adding" enctype="multipart/form-data" onsubmit="return validateForm()">
+                    <div class="w-100 h-100">
+                        <div class="w-100 d-flex">
+                            <div class="product-img mt-5">
+                                <div class=" " style="width: 60%; height: 2.5rem; margin-left: 5rem;">
+                                    <h5>product-image:</h5>
+                                </div>
+                                <div class=" " style="width: 50%; height: 13rem; margin-left: 5rem; background-color: rgb(163, 163, 163); border: black solid 1px;">
+                                    <input type="file" accept=".jpg, .jpeg, .png, .webp" name="product_image" multiple>
+                                    <div class="error-message" id="productImageError"></div>
+
+                                </div>
+                            </div>
+                            <div class="product-img-side mt-5">
+                                <div class="d-flex " style="width: 60%; height: 2.5rem;">
+                                    <h5>product-name:</h5>
+                                </div>
+                                <div class=" " style="width: 60%; height: 2.5rem;">
+                                    <input class="w-100 h-100" for="product_name" name="product_name" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
+                                    <div class="error-message" id="productNameError"></div>
+
+                                </div>
+                                <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
+                                    <h5>product price:</h5>
+                                </div>
+                                <div class=" " style="width: 60%; height: 2.5rem;">
+                                    <input class="w-100 h-100" for="price" name="price"  style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
+                                </div><div class="error-message" id="productPriceError"></div>
+                                <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
+                                    <h5>Category:</h5>
+                                </div>
+                                <div class=" " style="width: 60%; height: 2.5rem;">
+                                    <select class="form-select w-100 h-100" name="watch_type" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" aria-label="Default select example">
+
+                                        <option value="" selected>Choose a watch type</option>
                                         <% for (let i = 0; i < watchtype.length; i++) { %>
-                                          <option value="<%= watchtype[i]._id %>"<%= product.watch_type && product.watch_type._id.toString() === watchtype[i]._id.toString() ? ' selected' : '' %>><%= watchtype[i].watch_type %></option>
+                                            <option value="<%= watchtype[i]._id %>"><%= watchtype[i].watch_type %></option>
                                         <% } %>
-                                      </select>
-                                      
-                                 </div>
-                                 <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
-                                     <h5>Brand</h5>
-                                 </div>
-                                 <div class=" " style="width: 60%; height: 2.5rem; ">
-                                    <select class="form-select w-100 h-100"  name="brand" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" aria-label="Default select example">
-                                          
+                                    </select>
+                                    <div class="error-message" id="watchTypeError"></div>
+                                </div>
+                                <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
+                                    <h5>Brand</h5>
+                                </div>
+                                <div class=" " style="width: 60%; height: 2.5rem;">
+                                    <select class="form-select w-100 h-100" name="brand"  style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" aria-label="Default select example">
+                                        <option value="" selected>Choose a brand</option>
                                         <% for (let i = 0; i < brands.length; i++) { %>
-                                          <option value="<%= brands[i]._id %>"<%= product.brand && product.brand._id.toString() === brands[i]._id.toString() ? ' selected' : '' %>><%= brands[i].brand_category %></option>
+                                            <option value="<%= brands[i]._id %>"><%= brands[i].brand_category %></option>
                                         <% } %>
-                                      </select>
-                                      
-                                 </div>
-         
-                             </div>  
-                          </div> 
-                          <div class="w-100 " style="padding-left: 5rem;">
-                               <div class=" " style="width: 60%; height: 2.5rem;  ">
-                                  <h5>product Discription</h5>
-                               </div>
-                               <div class="" style="width: 60%;    ">
-                                  <input class="w-100  " for="discription" name="discription" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); height: 7rem;" >
-                             </div>
-                         
-                              <div class="product-img2">
-                                 <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Display type  :</h5>
-                                     <input class="w-100 h-100 " for="display_type" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); " name="display_type" >
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Strap color   :</h5>
-                                     <input class="w-100 h-100 " for="strap_color" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="strap_color">
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Dial color    :</h5>
-                                     <input class="w-100 h-100 " for="dial_color" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="dial_color">
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Gender        :</h5>
-                                     <input class="w-100 h-100 " for="gender" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="gender">
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Shape         :</h5>
-                                     <input class="w-100 h-100 " for="shape" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="shape" >
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Case          :</h5>
-                                     <input class="w-100 h-100 " for="watch_case" style="background-color: rgb(236, 236, 236); border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="watch_case">
-                                    </div>
-                                    <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                        <h5 class= "d-flex align-items-center text-details product-img-side2">Stock         :</h5>
-                                        <input class="w-100 h-100 " for="stock" style="background-color: rgb(236, 236, 236); border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="stock">
-                                     </div>
-                                    
-                                    <div class="  d-flex justify-content-center m-4">
-                                    <button type="submit"  style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); background-color: rgb(49, 49, 252);">add product</button>
-                                   </div>
-                              </div>
-                          </div>
-                       </div>
-                    </form>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100" style="padding-left: 5rem;">
+                            <div class=" " style="width: 60%; height: 2.5rem;">
+                                <h5>product Description</h5>
+                            </div>
+                            <div class="" style="width: 60%;">
+                                <input class="w-100" for="discription" name="discription"  style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); height: 7rem;">
+                                <div class="error-message" id="brandError"></div>
+                            </div>
+                            <div class="product-img2">
+                                <div class="mt-3 d-flex" style="height: 2.5rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Display type :</h5>
+                                    <input class="w-100 h-100" for="display_type" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="display_type">
+                                </div>
+                                <div class="mt-3 d-flex" style="height: 2.5rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Strap color :</h5>
+                                    <input class="w-100 h-100" for="strap_color" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="strap_color">
+                                </div>
+                                <div class="mt-3 d-flex" style="height: 2.5rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Dial color :</h5>
+                                    <input class="w-100 h-100" for="dial_color" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="dial_color">
+                                </div>
+                                <div class="mt-3 d-flex" style="height: 2.5rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Gender :</h5>
+                                    <input class="w-100 h-100" for="gender" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="gender">
+                                </div>
+                                <div class="mt-3 d-flex" style="height: 2.5rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Shape :</h5>
+                                    <input class="w-100 h-100" for="shape" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="shape">
+                                </div>
+                                <div class="mt-3 d-flex" style="height: 2.5rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Case :</h5>
+                                    <input class="w-100 h-100" for="watch_case" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="watch_case">
+                                </div>
+                                <div class="mt-3 d-flex" style="height: 2.5rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Stock :</h5>
+                                    <input class="w-100 h-100" for="stock" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="stock">
+                                </div>
+                                <div class="mt-3 d-flex" style="height: 2.5rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Offer :</h5>
+                                    <input class="w-100 h-100" for="offer" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="offer">
+                                </div>
+                                <div class="d-flex justify-content-center m-4">
+                                    <button type="submit" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); background-color: rgb(49, 49, 252);">Add Product</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                </div>
               
            </div>
@@ -225,5 +190,73 @@
         <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
       </div>
    </footer>
+   <script>
+       function checkImageCount() {
+
+              console.log("enterring")
+            const input = document.querySelector('input[type="file"]');
+            const selectedFiles = input.files;
+
+            if (selectedFiles.length > 4) {
+                 Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'You can select up to 4 images.',
+                });
+                input.value = null; // Clear the input
+            }
+        }
+
+        function validateForm() {
+            const productName = document.getElementsByName("product_name")[0].value;
+            const productPrice = document.getElementsByName("price")[0].value;
+            const productImage = document.getElementsByName("product_image")[0].files;
+            const watchType = document.getElementsByName("watch_type")[0].value;
+            const brand = document.getElementsByName("brand")[0].value;
+            const description = document.getElementsByName("discription")[0].value;
+
+            // Clear previous error messages
+            document.getElementById("productNameError").textContent = "";
+            document.getElementById("productPriceError").textContent = "";
+            document.getElementById("productImageError").textContent = "";
+            document.getElementById("watchTypeError").textContent = "";
+            document.getElementById("brandError").textContent = "";
+            document.getElementById("descriptionError").textContent = "";
+
+            let hasErrors = false;
+
+            if (productName.trim() === "") {
+                document.getElementById("productNameError").textContent = "Product name is required.";
+                hasErrors = true;
+            }
+
+            if (isNaN(productPrice) || parseFloat(productPrice) <= 0) {
+                document.getElementById("productPriceError").textContent = "Price must be a valid positive number.";
+                hasErrors = true;
+            }
+
+            if (productImage.length === 0) {
+                document.getElementById("productImageError").textContent = "Select at least one product image.";
+                hasErrors = true;
+            }
+
+            if (watchType === "") {
+                document.getElementById("watchTypeError").textContent = "Select a watch type.";
+                hasErrors = true;
+            }
+
+            if (brand === "") {
+                document.getElementById("brandError").textContent = "Select a brand.";
+                hasErrors = true;
+            }
+
+            if (description.trim() === "") {
+                document.getElementById("descriptionError").textContent = "Product description is required.";
+                hasErrors = true;
+            }
+
+            return !hasErrors;
+        }
+   </script>
 </body>
 </html>
