@@ -239,6 +239,8 @@ const editedProduct = async (req, res) => {
         product.watch_case = req.body.watch_case;
         product.product_image = productImage;
         product.stock = req.body.stock
+        product.discountedprice = req.body.offer,
+        product.sellingprice = req.body.price - req.body.offer
 
         // Save the updated product
         await product.save();
@@ -303,6 +305,8 @@ const productAdding = async (req, res) => {
         stock: req.body.stock,
         strap_color: req.body.strap_color,
         watch_case: req.body.watch_case,
+        discountedprice: req.body.offer,
+        sellingprice:req.body.price - req.body.offer
       });
 
 

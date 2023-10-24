@@ -798,6 +798,9 @@ const checkoutView = async (req, res) => {
 
         console.log("and the user id is ", user._id)
 
+
+        console.log("-------single",singleproduct.product_image[0])
+
         const coupon = await couponModel.find({})
         let discountamount =0
         res.render("checkoutpage", {discountamount, user, qnt, coupon,totalprice, address, singleproduct, singleproductid })

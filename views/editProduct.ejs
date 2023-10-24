@@ -60,7 +60,7 @@
                      <div class="line"></div>
                   </div>
                 </div>
-                <div class="profile-div2 me-5 " style="height: 1000px; margin-bottom: 15px;">             
+                <div class="profile-div2 me-5 " style="height: auto; margin-bottom: 15px;">             
                     <form action="/admin/product-managment/edit/submit?id=<%= product._id %>" method="post" enctype="multipart/form-data" >
                         <div class="w-100 h-100 ">
                             <div class="w-100 d-flex ">
@@ -69,7 +69,7 @@
                                       <h5>product-image:</h5>
                                  </div>
                                  <div class=" " style="width: 50%; height: 13rem; margin-left: 5rem; background-color: rgb(163, 163, 163); border: black solid 1px;">
-                                    <input type="file" name="filename"  multiple>
+                                    <input type="file" accept=".jpg, .jpeg, .png , .webp" onchange="checkImageCount()" name="filename" multiple>
                                  </div>
                              </div>
                              <div class="product-img-side mt-5">
@@ -85,8 +85,8 @@
                                      <h5>product price:</h5>
                                  </div>
                                  <div class=" " style="width: 60%; height: 2.5rem; ">
-                                      <input class="w-100 h-100 ps-3" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="price" value="<%= product.price %>">
-                                 </div>
+                                    <input onchange="amountcheking()" class="w-100 h-100 ps-3"for="price" name="price" value="<%= product.price %>" required style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" >
+                                </div>
                                  <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
                                      <h5>Category:</h5>
                                  </div>
@@ -124,32 +124,37 @@
                               <div class="product-img2">
                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
                                      <h5 class= "d-flex align-items-center text-details product-img-side2">Display type  :</h5>
-                                     <input class="w-100 h-100 " style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"name="display_type" value="<%= product.display_type %>">
+                                     <input class="w-100 h-100 ps-3" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"name="display_type" value="<%= product.display_type %>">
                                   </div>
                                   <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
                                      <h5 class= "d-flex align-items-center text-details product-img-side2">Strap color   :</h5>
-                                     <input class="w-100 h-100 " style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="strap_color" value="<%= product.strap_color %>">
+                                     <input class="w-100 h-100 ps-3" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="strap_color" value="<%= product.strap_color %>">
                                   </div>
                                   <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
                                      <h5 class= "d-flex align-items-center text-details product-img-side2">Dial color    :</h5>
-                                     <input class="w-100 h-100 " style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"name="dial_color" value="<%= product.dial_color %>">
+                                     <input class="w-100 h-100 ps-3" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"name="dial_color" value="<%= product.dial_color %>">
                                   </div>
                                   <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
                                      <h5 class= "d-flex align-items-center text-details product-img-side2">Gender        :</h5>
-                                     <input class="w-100 h-100 " style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="gender" value="<%= product.gender %>">
+                                     <input class="w-100 h-100 ps-3 " style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="gender" value="<%= product.gender %>">
                                   </div>
                                   <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
                                      <h5 class= "d-flex align-items-center text-details product-img-side2">Shape         :</h5>
-                                     <input class="w-100 h-100 " style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="shape" value="<%= product.shape %>">
+                                     <input class="w-100 h-100 ps-3" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="shape" value="<%= product.shape %>">
                                   </div>
                                   <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
                                      <h5 class= "d-flex align-items-center text-details product-img-side2">Case          :</h5>
-                                     <input class="w-100 h-100 " style="background-color: rgb(236, 236, 236); border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="watch_case" value="<%= product.watch_case%>">
+                                     <input class="w-100 h-100 ps-3 " style="  border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="watch_case" value="<%= product.watch_case%>">
                                   </div>
                                   <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Stock         :</h5>
-                                    <input class="w-100 h-100 " for="stock" style="background-color: rgb(236, 236, 236); border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="stock" value="<%=product.stock %>">
+                                    <input class="w-100 h-100 ps-3 " for="stock" style="  border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="stock" value="<%=product.stock %>">
                                   </div>
+                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
+                                    <h5 class= "d-flex align-items-center text-details product-img-side2">Offer        :</h5>
+                                    <input class="w-100 h-100 ps-3" onchange="amountcheking()" for="offer" id="offer" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" placeholder="flate offer  " name="offer" value="<%=product.discountedprice %>" >
+                                 </div>
+                                 
              
                                   <div class="  d-flex justify-content-center m-4"><button type="submit" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); background-color: rgb(49, 49, 252);">Add product</button></div>
                               </div>
@@ -183,5 +188,39 @@
         <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
       </div>
    </footer>
+   <script>
+    function checkImageCount() {
+
+           console.log("enterring")
+         const input = document.querySelector('input[type="file"]');
+         const selectedFiles = input.files;
+
+         if (selectedFiles.length > 4) {
+              Swal.fire({
+                 icon: 'error',
+                 title: 'Oops...',
+                 text: 'You can select up to 4 images.',
+             });
+             input.value = null; // Clear the input
+         }
+     }
+     function amountcheking(){
+         const price = document.querySelector('input[name="price"]')
+         const offer = document.querySelector('input[name="offer"]')
+          
+
+           
+         
+         if(parseInt(offer.value) >= parseInt(price.value) - 3){
+             Swal.fire({
+                 icon:'error',
+                 title:'invalid offer',
+                 text:'offer amount should be less than price'
+             })
+             document.getElementById('offer').value = 0
+         }
+     }
+
+</script>
 </body>
 </html>

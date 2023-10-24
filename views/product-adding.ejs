@@ -70,8 +70,8 @@
                                  <div class=" " style="width: 60%; height: 2.5rem; margin-left: 5rem;">
                                       <h5>product-image:</h5>
                                  </div>
-                                 <div class=" " style="width: 50%; height: 13rem; margin-left: 5rem; background-color: rgb(163, 163, 163); border: black solid 1px;">
-                                    <input type="file" accept=".jpg, .jpeg, .png , .webp" onchange="checkImageCount()" name="filename" multiple>
+                                 <div class=" " style="width: 60%; height: 5rem; margin-left: 5rem; background-color: rgb(163, 163, 163); border: black solid 1px;">
+                                    <input class="w-100 h-100" type="file" accept=".jpg, .jpeg, .png , .webp" onchange="checkImageCount()" name="filename" multiple>
                                 </div>
                                  
                              </div>
@@ -86,7 +86,7 @@
                                      <h5>product price:</h5>
                                  </div>
                                  <div class=" " style="width: 60%; height: 2.5rem; ">
-                                      <input class="w-100 h-100 "for="price" name="price" required style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" >
+                                      <input onchange="amountcheking()" class="w-100 h-100 "for="price" name="price" required style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" >
                                  </div>
                                  <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
                                      <h5>Category:</h5>
@@ -155,7 +155,7 @@
                                      </div>
                                      <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
                                         <h5 class= "d-flex align-items-center text-details product-img-side2">Offer        :</h5>
-                                        <input class="w-100 h-100 ps-3" for="gender" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="gender" placeholder="offer percent">
+                                        <input class="w-100 h-100 ps-3" onchange="amountcheking()" for="offer" id="offer" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="offer" placeholder="flate offer  ">
                                      </div>
                                      
                                     
@@ -205,6 +205,22 @@
                     text: 'You can select up to 4 images.',
                 });
                 input.value = null; // Clear the input
+            }
+        }
+        function amountcheking(){
+            const price = document.querySelector('input[name="price"]')
+            const offer = document.querySelector('input[name="offer"]')
+             
+
+              
+            
+            if(parseInt(offer.value) >= parseInt(price.value) - 3){
+                Swal.fire({
+                    icon:'error',
+                    title:'invalid offer',
+                    text:'offer amount should be less than price'
+                })
+                document.getElementById('offer').value = 0
             }
         }
 

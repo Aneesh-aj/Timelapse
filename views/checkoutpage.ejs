@@ -150,9 +150,9 @@
           <div class="h-auto bx-sh">
             <% if(singleproduct){ %>
               <div class="rounded-1 w-100 d-flex pt-3 pb-3">
-                <div class="d-flex justify-content-center bg-success" style="width: 25%; height: 8rem;">
-                  <div class="bg-danger" style="width: 8rem; height: 8rem;">
-                    <% if (singleproduct.product_id && singleproduct.product_id.product_image.length> 0) { %>
+                <div class="d-flex justify-content-center " style="width: 25%; height: 8rem;">
+                  <div class="bg-danger" style="width: 6rem; height: 6rem; object-fit: contain;">
+                    <% if (singleproduct) { %>
                       <img class="checkout-image" src="/filename/<%=singleproduct.product_image[0] %>" >
                       <% } %>
                   </div>
