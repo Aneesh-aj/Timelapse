@@ -77,7 +77,6 @@ const profileView = async (req, res) => {
 
 
 
-        console.log("======== after enter token=========", req.session.enter_token)
         console.log("======================after session full ==========", req.session)
 
         const userid = await usersModel.findOne({ email: req.session.email }, { _id: 1 })
