@@ -14,6 +14,7 @@ const { analytics } = require("googleapis/build/src/apis/analytics")
 const Razorpay = require("razorpay")
 const { render } = require("ejs")
 const couponModel = require("../model/couponModel")
+const bannerModel = require("../model/banner-Model")
 require('dotenv').config();
 
 const EMAIL = process.env.EMAIL;
@@ -46,10 +47,12 @@ const homepageview =async (req, res) => {
     try{
         
         const product = await productModel.find({}).limit(4)
+        const banner = await bannerModel.find({}).sort({ index: 1 });
+
 
          console.log("the products",product)
          
-        res.render("homePage",{product})
+        res.render("homePage",{product,banner})
     }catch(error){
          console.log(error)
     }
@@ -487,9 +490,10 @@ const cart = async (req, res) => {
         }
 
         let totalprice = 0
+        console.log("the cart",user.cart)
         for (let i = 0; i < user.cart.length; i++) {
-            user.cart[i].totalPrice = user.cart[i].price * user.cart[i].quantity
-            console.log(user.cart[i].totalPrice);
+            user.cart[i].totalPrice = user.cart[i].sellingprice* user.cart[i].quantity
+            console.log("user.cart.totalprice",user.cart[i].totalPrice);
             totalprice += user.cart[i].totalPrice
         }
 
@@ -538,7 +542,7 @@ const addToCart = async (req, res) => {
 
         if (existingProduct) {
             existingProduct.quantity += quantity;
-            existingProduct.totalPrice = existingProduct.quantity * existingProduct.price
+            existingProduct.totalPrice = existingProduct.quantity * existingProduct.sellingprice
             console.log("---quant", existingProduct.quantity)
 
             console.log("------totall", produ.totalPrice)
@@ -550,7 +554,8 @@ const addToCart = async (req, res) => {
                 product_name,
                 quantity,
                 price: produ.price,
-                totalPrice: produ.price * quantity
+                totalPrice: produ.price * quantity,
+                sellingprice:produ.sellingprice
             });
         }
 
@@ -767,16 +772,16 @@ const checkoutView = async (req, res) => {
         console.log("befroe  the condition ", totalprice)
         if (!singleproductid) {
             for (let i = 0; i < user.cart.length; i++) {
-                totalprice += user.cart[i].price * user.cart[i].quantity
+                totalprice += user.cart[i].sellingprice * user.cart[i].quantity
             }
             console.log("total price from the cart products", totalprice)
         } else {
             if (req.session.quantity) {
-                totalprice += singleproduct.price * req.session.quantity
+                totalprice += singleproduct.sellingprice * req.session.quantity
 
                 console.log("total price form session", totalprice)
             } else {
-                totalprice += singleproduct.price
+                totalprice += singleproduct.sellingprice
                 console.log("total price form else session", totalprice)
             }
         }
@@ -799,7 +804,6 @@ const checkoutView = async (req, res) => {
         console.log("and the user id is ", user._id)
 
 
-        console.log("-------single",singleproduct.product_image[0])
 
         const coupon = await couponModel.find({})
         let discountamount =0

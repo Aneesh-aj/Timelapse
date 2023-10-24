@@ -170,7 +170,15 @@
 
                   </div>
                   <div class="w-100 h-25">
-                    <h5 class="proudct-price">&#8377 <%= singleproduct.price %>
+                    <h5 class="proudct-price">&#8377 
+
+                      <%  if(singleproduct.price == singleproduct.sellingprice){ %>
+                                            
+                        <span class=""><%=singleproduct.sellingprice %></span>
+                        <% }else{ %>
+                            <span style="color: rgb(0, 0, 0);"><%= singleproduct.sellingprice %> </span>
+                            <span style="color: red;text-decoration: line-through;"><%= singleproduct.price %></span>
+                      <% } %>
                             
                     </h5>
 
@@ -236,7 +244,14 @@
 
                         </div>
                         <div class="w-100 h-25">
-                          <h5 class="proudct-price">&#8377 <%= cart[i].product_id.price %>
+                          <h5 class="proudct-price">&#8377
+                            <%  if(cart[i].product_id.price == cart[i].product_id.sellingprice){ %>
+                                            
+                              <span class=""><%=cart[i].product_id.sellingprice %></span>
+                              <% }else{ %>
+                                  <span style="color: rgb(6, 6, 6);"><%= cart[i].product_id.sellingprice %> </span>
+                                  <span style="color: red;text-decoration: line-through;"><%= cart[i].product_id.price %></span>
+                            <% } %>
                           </h5>
 
                         </div>

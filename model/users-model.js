@@ -22,7 +22,8 @@ const dataSchema = mongoose.Schema({
         product_name:{type:String},
         price:{type:Number},
         quantity:{type:Number,default:1},
-        totalPrice:{type:Number}
+        totalPrice:{type:Number},
+        sellingprice:{type:Number}
 
     }],
     order:[{type:mongoose.Schema.Types.ObjectId,ref:"orders"}],

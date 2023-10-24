@@ -58,8 +58,15 @@
                           </div>
                           <div class="w-100  price-g">Base price</div>
                           <div class="w-100">
-                            <h3 class="" style="font-family: 'Roboto', sans-serif; font-weight: 800;"> &#8377; <%=
-                                user.wishlist[i].product_id.price %>
+                            <h3 class="" style="font-family: 'Roboto', sans-serif; font-weight: 800;"> &#8377; 
+                                <%  if(user.wishlist[i].product_id.price == user.wishlist[i].product_id.sellingprice){ %>
+                                            
+                                  <span class=""><%=user.wishlist[i].product_id.sellingprice %></span>
+                                  <% }else{ %>
+                                      <span style="color: rgb(6, 6, 6);"><%= user.wishlist[i].product_id.sellingprice %> </span>
+                                      <span style="color: red;text-decoration: line-through;"><%= user.wishlist[i].product_id.price %></span>
+                                <% } %>
+
                             </h3>
                           </div>
                         </div>

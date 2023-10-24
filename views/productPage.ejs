@@ -46,7 +46,17 @@
                             <h1 class="product-name"><%= product.product_name %>  </h1>   
                             <h4 class="product-name">watch - <%=product.gender%></h4>
                              <h3 class="special-price">special price</h3>
-                            <h1 class="product-price">&#8377 <%= product.price %></h1>
+                            <h1 class="product-price">&#8377 
+                               
+                                <%  if(product.price == product.sellingprice){ %>
+                                            
+                                    <span class=""><%=product.sellingprice %></span>
+                                    <% }else{ %>
+                                        <span style="color: rgb(0, 0, 0);"><%= product.sellingprice %> </span>
+                                        <span style="color: red;text-decoration: line-through;"><%= product.price %></span>
+                                  <% } %>
+                            
+                            </h1>
 
                         </div>
                         <h4 class="padding-start product-subname">product details</h4>

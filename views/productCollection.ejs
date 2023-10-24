@@ -179,8 +179,18 @@
                                         <div class="card-title">
                                             <%= database[i].product_name %>
 
+
                                         </div>
-                                        <div class="card-price">&#8377; <%= database[i].price %>
+                                        <div class="card-price d-flex gap-2">&#8377;
+
+                                         <%  if(database[i].price == database[i].sellingprice){ %>
+                                            
+                                            <span class=""><%=database[i].sellingprice %></span>
+                                            <% }else{ %>
+                                                <span style="color: rgb(6, 6, 6);"><%= database[i].sellingprice %> </span>
+                                                <span style="color: red;text-decoration: line-through;"><%= database[i].price %></span>
+                                          <% } %>
+                                             
                                         </div>
                                         <div class="card-gender d-flex">
                                              <div class="w-25"> <%= database[i].gender %></div>
@@ -284,7 +294,7 @@
               return  Swal.fire({
                     icon:'error',
                     tittle:'out of Stock',
-                    text:'produc is out of stock'
+                    text:'product is out of stock'
                 })
             }
 
