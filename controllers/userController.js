@@ -536,10 +536,16 @@ const addToCart = async (req, res) => {
         const produ = await productModel.findOne({ _id: productId }, {})
         console.log("--------------------produ", produ)
         const existingProduct = user.cart.find(item => item.product_id.toString() === productId);
-
+        
+        
 
 
         if (existingProduct) {
+            if((produ.stock - existingProduct.quantity) === 0){
+
+                console.log("it entering ")
+               return res.json({outofStock:true})
+           }
             existingProduct.quantity += quantity;
             existingProduct.totalPrice = existingProduct.quantity * existingProduct.sellingprice
             console.log("---quant", existingProduct.quantity)

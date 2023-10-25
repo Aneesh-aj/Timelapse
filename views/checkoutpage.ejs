@@ -225,9 +225,9 @@
 
                     <div class="rounded-1 w-100 d-flex pt-3 pb-3">
                       <div class="d-flex justify-content-center" style="width: 25%; height: 9rem;">
-                        <div class="bg-danger" style="width: 8rem; height: 7rem;">
+                        <div class="" style="width: 8rem; height: 11rem; object-fit: contain;">
                           <% if (cart[i].product_id && cart[i].product_id.product_image.length> 0) { %>
-                            <img src="/filename/<%= cart[i].product_id.product_image[0] %>"
+                            <img style="height: 100%; width: 85%;" src="/filename/<%= cart[i].product_id.product_image[0] %>"
                              >
                             <% } %>
                         </div>

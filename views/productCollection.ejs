@@ -324,11 +324,12 @@
                     } else if (responseData.noUser) {
                         window.location.href = "/login"
                     }
+                   
                     else if (responseData.outofStock) {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Out of Stock',
-                            text: 'This product is out of stock.',
+                            title: 'Quantity limit',
+                            text: 'You are reached the quantity limit',
                         });
                     }
                     else {
