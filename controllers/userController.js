@@ -172,7 +172,7 @@ const loginPost = async (req, res) => {
         }
     } catch (error) {
         console.error("Error in /login route:", error);
-        res.redirect("/home");
+        res.redirect("/home");b
     }
 }
 
