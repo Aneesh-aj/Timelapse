@@ -63,11 +63,6 @@ const homepageview =async (req, res) => {
 
 const profileView = async (req, res) => {
 
-    if (!req.session.email) {
-        return res.redirect("/login")
-    }
-
-
 
     if (req.session.email) {
         console.log("==============in profile =========")
@@ -99,11 +94,6 @@ const profileView = async (req, res) => {
 
 
 const profilePost = (req, res) => {
-
-    if (!req.session.email) {
-        return res.redirect("/login")
-    }
-
     if (req.session.email) {
 
         res.redirect("/profile")
@@ -115,7 +105,6 @@ const profilePost = (req, res) => {
 const loginView = (req, res) => {
 
     console.log("entering to the login page")
-
     if (!req.session.email) {
         return res.render("login")
     }
@@ -149,23 +138,12 @@ const loginPost = async (req, res) => {
         }
         else if (user) {
 
-        
-
             req.session.email = req.body.email
             req.session.user_name = user.name
             const Token = req.session.email
             console.log("------ in pat of login : req.session.email after assin", req.session.email)
             console.log("log the toke ", Token)
-
-
-
-
-
-
-
             console.log("user", user)
-
-
             res.redirect("/home")
         } else {
             res.render("login", { errorMessage: "Incorrect email or password. Please try again." })
@@ -203,12 +181,9 @@ const signupPost = async (req, res) => {
     try {
         const user = await usersModel.find({ name: req.body.name, email: req.body.email, password: req.body.password })
 
-
         if (user.length > 0) {
-            // User already exists, redirect with an error message
             return res.redirect("/signup?error=user%20already%20exists");
         }
-
         if (user.length === 0) {
 
 
@@ -428,60 +403,15 @@ const productPageview = async (req, res) => {
 }
 
 
-const checkUserStatus = async (req, res, next) => {
-    try {
-
-        if (req.session.email) {
-            const user = await usersModel.findOne({ email: req.session.email });
-
-
-
-            if (user && user.block) {
-
-                return res.render("blockedPage");
-            }
-        }
-
-
-        next();
-    } catch (error) {
-        console.error('Error in checkUserBlockStatus middleware:', error);
-        res.status(500).render('errorPage');
-    }
-};
-
-const isuser = (req, res) => {
-
-    console.log("------ in the user checking api")
-    console.log(req.session.email)
-    if (!req.sessioin.email) {
-
-        return res.redirect("/login")
-    }
-    next()
-}
-
 const cart = async (req, res) => {
-
-
     try {
-
-
-
-        if (!req.session.email) {
-            return res.redirect("/login")
-        }
-
         console.log('resss sesion', req.session.email)
-
         const user = await usersModel.findOne({ email: req.session.email })
             .populate({
                 path: "cart.product_id",
                 model: productModel,
             })
             .exec();
-
-
 
         if (!user) {
             totalprice
@@ -495,9 +425,6 @@ const cart = async (req, res) => {
             console.log("user.cart.totalprice",user.cart[i].totalPrice);
             totalprice += user.cart[i].totalPrice
         }
-
-
-
 
         res.render("cart", { user, totalprice })
 
@@ -517,7 +444,6 @@ const addToCart = async (req, res) => {
             console.log("it comming here")
             return res.json({ noUser: true });
         }
-
 
         const useremail = req.session.email;
         console.log("any thing on the seesiionio ", req.session);
@@ -590,15 +516,7 @@ const removeincart = async (req, res) => {
 
 
         user.cart = user.cart.filter((item) => item.product_id.toString() !== productId);
-
-
         await user.save();
-
-
-
-
-
-
         res.status(200).json({ message: "Product removed from cart" });
     } catch (error) {
         console.error("Error removing product from cart:", error);
@@ -689,10 +607,6 @@ const quantityUpdate = async (req, res) => {
         console.log("=============req.body.id", productid)
 
 
-        // if (!user || !user.cart[index]) {
-        //     return res.status(404).json({ error: 'User or cart item not found.' });
-        // }
-
 
 
         const parsedQuantity = parseInt(quantity, 10);
@@ -743,10 +657,6 @@ const checkoutView = async (req, res) => {
 
 
     try {
-
-        if (!req.session.email) {
-            return res.redirect("/login")
-        }
 
 
         console.log("======================> check out viewww")
@@ -1028,12 +938,6 @@ const placeorder = async (req, res) => {
 
     try {
 
-
-
-        console.log("it entered to the route for placing order");
-        console.log("-------------------------------------------")
-        console.log("the body", req.body)
-
         const paymentMethod = req.body.paymentMethod
         const addressId = req.body.addressId
         const productid = req.session.singleproductid
@@ -1056,8 +960,6 @@ const placeorder = async (req, res) => {
                 amount = (totalamount-req.body.discount)-1
             }
         }
-        
-
 
 
         let neworder
@@ -1598,4 +1500,4 @@ const invoiceget = async (req,res)=>{
 
 
 
-module.exports = {invoiceget,applycoupn,returnOrder,wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails, isuser, ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, checkUserStatus, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }
+module.exports = {invoiceget,applycoupn,returnOrder,wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails, isuser, ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }
