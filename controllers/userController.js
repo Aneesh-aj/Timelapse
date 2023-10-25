@@ -1075,16 +1075,7 @@ const placeorder = async (req, res) => {
 
 const ordersPage = async (req, res) => {
     try {
-
-        if (!req.session.email) {
-            return res.redirect("/login")
-        }
-
-
         const user = await usersModel.findOne({ email: req.session.email }).populate("order").exec()
-
-
-        console.log("the orderrs  ", user)
 
         res.render("userOrderpage", { user })
 
@@ -1279,7 +1270,8 @@ const wishlist = async (req, res) => {
         res.render("wishlist", { user })
 
     } catch (error) {
-        console.log(error)
+        console.log("hiiii")
+         res.render('error')
     }
 }
 
@@ -1500,4 +1492,4 @@ const invoiceget = async (req,res)=>{
 
 
 
-module.exports = {invoiceget,applycoupn,returnOrder,wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails, isuser, ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }
+module.exports = {invoiceget,applycoupn,returnOrder,wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails,  ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }
