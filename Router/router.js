@@ -17,7 +17,7 @@ const { civicinfo } = require("googleapis/build/src/apis/civicinfo")
 
 router.get("/" ,userMiddleware.checkUserStatus,controller.landing)
 router.get("/home",userMiddleware.checkUserStatus,controller.homepageview)
-router.post("/profile",userMiddleware.currentuser,controller.profilePost)
+router.post("/profile",userMiddleware.checkUserStatus,userMiddleware.currentuser,controller.profilePost)
 router.get("/profile",userMiddleware.checkUserStatus,userMiddleware.currentuser,controller.profileView)
 router.get("/login",controller.loginView)
 router.post("/login",controller.loginPost)
@@ -60,5 +60,7 @@ router.get("/wallet",controller.wallet)
 router.post("/returnrequest",controller.returnOrder)
 router.post("/apply-coupon",controller.applycoupn)
 router.get("/invoice",userMiddleware.checkUserStatus,userMiddleware.currentuser,controller.invoiceget)
+router.get("/passwordchange",controller.passwordchange)
+router.post('/passwordchangingpost',controller.passwordchangingpost)
 
 module.exports = router

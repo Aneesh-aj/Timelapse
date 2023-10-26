@@ -90,6 +90,45 @@ body{
     
 
 }
+.profile-wallet{
+    /* display: flex; */
+}
+.wallet-container{
+    width: 100%;
+}
+.wallet-container2{
+    width: 100%;
+}
+.wallet-head{
+
+    height: 17rem;
+    width: 30rem;
+    margin-top:1rem ;
+    border-radius: 3px;
+    border: 1px solid rgb(203, 200, 200);
+    box-shadow: 0px 0px 10px rgba(24, 24, 24, 0.1);
+
+    
+}
+.wallet-head-div{
+    height: 4rem;
+    border: 1px solid rgb(203, 200, 200);
+}
+.wallet-image{
+    
+    width: 40%;
+    height: 8rem;
+}
+.wallet-balance{
+    width: 60%;
+    height: auto;
+}
+.wallet-div2{
+    height: 12rem;
+    display: flex;
+}
+
+
 
 .sidebar {
     min-height: 80vh;
@@ -2840,6 +2879,50 @@ footer {
 }
 
 @media screen and (max-width:400px) {
+    .profile-wallet{
+        display: block;
+        
+    }
+    .wallet-container{
+        width: 100%;
+    }
+    .wallet-container2{
+        margin-top: 1rem;
+        width: 100%;
+    }
+    
+    .wallet-head{
+        height: 10rem;
+        width: 17rem;
+        margin-top:1rem ;
+        border-radius: 3px;
+        border: 1px solid rgb(203, 200, 200);
+        box-shadow: 0px 0px 10px rgba(24, 24, 24, 0.1);
+
+        
+    }
+    .wallet-head-div{
+        height: 2rem;
+        border: 1px solid rgb(203, 200, 200);
+    }
+    .wallet-image{
+        width: 40%;
+        height: 8rem;
+    }
+    .wallet-balance{
+        width: 60%;
+        height: auto;
+       
+    }
+    .wallet-div2{
+        height: 8rem;
+        display: flex;
+    }
+
+
+
+
+
     .side-subdiv{
         min-height: 18vh;
         width: 100%;

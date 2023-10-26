@@ -41,14 +41,17 @@ app.use("/",require("./Router/router"))
 
 app.use("/admin", require("./Router/adminRouter"))
 
-app.use((req,res)=>{
-    res.status(404)
-    res.render("errorpage")
-})
-app.get("/error",(req,res)=>{
+app.use("/internalerror",(req,res)=>{
+    console.log("getting here")
+    
+    const error = req.query.err;
     res.status(500)
     res.render("500errorpage")
 })
 
+app.use((req,res)=>{
+    res.status(404)
+    res.render("errorpage")
+})
 
 app.listen(3000,()=>console.log("http://localhost:3000"))

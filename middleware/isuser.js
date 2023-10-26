@@ -25,6 +25,7 @@ const currentuser = async (req,res,next)=>{
         if (!req.session.email) { 
             return res.redirect("/login")
         }else{
+            console.log("coming to next")
             next()
         }
 

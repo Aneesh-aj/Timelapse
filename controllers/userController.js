@@ -35,87 +35,86 @@ const landing = (req, res) => {
 const forgotpassword = (req, res) => {
     try {
 
-        res.render("forgotpassword")
+        if(req.session.errorMessage){
+           
+            errorMessage= req.session.errorMessage
+            delete req.session.errorMessage
+        }else{
+            errorMessage =''
+        }
+
+        res.render("forgotpassword",{errorMessage})
 
     } catch (error) {
+        res.redirect("/internal")
 
     }
 }
 
-const homepageview =async (req, res) => {
-    
-    try{
-        
+const homepageview = async (req, res) => {
+
+    try {
+
         const product = await productModel.find({}).limit(4)
         const banner = await bannerModel.find({}).sort({ index: 1 });
+        res.render("wallet", { product, banner })
 
-
-         console.log("the products",product)
-         
-        res.render("500errorpage",{product,banner})
-    }catch(error){
-         console.log(error)
+    } catch (error) {
+        console.error(error, "9")
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
-
-
 
 }
 
 const profileView = async (req, res) => {
 
-
-    if (req.session.email) {
-        console.log("==============in profile =========")
-        console.log("========enter token=========", req.session.enter_token)
-        console.log("======================session full ==========", req.session)
-        console.log("session email :", req.session.email)
-
-
-
-        console.log("======================after session full ==========", req.session)
+    try {
 
         const userid = await usersModel.findOne({ email: req.session.email }, { _id: 1 })
         const user = await usersModel.findOne({ email: req.session.email })
-
         const address = await usersModel.findOne({ email: req.session.email }, { address: 1 })
-
-        console.log(" the address form the user ", address)
-
-        console.log("email --->", req.session.email)
-        console.log(" in the profile the user id", userid)
-
-        console.log("the address ", address)
         res.render("profile", { userid, address, user })
-    } else {
-
-        res.redirect("/login")
+    } catch (error) {
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
+
+
 }
 
 
 const profilePost = (req, res) => {
-    if (req.session.email) {
+    try {
 
-        res.redirect("/profile")
-    } else {
-        res.redirect("/login")
+        if (req.session.email) {
+
+            res.redirect("/profile")
+        } else {
+            res.redirect("/login")
+        }
+    } catch (error) {
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 }
 
 const loginView = (req, res) => {
 
-    console.log("entering to the login page")
-    if (!req.session.email) {
-        return res.render("login")
-    }
+    
+    try{
+        if (!req.session.email) {
+            return res.render("login")
+        }
+    
+        if (req.session.email) {
+            return res.redirect("/profile")
+        }
+        else if (req.cookies.currentadmin) {
+    
+            return res.redirect("/admin")
+        }
 
-    if (req.session.email) {
-        console.log("if there is cookie ")
-        return res.redirect("/profile")
-    }
-    else if (req.cookies.currentadmin) {
+    }catch(error){
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
-        return res.redirect("/admin")
     }
 
 }
@@ -130,9 +129,7 @@ const loginPost = async (req, res) => {
             req.session.admin = req.body.email
 
             const admintoken = req.session.admin
-            res.cookie("currentadmin", admintoken)
 
-            console.log("----------------cookie", req.cookies.currentadmin)
             res.redirect("/admin")
 
         }
@@ -141,16 +138,13 @@ const loginPost = async (req, res) => {
             req.session.email = req.body.email
             req.session.user_name = user.name
             const Token = req.session.email
-            console.log("------ in pat of login : req.session.email after assin", req.session.email)
-            console.log("log the toke ", Token)
-            console.log("user", user)
             res.redirect("/home")
         } else {
             res.render("login", { errorMessage: "Incorrect email or password. Please try again." })
         }
     } catch (error) {
-        console.error("Error in /login route:", error);
-        res.redirect("/home");b
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -163,20 +157,19 @@ const userLogout = (req, res) => {
 
 const singupView = (req, res) => {
     try {
-        console.log("entered to signup")
         if (req.session.email) {
             res.redirect("/profile")
         } else {
             res.render("sign-up")
         }
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
 const signupPost = async (req, res) => {
 
-    console.log("singup post route")
 
     try {
         const user = await usersModel.find({ name: req.body.name, email: req.body.email, password: req.body.password })
@@ -239,37 +232,45 @@ const signupPost = async (req, res) => {
 }
 
 const verification = (req, res) => {
-    console.log("verification get")
-    if (req.session.enter_token) {
 
-        console.log("otp :--  ", req.session.otp)
-        res.render("otp-sent", { error: false })
+    try{
+        if (req.session.enter_token) {
+    
+            console.log("otp :--  ", req.session.otp)
+            res.render("otp-sent", { error: false })
+        }
+
+    }catch(error){
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
 const verficatiionPost = async (req, res) => {
+    
+    try{
+        
+            if (req.session.otp === req.body.otp) {
+                console.log("the otp is correct")
+                await usersModel.create({
+                    name: req.session.name,
+                    email: req.session.email,
+                    password: req.session.password,
+                    block: false
+                })
+                const Token = req.session.email
+                res.cookie("currentUser", Token)
+                res.redirect("/home")
+            } else {
+        
+        
+                delete req.session.otp
+                res.render("otp-sent", { error: 'Invalid OTP. Please try again.' })
+            }
 
+    }catch(error){
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
-    console.log("consoling the req.session.otp", req.session.otp)
-    if (req.session.otp === req.body.otp) {
-        console.log("the otp is correct")
-        await usersModel.create({
-            name: req.session.name,
-            email: req.session.email,
-            password: req.session.password,
-            block: false
-        })
-        const Token = req.session.email
-        res.cookie("currentUser", Token)
-        res.redirect("/home")
-    } else {
-
-
-        delete req.session.otp
-
-
-        console.log("the otp is wrong")
-        res.render("otp-sent", { error: 'Invalid OTP. Please try again.' })
     }
 }
 
@@ -365,7 +366,8 @@ const showCollection = async (req, res) => {
         res.render("productCollection", { database: slicedData, watchtype, watch, totalPages, currentPage: page, pr1, pr2, gender, watchType, searchvalue, message });
     } catch (error) {
         console.error("Error in showCollection route:", error);
-        res.status(500).render("errorPage");
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 };
 
@@ -398,7 +400,7 @@ const productPageview = async (req, res) => {
     }
     catch (error) {
         console.log(error)
-        res.redirect("/home")
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 }
 
@@ -419,17 +421,18 @@ const cart = async (req, res) => {
         }
 
         let totalprice = 0
-        console.log("the cart",user.cart)
+        console.log("the cart", user.cart)
         for (let i = 0; i < user.cart.length; i++) {
-            user.cart[i].totalPrice = user.cart[i].sellingprice* user.cart[i].quantity
-            console.log("user.cart.totalprice",user.cart[i].totalPrice);
+            user.cart[i].totalPrice = user.cart[i].sellingprice * user.cart[i].quantity
+            console.log("user.cart.totalprice", user.cart[i].totalPrice);
             totalprice += user.cart[i].totalPrice
         }
 
         res.render("cart", { user, totalprice })
 
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -462,16 +465,16 @@ const addToCart = async (req, res) => {
         const produ = await productModel.findOne({ _id: productId }, {})
         console.log("--------------------produ", produ)
         const existingProduct = user.cart.find(item => item.product_id.toString() === productId);
-        
-        
+
+
 
 
         if (existingProduct) {
-            if((produ.stock - existingProduct.quantity) === 0){
+            if ((produ.stock - existingProduct.quantity) === 0) {
 
                 console.log("it entering ")
-               return res.json({outofStock:true})
-           }
+                return res.json({ outofStock: true })
+            }
             existingProduct.quantity += quantity;
             existingProduct.totalPrice = existingProduct.quantity * existingProduct.sellingprice
             console.log("---quant", existingProduct.quantity)
@@ -486,7 +489,7 @@ const addToCart = async (req, res) => {
                 quantity,
                 price: produ.price,
                 totalPrice: produ.price * quantity,
-                sellingprice:produ.sellingprice
+                sellingprice: produ.sellingprice
             });
         }
 
@@ -499,7 +502,8 @@ const addToCart = async (req, res) => {
         res.json({ success: true });
     } catch (error) {
         console.error('Error adding to cart:', error);
-        res.status(500).json({ success: false, error: 'Failed to add to cart' });
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 };
 
@@ -520,7 +524,8 @@ const removeincart = async (req, res) => {
         res.status(200).json({ message: "Product removed from cart" });
     } catch (error) {
         console.error("Error removing product from cart:", error);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -566,7 +571,7 @@ const addAdress = async (req, res) => {
         res.redirect("/profile");
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 };
 
@@ -588,7 +593,8 @@ const edituserDetalis = async (req, res) => {
 
         res.redirect("/profile")
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -648,7 +654,8 @@ const quantityUpdate = async (req, res) => {
         res.status(200).json({ message: 'Quantity updated successfully.', totalprice });
     } catch (error) {
         console.error('Error updating quantity:', error);
-        res.status(500).json({ error: 'Internal server error.' });
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 };
 
@@ -721,11 +728,12 @@ const checkoutView = async (req, res) => {
 
 
         const coupon = await couponModel.find({})
-        let discountamount =0
-        res.render("checkoutpage", {discountamount, user, qnt, coupon,totalprice, address, singleproduct, singleproductid })
+        let discountamount = 0
+        res.render("checkoutpage", { discountamount, user, qnt, coupon, totalprice, address, singleproduct, singleproductid })
 
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -767,7 +775,8 @@ const newaddress = async (req, res) => {
         console.log("new addres has been added to database", result)
         res.redirect("/checkout")
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -802,7 +811,8 @@ const deleteAddress = async (req, res) => {
         }
     } catch (error) {
         console.error('Error:', error);
-        return res.status(500).json({ message: 'Internal server error' });
+        return  res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 
 
@@ -860,7 +870,8 @@ const addressEdit = async (req, res) => {
         return res.redirect("/profile");
     } catch (error) {
         console.log(error);
-        return res.status(500).send("Internal server error.");
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 };
 
@@ -929,7 +940,8 @@ const checkoutaddressEdit = async (req, res) => {
         return res.redirect("/checkout");
     } catch (error) {
         console.log(error);
-        return res.status(500).send("Internal server error.");
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 };
 
@@ -957,7 +969,7 @@ const placeorder = async (req, res) => {
                 user.wallet.balance = user.wallet.balance - minus
                 await user.save()
 
-                amount = (totalamount-req.body.discount)-1
+                amount = (totalamount - req.body.discount) - 1
             }
         }
 
@@ -1068,7 +1080,8 @@ const placeorder = async (req, res) => {
     } catch (error) {
 
         console.error('Error storing address:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -1081,7 +1094,8 @@ const ordersPage = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -1116,7 +1130,8 @@ const cancelOrder = async (req, res) => {
         res.json({ message: "order cancelled" })
 
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -1127,11 +1142,12 @@ const returnOrder = async (req, res) => {
 
         const updated = await orderModel.findOneAndUpdate({ _id: orderid }, { $set: { status: "return-pending" } })
 
-        console.log("its updated -",updated)
+        console.log("its updated -", updated)
         res.json({ message: "order return request sented" })
 
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -1144,14 +1160,22 @@ const forgotpasswordpost = async (req, res) => {
         const user = await usersModel.find({ email: req.body.email })
         const admin = await adminsModel.find({ email: req.body.email })
 
-        if (!user && !admin) {
+        console.log("the user and admin",user,admin)
+
+        if (user.length ==0 && admin.length==0) {
+
+            console.log('coming here')
+            req.session.errorMessage = "email not found.  Please try again." 
+            
+            res.redirect("/forgotpassword")
+        } else {
+            console.log("but coming here")
             if (user) {
                 req.session.verifyuser = user
             } if (admin) {
                 req.session.verifyadmin = admin
             }
-            res.render("login", { errorMessage: "email not found.  Please try again." })
-        } else {
+
             const otp = otpGenerator.generate(4, { digits: true, upperCase: false, specialChars: false, upperCaseAlphabets: false, lowerCaseAlphabets: false })
             req.session.otp = otp
 
@@ -1194,12 +1218,19 @@ const forgotpasswordpost = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 }
 
 const verificationPassword = (req, res) => {
-    res.render("forgotPasswordotp")
+    if(req.session.otperror){
+        otpMessage = req.session.otperror
+        delete req.session.otperror
+    }else{
+        otpMessage = ''
+    }
+
+    res.render("forgotPasswordotp",{otpMessage})
 }
 
 
@@ -1230,13 +1261,15 @@ const otpverifyPassword = async (req, res) => {
 
 
             }
-            res.redirect("/home")
+            res.redirect("/passwordchange")
         } else {
-            res.render("forgotPasswordotp", { errorMessage: 'otp not matchding' })
+            req.session.otperror = 'otp not matchding'
+            res.redirect("/verificationPassword")
         }
 
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 
 }
@@ -1258,7 +1291,7 @@ const addtoWishlist = async (req, res) => {
         res.json({ success: true })
 
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 }
 
@@ -1270,8 +1303,9 @@ const wishlist = async (req, res) => {
         res.render("wishlist", { user })
 
     } catch (error) {
-        console.log("hiiii")
-         res.render('error')
+       
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -1336,14 +1370,15 @@ const addingtocart = async (req, res) => {
 
         await user.save();
 
-        console.log("latest user",user)
+        console.log("latest user", user)
 
 
 
         res.json({ success: true });
     } catch (error) {
         console.error('Error adding to cart:', error);
-        res.status(500).json({ success: false, error: 'Failed to add to cart' });
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -1353,28 +1388,21 @@ const deletewishlist = async (req, res) => {
 
         console.log("entering to --------------")
         const { productId } = req.body;
-        const user = await usersModel.findOne({ email:req.session.email});
+        const user = await usersModel.findOne({ email: req.session.email });
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
-        }       
+        }
 
 
 
         user.wishlist = user.wishlist.filter((item) => item.product_id.toString() !== productId);
-
-
         await user.save();
-
-
-
-
-
-
         res.status(200).json({ message: "Product removed from cart" });
 
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -1385,7 +1413,7 @@ const ordercheckout = async (req, res) => {
 
         console.log("--------th body", req.body)
 
-     
+
 
         if (req.body.paymentMethod == "cod") {
             console.log("entering")
@@ -1432,64 +1460,92 @@ const ordercheckout = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message)
-        res.render('error', { error: error.message })
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
 
-const applycoupn = async (req,res)=>{
-    try{
+const applycoupn = async (req, res) => {
+    try {
         const code = req.body.dataBody.couponCode;
-    const amount = req.body.dataBody.amount;
+        const amount = req.body.dataBody.amount;
 
 
-        console.log("---code",code)
-        console.log("----",amount)
-        
-                const coupon = await couponModel.findOne({coupon_code:code})
-                console.log("its coupn",coupon.coupon_value)
+        console.log("---code", code)
+        console.log("----", amount)
 
-       if(coupon && coupon.coupon_value){
-         
-        const  totalprice = parseFloat(amount) - parseFloat(coupon.coupon_value);
-        let discountamount = parseFloat(coupon.coupon_value)
+        const coupon = await couponModel.findOne({ coupon_code: code })
+        console.log("its coupn", coupon.coupon_value)
 
-        console.log("d--------",discountamount)
-          
-        res.json({totalprice,discountamount})
-       }else{
-        console.log('Invalid coupon or no discount amount');
-        res.status(400).json({ error: 'Invalid coupon or no discount amount' });
-       }
+        if (coupon && coupon.coupon_value) {
+
+            const totalprice = parseFloat(amount) - parseFloat(coupon.coupon_value);
+            let discountamount = parseFloat(coupon.coupon_value)
+
+            console.log("d--------", discountamount)
+
+            res.json({ totalprice, discountamount })
+        } else {
+            console.log('Invalid coupon or no discount amount');
+            res.status(400).json({ error: 'Invalid coupon or no discount amount' });
+        }
+
+    } catch (error) {
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
+    }
+}
+
+const invoiceget = async (req, res) => {
+    try {
+
+        console.log("query ", req.query.productid)
+
+        const order = await orderModel.findOne({ _id: req.query.productid }).populate("product.product_id")
+
+        console.log("---invoice products", order)
+        console.log("after ==", order.product[0].product_id.product_name)
+        const user = await usersModel.find({ email: req.session.email })
+        console.log("order---", order.product.name)
+        console.log("user", user)
+        res.render("invoice", { order, user })
+
+
+    } catch (error) {
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+    }
+}
+
+const passwordchange = async (req,res)=>{
+
+     res.render("changepassword")
+
+}
+
+const passwordchangingpost = async ( req, res)=>{
+    try{
+         console.log('entering here')
+
+        const email = req.session.email 
+
+        const user= await usersModel.findOne({email:email})
+
+        console.log("---user",user)
+
+        if(user){
+            usersModel.findOneAndUpdate({email:email},{$set:{password:req.body.password}})
+            res.redirect("/login")
+        }else{
+             res.redirect("/home")
+        }
+
 
     }catch(error){
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 }
 
-const invoiceget = async (req,res)=>{
-     try{
-          
-        console.log("query ",req.query.productid)
-
-        const order = await orderModel.findOne({_id:req.query.productid}).populate("product.product_id")
-      
-        console.log("---invoice products",order)
-        console.log("after ==",order.product[0].product_id.product_name)
-        const user = await usersModel.find({email:req.session.email})
-        console.log("order---",order.product.name)
-        console.log("user",user)
-        res.render("invoice",{order,user})
 
 
-     }catch(error){
-
-        console.log(error)
-
-     }
-}
-
-
-
-
-module.exports = {invoiceget,applycoupn,returnOrder,wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails,  ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }
+module.exports = {passwordchangingpost,passwordchange, invoiceget, applycoupn, returnOrder, wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails, ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }

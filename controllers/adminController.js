@@ -99,7 +99,8 @@ const adminpageView =  async (req, res) => {
   }
 
      }catch(error){
-          console.log(error)
+      res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
      }
 
 }
@@ -128,7 +129,8 @@ const productManagment = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal server error.");
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 };
 
@@ -157,20 +159,23 @@ const userManagment = async (req, res) => {
     }
   } catch (error) {
     console.error("Error in userManagment route:", error);
-    res.status(500).render("errorPage"); // Handle the error gracefully, replace 'errorPage' with your actual error page.
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
   }
 };
 
 const addProduct = async (req, res) => {
-
-  const product = await productModel.find({})
-  const watchtype = await watchTypeModel.find({ list: true })
-  const brands = await brandModel.find({ list: true })
-  console.log("watch_type is :", watchtype)
-  console.log("brands are : ", brands)
-  if (req.session.admin) {
-    res.render("product-adding", { product, watchtype, brands })
-  }
+  try{
+     const product = await productModel.find({})
+     const watchtype = await watchTypeModel.find({ list: true })
+     const brands = await brandModel.find({ list: true })
+     console.log("watch_type is :", watchtype)
+     console.log("brands are : ", brands)
+     if (req.session.admin) {
+       res.render("product-adding", { product, watchtype, brands })
+     }
+   }catch(error){
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+   }
 }
 
 const editProduct = async (req, res) => {
@@ -190,7 +195,7 @@ const editProduct = async (req, res) => {
     }
   }
   catch (error) {
-    console.log(error)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
   }
 }
 
@@ -242,12 +247,12 @@ const editedProduct = async (req, res) => {
         res.redirect("/admin/product-managment");
       } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal server error." });
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
       }
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error." });
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
   }
 };
 
@@ -265,7 +270,8 @@ const productListing = async (req, res) => {
     }
     res.redirect("/admin/product-managment");
   } catch (error) {
-    console.log(error)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 
 }
@@ -313,7 +319,8 @@ const productAdding = async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error." });
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 };
 
@@ -328,7 +335,8 @@ const categoryGet = async (req, res) => {
 
     res.render("category", { watchtype, brands })
   } else {
-    res.status(501)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 
 }
@@ -347,7 +355,8 @@ const watchtypeAdding = async (req, res) => {
     }
   }
   catch (error) {
-    console.log(error)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 }
 
@@ -361,7 +370,8 @@ const watchtypeEdit = async (req, res) => {
     res.redirect("/admin/category")
 
   } catch (error) {
-    console.log(error)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 }
 
@@ -382,7 +392,8 @@ const watchtypeList = async (req, res) => {
     res.redirect("/admin/category")
   }
   catch (error) {
-    console.log(error)
+     res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 }
 
@@ -398,7 +409,8 @@ const brandsAdding = async (req, res) => {
     }
     res.redirect("/admin/category")
   } catch (error) {
-    console.log(error)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 }
 
@@ -419,7 +431,8 @@ const brandList = async (req, res) => {
 
     res.redirect("/admin/category");
   } catch (error) {
-    console.log(error);
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 };
 
@@ -442,7 +455,7 @@ const userBlock = async (req, res) => {
     res.redirect("/admin/user-managment")
   }
   catch (error) {
-    console.log(error)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
   }
 }
 
@@ -462,27 +475,36 @@ const orderpageview = async (req, res) => {
     res.render("Adminorderview", { order })
 
   } catch (error) {
-    console.log(error)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 }
 
 const adminorderDetails = async (req, res) => {
+  
+  
+  try{
+      
+        if (!req.session.admin) {
+          res.redirect("/login")
+      
+        }
+      
+        const id = req.query.id
+      
+      
+        const product = await orderModel.findOne({ _id: id }, { product: 1, _id: 0 }).populate('product.product_id').exec()
+        const order = await orderModel.findOne({ _id: id }, {}).populate('user_id').exec()
+      
+        console.log(" the product form the ", order)
+      
+      
+        res.render("orderDetails", { product, order })
 
-  if (!req.session.admin) {
-    res.redirect("/login")
+    }catch(error){
+      res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
-  }
-
-  const id = req.query.id
-
-
-  const product = await orderModel.findOne({ _id: id }, { product: 1, _id: 0 }).populate('product.product_id').exec()
-  const order = await orderModel.findOne({ _id: id }, {}).populate('user_id').exec()
-
-  console.log(" the product form the ", order)
-
-
-  res.render("orderDetails", { product, order })
+    }
 }
 
 
@@ -525,7 +547,8 @@ const updateStatus = async (req, res) => {
     console.log("------updated status", user)
     res.json({ message: 'Order status updated successfully' });
   } catch (error) {
-    console.log(error)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 }
 
@@ -542,7 +565,8 @@ const cancelOrder = async (req, res) => {
     res.json({ message: "order cancelled" })
 
   } catch (error) {
-    console.log(error)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 }
 
@@ -555,7 +579,8 @@ const coupon = async (req, res) => {
     res.render("coupon", { coupon })
 
   } catch (error) {
-    console.log(error)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 }
 
@@ -584,7 +609,8 @@ const addingcoupon = async (req, res) => {
     res.redirect("/admin/coupon")
 
   } catch (error) {
-    console.log(error)
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
   }
 }
 
@@ -599,7 +625,7 @@ const bannerpageRendering = async (req, res) => {
       
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');    
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
   }
 }
 const banneradding = async (req, res) => {
@@ -629,8 +655,8 @@ const banneradding = async (req, res) => {
 
   } catch (error) {
       console.error(error);
-      res.status(500).json({ success: false, error: 'Internal Server Error' });
-  }
+      res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+    }
 };
 
 
@@ -667,7 +693,7 @@ const removeBannerImage = async (req, res) => {
     res.status(200).json({ success: true, message: 'Banner image removed successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, error: 'Internal Server Error' });
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
   }
 };
 
@@ -758,7 +784,7 @@ const chartreport = async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
   }
 };
 
@@ -772,6 +798,7 @@ const salesreport = async (req,res)=>{
       res.render("salesreport",{order})
 
     }catch(error){
+      res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
 }

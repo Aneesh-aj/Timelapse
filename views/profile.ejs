@@ -21,504 +21,509 @@
 </style>
 
 <body>
-   <%- include ('navbar.ejs') %>
-  <content>
+  <%- include ('navbar.ejs') %>
+    <content>
 
-         
-  <div class="container-fluid d-flex justify-content-lg-center "  style="padding-top: 5rem; background-color: rgb(194, 201, 201);">
-    <div class="container-width ">  
-           <%- include('sidebar.ejs') %>
-           <section class="home-section ">
 
-          <div class="profile-div3   ">
-            <div class="h-auto w-100">
-              <div class="col-lg-12 usr-details">
-                <div class="card  ps5pb3">
-                  <div class="profile-info-div1 d-flex rounded-3 ">
-                    <div class="w-75 ">
-                      <h2 class="heading m-0">Personal information</h2>
+      <div class="container-fluid d-flex justify-content-lg-center "
+        style="padding-top: 5rem; background-color: rgb(194, 201, 201);">
+        <div class="container-width ">
+          <%- include('sidebar.ejs') %>
+            <section class="home-section ">
 
-                    </div>
-                    <div class=" d-flex justify-content-end">
-                      <button type="button" class="profile-edit-button" data-bs-toggle="modal"
-                        data-bs-target="#myModal">
-                        Edit
-                      </button>
-                      <div class="profile-oldbutton-div">
+              <div class="profile-div3  h-auto ">
+                <div class="h-auto w-100 mb-2">
+                  <div class="col-lg-12 usr-details">
+                    <div class="card  ps5pb3">
+                      <div class="profile-info-div1 d-flex rounded-3 ">
+                        <div class="w-75 ">
+                          <h2 class="heading m-0">Personal information</h2>
+
+                        </div>
+
+                        <div class=" d-flex justify-content-end">
+                          <button type="button" class="profile-edit-button" data-bs-toggle="modal"
+                            data-bs-target="#myModal">
+                            Edit
+                          </button>
+                          <div class="profile-oldbutton-div">
+                            <button type="button" class="profile-add-button  " data-bs-toggle="modal"
+                              data-bs-target="#addAddressModal">
+                              add Address
+                            </button>
+                          </div>
+
+
+                        </div>
+
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0     ">Name :</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0">
+                              <%= user.name %>
+                            </p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">second name :</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="sub-details-text mb-0">
+                              <%= user.second_name %>
+                            </p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Email :</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="sub-details-text mb-0">
+                              <%= user.email %>
+                            </p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Mobile :</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="sub-details-text mb-0">
+                              <%= user.number %>
+                            </p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Gender :</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="sub-details-text mb-0">
+                              <%= user.gender %>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="profile-newbtn-div">
                         <button type="button" class="profile-add-button  " data-bs-toggle="modal"
                           data-bs-target="#addAddressModal">
                           add Address
                         </button>
                       </div>
-
-
-                    </div>
-
-                  </div>
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <p class="mb-0     ">Name :</p>
-                      </div>
-                      <div class="col-sm-9">
-                        <p class="text-muted mb-0">
-                          <%= user.name %>
-                        </p>
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <p class="mb-0">second name :</p>
-                      </div>
-                      <div class="col-sm-9">
-                        <p class="sub-details-text mb-0">
-                          <%= user.second_name %>
-                        </p>
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <p class="mb-0">Email :</p>
-                      </div>
-                      <div class="col-sm-9">
-                        <p class="sub-details-text mb-0">
-                          <%= user.email %>
-                        </p>
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <p class="mb-0">Mobile :</p>
-                      </div>
-                      <div class="col-sm-9">
-                        <p class="sub-details-text mb-0">
-                          <%= user.number %>
-                        </p>
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <p class="mb-0">Gender :</p>
-                      </div>
-                      <div class="col-sm-9">
-                        <p class="sub-details-text mb-0">
-                          <%= user.gender %>
-                        </p>
-                      </div>
                     </div>
                   </div>
 
-                  <div class="profile-newbtn-div">
-                    <button type="button" class="profile-add-button  " data-bs-toggle="modal"
-                      data-bs-target="#addAddressModal">
-                      add Address
-                    </button>
-                  </div>
                 </div>
-              </div>
+              
+                <div class="h-auto w-100 mt-2 box-shadows">
 
-            </div>
-            <div class="h-auto w-100 mt-2 box-shadows">
+                  <% for(let i=0; i < address.address.length;i++){ %>
 
-              <% for(let i=0; i < address.address.length;i++){ %>
+                    <div class="accordion mb-2 " id="accordionExample">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button hov bg-transparent no-focus-outline" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="false"
+                            aria-controls="collapse<%=i%>">
+                            Adress <%= i+1 %>
+                          </button>
 
-                <div class="accordion mb-2 " id="accordionExample">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button hov bg-transparent no-focus-outline" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="false"
-                        aria-controls="collapse<%=i%>">
-                        Adress <%= i+1 %>
-                      </button>
+                        </h2>
+                        <div id="collapse<%= i %>" class="accordion-collapse collapse"
+                          data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
 
-                    </h2>
-                    <div id="collapse<%= i %>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
+                            <div class="col-lg-12  ">
+                              <div class="card ">
+                                <div class="bg-white d-flex  pe-5  pt-3 rounded-3 d-flex align-items-center">
+                                  <h2 class="heading"> Address</h2>
 
-                        <div class="col-lg-12  ">
-                          <div class="card ">
-                            <div class="bg-white d-flex  pe-5  pt-3 rounded-3 d-flex align-items-center">
-                              <h2 class="heading"> Address</h2>
-
-                              <button type="button" class="address-edit-button" data-bs-toggle="modal"
-                                data-bs-target="#myModals<%=i%>">
-                                Edit
-                              </button>
-                              <!-- <button type="button" class="btn btn-outline-primary h-50" onclick="deleteAddress('<%= i %>')">
+                                  <button type="button" class="address-edit-button" data-bs-toggle="modal"
+                                    data-bs-target="#myModals<%=i%>">
+                                    Edit
+                                  </button>
+                                  <!-- <button type="button" class="btn btn-outline-primary h-50" onclick="deleteAddress('<%= i %>')">
                                     delete
                             </button> -->
-                              <button class="profile-delete-button "
-                                onclick="deleteAddress( '<%=i%>', '<%=userid._id %>')">Delete </button>
+                                  <button class="profile-delete-button "
+                                    onclick="deleteAddress( '<%=i%>', '<%=userid._id %>')">Delete </button>
 
-                            </div>
-                            <div class="card-body">
-                              <div class="row">
-                                <div class="col-sm-3">
-                                  <p class="mb-0">Adress</p>
                                 </div>
-                                <div class="col-sm-9">
-                                  <p class="text-muted mb-0">
-                                    <%= address.address[i].first_address%>
-                                  </p>
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col-sm-3">
-                                  <p class="mb-0">Country</p>
-                                </div>
-                                <div class="col-sm-9">
-                                  <p class="text-muted mb-0">
-                                    <%=address.address[i].country %>
-                                  </p>
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col-sm-3">
-                                  <p class="mb-0">State</p>
-                                </div>
-                                <div class="col-sm-9">
-                                  <p class="text-muted mb-0">
-                                    <%=address.address[i].state %>
-                                  </p>
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col-sm-3">
-                                  <p class="mb-0">District</p>
-                                </div>
-                                <div class="col-sm-9">
-                                  <p class="text-muted mb-0">
-                                    <%=address.address[i].district %>
-                                  </p>
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col-sm-3">
-                                  <p class="mb-0">Town</p>
-                                </div>
-                                <div class="col-sm-9">
-                                  <p class="text-muted mb-0">
-                                    <%=address.address[i].town %>
-                                  </p>
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col-sm-3">
-                                  <p class="mb-0">locality</p>
-                                </div>
-                                <div class="col-sm-9">
-                                  <p class="text-muted mb-0">
-                                    <%=address.address[i].locality%>
-                                  </p>
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col-sm-3">
-                                  <p class="mb-0">post code</p>
-                                </div>
-                                <div class="col-sm-9">
-                                  <p class="text-muted mb-0">
-                                    <%= address.address[i].pincode %>
-                                  </p>
-                                </div>
-                              </div>
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Adress</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">
+                                        <%= address.address[i].first_address%>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Country</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">
+                                        <%=address.address[i].country %>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">State</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">
+                                        <%=address.address[i].state %>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">District</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">
+                                        <%=address.address[i].district %>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">Town</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">
+                                        <%=address.address[i].town %>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">locality</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">
+                                        <%=address.address[i].locality%>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <p class="mb-0">post code</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                      <p class="text-muted mb-0">
+                                        <%= address.address[i].pincode %>
+                                      </p>
+                                    </div>
+                                  </div>
 
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
+
+
                     </div>
-                  </div>
+                    <div class="modal fade" id="myModals<%=i%>" tabindex="-1" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h5 class="modal-title">Edit Address</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <!-- Modal Body -->
+                          <form method="post" action="/editAddress">
+                            <div class="modal-body">
+                              <div class="mb-3">
+                                <label for="address" class="col-form-label">Address:</label>
+                                <input type="text" class="form-control" id="address" name="address1"
+                                  placeholder="<%=address.address[i].first_address %>">
+                                <input type="hidden" name="userid" value="<%=userid._id %>">
+                                <input type="hidden" name="addressid" value="<%= address.address[i]._id %>">
+                              </div>
+                              <div class="mb-3">
+                                <label for="Country" class="col-form-label">Country</label>
+                                <select name="country" id="" class="form-control"
+                                  aria-placeholder="<%= address.address[i].country %>">
 
+                                  <option value="india">india</option>
+                                  <option value="srilanka">srilanka</option>
+                                  <option value="America">America</option>
+                                  <option value="china"> China</option>
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="State" class="col-form-label">Country</label>
+                                <select name="state" id="" class="form-control"
+                                  aria-placeholder="<%= address.address[i].state %>">
 
-                </div>
-                <div class="modal fade" id="myModals<%=i%>" tabindex="-1" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <!-- Modal Header -->
-                      <div class="modal-header">
-                        <h5 class="modal-title">Edit Address</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  <option value="kerala">kerala</option>
+                                  <option value="karnataka">karnataka</option>
+                                  <option value="tamilnadu">tamilnadu</option>
+                                  <option value="maharashtra"> maharashtra</option>
+                                </select>
+                              </div>
+                              <div class="mb-3 d-flex">
+                                <div class="flex-grow-1">
+                                  <label for="district" class="col-form-label">District:</label>
+                                  <select name="district" id="district" class="form-control"
+                                    aria-placeholder="<%=address.address[i].district%>">
+                                    <option value="malappuram">Malappuram</option>
+                                    <option value="kozhikode">Kozhikode</option>
+                                    <option value="wayanad">Wayanad</option>
+                                    <option value="kannur">Kannur</option>
+                                  </select>
+                                </div>
+                                <div class="flex-grow-1 ps-3">
+                                  <label for="pincode" class="col-form-label">Pincode:</label>
+                                  <input type="text" class="form-control" id="pincode"
+                                    placeholder="<%= address.address[i].pincode %>">
+                                </div>
+                              </div>
+                              <div class="mb-3">
+                                <label class="col-form-label">Town:</label>
+                                <input class="form-control" name="town" placeholder="<%= address.address[i].town%>">
+                              </div>
+                              <div>
+                                <label class="col-form-label">Locality:</label>
+                                <input class="form-control" name="locality"
+                                  placeholder="<%= address.address[i].locality %>">
+                              </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                          </form>
+                        </div>
                       </div>
-                      <!-- Modal Body -->
-                      <form method="post" action="/editAddress">
-                        <div class="modal-body">
-                          <div class="mb-3">
-                            <label for="address" class="col-form-label">Address:</label>
-                            <input type="text" class="form-control" id="address" name="address1"
-                              placeholder="<%=address.address[i].first_address %>">
-                            <input type="hidden" name="userid" value="<%=userid._id %>">
-                            <input type="hidden" name="addressid" value="<%= address.address[i]._id %>">
-                          </div>
-                          <div class="mb-3">
-                            <label for="Country" class="col-form-label">Country</label>
-                            <select name="country" id="" class="form-control"
-                              aria-placeholder="<%= address.address[i].country %>">
-
-                              <option value="india">india</option>
-                              <option value="srilanka">srilanka</option>
-                              <option value="America">America</option>
-                              <option value="china"> China</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label for="State" class="col-form-label">Country</label>
-                            <select name="state" id="" class="form-control"
-                              aria-placeholder="<%= address.address[i].state %>">
-
-                              <option value="kerala">kerala</option>
-                              <option value="karnataka">karnataka</option>
-                              <option value="tamilnadu">tamilnadu</option>
-                              <option value="maharashtra"> maharashtra</option>
-                            </select>
-                          </div>
-                          <div class="mb-3 d-flex">
-                            <div class="flex-grow-1">
-                              <label for="district" class="col-form-label">District:</label>
-                              <select name="district" id="district" class="form-control"
-                                aria-placeholder="<%=address.address[i].district%>">
-                                <option value="malappuram">Malappuram</option>
-                                <option value="kozhikode">Kozhikode</option>
-                                <option value="wayanad">Wayanad</option>
-                                <option value="kannur">Kannur</option>
-                              </select>
-                            </div>
-                            <div class="flex-grow-1 ps-3">
-                              <label for="pincode" class="col-form-label">Pincode:</label>
-                              <input type="text" class="form-control" id="pincode"
-                                placeholder="<%= address.address[i].pincode %>">
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <label class="col-form-label">Town:</label>
-                            <input class="form-control" name="town" placeholder="<%= address.address[i].town%>">
-                          </div>
-                          <div>
-                            <label class="col-form-label">Locality:</label>
-                            <input class="form-control" name="locality"
-                              placeholder="<%= address.address[i].locality %>">
-                          </div>
-
-                        </div>
-
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                      </form>
                     </div>
-                  </div>
+
+                    <% } %>
+
                 </div>
-
-                <% } %>
-
-            </div>
-          </div>
-          </section>
-
-        </div>
-        </div>
-
-    <!-- Button trigger modal -->
-
-
-    <!-- Modal -->
-
-    <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h5 class="modal-title">Details</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-          <!-- Modal Body -->
-          <div class="modal-body">
-            <form action="/profile/edit" method="post">
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">Name:</label>
-                <input type="text" name="name" class="form-control" id="recipient-name" placeholder="<%= user.name %>">
-                <input type="hidden" name="userid" value="<%= userid._id %>">
               </div>
-              <div class="mb-3">
-                <label for="message-text" class="col-form-label">second name:</label>
-                <input type="text" name="second_name" class="form-control" placeholder="<%= user.second_name %>">
-              </div>
-              <div class="mb-3">
-                <label for="message-text" class="col-form-label">Mobile number:</label>
-                <input type="text" name="number" class="form-control" placeholder="<%= user.number %>">
-              </div>
-              <div class="mb-3">
-                <label class="mb-3">Gender:</label>
-                <select class="form-control " name="gender" id="" aria-placeholder="<%= user.gender %>">
+            </section>
 
-                  <option value="male">male</option>
-                  <option value="female">women</option>
-                  <option value="other">other</option>
-                </select>
-              </div>
-          </div>
-
-          <!-- Modal Footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
-          </form>
         </div>
       </div>
-    </div>
+
+      <!-- Button trigger modal -->
 
 
+      <!-- Modal -->
 
-    <!-- second-->
+      <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title">Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
-
-
-    <!-- Second Modal -->
-
-
-    <div class="modal fade" id="addAddressModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h5 class="modal-title">Add Address</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <!-- Modal Body -->
-          <form action="/add-address" method="post">
+            <!-- Modal Body -->
             <div class="modal-body">
-              <div class="mb-3">
-                <label for="address" class="col-form-label">Address:</label>
-                <input type="text" class="form-control" name="address1" id="newAddress">
-                <input type="hidden" name="userid" value="<%= userid._id %>">
-              </div>
-              <div class="mb-3">
-                <label for="Country" class="col-form-label">Country</label>
-                <select name="country" id="newCountry" class="form-control">
-                  <option value="india">India</option>
-                  <option value="srilanka">Sri Lanka</option>
-                  <option value="America">America</option>
-                  <option value="china">China</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="State" class="col-form-label">State</label>
-                <select name="state" id="newState" class="form-control">
-                  <option value="kerala">Kerala</option>
-                  <option value="karnataka">Karnataka</option>
-                  <option value="tamilnadu">Tamil Nadu</option>
-                  <option value="maharashtra">Maharashtra</option>
-                </select>
-              </div>
-              <div class="mb-3 d-flex">
-                <div class="flex-grow-1">
-                  <label for="district" class="col-form-label">District:</label>
-                  <select name="district" id="newDistrict" class="form-control">
-                    <option value="malappuram">Malappuram</option>
-                    <option value="kozhikode">Kozhikode</option>
-                    <option value="wayanad">Wayanad</option>
-                    <option value="kannur">Kannur</option>
+              <form action="/profile/edit" method="post">
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Name:</label>
+                  <input type="text" name="name" class="form-control" id="recipient-name"
+                    placeholder="<%= user.name %>">
+                  <input type="hidden" name="userid" value="<%= userid._id %>">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">second name:</label>
+                  <input type="text" name="second_name" class="form-control" placeholder="<%= user.second_name %>">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Mobile number:</label>
+                  <input type="text" name="number" class="form-control" placeholder="<%= user.number %>">
+                </div>
+                <div class="mb-3">
+                  <label class="mb-3">Gender:</label>
+                  <select class="form-control " name="gender" id="" aria-placeholder="<%= user.gender %>">
+
+                    <option value="male">male</option>
+                    <option value="female">women</option>
+                    <option value="other">other</option>
                   </select>
                 </div>
-                <div class="flex-grow-1 ps-3">
-                  <label for="pincode" class="col-form-label">Pincode:</label>
-                  <input type="text" class="form-control" id="newPincode">
-                </div>
-              </div>
-              <div class="mb-3">
-                <label class="col-form-label">Town:</label>
-                <input class="form-control" name="town" id="newTown">
-              </div>
-              <div>
-                <label class="col-form-label">Locality:</label>
-                <input class="form-control" name="locality" id="newLocality">
-              </div>
             </div>
+
             <!-- Modal Footer -->
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save Address</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-
-
-  </content>
-  <footer>
-    <div class="container-fluid footer-color">
-      <div class="container d-flex ">
-        <div class="">
-          <div class="footer-div1 d-flex justify-content-center">
-            <h1 class="heading  pt-4">About us</h1>
-          </div>
-          <div class="footer-div1">
-
-            <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
-              Universe, we're passionate about bringing you the finest selection of watches that blend elegance,
-              precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's
-              most stunning watches with watch enthusiasts and collectors alike.</p>
-
+            </form>
           </div>
         </div>
       </div>
-    </div>
-    <div class="container-fluid footer-color d-flex justify-content-center">
-      <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
-    </div>
-  </footer>
-
-  <!-- Button to trigger the modal -->
 
 
-  <script>
 
-    function deleteAddress(addressIndex, userId) {
-      // Create an object with the data to send in the request body
-      const requestData = {
-        addressIndex: addressIndex,
-        userId: userId
-      };
+      <!-- second-->
 
 
-      fetch('/delete-address', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json' // Set the content type to JSON
-        },
-        body: JSON.stringify(requestData) // Convert the data to JSON format
-      })
-        .then(response => {
-          if (response.ok) {
-            // Address deleted successfully, you can update the UI as needed
-            location.reload(); // Reload the page or update the UI
-          } else {
-            // Handle error, e.g., show an error message to the user
-            console.error('Failed to delete address');
-          }
+
+      <!-- Second Modal -->
+
+
+      <div class="modal fade" id="addAddressModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title">Add Address</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+            <form action="/add-address" method="post">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="address" class="col-form-label">Address:</label>
+                  <input type="text" class="form-control" name="address1" id="newAddress">
+                  <input type="hidden" name="userid" value="<%= userid._id %>">
+                </div>
+                <div class="mb-3">
+                  <label for="Country" class="col-form-label">Country</label>
+                  <select name="country" id="newCountry" class="form-control">
+                    <option value="india">India</option>
+                    <option value="srilanka">Sri Lanka</option>
+                    <option value="America">America</option>
+                    <option value="china">China</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="State" class="col-form-label">State</label>
+                  <select name="state" id="newState" class="form-control">
+                    <option value="kerala">Kerala</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="tamilnadu">Tamil Nadu</option>
+                    <option value="maharashtra">Maharashtra</option>
+                  </select>
+                </div>
+                <div class="mb-3 d-flex">
+                  <div class="flex-grow-1">
+                    <label for="district" class="col-form-label">District:</label>
+                    <select name="district" id="newDistrict" class="form-control">
+                      <option value="malappuram">Malappuram</option>
+                      <option value="kozhikode">Kozhikode</option>
+                      <option value="wayanad">Wayanad</option>
+                      <option value="kannur">Kannur</option>
+                    </select>
+                  </div>
+                  <div class="flex-grow-1 ps-3">
+                    <label for="pincode" class="col-form-label">Pincode:</label>
+                    <input type="text" class="form-control" id="newPincode">
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="col-form-label">Town:</label>
+                  <input class="form-control" name="town" id="newTown">
+                </div>
+                <div>
+                  <label class="col-form-label">Locality:</label>
+                  <input class="form-control" name="locality" id="newLocality">
+                </div>
+              </div>
+              <!-- Modal Footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Address</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+
+    </content>
+    <footer>
+      <div class="container-fluid footer-color">
+        <div class="container d-flex ">
+          <div class="">
+            <div class="footer-div1 d-flex justify-content-center">
+              <h1 class="heading  pt-4">About us</h1>
+            </div>
+            <div class="footer-div1">
+
+              <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
+                Universe, we're passionate about bringing you the finest selection of watches that blend elegance,
+                precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's
+                most stunning watches with watch enthusiasts and collectors alike.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid footer-color d-flex justify-content-center">
+        <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+      </div>
+    </footer>
+
+    <!-- Button to trigger the modal -->
+
+
+    <script>
+
+      function deleteAddress(addressIndex, userId) {
+        // Create an object with the data to send in the request body
+        const requestData = {
+          addressIndex: addressIndex,
+          userId: userId
+        };
+
+
+        fetch('/delete-address', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json' // Set the content type to JSON
+          },
+          body: JSON.stringify(requestData) // Convert the data to JSON format
         })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    }
+          .then(response => {
+            if (response.ok) {
+              // Address deleted successfully, you can update the UI as needed
+              location.reload(); // Reload the page or update the UI
+            } else {
+              // Handle error, e.g., show an error message to the user
+              console.error('Failed to delete address');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
 
-  </script>
+    </script>
 
 
 </body>
