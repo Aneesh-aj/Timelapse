@@ -17,9 +17,7 @@ const { assuredworkloads } = require("googleapis/build/src/apis/assuredworkloads
 const adminpageView =  async (req, res) => {
  
   try{ 
-  if (!req.session.admin) {
-    res.redirect("/login")
-  }
+
 
   if (req.session.admin) {
     console.log("coming here on the cart report");
@@ -116,10 +114,7 @@ const adminLogout = (req, res) => {
 
 const productManagment = async (req, res) => {
   try {
-    if (!req.session.admin) {
-      return res.redirect("/login")
-    }
-
+   
 
     if (req.session.admin) {
       const product = await productModel.find({}).populate("watch_type").populate("brand")

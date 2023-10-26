@@ -52,7 +52,7 @@ const homepageview =async (req, res) => {
 
          console.log("the products",product)
          
-        res.render("homePage",{product,banner})
+        res.render("500errorpage",{product,banner})
     }catch(error){
          console.log(error)
     }

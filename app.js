@@ -45,5 +45,10 @@ app.use((req,res)=>{
     res.status(404)
     res.render("errorpage")
 })
+app.get("/error",(req,res)=>{
+    res.status(500)
+    res.render("500errorpage")
+})
+
 
 app.listen(3000,()=>console.log("http://localhost:3000"))
