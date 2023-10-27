@@ -760,7 +760,7 @@ const chartreport = async (req, res) => {
       const totalOrders = entry.totalOrders;
       const deliveredOrders = entry.deliveredOrders;
       const returnedOrders = entry.returnedOrders;
-      const totalAmount = entry.deliveredAmount; // Use the deliveredAmount field
+      const totalAmount = entry.deliveredAmount; 
 
       if (!allReports[year]) {
         allReports[year] = {
