@@ -786,7 +786,6 @@ const chartreport = async (req, res) => {
       const deliveredOrderAmount = deliveredEntry.deliveredOrderAmount;
 
       if (allReports[year]) {
-        // Update the monthly amount for delivered orders
         allReports[year].monthlyAmounts[month - 1] = deliveredOrderAmount;
       }
     });
