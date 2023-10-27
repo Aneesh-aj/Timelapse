@@ -19,249 +19,385 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-    <title>product-managment</title>   
+    <title>product-managment</title>
 </head>
+<style>
+    .error {
+        color: red;
+        font-size: 14px;
+    }
+</style>
 
 <body>
-    <%- include('navbar.ejs') %>
-    <content class="nav-height">       
-        <div class="container-fluid   " id="body-color">
-            <div class=" d-flex h-auto  profile-main">
-                <div class="profile-div ">
-                    <div class="profile-photo d-flex align-items-center ">
-                        <div class=" hii d-flex justify-content-center align-items-center">
-                            <div class="profile-picture "
-                                style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
-                            </div>
-                        </div>
-                        <div class=" hello d-flex align-items-center">
-                            <span><a href="/admin"                                style="text-decoration: none; outline: none; color: black;">Admin</a></span>
-                        </div>
-                    </div>
-                    <div class="profile-selection">
-                        <div class="selector  d-flex align-items-center" style="background-color: rgb(238, 236, 236);">
-                            <div class=" hii d-flex align-items-center justify-content-center">
-                                <div class="selector-image"
-                                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); ">
-                                </div>
-                            </div>
-                            <div class="hello d-flex align-items-center">
-                                <span><a href="/admin/order-details"
-                                        style="text-decoration: none; outline: none; color: black;">order
-                                        details</a></span>
-                            </div>
-                        </div>
-                        <div class="line"></div>
-                        <div class="selector  d-flex align-items-center">
-                            <div class=" hii  d-flex align-items-center justify-content-center">
-                                <div class="selector-image"
-                                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); ">
+    <%- include('navbar2.ejs') %>
+        <content class="nav-height">
+            <div class="container-fluid   " id="body-color">
+                <div class=" d-flex h-auto  profile-main">
+                    <div class="profile-div ">
+                        <div class="profile-photo d-flex align-items-center ">
+                            <div class=" hii d-flex justify-content-center align-items-center">
+                                <div class="profile-picture "
+                                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
                                 </div>
                             </div>
                             <div class=" hello d-flex align-items-center">
-                                <span><a href="/admin/product-managment"
-                                        style="text-decoration: none; outline: none; color: black;">product</a></span>
+                                <span><a href="/admin"
+                                        style="text-decoration: none; outline: none; color: black;">Admin</a></span>
                             </div>
                         </div>
-                        <div class="line"></div>
-                        <div class="selector  d-flex align-items-center align-items-center">
-                            <div class="hii d-flex justify-content-center align-items-center">
-                                <div class="selector-image bg-light"
-                                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
+                        <div class="profile-selection">
+                            <div class="selector  d-flex align-items-center">
+                                <div class=" hii d-flex align-items-center justify-content-center">
+                                    <div class="selector-image"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); ">
+                                    </div>
+                                </div>
+                                <div class="hello d-flex align-items-center">
+                                    <span><a href="/admin/orders"
+                                            style="text-decoration: none; outline: none; color: black;">order
+                                            details</a></span>
                                 </div>
                             </div>
-                            <div class="hello d-flex align-items-center">
-                                <span><a href="/admin/user-managment"
-                                        style="text-decoration: none; outline: none; color: black;">users</a></span>
-                            </div>
-                        </div>
-                        <div class="line"></div>
-                        <div class="selector  d-flex align-items-center align-items-center">
-                            <div class="hii d-flex justify-content-center align-items-center">
-                                <div class="selector-image bg-light"
-                                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
+                            <div class="line"></div>
+                            <div class="selector  d-flex align-items-center">
+                                <div class=" hii  d-flex align-items-center justify-content-center">
+                                    <div class="selector-image"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); ">
+                                    </div>
+                                </div>
+                                <div class=" hello d-flex align-items-center">
+                                    <span><a href="/admin/product-managment"
+                                            style="text-decoration: none; outline: none; color: black;">product</a></span>
                                 </div>
                             </div>
-                            <div class="hello d-flex align-items-center">
-                                <span><a href="/admin/category"
-                                        style="text-decoration: none; outline: none; color: black;">category</a></span>
-                            </div>
-                        </div>
-                        <div class="line"></div>  
-                        <div class="selector  d-flex align-items-center align-items-center">
-                            <div class="hii d-flex justify-content-center align-items-center">
-                                <div class="selector-image bg-light"
-                                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
+                            <div class="line"></div>
+                            <div class="selector  d-flex align-items-center align-items-center">
+                                <div class="hii d-flex justify-content-center align-items-center">
+                                    <div class="selector-image bg-light"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
+                                    </div>
+                                </div>
+                                <div class="hello d-flex align-items-center">
+                                    <span><a href="/admin/user-managment"
+                                            style="text-decoration: none; outline: none; color: black;">users</a></span>
                                 </div>
                             </div>
-                            <div class="hello  d-flex align-items-center">
-                                <span><a href="/admin/coupon"
-                                        style="text-decoration: none; outline: none; color: rgb(0, 0, 0);">coupon</a></span>
+                            <div class="line"></div>
+                            <div class="selector  d-flex align-items-center align-items-center">
+                                <div class="hii d-flex justify-content-center align-items-center">
+                                    <div class="selector-image bg-light"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
+                                    </div>
+                                </div>
+                                <div class="hello d-flex align-items-center">
+                                    <span><a href="/admin/category"
+                                            style="text-decoration: none; outline: none; color: black;">category</a></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="selector  d-flex align-items-center align-items-center"
+                                style="background-color: rgb(238, 236, 236);">
+                                <div class="hii d-flex justify-content-center align-items-center">
+                                    <div class="selector-image bg-light"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
+                                    </div>
+                                </div>
+                                <div class="hello  d-flex align-items-center">
+                                    <span><a href="/admin/coupon"
+                                            style="text-decoration: none; outline: none; color: rgb(0, 0, 0);">coupon</a></span>
+                                </div>
+                            </div>
+                            <div class="line"></div>
 
+                        </div>
                     </div>
-                </div>  
-                <div class="profile-div2  ">
-                    <div class="p-2">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            Add coupon
-                        </button>
+                    <div class="profile-div2  ">
+                        <div class="p-2">
+                            <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Add coupon
+                            </button>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/admin/coupon" method="post" onsubmit="return validateForm()">
+                                                <div class="mb-3">
+                                                    <label for="recipient-name" class="col-form-label">coupon
+                                                        code:</label>
+                                                    <input type="text" name="coupon_code" class="form-control"
+                                                        id="coupon-code">
+                                                    <span class="error" id="coupon-code-error"></span>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="message-text" class="col-form-label">coupon
+                                                        type:</label>
+                                                    <select name="coupon_type" class="form-control" id="coupon-type">
+                                                        <option value="">Select a type</option>
+                                                        <option value="flate">flate</option>
+                                                        <option value="percent">percent</option>
+                                                    </select>
+                                                    <span class="error" id="coupon-type-error"></span>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="message-text" class="col-form-label">coupon
+                                                        value/percent:</label>
+                                                    <input type="" name="coupon_value" class="form-control"
+                                                        id="coupon-value">
+                                                    <span class="error" id="coupon-value-error"></span>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="mb-3">min:</label>
+                                                    <input type="" name="min" class="form-control" id="min">
+                                                    <span class="error" id="min-error"></span>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="mb-3">max:</label>
+                                                    <input type="" name="max" class="form-control" id="max">
+                                                    <span class="error" id="max-error"></span>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="message-text"
+                                                        class="col-form-label">expire_date:</label>
+                                                    <input type="date" name="coupon_date" class="form-control"
+                                                        id="coupon-date">
+                                                    <span class="error" id="coupon-date-error"></span>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <form action="/admin/coupon" method="post">
-                                            <div class="mb-3">
-                                                <label for="recipient-name" class="col-form-label">coupon code:</label>
-                                                <input type="text" name="coupon_code" class="form-control"
-                                                    id="recipient-name" placeholder="">
-                                                <input type="hidden" name="userid">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="message-text" class="col-form-label">coupon type:</label>
-                                                <select name="coupon_type" class="form-control">
-                                                    <option value="flate">flate</option>
-                                                    <option value="percent">percent</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="message-text" class="col-form-label">coupon
-                                                    value/percent:</label>
-                                                <input type="" name="coupon_value" class="form-control" placeholder="">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="mb-3">min:</label>
-                                                <input type="" name="min" class="form-control" placeholder="">
-
-                                            </div>
-                                            <div class="mb-3">
-
-                                                <label class="mb-3">maxr:</label>
-                                                <input type="" name="max" class="form-control" placeholder="">
-
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="message-text" class="col-form-label">coupon
-                                                    value/percent:</label>
-                                                <input type="date" name="coupon_date" class="form-control"
-                                                    placeholder="">
-                                            </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                    </form>
                                 </div>
                             </div>
-                        </div>
 
 
 
-                        <table id="example" class="table table-striped" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>No:</th>
-                                    <th>coupon code</th>
-                                    <th>coupon value</th>
-                                    <th>coupon type</th>
-                                    <th>minimum</th>
-                                    <th>maximum</th>
-                                    <th>expire date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for(let i=0; i< coupon.length;i++){ %>
+                            <table id="example" class="table table-striped " style="width:100%">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            <%= i+1 %>
-                                        </td>
-                                        <td>
-                                            <%=  coupon[i].coupon_code %>
-                                        </td>
-                                        <td><%= coupon[i].coupon_value %></td>
-                                        <td><%= coupon[i].coupon_type%></td>
-                                        <td><%= coupon[i].min_amount %></td>
-                                        <td><%=coupon[i].max_amount%></td>
-                                        <td>
-                                            <% if (coupon[i].expire_date instanceof Date && !isNaN(coupon[i].expire_date)) { %>
-                                              <%= coupon[i].expire_date.toLocaleString() %>
-                                            <% } else { %>
-                                              N/A
-                                            <% } %>
-                                          </td>
-                                          
-                                        <td>
-                                            <button class="btn btn-primary"></button>
-                                            <button class="btn btn-warning"></button>
-                                        </td>
-
+                                        <th>No:</th>
+                                        <th>coupon code</th>
+                                        <th>coupon value</th>
+                                        <th>coupon type</th>
+                                        <th>minimum</th>
+                                        <th>maximum</th>
+                                        <th>expire date</th>
                                     </tr>
-                                    <% } %>
+                                </thead>
+                                <tbody>
+                                    <% for(let i=0; i< coupon.length;i++){ %>
+                                        <tr>
+                                            <td>
+                                                <%= i+1 %>
+                                            </td>
+                                            <td>
+                                                <%= coupon[i].coupon_code %>
+                                            </td>
+                                            <td>
+                                                <%= coupon[i].coupon_value %>
+                                            </td>
+                                            <td>
+                                                <%= coupon[i].coupon_type%>
+                                            </td>
+                                            <td>
+                                                <%= coupon[i].min_amount %>
+                                            </td>
+                                            <td>
+                                                <%=coupon[i].max_amount%>
+                                            </td>
+                                            <td>
+                                                <% if (coupon[i].expire_date instanceof Date &&
+                                                    !isNaN(coupon[i].expire_date)) { %>
+                                                    <%= coupon[i].expire_date.toLocaleString() %>
+                                                        <% } else { %>
+                                                            N/A
+                                                            <% } %>
+                                            </td>
 
-                            </tbody>
 
-                        </table>
+
+                                        </tr>
+                                        <% } %>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
 
                     </div>
+                </div>
 
 
+
+        </content>
+
+        <footer>
+            <div class="container-fluid footer-color">
+                <div class="container d-flex ">
+                    <div class="">
+                        <div class="footer-div1 d-flex justify-content-center">
+                            <h1 class="heading  pt-4">About us</h1>
+                        </div>
+                        <div class="footer-div1">
+
+                            <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite
+                                timepieces. At
+                                Watch
+                                Universe, we're passionate about bringing you the finest selection of watches that blend
+                                elegance,
+                                precision, and style.Our journey started with a love for craftsmanship and a desire to
+                                share
+                                the world's
+                                most stunning watches with watch enthusiasts and collectors alike.</p>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
-
-    </content>
-
-    <footer>
-        <div class="container-fluid footer-color">
-            <div class="container d-flex ">
-                <div class="">
-                    <div class="footer-div1 d-flex justify-content-center">
-                        <h1 class="heading  pt-4">About us</h1>
-                    </div>
-                    <div class="footer-div1">
-
-                        <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At
-                            Watch
-                            Universe, we're passionate about bringing you the finest selection of watches that blend
-                            elegance,
-                            precision, and style.Our journey started with a love for craftsmanship and a desire to share
-                            the world's
-                            most stunning watches with watch enthusiasts and collectors alike.</p>
-
-                    </div>
-                </div>
+            <div class="container-fluid footer-color d-flex justify-content-center">
+                <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
             </div>
-        </div>
-        <div class="container-fluid footer-color d-flex justify-content-center">
-            <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
-        </div>
-    </footer>
+        </footer>
 
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable({
-                searching: true // Enable searching
+        <script>
+            function validateForm() {
+                // Reset error messages
+                document.getElementById("coupon-code-error").textContent = "";
+                document.getElementById("coupon-type-error").textContent = "";
+                document.getElementById("coupon-value-error").textContent = "";
+                document.getElementById("min-error").textContent = "";
+                document.getElementById("max-error").textContent = "";
+                document.getElementById("coupon-date-error").textContent = "";
+
+                // Client-side validation
+                const couponCode = document.getElementById("coupon-code").value;
+                const couponType = document.getElementById("coupon-type").value;
+                const couponValue = parseFloat(document.getElementById("coupon-value").value);
+                const min = parseFloat(document.getElementById("min").value);
+                const max = parseFloat(document.getElementById("max").value);
+                const couponDate = document.getElementById("coupon-date").value;
+
+                let hasErrors = false;
+
+                if (!couponCode) {
+                    document.getElementById("coupon-code-error").textContent = "Coupon code is required.";
+                    hasErrors = true;
+                }
+
+                if (!couponType) {
+                    document.getElementById("coupon-type-error").textContent = "Coupon type is required.";
+                    hasErrors = true;
+                }
+
+
+
+                if (isNaN(couponValue)) {
+                    document.getElementById("coupon-value-error").textContent = "Coupon value is required";
+                    hasErrors = true;
+                }
+
+                if (couponValue <= 0) {
+                    document.getElementById("coupon-value-error").textContent = "coupon value should be greater than 0";
+                    hasErrors = true;
+                }
+
+
+                if (isNaN(parseFloat(min))) {
+                    document.getElementById("min-error").textContent = "Min value must be a number.";
+                    hasErrors = true;
+                }
+
+                if (isNaN(parseFloat(max))) {
+                    document.getElementById("max-error").textContent = "Max value must be a number.";
+                    hasErrors = true;
+                }
+
+
+                if (!max) {
+                    document.getElementById("max-error").textContent = "Maximum value required";
+                    hasErrors = true;
+                }
+
+
+                if (!min) {
+                    document.getElementById("min-error").textContent = "Mininum value required";
+                    hasErrors = true;
+                }
+
+
+
+
+                if (!couponDate) {
+                    document.getElementById("coupon-date-error").textContent = "Expiration date is required.";
+                    hasErrors = true;
+                } 
+                if(couponDate) {
+                   
+                    const selectedDate = new Date(couponDate);
+
+                    const today = new Date();
+
+                    
+                    if (selectedDate <= today) {
+                        document.getElementById("coupon-date-error").textContent = "Expiration date must be in the future.";
+                        hasErrors = true;
+                    }
+                }
+
+                if (couponType === "percent" && (couponValue <= 0 || couponValue > 100)) {
+                    document.getElementById("coupon-value-error").textContent = "Coupon percent must be between 1 and 100.";
+                    hasErrors = true;
+                }
+
+                if (min >= max) {
+                    document.getElementById("min-error").textContent = "Min must be less than max.";
+                    hasErrors = true;
+                }
+                if (min >= max) {
+                    document.getElementById("max-error").textContent = "Max must greater than min.";
+                    hasErrors = true;
+                }
+                if (max <= 0) {
+                    document.getElementById("max-error").textContent = "Max value must be greater than 0";
+                    hasErrors = true;
+                }
+                if (min <= 0) {
+                    document.getElementById("min-error").textContent = "Min value must be greater than 0";
+                    hasErrors = true;
+                }
+
+                if (hasErrors) {
+                    return false; // Prevent form submission
+                }
+
+                // Server-side validation can be performed on the server-side code.
+                // Ensure that you perform proper server-side validation as well.
+
+                return true; // Form submission allowed
+            }
+            $(document).ready(function () {
+                $('#example').DataTable({
+                    searching: true // Enable searching
+                });
             });
-        });
 
 
-    </script>
+        </script>
 
 </body>
 

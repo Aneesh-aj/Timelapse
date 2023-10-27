@@ -23,7 +23,7 @@
     <content>
   
            
-    <div class="container-fluid d-flex justify-content-lg-center "  style="padding-top: 5rem; background-color: rgb(194, 201, 201);">
+    <div class="container-fluid d-flex justify-content-lg-center "  style="padding-top: 5rem;" id="body-color">
       <div class="container-width ">  
              <%- include('sidebar.ejs') %>
              <section class="home-section ">
@@ -74,7 +74,7 @@
                                           <%=i+1 %>
                                         </td>
                                         <td>
-                                          <div style="width: 4rem; height: 4rem;" class="m-2">
+                                          <div style="width: 6rem; height: 9rem; object-fit: contain;" class="m-2" >
                                             <img style="width: 100%; height: 100%;"
                                               src="/filename/<%=product.product[i].product_id.product_image[0] %>">
                                           </div>
@@ -102,12 +102,35 @@
                                       
                                         <%}%>
                 
+                                         
+                                          <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total without Discount :</td>
+                                            <td><%=expectedtotal %></td>
+                                           
+                                            <td>product offer discount :</td>
+                                            <td>
+                                                <%=productdiscount %>
+                                            </td>
+            
+                                          </tr>
                                           <tr>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                
+                                            <td>coupon discount :</td>
+                                            <td>
+                                             <%= coupondiscount %>
+                                            </td>
+            
+                                          </tr>
+                                          <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td>
                                               Total Amount :
                                             </td>
@@ -120,8 +143,8 @@
                             </table>
                 
                           </div>
-                      <a class="btn btn-primary" href="/invoice?productid=<%=order._id%>">invoice</a>
-                       
+                       <div class="p-3">  <a class="btn btn-primary" href="/invoice?productid=<%=order._id%>">invoice</a>
+                       </div>
                     </div>
             </section>
   

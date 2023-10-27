@@ -45,7 +45,7 @@ router.post("/editAddress",userMiddleware.checkUserStatus,controller.addressEdit
 router.post("/placeorder",userMiddleware.checkUserStatus,controller.placeorder)
 router.post("/checkout-editaddress",userMiddleware.checkUserStatus,controller.checkoutaddressEdit)
 router.get("/order",userMiddleware.checkUserStatus,userMiddleware.currentuser,   controller.ordersPage)
-router.get("/order/orderdetails",userMiddleware.checkUserStatus,controller.userOrderdetails)
+router.get("/order/orderdetails",userMiddleware.checkUserStatus,userMiddleware.currentuser,controller.userOrderdetails)
 router.post("/cancel-order",controller.cancelOrder)
 router.get("/forgotpassword",controller.forgotpassword)
 router.post("/forgotpassword",controller.forgotpasswordpost)
@@ -56,11 +56,12 @@ router.get("/wishlist",userMiddleware.checkUserStatus,userMiddleware.currentuser
 router.post("/api/addingtocart",controller.addingtocart)
 router.post("/removefromwishlist",controller.deletewishlist)
 router.post("/ordercheckout",controller.ordercheckout)
-router.get("/wallet",controller.wallet)
+router.get("/wallet",userMiddleware.checkUserStatus,userMiddleware.currentuser,controller.wallet)
 router.post("/returnrequest",controller.returnOrder)
 router.post("/apply-coupon",controller.applycoupn)
 router.get("/invoice",userMiddleware.checkUserStatus,userMiddleware.currentuser,controller.invoiceget)
 router.get("/passwordchange",controller.passwordchange)
 router.post('/passwordchangingpost',controller.passwordchangingpost)
+router.post("/refferalpost",controller.refferalpost)
 
 module.exports = router

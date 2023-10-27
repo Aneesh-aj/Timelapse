@@ -11,327 +11,379 @@
   <link rel="stylesheet" href="/style.css" class="style">
   <title>category-managment</title>
 </head>
-
+<style>
+  .error {
+      color: red;
+      font-size: 14px;
+  }
+</style>
 <body>
-   <%- include('navbar2.ejs') %>
-  <content class="nav-height">
-    <div class="container-fluid   " id="body-color">
-      <div class=" d-flex h-auto  profile-main">
-        <div class="profile-div ">
-          <div class="profile-photo d-flex align-items-center ">
-            <div class=" hii d-flex justify-content-center align-items-center">
-              <div class="profile-picture "
-                style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
-              </div>
-            </div>
-            <div class=" hello d-flex align-items-center">
-              <span><a href="/admin" style="text-decoration: none; outline: none; color: black;">Admin</a></span>
-            </div>
-          </div>
-          <div class="profile-selection">
-            <div class="selector  d-flex align-items-center">
-              <div class=" hii d-flex align-items-center justify-content-center">
-                <div class="selector-image"
-                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); "></div>
-              </div>
-              <div class="hello d-flex align-items-center">
-                <span><a href="/admin/order-details" style="text-decoration: none; outline: none; color: black;">order
-                    details</a></span>
-              </div>
-            </div>
-            <div class="line"></div>
-            <div class="selector  d-flex align-items-center">
-              <div class=" hii  d-flex align-items-center justify-content-center">
-                <div class="selector-image"
-                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); "></div>
+  <%- include('navbar2.ejs') %>
+    <content class="nav-height">
+      <div class="container-fluid   " id="body-color">
+        <div class=" d-flex h-auto  profile-main">
+          <div class="profile-div ">
+            <div class="profile-photo d-flex align-items-center ">
+              <div class=" hii d-flex justify-content-center align-items-center">
+                <div class="profile-picture "
+                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
+                </div>
               </div>
               <div class=" hello d-flex align-items-center">
-                <span><a href="/admin/product-managment"
-                    style="text-decoration: none; outline: none; color: black;">product</a></span>
+                <span><a href="/admin" style="text-decoration: none; outline: none; color: black;">Admin</a></span>
               </div>
             </div>
-            <div class="line"></div>
-            <div class="selector  d-flex align-items-center align-items-center">
-              <div class="hii d-flex justify-content-center align-items-center">
-                <div class="selector-image bg-light"
-                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
-              </div>
-              <div class="hello d-flex align-items-center">
-                <span><a href="/admin/user-managment"
-                    style="text-decoration: none; outline: none; color: black;">users</a></span>
-              </div>
-            </div>
-            <div class="line"></div>
-            <div class="selector  d-flex align-items-center align-items-center"  style="background-color: rgb(238, 236, 236);">
-              <div class="hii d-flex justify-content-center align-items-center">
-                <div class="selector-image bg-light"
-                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
-              </div>
-              <div class="hello d-flex align-items-center">
-                <span><a href="/admin/category"
-                    style="text-decoration: none; outline: none; color: black;">category</a></span>
-              </div>
-            </div>
-            <div class="line"></div>
-            <div class="selector  d-flex align-items-center align-items-center" >
-              <div class="hii d-flex justify-content-center align-items-center">
-                <div class="selector-image bg-light"
-                  style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
-              </div>
-              <div class="hello d-flex align-items-center">
-                <span><a href="/admin/coupon"
-                    style="text-decoration: none; outline: none; color: black;">coupon</a></span>
-              </div>
-            </div>
-            <div class="line"></div>
-
-          </div>
-        </div>
-        <div class="profile-div2  ">
-
-          <div class="table-2 p-4">
-            <div class="container">
-              <div class="row">
-                <!-- Left Table: Watch Type -->
-                <div class="col-md-6">
-                  <h2>Watch Type</h2>
-                  <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCategoryModalLeft">Add
-                    Category</button>
-                  <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-
-                          <th>Name</th>
-                          <th>Edit</th>
-                          <th>List</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <%for(let i=0; i < watchtype.length ;i++){ %>
-                          <!-- Add your left table data here -->
-                          <tr>
-
-                            <td>
-                              <%= watchtype[i].watch_type %>
-                            </td>
-                            <td> <button class="btn btn-outline-primary btn-sm"
-                                onclick="openEditModal('<%= watchtype[i].watch_type %>','<%= watchtype[i]._id%>')">Edit</button>
-                            </td>
-                            <td><a href="/admin/category/list?_id=<%= watchtype[i]._id %>"
-                                class="btn btn-info btn-sm"> <%= watchtype[i].list ? 'List' : 'Unlist' %></a></td>
-
-                          </tr>
-
-                          <% } %>
-                      </tbody>
-                    </table>
-                  </div>
+            <div class="profile-selection">
+              <div class="selector  d-flex align-items-center">
+                <div class=" hii d-flex align-items-center justify-content-center">
+                  <div class="selector-image"
+                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); "></div>
                 </div>
-
-                <!-- Right Table: Brand -->
-                <div class="col-md-6">
-                  <h2>Brand</h2>
-                  <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCategoryModalRight">Add
-                    Category</button>
-                  <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-
-                          <th>Name</th>
-                          <th>Edit</th>
-                          <th>List</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- Add your right table data here -->
-                        <%for(let i=0; i < brands.length ;i++){ %>
-                          <tr>
-
-                            <td>
-                              <%= brands[i].brand_category %>
-                            </td>
-                            <td><button class="btn btn-outline-primary  btn-sm">Edit</button></td>
-                            <td><a
-                                href="/admin/category/brand-list?_id=<%= encodeURIComponent(brands[i]._id) %>"
-                                class="btn btn-info btn-sm"><%= brands[i].list ? 'List' : 'Unlist' %></a></td>
-                          </tr>
-                          <% } %>
-                      </tbody>
-                    </table>
-                  </div>
+                <div class="hello d-flex align-items-center">
+                  <span><a href="/admin/order-details" style="text-decoration: none; outline: none; color: black;">order
+                      details</a></span>
                 </div>
               </div>
-            </div>
+              <div class="line"></div>
+              <div class="selector  d-flex align-items-center">
+                <div class=" hii  d-flex align-items-center justify-content-center">
+                  <div class="selector-image"
+                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); "></div>
+                </div>
+                <div class=" hello d-flex align-items-center">
+                  <span><a href="/admin/product-managment"
+                      style="text-decoration: none; outline: none; color: black;">product</a></span>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="selector  d-flex align-items-center align-items-center">
+                <div class="hii d-flex justify-content-center align-items-center">
+                  <div class="selector-image bg-light"
+                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+                </div>
+                <div class="hello d-flex align-items-center">
+                  <span><a href="/admin/user-managment"
+                      style="text-decoration: none; outline: none; color: black;">users</a></span>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="selector  d-flex align-items-center align-items-center"
+                style="background-color: rgb(238, 236, 236);">
+                <div class="hii d-flex justify-content-center align-items-center">
+                  <div class="selector-image bg-light"
+                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+                </div>
+                <div class="hello d-flex align-items-center">
+                  <span><a href="/admin/category"
+                      style="text-decoration: none; outline: none; color: black;">category</a></span>
+                </div>
+              </div>
+              <div class="line"></div>
+              <div class="selector  d-flex align-items-center align-items-center">
+                <div class="hii d-flex justify-content-center align-items-center">
+                  <div class="selector-image bg-light"
+                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+                </div>
+                <div class="hello d-flex align-items-center">
+                  <span><a href="/admin/coupon"
+                      style="text-decoration: none; outline: none; color: black;">coupon</a></span>
+                </div>
+              </div>
+              <div class="line"></div>
 
-          </div>
-        </div>
-      </div>
-
-
-
-  </content>
-  <!-- Button trigger modal -->
-
-
-  <div class="modal fade" id="addCategoryModalLeft" tabindex="-1" role="dialog"
-    aria-labelledby="addCategoryModalLabelLeft" aria-hidden="true">
-
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form method="post" action="/admin/category" onsubmit=" return validateWatchtype()">
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="categoryName">Watch type</label>
-              <input type="text" class="input-control" name="watch_type" value="" class="form-control" id="categoryName"
-                placeholder="Enter watch type ">
-              <div class="error"></div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button class="btn btn-primary" type="submit">Add watchtype</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="modal fade" id="addCategoryModalRight" tabindex="-1" role="dialog"
-    aria-labelledby="addCategoryModalLabelRight" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form method="post" action="/admin/category/brands" onsubmit="return validatebrands()">
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="categoryName">Watch Brand</label>
-              <input type="text" name="brand_category" placeholder="Enter Brand Name">
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <div class="profile-div2  ">
 
-            <button type="submit" class="btn btn-primary">Add Category</button>
-          </div>
-        </form>
-      </div>
-    </div>
+            <div class="table-2 p-4">
+              <div class="container">
+                <div class="row">
+                  <!-- Left Table: Watch Type -->
+                  <div class="col-md-6">
+                    <h2>Watch Type</h2>
+                    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCategoryModalLeft">Add
+                      Category</button>
+                    <div class="table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
 
+                            <th>Name</th>
+                            <th>Edit</th>
+                            <th>List</th>
+                          </tr>
+                        </thead>
 
-  </div>
+                        <tbody>
+                          <%for(let i=0; i < watchtype.length ;i++){ %>
+                            <!-- Add your left table data here -->
+                            <tr>
 
-  <!-- Edit Watch Type Modal -->
-  <div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form method="post" action="/admin/category/edit">
-          <!-- Adjust the action attribute accordingly -->
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="editCategoryName">New Watch Type</label>
-              <input type="text" class="input-control" name="watch_type" value="<%= watchtype.watch_type %>"
-                class="form-control" id="editCategoryName" placeholder="Enter new watch type">
-              <input type="hidden" value="<%= watchtype._id %>" name="_id" id="editCategoryId">
-              <div class="error"></div>
+                              <td>
+                                <%= watchtype[i].watch_type %>
+                              </td>
+                              <td> <button class="btn btn-outline-primary btn-sm"
+                                  onclick="openEditModal('<%= watchtype[i].watch_type %>','<%= watchtype[i]._id%>')">Edit</button>
+                              </td>
+                              <td><a href="/admin/category/list?_id=<%= watchtype[i]._id %>"
+                                  class="btn btn-info btn-sm" style="width: 4rem;">
+                                  <%= watchtype[i].list ? 'List' : 'Unlist' %>
+                                </a></td>
+
+                            </tr>
+
+                            <% } %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- Right Table: Brand -->
+                  <div class="col-md-6">
+                    <h2>Brand</h2>
+                    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCategoryModalRight">Add
+                      Category</button>
+                    <div class="table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+
+                            <th>Name</th>
+                            <th>Edit</th>
+                            <th>List</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <!-- Add your right table data here -->
+                          <%for(let i=0; i < brands.length ;i++){ %>
+                            <tr>
+
+                              <td>
+                                <%= brands[i].brand_category %>
+                              </td>
+                              <td><button class="btn btn-outline-primary  btn-sm">Edit</button></td>
+                              <td><a href="/admin/category/brand-list?_id=<%= encodeURIComponent(brands[i]._id) %>"
+                                  class="btn btn-info btn-sm">
+                                  <%= brands[i].list ? 'List' : 'Unlist' %>
+                                </a></td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button class="btn btn-primary" type="submit">Save Changes</button>
+        </div>
+
+
+
+    </content>
+    <!-- Button trigger modal -->
+
+
+    <div class="modal fade" id="addCategoryModalLeft" tabindex="-1" role="dialog"
+      aria-labelledby="addCategoryModalLabelLeft" aria-hidden="true">
+
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-        </form>
-      </div>
-    </div>
-  </div>
+          <form method="post" action="/admin/category" for="watchtype" onsubmit="return validateWatchtype();">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="categoryName">Watch type</label>
+                <input type="hidden" value="<%=watchtype%>" name="watchtype">
+                <input type="text" class="input-control" name="watch_type" value="" class="form-control"
+                  id="categoryName" placeholder="Enter watch type ">
+                <input type="hidden" name="matched_watch_type" value=""> <!-- Add this hidden input -->
 
-
-
-
-
-  <footer>
-
-
-    <div class="container-fluid footer-color">
-      <div class="container d-flex ">
-        <div class="">
-          <div class="footer-div1 d-flex justify-content-center">
-            <h1 class="heading  pt-4">About us</h1>
-          </div>
-          <div class="footer-div1">
-
-            <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
-              Universe, we're passionate about bringing you the finest selection of watches that blend elegance,
-              precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's
-              most stunning watches with watch enthusiasts and collectors alike.</p>
-
-          </div>
+                <div class="error"></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary" type="submit">Add watchtype</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-    <div class="container-fluid footer-color d-flex justify-content-center">
-      <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+
+
+    <div class="modal fade" id="addCategoryModalRight" tabindex="-1" role="dialog"
+      aria-labelledby="addCategoryModalLabelRight" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form method="post" action="/admin/category/brands" onsubmit="return validatebrands()">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="categoryName">Watch Brand</label>
+                <input type="text" name="brand_category" placeholder="Enter Brand Name">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+              <button type="submit" class="btn btn-primary">Add Category</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
     </div>
-  </footer>
+
+    <!-- Edit Watch Type Modal -->
+    <div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form method="post" action="/admin/category/edit">
+            <!-- Adjust the action attribute accordingly -->
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="editCategoryName">New Watch Type</label>
+                <input type="text" class="input-control" name="watch_type" value="<%= watchtype.watch_type %>"
+                  class="form-control" id="editCategoryName" placeholder="Enter new watch type">
+                <input type="hidden" value="<%= watchtype._id %>" name="_id" id="editCategoryId">
+                <div class="error"></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary" type="submit">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <footer>
+
+
+      <div class="container-fluid footer-color">
+        <div class="container d-flex ">
+          <div class="">
+            <div class="footer-div1 d-flex justify-content-center">
+              <h1 class="heading  pt-4">About us</h1>
+            </div>
+            <div class="footer-div1">
+
+              <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
+                Universe, we're passionate about bringing you the finest selection of watches that blend elegance,
+                precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's
+                most stunning watches with watch enthusiasts and collectors alike.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid footer-color d-flex justify-content-center">
+        <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+      </div>
+    </footer>
 
 </body>
 <script>
-  function validateWatchtype() {
+function validateWatchtype() {
+    console.log("coming here");
+    const errorElement = document.querySelector(".error");
+    errorElement.textContent = "";
+    
+    const inputValue = document.querySelector("[name='watch_type']").value.trim();
 
-    const name = document.getElementById('categoryName');
-    const errorDisplay = name.nextElementSibling; // Error message container
-
-    const nameValue = name.value.trim();
-
-    if (nameValue === '') {
-      setError(name, 'Watch type is required');
-      return false; // Prevent form submission
-    } else {
-      setSuccess(name);
+    if (inputValue === "") {
+        errorElement.textContent = "Watch type cannot be empty.";
+        return false; // Prevent form submission
     }
 
+    if (!isNaN(inputValue)) {
+        errorElement.textContent = "Watch type cannot be a number.";
+        return false; 
+    }
 
-    return true;
-  }
+    const inputValueLowercase = inputValue.toLowerCase();
+
+    const data = {
+        inputvalue: inputValueLowercase,
+    }
+
+   fetch('/admin/watchtype-exist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Network response was not ok');
+        }
+    })
+    .then(data => {
+        if (data.Exist) {
+
+          console.log("the if")
+            errorElement.textContent = "Watch type already exists.";
+            return false; 
+        } else if (data.NotExist) {
+          console.log("the else")
+          document.querySelector("[for='watchtype']").submit();
+
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+        return false; // Handle fetch errors by preventing form submission
+    });
+
+   return false
+}
+
+
 
   function validatebrands() {
 
     const name = document.getElementById('brandCategory');
-    const errorDisplay = name.nextElementSibling; // Error message container
+    const errorDisplay = name.nextElementSibling; 
 
     const nameValue = name.value.trim();
 
     if (nameValue === '') {
       setError(name, 'brand name is required');
-      return false; // Prevent form submission
-    } else {
+      return false; 
       setSuccess(name);
     }
 
 
     return true;
   }
-  // Replace this with your actual function to check for duplicates in the database
 
 
   function setError(element, message) {

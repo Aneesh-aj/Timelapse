@@ -5,6 +5,7 @@ const orderSchema = mongoose.Schema({
           product_id:{type:mongoose.Schema.Types.ObjectId,ref:"products"},
           quantity:{type:Number},
           price:{type:Number},
+          sellingprice:{type:Number},
           totalPrice:{type:Number},
           return:{type:Boolean},
           ret_date:{types:Date}

@@ -33,6 +33,8 @@ const dataSchema = mongoose.Schema({
     wallet:{
        
         balance:{type:Number, default:0},
+        refferalcode:{type:String},
+        reffered:{type:Boolean,default:false}
 
     }
     

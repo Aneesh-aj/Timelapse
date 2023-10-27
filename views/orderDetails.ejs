@@ -19,49 +19,8 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg nav-height "> <!--nav-height  -->
-    <div class="container-fluid ">
-      <div class=" nav-div1">
-
-        <div class="ms-5">
-          <span class="">
-            <a class="nav-link active nav-texts" aria-current="page" href="/home">Home</a>
-          </span>
-        </div>
-      </div>
-      <div class=" d-flex  nav-div2 ">
-
-        <div class=" span-div  d-flex  justify-content-center">
-          <span><a class="nav-link nav-texts" href="#">Top</a></span>
-        </div>
-        <div class="span-div d-flex  justify-content-center ">
-          <span><a class="nav-link nav-texts" href="/collection?gender=kids">Kids</a></span>
-        </div>
-        <div class="span-div d-flex  justify-content-center ">
-          <span><a class="nav-link nav-texts" href="/collection?gender=men">Mens</a></span>
-        </div>
-        <div class=" span-div d-flex  justify-content-center ">
-          <span><a class="nav-link nav-texts" href="/collection?gender=women">Women</a></span>
-        </div>
-        <div class="span-div d-flex justify-content-center ">
-          <span><a class="nav-link nav-texts" href="/collection?collection=true">collection</a></span>
-        </div>
-      </div>
-      <div class=" d-flex  nav-div3  justify-content-end ">
-        <a href="/admin/logout" class="btn btn-outline-light">logout</a>
-
-      </div>
-
-      <div class=" d-flex pe-4 nav-div4 justify-content-start">
-
-        <div class="span-div d-flex justify-content-center ">
-
-          <div class="selector-image" style="background-image: url(shopping-cart\ \(1\).png); "></div>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <content>
+   <%-include('navbar2.ejs') %>
+  <content class="nav-height">
     <div class="container-fluid   " id="body-color">
       <div class=" d-flex h-auto  profile-main">
         <div class="profile-div ">
@@ -82,7 +41,7 @@
                   style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); "></div>
               </div>
               <div class="hello d-flex align-items-center">
-                <span><a href="/admin/order-details" style="text-decoration: none; outline: none; color: black;">order
+                <span><a href="/admin/orders" style="text-decoration: none; outline: none; color: black;">order
                     details</a></span>
               </div>
             </div>
@@ -180,7 +139,7 @@
                           <%=i+1 %>
                         </td>
                         <td>
-                          <div style="width: 4rem; height: 4rem;" class="m-2">
+                          <div style="width: 6rem; height: 9rem; object-fit: contain;" class="m-2" >
                             <img style="width: 100%; height: 100%;"
                               src="/filename/<%=product.product[i].product_id.product_image[0] %>">
                           </div>
@@ -190,10 +149,10 @@
                               <%=product.product[i].product_id.watch_case %>
                         </td>
                         <td>
-                          <%=product.product[i].quantity%>
+                            <%= product.product[i].price %>
                         </td>
                         <td>
-                          <%= product.product[i].price %>
+                            <%=product.product[i].quantity%>
                         </td>
                         <td>
                           <%=product.product[i].totalPrice %>
@@ -208,12 +167,35 @@
                       
                         <%}%>
 
+                         
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Total without Discount :</td>
+                            <td><%=expectedtotal %></td>
+                           
+                            <td>product offer discount :</td>
+                            <td>
+                                <%=productdiscount %>
+                            </td>
+
+                          </tr>
                           <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td>coupon discount :</td>
+                            <td>
+                             <%= coupondiscount %>
+                            </td>
 
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
                               Total Amount :
                             </td>

@@ -15,6 +15,7 @@ const Razorpay = require("razorpay")
 const { render } = require("ejs")
 const couponModel = require("../model/couponModel")
 const bannerModel = require("../model/banner-Model")
+const { consumers } = require("nodemailer/lib/xoauth2")
 require('dotenv').config();
 
 const EMAIL = process.env.EMAIL;
@@ -54,10 +55,10 @@ const forgotpassword = (req, res) => {
 const homepageview = async (req, res) => {
 
     try {
-
+        console.log("home showing")
         const product = await productModel.find({}).limit(4)
         const banner = await bannerModel.find({}).sort({ index: 1 });
-        res.render("wallet", { product, banner })
+        res.render("homePage", { product, banner })
 
     } catch (error) {
         console.error(error, "9")
@@ -149,10 +150,17 @@ const loginPost = async (req, res) => {
 }
 
 const userLogout = (req, res) => {
+     
+     try{
+        console.log("coming for logout here")
 
     req.session.destroy()
     res.clearCookie("currentUser")
-    res.redirect("/home")
+    res.status(200).json({ success: true });
+     }catch(error){
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
+     }
 }
 
 const singupView = (req, res) => {
@@ -216,6 +224,7 @@ const signupPost = async (req, res) => {
             })
             req.session.enter_token = req.body.email
             console.log("-----------otp----------", req.session.otp)
+
             res.redirect("/verification")
 
         }
@@ -241,6 +250,7 @@ const verification = (req, res) => {
         }
 
     }catch(error){
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -252,16 +262,30 @@ const verficatiionPost = async (req, res) => {
         
             if (req.session.otp === req.body.otp) {
                 console.log("the otp is correct")
+                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let code = '';
+
+                for (let i = 0; i < 8; i++) {
+                  const randomIndex = Math.floor(Math.random() * characters.length);
+                  code += characters.charAt(randomIndex);
+                }
+                             
+
                 await usersModel.create({
                     name: req.session.name,
                     email: req.session.email,
                     password: req.session.password,
-                    block: false
+                    block: false,
+                    wallet:{refferalcode:code,balance:0}
+
                 })
                 const Token = req.session.email
                 res.cookie("currentUser", Token)
+                
                 res.redirect("/home")
             } else {
+
+              
         
         
                 delete req.session.otp
@@ -269,6 +293,8 @@ const verficatiionPost = async (req, res) => {
             }
 
     }catch(error){
+        console.log("hiiiii")
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -377,9 +403,9 @@ const wallet = async (req, res) => {
 
         const user = await usersModel.findOne({ email: req.session.email })
 
-        res.render("wallet", user)
+        res.render("wallet", {user})
     } catch (error) {
-
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 }
 
@@ -488,7 +514,7 @@ const addToCart = async (req, res) => {
                 product_name,
                 quantity,
                 price: produ.price,
-                totalPrice: produ.price * quantity,
+                totalPrice: produ.sellingprice * quantity,
                 sellingprice: produ.sellingprice
             });
         }
@@ -632,14 +658,14 @@ const quantityUpdate = async (req, res) => {
 
             for (let i = 0; i < user.cart.length; i++) {
                 console.log("in every quantity inde , qnt", i, user.cart[i].quantity)
-                user.cart[i].totalPrice = user.cart[i].price * user.cart[i].quantity
+                user.cart[i].totalPrice = user.cart[i].sellingprice * user.cart[i].quantity
                 totalprice += user.cart[i].totalPrice
             }
             console.log("toal price ", totalprice)
         } else {
             console.log("it is came to else")
             const product = await productModel.findOne({ _id: productid }, {})
-            totalprice += product.price * parsedQuantity
+            totalprice += product.sellingprice * parsedQuantity
 
             product.totalPrice = totalprice
             req.session.quantity = parsedQuantity
@@ -1106,8 +1132,23 @@ const userOrderdetails = async (req, res) => {
 
         const product = await orderModel.findOne({ _id: id }).populate("product.product_id").exec()
         const order = await orderModel.findOne({ _id: id }, {}).populate('user_id').exec()
+         
+        console.log("---orders",order)
 
-        res.render("userOrderDetails", { product, order })
+        let  productdiscount =0
+        let  coupondiscount =0
+        let expectedtotal =0
+
+        for(let i=0;i < order.product.length;i++){
+            productdiscount += (order.product[i].quantity*order.product[i].price) - order.product[i].totalPrice
+            coupondiscount += order.product[i].totalPrice
+            expectedtotal += order.product[i].quantity*order.product[i].price
+        }
+
+        coupondiscount = coupondiscount - order.totalamount
+        
+        console.log("product otot",productdiscount)
+        res.render("userOrderDetails", { product, order,productdiscount ,coupondiscount,expectedtotal})
 
     } catch (error) {
         console.log(error)
@@ -1509,7 +1550,18 @@ const invoiceget = async (req, res) => {
         const user = await usersModel.find({ email: req.session.email })
         console.log("order---", order.product.name)
         console.log("user", user)
-        res.render("invoice", { order, user })
+         let coupondiscount=0
+         let subtotal =0
+        for(let i=0;i < order.product.length;i++){
+            coupondiscount += order.product[i].totalPrice
+            subtotal += order.product[i].sellingprice
+        }
+
+        coupondiscount = coupondiscount - order.totalamount
+
+         console.log("the user",user)
+         console.log("the orders",order)
+        res.render("invoice", { order, user ,coupondiscount,subtotal})
 
 
     } catch (error) {
@@ -1547,5 +1599,39 @@ const passwordchangingpost = async ( req, res)=>{
 }
 
 
+const refferalpost = async (req,res)=>{
+    try{
+    
+        console.log("comming here")
+        
+     const code = req.body.userEnteredReferralCode
 
-module.exports = {passwordchangingpost,passwordchange, invoiceget, applycoupn, returnOrder, wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails, ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }
+     console.log("the code",code)
+     const user = await usersModel.findOne({'wallet.refferalcode': code});
+
+     const currentUser = await usersModel.findOne({email:req.session.email})
+      console.log("the uer",user)
+     if(user){
+
+        currentUser.wallet.balance += 100
+        currentUser.wallet.reffered = true
+        
+        await currentUser.save() 
+
+        console.log("coming here",currentUser)
+        
+         res.json({success:true})
+     }else{
+        res.status(404).json({ notfound: true });
+    }
+
+
+
+    }catch(error){
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+    }
+}
+
+
+
+module.exports = {refferalpost,passwordchangingpost,passwordchange, invoiceget, applycoupn, returnOrder, wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails, ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }

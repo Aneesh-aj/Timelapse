@@ -42,12 +42,11 @@
                             <h4 class="float-end font-size-15">Invoice #DS0204 <span
                                     class="badge bg-success font-size-12 ms-2">Paid</span></h4>
                             <div class="mb-4">
-                                <h2 class="mb-1 text-muted">Bootdey.com</h2>
                             </div>
                             <div class="text-muted">
-                                <p class="mb-1">3184 Spruce Drive Pittsburgh, PA 15201</p>
-                                <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> xyz@987.com</p>
-                                <p><i class="uil uil-phone me-1"></i> 012-345-6789</p>
+                                <p class="mb-1"></p>
+                                <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> </p>
+                                <p><i class="uil uil-phone me-1"></i> </p>
                             </div>
                         </div>
 
@@ -57,10 +56,10 @@
                             <div class="col-sm-6">
                                 <div class="text-muted">
                                     <h5 class="font-size-16 mb-3">Billed To:</h5>
-                                    <h5 class="font-size-15 mb-2">Preston Miller</h5>
-                                    <p class="mb-1">4068 Post Avenue Newfolden, MN 56738</p>
-                                    <p class="mb-1">PrestonMiller@armyspy.com</p>
-                                    <p>001-234-5678</p>
+                                    <h5 class="font-size-15 mb-2"><%=user[0].name%></h5>
+                                    <p class="mb-1"><%=order.first_address%>,<%=order.state%>,<%=order.town%></p>
+                                    <p class="mb-1"><%=user[0].email%></p>
+                                    <p><%=user[0].number%></p>
                                 </div>
                             </div>
                             <!-- end col -->
@@ -115,16 +114,16 @@
                                           
                                      <%  } %>
                                  
-                                        <!-- <tr>
+                                        <tr>
                                             <th scope="row" colspan="4" class="text-end">Sub Total</th>
-                                            <td class="text-end">$732.50</td>
+                                            <td class="text-end"><%=subtotal %></td>
                                         </tr>
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">
                                                 Discount :</th>
-                                            <td class="border-0 text-end">- $25.50</td>
+                                            <td class="border-0 text-end"> <%= coupondiscount%></td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">
                                                 Shipping Charge :</th>
                                             <td class="border-0 text-end">$20.00</td>

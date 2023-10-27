@@ -344,14 +344,16 @@ const categoryGet = async (req, res) => {
 
 const watchtypeAdding = async (req, res) => {
   try {
+    console.log("oooooITS here guyzz")
+    
     const watchType = await watchTypeModel.find({ watch_type: req.body.watch_type })
     console.log("watchtype =>", watchType)
     const checking = req.body.watch_type
     if (watchType.length === 0 && checking != 0) {
       await watchTypeModel.create({ watch_type: req.body.watch_type, list: true })
-      res.redirect("/admin/product-managment/category")
+      return  res.redirect("/admin/category")
     } else {
-      res.redirect("/admin")
+      res.redirect("/admin/category")
     }
   }
   catch (error) {
@@ -497,9 +499,17 @@ const adminorderDetails = async (req, res) => {
         const order = await orderModel.findOne({ _id: id }, {}).populate('user_id').exec()
       
         console.log(" the product form the ", order)
+        let  productdiscount =0
+        let  coupondiscount =0
+        let expectedtotal =0
+
+        for(let i=0;i < order.product.length;i++){
+            productdiscount += (order.product[i].quantity*order.product[i].price) - order.product[i].totalPrice
+            coupondiscount += order.product[i].totalPrice
+            expectedtotal += order.product[i].quantity*order.product[i].price
+        }
       
-      
-        res.render("orderDetails", { product, order })
+        res.render("orderDetails", { product, order,productdiscount ,coupondiscount,expectedtotal })
 
     }catch(error){
       res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
@@ -595,6 +605,8 @@ const addingcoupon = async (req, res) => {
     const coupontype = req.body.coupon_type
     const min = req.body.min
     const max = req.body.max
+
+    console.log("---body-----",req.body)
 
     const coupon = await couponModel.create({
       coupon_code: couponcode,
@@ -803,8 +815,34 @@ const salesreport = async (req,res)=>{
     }
 }
 
+const watchtypechecking = async (req,res)=>{
+   try{
+
+    const inputvalue = req.body.inputvalue
+
+    console.log("--inputvlaue",inputvalue)
+
+    const watchtypes = await  watchTypeModel.find({})
+
+    for(let i=0;i < watchtypes.length;i++){
+          console.log("in the loop",watchtypes[i].watch_type.toLowerCase())
+         if(inputvalue == watchtypes[i].watch_type.toLowerCase().trim()){
+              return res.json({Exist:true})
+         }
+    }
+
+    console.log("its not found")
+    res.json({NotExist:true})
+
+   }catch(error){
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+   }
+}
 
 
 
 
-module.exports = {salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }
+
+
+
+module.exports = {watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }

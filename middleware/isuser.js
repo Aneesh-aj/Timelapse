@@ -23,6 +23,7 @@ const checkUserStatus = async (req, res, next) => {
 const currentuser = async (req,res,next)=>{
     try{
         if (!req.session.email) { 
+            console.log("no session")
             return res.redirect("/login")
         }else{
             console.log("coming to next")

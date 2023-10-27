@@ -20,7 +20,7 @@
            <img src="/profile (1).png" alt="" style="object-fit: contain;">
       </div>
       <div class="w-50 ms-2">
-          <h5 class="heading">aneesh</h5>
+          <h5 class="heading">user</h5>
       </div>
   
     </div>
@@ -54,6 +54,20 @@
           </a>
         </li>
         <hr>
+        <li>
+          <a href="/wallet">
+            <i class="bx bx-wallet"></i>
+            <span class="link_name">wallet</span>
+          </a>
+        </li>
+        <hr>
+        <li>
+         
+            <i class="bx bx-log-out"></i>
+             <button id="postButton" class="btn btn-primary">logout</button>
+            
+        </li>
+        <hr>
         
        
       </ul>
@@ -69,6 +83,35 @@
  
   <!-- Scripts -->
   <script>
+
+
+document.getElementById('postButton').addEventListener('click', function() {
+  fetch('/logout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('POST request failed');
+    }
+  })
+  .then(data => {
+    if (data.success) {
+      console.log('Logout successful');
+       window.location.href='/home'
+    } else {
+      console.error('Logout failed');
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+});
+
 
 window.onload = function () {
       const sidebar = document.querySelector(".sidebar");
