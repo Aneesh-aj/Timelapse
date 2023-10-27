@@ -752,7 +752,6 @@ const chartreport = async (req, res) => {
       },
     ]);
 
-    // Create an object to store all reports, including monthly orders, amounts, and counts
     const allReports = {};
 
     // Populate the object with the counts, total amounts, and orders from the aggregation result
