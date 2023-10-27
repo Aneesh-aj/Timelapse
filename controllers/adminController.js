@@ -649,11 +649,10 @@ const banneradding = async (req, res) => {
           return res.status(400).send('No file uploaded.');
       }
 
-      // Extracting data from the request
+      
       const { filename } = req.file;
       const { index } = req.body; // Assuming the index is sent in the request body
 
-      // Update or create a new banner with the specified index
       const updatedBanner = await bannerModel.findOneAndUpdate(
           { index },
           { banner: filename, index },
