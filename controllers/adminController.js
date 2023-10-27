@@ -754,7 +754,6 @@ const chartreport = async (req, res) => {
 
     const allReports = {};
 
-    // Populate the object with the counts, total amounts, and orders from the aggregation result
     orderData.forEach(entry => {
       const year = entry._id.year;
       const month = entry._id.month;
