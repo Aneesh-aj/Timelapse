@@ -151,7 +151,6 @@ const userManagment = async (req, res) => {
           ]
         });
       } else {
-        // If no search query is provided, retrieve the list of all users
         database = await usersModel.find();
       }
 
