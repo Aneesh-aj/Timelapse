@@ -279,7 +279,6 @@ const productListing = async (req, res) => {
 
 const productAdding = async (req, res) => {
   try {
-    // Handle file upload using multer
     upload.array("filename")(req, res, async function (err) {
       if (err) {
         // Handle any multer errors here
