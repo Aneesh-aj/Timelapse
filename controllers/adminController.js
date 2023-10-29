@@ -691,7 +691,6 @@ const removeBannerImage = async (req, res) => {
 
     console.log("comgingg here 2 ");
 
-    // Delete the image file (assuming the image is stored in a 'uploads' directory)
 
 
     console.log("comgin here 3");
