@@ -696,7 +696,6 @@ const removeBannerImage = async (req, res) => {
 
     console.log("comgin here 3");
 
-    // Remove the banner from the database
     await bannerModel.findOneAndDelete({ index:index });
 
     console.log("last portion");
