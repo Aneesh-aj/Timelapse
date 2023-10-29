@@ -1,7 +1,7 @@
 const express = require("express")
 const session = require("express-session")
 const mongoose = require("mongoose")
-
+const nocache = require("nocache")
 
 
 const app = express()
@@ -24,6 +24,7 @@ app.use(session({
     saveUninitialized:true,
 }))
 
+
 const cookieParser = require("cookie-parser");
 const upload = require("./config/multer");
 
@@ -40,6 +41,7 @@ app.use(cookieParser())
 app.use("/",require("./Router/router"))
 
 app.use("/admin", require("./Router/adminRouter"))
+
 
 app.use("/internalerror",(req,res)=>{
     console.log("getting here")

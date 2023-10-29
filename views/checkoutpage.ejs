@@ -21,528 +21,551 @@
 </head>
 
 <body>
-   <%- include('navbar.ejs') %>
-  <content class="nav-height"> 
-    <div class="container-fluid d-flex justify-content-center " style="background-color: #F1F3F6;">
-      <div class="container d-flex  justify-content-center">
-        <div class=" checkout-div   h-auto  ">
+  <%- include('navbar.ejs') %>
+    <content class="nav-height">
+      <div class="container-fluid d-flex justify-content-center " style="background-color: #F1F3F6;">
+        <div class="container d-flex  justify-content-center">
+          <div class=" checkout-div   h-auto  ">
 
-          <div class=" bx-sh mb-3 rounded-1  w-100" style="height:auto;">
-            <div class="d-flex j  pt-3 pe-3 ps-3">
-              <div class="w-50">
-                <h5>order address</h5>
-              </div>
-              <div class=" w-50 d-flex justify-content-end">
+            <div class=" bx-sh mb-3 rounded-1  w-100" style="height:auto;">
+              <div class="d-flex j  pt-3 pe-3 ps-3">
+                <div class="w-50">
+                  <h5>order address</h5>
+                </div>
+                <div class=" w-50 d-flex justify-content-end">
 
-                <button type="button" class="btn btn-outline-primary" data-toggle="modal"
-                  data-target="#exampleModalnew">
-                  add
-                </button>
+                  <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                    data-target="#exampleModalnew">
+                    add
+                  </button>
+                </div>
               </div>
-            </div>
-            <hr class="m-0 ">
-            <% for(let i=0; i< address.length;i++){ %>
-              <% if(i !=0){ %>
-                <hr class="m-0">
-                <% }%>
-                  <div class=" d-flex  p-3">
-                    <div class="w-75 d-flex align-items-center">
-                      <input type="checkbox" class="me-2 address-checkbox" data-address-id="<%= address[i]._id %>">
-                      <%= address[i].first_address %>,
-                        <%= address[i].country %>,
-                          <%= address[i].state %>,
-                            <%= address[i].town %>
+              <hr class="m-0 ">
+              <% for(let i=0; i< address.length;i++){ %>
+                <% if(i !=0){ %>
+                  <hr class="m-0">
+                  <% }%>
+                    <div class=" d-flex  p-3">
+                      <div class="w-75 d-flex align-items-center">
+                        <input type="checkbox" class="me-2 address-checkbox" data-address-id="<%= address[i]._id %>">
+                        <%= address[i].first_address %>,
+                          <%= address[i].country %>,
+                            <%= address[i].state %>,
+                              <%= address[i].town %>
+                      </div>
+
+                      <div class="d-flex justify-content-end w-25">
+                        <button type="button" class="btn btn-outline-primary me-2" data-toggle="modal"
+                          data-target="#exampleModalCenter<%=i%>">
+                          edit
+                        </button>
+                        <button class="btn btn-primary"
+                          onclick="deleteAddress( '<%=i%>', '<%=user._id %>')">delete</button>
+                      </div>
                     </div>
 
-                    <div class="d-flex justify-content-end w-25">
-                      <button type="button" class="btn btn-outline-primary me-2" data-toggle="modal"
-                        data-target="#exampleModalCenter<%=i%>">
-                        edit
-                      </button>
-                      <button class="btn btn-primary"
-                        onclick="deleteAddress( '<%=i%>', '<%=user._id %>')">delete</button>
-                    </div>
-                  </div>
+                    <div class="modal fade" id="exampleModalCenter<%=i%>" tabindex="-1" role="dialog"
+                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <form method="post" action="/checkout-editaddress">
+                            <div class="modal-body">
+                              <div class="mb-3">
+                                <label for="address" class="col-form-label">Address:</label>
+                                <input type="text" class="form-control" id="address" name="address1"
+                                  placeholder="<%=address[i].first_address %>">
+                                <input type="hidden" name="userid" value="<%=user._id %>">
+                                <input type="hidden" name="addressid" value="<%= address[i]._id %>">
+                              </div>
+                              <div class="mb-3">
+                                <label for="Country" class="col-form-label">Country</label>
+                                <select name="country" id="" class="form-control">
 
-                  <div class="modal fade" id="exampleModalCenter<%=i%>" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <form method="post" action="/checkout-editaddress">
-                          <div class="modal-body">
-                            <div class="mb-3">
-                              <label for="address" class="col-form-label">Address:</label>
-                              <input type="text" class="form-control" id="address" name="address1"
-                                placeholder="<%=address[i].first_address %>">
-                              <input type="hidden" name="userid" value="<%=user._id %>">
-                              <input type="hidden" name="addressid" value="<%= address[i]._id %>">
-                            </div>
-                            <div class="mb-3">
-                              <label for="Country" class="col-form-label">Country</label>
-                              <select name="country" id="" class="form-control">
-
-                                <option value="india" <% if (address[i].country==='india' ) { %>selected<% } %>>India
-                                </option>
-                                <option value="srilanka" <% if (address[i].country==='srilanka' ) { %>selected<% } %>
-                                    >Sri Lanka</option>
-
-                                <option value="America">America</option>
-                                <option value="china"> China</option>
-                              </select>
-                            </div>
-                            <div class="mb-3">
-                              <label for="State" class="col-form-label">Country</label>
-                              <select name="state" id="" class="form-control"
-                                aria-placeholder="<%= address[i].state %>">
-
-                                <option value="kerala">kerala</option>
-                                <option value="karnataka">karnataka</option>
-                                <option value="tamilnadu">tamilnadu</option>
-                                <option value="maharashtra"> maharashtra</option>
-                              </select>
-                            </div>
-                            <div class="mb-3 d-flex">
-                              <div class="flex-grow-1">
-                                <label for="district" class="col-form-label">District:</label>
-                                <select name="district" id="district" class="form-control">
-                                  <option selected>
-                                    <%= address[i].district%>
+                                  <option value="india" <% if (address[i].country==='india' ) { %>selected<% } %>>India
                                   </option>
-                                  <option value="malappuram">Malappuram</option>
-                                  <option value="kozhikode">Kozhikode</option>
-                                  <option value="wayanad">Wayanad</option>
-                                  <option value="kannur">Kannur</option>
+                                  <option value="srilanka" <% if (address[i].country==='srilanka' ) { %>selected<% } %>
+                                      >Sri Lanka</option>
+
+                                  <option value="America">America</option>
+                                  <option value="china"> China</option>
                                 </select>
                               </div>
-                              <div class="flex-grow-1 ps-3">
-                                <label for="pincode" class="col-form-label">Pincode:</label>
-                                <input type="text" class="form-control" name="postcode"
-                                  placeholder="<%=address[i].postcode %> ">
-                              </div>
-                            </div>
-                            <div class="mb-3">
-                              <label class="col-form-label">Town:</label>
-                              <input name="town" class="form-control" placeholder="<%= address[i].town %>">
-                            </div>
-                            <div>
-                              <label class="col-form-label">Locality:</label>
-                              <input name="locality" class="form-control" placeholder="<%=address[i].locality %>">
-                            </div>
+                              <div class="mb-3">
+                                <label for="State" class="col-form-label">Country</label>
+                                <select name="state" id="" class="form-control"
+                                  aria-placeholder="<%= address[i].state %>">
 
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                          </div>
-                        </form>
+                                  <option value="kerala">kerala</option>
+                                  <option value="karnataka">karnataka</option>
+                                  <option value="tamilnadu">tamilnadu</option>
+                                  <option value="maharashtra"> maharashtra</option>
+                                </select>
+                              </div>
+                              <div class="mb-3 d-flex">
+                                <div class="flex-grow-1">
+                                  <label for="district" class="col-form-label">District:</label>
+                                  <select name="district" id="district" class="form-control">
+                                    <option selected>
+                                      <%= address[i].district%>
+                                    </option>
+                                    <option value="malappuram">Malappuram</option>
+                                    <option value="kozhikode">Kozhikode</option>
+                                    <option value="wayanad">Wayanad</option>
+                                    <option value="kannur">Kannur</option>
+                                  </select>
+                                </div>
+                                <div class="flex-grow-1 ps-3">
+                                  <label for="pincode" class="col-form-label">Pincode:</label>
+                                  <input type="text" class="form-control" name="postcode"
+                                    placeholder="<%=address[i].postcode %> ">
+                                </div>
+                              </div>
+                              <div class="mb-3">
+                                <label class="col-form-label">Town:</label>
+                                <input name="town" class="form-control" placeholder="<%= address[i].town %>">
+                              </div>
+                              <div>
+                                <label class="col-form-label">Locality:</label>
+                                <input name="locality" class="form-control" placeholder="<%=address[i].locality %>">
+                              </div>
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+                    <% } %>
+            </div>
+            <div class="h-auto bx-sh">
+              <% if(singleproduct){ %>
+                <div class="rounded-1 w-100 d-flex pt-3 pb-3">
+                  <div class="d-flex justify-content-center " style="width: 25%; height: 8rem;">
+                    <div class="bg-danger" style="width: 6rem; height: 6rem; object-fit: contain;">
+                      <% if (singleproduct) { %>
+                        <img class="checkout-image" src="/filename/<%=singleproduct.product_image[0] %>">
+                        <% } %>
+                    </div>
+                  </div>
+                  <div class="" style="width: 75%; height: 10rem;">
+                    <div class="w-100 h-25">
+                      <h4>
+                        <%= singleproduct.product_name %>
+                          <input type="hidden" name="productId" value="<%=singleproductid %>">
+                      </h4>
+                    </div>
+                    <div class="w-100 h-25">
+                      <p class="">color : <%=singleproduct.strap_color %>
+                      </p>
+
+                    </div>
+                    <div class="w-100 h-25">
+                      <h5 class="proudct-price">&#8377
+
+                        <% if(singleproduct.price==singleproduct.sellingprice){ %>
+
+                          <span class="">
+                            <%=singleproduct.sellingprice %>
+                          </span>
+                          <% }else{ %>
+                            <span style="color: rgb(0, 0, 0);">
+                              <%= singleproduct.sellingprice %>
+                            </span>
+                            <span style="color: red;text-decoration: line-through;">
+                              <%= singleproduct.price %>
+                            </span>
+                            <% } %>
+
+                      </h5>
+
+                    </div>
+                    <div class="w-100 h-25 d-flex ">
+                      <div class=" quatity-select">
+                        <select class="w-100 bt-class" name="quantity"
+                          onchange="quantityChanged2(this,'<%= singleproduct._id %>')">
+
+                          <option selected disabled>Qty:<%=qnt%>
+                          </option>
+
+                          <% let count=singleproduct.stock %>
+                            <% if(count> 10 ){ %>
+                              <% count=10 %>
+                                <% }%>
+                                  <% for (let j=1; j <=count; j++){ %>
+
+                                    <option>
+                                      <%=j %>
+                                    </option>
+
+                                    <% } %>
+
+
+                                      const { quantity, index,productid } = req.body;
+                                      <% if(count <=0){ %>
+                                        <p style="color: red;">Out of stock</p>
+                                        <% } %>
+                        </select>
+                      </div>
+
+                      <div>
+                        <button class="remove-button ms-2 btn btn-outline-primary" data-product-id="">Remove</button>
                       </div>
                     </div>
                   </div>
-
-                  <% } %>
-          </div>
-          <div class="h-auto bx-sh">
-            <% if(singleproduct){ %>
-              <div class="rounded-1 w-100 d-flex pt-3 pb-3">
-                <div class="d-flex justify-content-center " style="width: 25%; height: 8rem;">
-                  <div class="bg-danger" style="width: 6rem; height: 6rem; object-fit: contain;">
-                    <% if (singleproduct) { %>
-                      <img class="checkout-image" src="/filename/<%=singleproduct.product_image[0] %>" >
-                      <% } %>
-                  </div>
                 </div>
-                <div class="" style="width: 75%; height: 10rem;">
-                  <div class="w-100 h-25">
-                    <h4>
-                      <%= singleproduct.product_name %>
-                        <input type="hidden" name="productId" value="<%=singleproductid %>">
-                    </h4>
-                  </div>
-                  <div class="w-100 h-25">
-                    <p class="">color : <%=singleproduct.strap_color %>
-                    </p>
+                <hr>
+                <% } else{ %>
 
-                  </div>
-                  <div class="w-100 h-25">
-                    <h5 class="proudct-price">&#8377 
+                  <% const cart=user.cart %>
+                    <% for (let i=0; i < cart.length; i++) { %>
 
-                      <%  if(singleproduct.price == singleproduct.sellingprice){ %>
-                                            
-                        <span class=""><%=singleproduct.sellingprice %></span>
-                        <% }else{ %>
-                            <span style="color: rgb(0, 0, 0);"><%= singleproduct.sellingprice %> </span>
-                            <span style="color: red;text-decoration: line-through;"><%= singleproduct.price %></span>
-                      <% } %>
-                            
-                    </h5>
+                      <div class="rounded-1 w-100 d-flex pt-3 pb-3">
+                        <div class="d-flex justify-content-center" style="width: 25%; height: 9rem;">
+                          <div class="" style="width: 8rem; height: 11rem; object-fit: contain;">
+                            <% if (cart[i].product_id && cart[i].product_id.product_image.length> 0) { %>
+                              <img style="height: 100%; width: 85%;"
+                                src="/filename/<%= cart[i].product_id.product_image[0] %>">
+                              <% } %>
+                          </div>
+                        </div>
+                        <div class="" style="width: 75%; height: 10rem;">
+                          <div class="w-100 h-25">
+                            <h4>
+                              <%= cart[i].product_id.product_name %>
+                            </h4>
+                          </div>
+                          <div class="w-100 h-25">
+                            <p class="">color : <%=cart[i].product_id.strap_color %>
+                            </p>
 
-                  </div>
-                  <div class="w-100 h-25 d-flex ">
-                    <div class=" quatity-select">
-                      <select class="w-100 bt-class" name="quantity"
-                        onchange="quantityChanged2(this,'<%= singleproduct._id %>')">
+                          </div>
+                          <div class="w-100 h-25">
+                            <h5 class="proudct-price">&#8377
+                              <% if(cart[i].product_id.price==cart[i].product_id.sellingprice){ %>
 
-                        <option selected disabled>Qty:<%=qnt%>
-                        </option>
-
-                        <% let count=singleproduct.stock %>
-                          <% if(count> 10 ){ %>
-                            <% count=10 %>
-                              <% }%>
-                                <% for (let j=1; j <=count; j++){ %>
-
-                                  <option>
-                                    <%=j %>
-                                  </option>
-
+                                <span class="">
+                                  <%=cart[i].product_id.sellingprice %>
+                                </span>
+                                <% }else{ %>
+                                  <span style="color: rgb(6, 6, 6);">
+                                    <%= cart[i].product_id.sellingprice %>
+                                  </span>
+                                  <span style="color: red;text-decoration: line-through;">
+                                    <%= cart[i].product_id.price %>
+                                  </span>
                                   <% } %>
+                            </h5>
+
+                          </div>
+                          <div class="w-100 h-25 d-flex ">
+                            <div class=" quatity-select">
+                              <select class="w-100  bt-class " name="quantity"
+                                onchange="quantityChanged(this,'<%=i%>')">
+                                <option selected disabled>Qty:<%= cart[i].quantity %>
+                                </option>
+
+                                <% let count=cart[i].product_id.stock %>
+                                  <% if(count> 10 ){ %>
+                                    <% count=10 %>
+                                      <% }%>
+                                        <% for (let j=1; j <=count; j++){ %>
+
+                                          <option>
+                                            <%=j %>
+                                          </option>
+
+                                          <% } %>
 
 
-                                    const { quantity, index,productid } = req.body;
-                            <% if(count <=0){ %>
-                                 <p style="color: red;">Out of stock</p>
-                          <% } %>
-                      </select>
+
+                              </select>
+                            </div>
+
+                            <div>
+                              <button class="remove-button ms-2 btn btn-outline-primary"
+                                data-product-id="<%= cart[i].product_id._id %>">Remove</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr>
+                      <% }; %>
+                        <% }%>
+
+            </div>
+
+
+          </div>
+          <div class="checkoutt-div2 h-auto white ">
+            <div class="rounded-1  h-auto  white">
+              <div class="d-flex h-auto ">
+                <div class="cart-priceDetails p-3">
+                  <h4>PRICE DETAILS</h4>
+                </div>
+                <div class="">
+
+                  <button class="btn btn-primary me-2 mt-2" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    coupons
+                  </button>
+
+                  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                    aria-labelledby="offcanvasExampleLabel">
+                    <div class="offcanvas-header">
+                      <h5 class="offcanvas-title heading" id="offcanvasExampleLabel">coupons</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
+                    <hr>
+                    <div class="offcanvas-body">
+                      <% for (let i=0; i < coupon.length; i++) { %>
+                        <div class="border-2 mb-3 border-black m-1">
+                          <div class="border-1" style="width: 100%; height: 2.5rem; background-color: rgb(0, 0, 0);">
+                            <h2 class="heading text-light">Coupon <%= i + 1 %>
+                            </h2>
+                          </div>
+                          <div>
+                            <p>Coupon code: <%= coupon[i].coupon_code %>
+                            </p>
+                            <p>coupon worth : <%= coupon[i].coupon_value %>
+                            </p>
+                            <p>min amont to apply coupon : <%=coupon[i].min_amount %>
+                            </p>
+                            <button class="copy-button" onclick="copycoupon('<%=coupon[i].coupon_code %>')">Copy Coupon
+                              Code</button>
+                          </div>
+                        </div>
+                        <% } %>
 
-                    <div>
-                      <button class="remove-button ms-2 btn btn-outline-primary" data-product-id="">Remove</button>
                     </div>
                   </div>
+
                 </div>
               </div>
               <hr>
-              <% } else{ %>
-
-                <% const cart=user.cart %>         
-                  <% for (let i=0; i < cart.length; i++) { %>
-
-                    <div class="rounded-1 w-100 d-flex pt-3 pb-3">
-                      <div class="d-flex justify-content-center" style="width: 25%; height: 9rem;">
-                        <div class="" style="width: 8rem; height: 11rem; object-fit: contain;">
-                          <% if (cart[i].product_id && cart[i].product_id.product_image.length> 0) { %>
-                            <img style="height: 100%; width: 85%;" src="/filename/<%= cart[i].product_id.product_image[0] %>"
-                             >
-                            <% } %>
-                        </div>
-                      </div>
-                      <div class="" style="width: 75%; height: 10rem;">
-                        <div class="w-100 h-25">
-                          <h4>
-                            <%= cart[i].product_id.product_name %>
-                          </h4>
-                        </div>
-                        <div class="w-100 h-25">
-                          <p class="">color : <%=cart[i].product_id.strap_color %>
-                          </p>
-
-                        </div>
-                        <div class="w-100 h-25">
-                          <h5 class="proudct-price">&#8377
-                            <%  if(cart[i].product_id.price == cart[i].product_id.sellingprice){ %>
-                                            
-                              <span class=""><%=cart[i].product_id.sellingprice %></span>
-                              <% }else{ %>
-                                  <span style="color: rgb(6, 6, 6);"><%= cart[i].product_id.sellingprice %> </span>
-                                  <span style="color: red;text-decoration: line-through;"><%= cart[i].product_id.price %></span>
-                            <% } %>
-                          </h5>
-
-                        </div>
-                        <div class="w-100 h-25 d-flex ">
-                          <div class=" quatity-select">
-                            <select class="w-100  bt-class " name="quantity" onchange="quantityChanged(this,'<%=i%>')">
-                              <option selected disabled>Qty:<%= cart[i].quantity %>
-                              </option>
-
-                              <% let count=cart[i].product_id.stock %>
-                                <% if(count> 10 ){ %>
-                                  <% count=10 %>
-                                    <% }%>
-                                      <% for (let j=1; j <=count; j++){ %>
-
-                                        <option>
-                                          <%=j %>
-                                        </option>
-
-                                        <% } %>
-
-
-
-                            </select>
-                          </div>
-
-                          <div>
-                            <button class="remove-button ms-2 btn btn-outline-primary"
-                              data-product-id="<%= cart[i].product_id._id %>">Remove</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <hr>
-                    <% }; %>
-                      <% }%>
-
-          </div>
-
-
-        </div>
-        <div class="checkoutt-div2 h-auto white ">
-          <div class="rounded-1  h-auto  white">
-            <div class="d-flex h-auto ">
-              <div class="cart-priceDetails p-3">
-                <h4>PRICE DETAILS</h4>
+              <div class="cart-priceDetails  d-flex">
+                <div class="cart-priceSub ">
+                  <p>price(items)</p>
+                </div>
+                <div class="cart-priceSub2 ">
+                  <p>
+                    <%=totalprice%>
+                  </p>
+                </div>
               </div>
-              <div class="">
+              <div class="cart-priceDetails  d-flex">
+                <div class="cart-priceSub ">
+                  <p>discount</p>
+                </div>
+                <div class="cart-priceSub2 ">
 
-                <button class="btn btn-primary me-2 mt-2" type="button" data-bs-toggle="offcanvas"
-                  data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                   coupons
-                </button>
+                  <p id="discount">
+                    <%=discountamount%>
+                  </p>
 
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-                  aria-labelledby="offcanvasExampleLabel">
-                  <div class="offcanvas-header">
-                    <h5 class="offcanvas-title heading" id="offcanvasExampleLabel">coupons</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                  </div>
-                  <hr>
-                  <div class="offcanvas-body">
-                    <% for (let i = 0; i < coupon.length; i++) { %>
-                      <div class="border-2 mb-3 border-black m-1">
-                        <div class="border-1" style="width: 100%; height: 2.5rem; background-color: rgb(0, 0, 0);">
-                          <h2 class="heading text-light">Coupon <%= i + 1 %></h2>
-                        </div>
-                        <div>
-                          <p>Coupon code: <%= coupon[i].coupon_code %></p>
-                          <p>coupon worth : <%= coupon[i].coupon_value %></p>
-                          <p>min amont to apply coupon : <%=coupon[i].min_amount %></p>
-                          <button class="copy-button" onclick="copycoupon('<%=coupon[i].coupon_code %>')" >Copy Coupon Code</button>
-                        </div>
-                      </div>
-                    <% } %>
-                  
-                  </div>
+                </div>
+              </div>
+              <div class="cart-priceDetails d-flex">
+                <div class="cart-priceSub">
+                  <p>Delivery charge</p>
+                </div>
+                <div class="cart-priceSub2 ">
+                  <p>---</p>
                 </div>
 
               </div>
-            </div>
-            <hr>
-            <div class="cart-priceDetails  d-flex">
-              <div class="cart-priceSub ">
-                <p>price(items)</p>
+              <hr>
+              <div class="cart-priceDetails  d-flex">
+                <div class="cart-priceSub">
+                  <p>Total price</p>
+                </div>
+                <div class="cart-priceSub2 ">
+                  <p id="displayedTotalPrice">
+                    <%=totalprice %>
+                  </p>
+                </div>
+                <input type="hidden" name="alltotal" value="<%=totalprice%>">
               </div>
-              <div class="cart-priceSub2 ">
-                <p>
-                  <%=totalprice%>
-                </p>
-              </div>
-            </div>
-            <div class="cart-priceDetails  d-flex">
-              <div class="cart-priceSub ">
-                <p>discount</p>
-              </div>
-              <div class="cart-priceSub2 ">
-            
-                        <p id="discount"> <%=discountamount%></p> 
-                
-              </div>
-            </div>
-            <div class="cart-priceDetails d-flex">
-              <div class="cart-priceSub">
-                <p>Delivery charge</p>
-              </div>
-              <div class="cart-priceSub2 ">
-                <p>---</p>
+              <div class="cart-priceDetails mt-2 d-flex ">
+                <div class="cart-priceSub w-75 d-flex align-content-center ">
+                  <input class="inputcoupon" name="coupon_apply" id="couponCodeInput"
+                    placeholder="apply any coupon code ">
+                </div>
+                <div class="cart-priceSub2  w-25 d-flex  justify-content-center">
+                  <p id="displayedTotalPrice">
+                    <button class="btn btn-outline-warning applybtn" onclick="applycoupon()">apply</button>
+                  </p>
+                </div>
+                <input type="hidden" name="alltotal" value="<%=totalprice%>">
               </div>
 
             </div>
-            <hr>
-            <div class="cart-priceDetails  d-flex">
-              <div class="cart-priceSub">
-                <p>Total price</p>
+            <div class="mt-3  rounded-1 white">
+              <p class="ps-2 pt-2">Payment method</p>
+              <div class="d-flex cart-priceDetails d-flex mt-2">
+                <div class="p-2">
+                  <input type="checkbox" id="onlinePayment" name="paymentMethod" value="online">
+                </div>
+                <div class="p-2">Online payment</div>
               </div>
-              <div class="cart-priceSub2 ">
-                <p id="displayedTotalPrice">
-                  <%=totalprice %>
-                </p>
+              <div class="d-flex cart-priceDetails">
+                <div class="p-2">
+                  <input type="checkbox" id="cashOnDelivery" name="paymentMethod" value="cod">
+
+
+                </div>
+                <div class="p-2"> Home delivery</div>
               </div>
-              <input type="hidden" name="alltotal" value="<%=totalprice%>">
-            </div>
-            <div class="cart-priceDetails mt-2 d-flex ">
-              <div class="cart-priceSub w-75 d-flex align-content-center ">
-                  <input class="inputcoupon"  name="coupon_apply" id="couponCodeInput" placeholder="apply any coupon code ">
+              <div class="d-flex cart-priceDetails mt-2" style="display: none;">
+                <div class="p-2">
+                  <input type="checkbox" id="useWallet" name="useWallet">
+                </div>
+
+                <div id="walletOption" class="p-2">Use wallet:&#8377 <%=user.wallet.balance %>
+                </div>
               </div>
-              <div class="cart-priceSub2  w-25 d-flex  justify-content-center">
-                <p id="displayedTotalPrice">
-                    <button class="btn btn-outline-warning applybtn"  onclick="applycoupon()">apply</button>
-                </p>
+              <div class="d-flex justify-content-center" id>
+                <button id="placeOrderButton" class="btn btn-primary h-100 w-100 m-2">Place Order</button>
+
               </div>
-              <input type="hidden" name="alltotal" value="<%=totalprice%>">
             </div>
 
           </div>
-          <div class="mt-3  rounded-1 white">
-            <p class="ps-2 pt-2">Payment method</p>
-            <div class="d-flex cart-priceDetails d-flex mt-2">
-              <div class="p-2">
-                <input type="checkbox" id="onlinePayment" name="paymentMethod" value="online">
-              </div>
-              <div class="p-2">Online payment</div>
-            </div>
-            <div class="d-flex cart-priceDetails">
-              <div class="p-2">
-                <input type="checkbox" id="cashOnDelivery" name="paymentMethod" value="cod">
-
-
-              </div>
-              <div class="p-2"> Home delivery</div>
-            </div>
-            <div class="d-flex cart-priceDetails mt-2" style="display: none;">
-              <div class="p-2">
-                <input type="checkbox" id="useWallet" name="useWallet">
-              </div>
-
-              <div id="walletOption" class="p-2">Use wallet:&#8377 <%=user.wallet.balance %>
-              </div>
-            </div>
-            <div class="d-flex justify-content-center" id>
-              <button id="placeOrderButton" class="btn btn-primary h-100 w-100 m-2">Place Order</button>
-
-            </div>
-          </div>
-
         </div>
       </div>
-    </div>
-    <!-- Button trigger modal -->
+      <!-- Button trigger modal -->
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalnew" tabindex="-1" role="dialog" aria-labelledby="exampleModalnewLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content ">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalnewLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!-- Modal Body -->
-            <form action="/add-newaddress" method="post">
-              <div class="modal-body">
-                <div class="mb-3">
-                  <label for="address" class="col-form-label">Address:</label>
-                  <input type="text" class="form-control" name="address1" id="newAddress">
-                  <input type="hidden" name="userid" value="<%= user._id%>">
-                </div>
-                <div class="mb-3">
-                  <label for="Country" class="col-form-label">Country</label>
-                  <select name="country" id="newCountry" class="form-control">
-                    <option value="india">India</option>
-                    <option value="srilanka">Sri Lanka</option>
-                    <option value="America">America</option>
-                    <option value="china">China</option>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label for="State" class="col-form-label">State</label>
-                  <select name="state" id="newState" class="form-control">
-                    <option value="kerala">Kerala</option>
-                    <option value="karnataka">Karnataka</option>
-                    <option value="tamilnadu">Tamil Nadu</option>
-                    <option value="maharashtra">Maharashtra</option>
-                  </select>
-                </div>
-                <div class="mb-3 d-flex">
-                  <div class="flex-grow-1">
-                    <label for="district" class="col-form-label">District:</label>
-                    <select name="district" id="district" class="form-control">
-                      <option value="malappuram">Malappuram</option>
-                      <option value="kozhikode">Kozhikode</option>
-                      <option value="wayanad">Wayanad</option>
-                      <option value="kannur">Kannur</option>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalnew" tabindex="-1" role="dialog" aria-labelledby="exampleModalnewLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content ">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalnewLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Modal Body -->
+              <form action="/add-newaddress" method="post">
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label for="address" class="col-form-label">Address:</label>
+                    <input type="text" class="form-control" name="address1" id="newAddress">
+                    <input type="hidden" name="userid" value="<%= user._id%>">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Country" class="col-form-label">Country</label>
+                    <select name="country" id="newCountry" class="form-control">
+                      <option value="india">India</option>
+                      <option value="srilanka">Sri Lanka</option>
+                      <option value="America">America</option>
+                      <option value="china">China</option>
                     </select>
                   </div>
-                  <div class="flex-grow-1 ps-3">
-                    <label for="pincode" class="col-form-label">Pincode:</label>
-                    <input type="text" class="form-control" id="newPincode">
+                  <div class="mb-3">
+                    <label for="State" class="col-form-label">State</label>
+                    <select name="state" id="newState" class="form-control">
+                      <option value="kerala">Kerala</option>
+                      <option value="karnataka">Karnataka</option>
+                      <option value="tamilnadu">Tamil Nadu</option>
+                      <option value="maharashtra">Maharashtra</option>
+                    </select>
+                  </div>
+                  <div class="mb-3 d-flex">
+                    <div class="flex-grow-1">
+                      <label for="district" class="col-form-label">District:</label>
+                      <select name="district" id="district" class="form-control">
+                        <option value="malappuram">Malappuram</option>
+                        <option value="kozhikode">Kozhikode</option>
+                        <option value="wayanad">Wayanad</option>
+                        <option value="kannur">Kannur</option>
+                      </select>
+                    </div>
+                    <div class="flex-grow-1 ps-3">
+                      <label for="pincode" class="col-form-label">Pincode:</label>
+                      <input type="text" class="form-control" id="newPincode">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="col-form-label">Town:</label>
+                    <input class="form-control" name="town" id="newTown">
+                  </div>
+                  <div>
+                    <label class="col-form-label">Locality:</label>
+                    <input class="form-control" name="locality" id="newLocality">
                   </div>
                 </div>
-                <div class="mb-3">
-                  <label class="col-form-label">Town:</label>
-                  <input class="form-control" name="town" id="newTown">
-                </div>
-                <div>
-                  <label class="col-form-label">Locality:</label>
-                  <input class="form-control" name="locality" id="newLocality">
-                </div>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" id="addAddressButton">Save changes</button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="addAddressButton">Save changes</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
 
 
 
 
-    <!-- Button trigger modal -->
+      <!-- Button trigger modal -->
 
 
-    <!-- Modal -->
+      <!-- Modal -->
 
 
 
-  </content>
-  <footer>
-    <div class="container-fluid footer-color">
-      <div class="container d-flex ">
+    </content>
+    <footer>
+      <div class="container-fluid footer-color">
+        <div class="container d-flex ">
 
-        <div class="footer-div1 d-flex justify-content-center">
-          <h1 class="heading  pt-4 ">About us</h1>
+          <div class="footer-div1 d-flex justify-content-center">
+            <h1 class="heading  pt-4 ">About us</h1>
+          </div>
         </div>
+        <div class="footer-div1">
+
+          <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
+            Universe, we're passionate about bringing you the finest selection of watches that blend elegance,
+            precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's
+            most stunning watches with watch enthusiasts and collectors alike.</p>
+
+        </div>
+
       </div>
-      <div class="footer-div1">
 
-        <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
-          Universe, we're passionate about bringing you the finest selection of watches that blend elegance,
-          precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's
-          most stunning watches with watch enthusiasts and collectors alike.</p>
-
+      <div class="container-fluid footer-color d-flex justify-content-center">
+        <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
       </div>
+    </footer>
 
-    </div>
 
-    <div class="container-fluid footer-color d-flex justify-content-center">
-      <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
-    </div>
-  </footer>
 
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
 
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
 
 
 
@@ -554,482 +577,525 @@
 
 
 
+    <!-- Bootstrap JavaScript (add this before the closing </body> tag) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js"></script>
 
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js"></script>
 
-  <!-- Bootstrap JavaScript (add this before the closing </body> tag) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <!-- Bootstrap JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
+    <!-- Bootstrap 5 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js"></script>
+    <!-- jQuery (Bootstrap 5 requires jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script>
 
-  <!-- Bootstrap 5 JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js"></script>
-  <!-- jQuery (Bootstrap 5 requires jQuery) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      async function applycoupon() {
+        const couponCodeInput = document.getElementById('couponCodeInput');
+        const couponCode = couponCodeInput.value;
+        const useWalletCheckbox = document.getElementById('useWallet');
+        const displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
+        const amount = displayedTotalPriceElement.innerText;
+        const discount = document.getElementById('discount')
 
-  <script>
+        console.log("-----cu ", discount)
 
-async function applycoupon() {
-  const couponCodeInput = document.getElementById('couponCodeInput');
-    const couponCode = couponCodeInput.value;
-    const useWalletCheckbox = document.getElementById('useWallet');
-    const displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
-  const amount = displayedTotalPriceElement.innerText;
-  const discount = document.getElementById('discount')
+        const discountingamount = discount.innerText
+        console.log("-", discountingamount)
 
-  console.log("-----cu ",discount)
+        var button = document.querySelector('.applybtn');
 
-  const discountingamount = discount.innerText
-  console.log("-",discountingamount)
 
-  var button = document.querySelector('.applybtn');
-
-
- console.log("the amount",amount)
-     
-    if (useWalletCheckbox.checked) {
-  alert('remove the applied wallet');
-  return;
-}
-
-
-    if (!couponCode) {
-      alert('Please enter a coupon code');
-      return;
-    }
-
-    try {
-
-
-      const dataBody={
-           couponCode : couponCode,
-           amount:amount
-
-      }
-      fetch('/apply-coupon', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-           dataBody
-      }),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Coupon code application failed');
-        }
-
-        return response.json();
-      })
-      .then(result => {
-          
-        button.style.display = "none";
-
-        const updatedTotalPrice = result.totalprice.toFixed(2);
-        
-         console.log("the total d",result.discountamount)
-        displayedTotalPriceElement.innerText = updatedTotalPrice;
-        discount.innerText = result.discountamount
-        
-      })
-      .catch(error => {
-        console.error('Error applying coupon code:', error);
-        alert('Error applying coupon code. Please try again.');
-      });    
-    } catch (error) {
-      console.error('Error applying coupon code:', error);
-      alert('Error applying coupon code. Please try again.');
-    }
-  }
-
-
-
-    $(document).ready(function () {
-
-      $(".remove-button").on("click", function () {
-
-        const productId = $(this).data("product-id");
-
-        $.ajax({
-          url: "/remove-from-cart",
-          method: "POST",
-          data: { productId: productId },
-          success: function (response) {
-
-            console.log("Product removed from cart.");
-            window.location.reload()
-          },
-          error: function (error) {
-            console.error("Error removing product from cart:", error);
-          },
-        });
-      });
-    });
-
-
-    function copycoupon(i) {
-            console.log(i)
-            navigator.clipboard.writeText(i);
-            const copyButton = document.getElementById('k');
-            copyButton.textContent = "Copied!";
-            setTimeout(() => {
-                copyButton.textContent = "Copy";
-            }, 5000);
-        };
-
-    function quantityChanged(selectElement, index) {
-
-
-      const selectedQuantity = selectElement.value || 1;
-      const productindex = index
-
-
-      const postUrl = '/quantity-update';
-
-
-
-      const data = {
-        quantity: selectedQuantity,
-        index: productindex
-      };
-
-
-      fetch(postUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-        .then(response => {
-          if (response.ok) {
-
-            console.log('POST request was successful');
-            window.location.reload()
-          } else {
-
-            console.error('POST request failed');
-          }
-        })
-        .catch(error => {
-
-          console.error('Network error:', error);
-        });
-    }
-
-
-
-    function quantityChanged2(selectElement, productId) {
-      console.log("on change 2 is clicked adn enteed")
-      console.log("form the html ", productId)
-      const selectedQuantity = selectElement.value || 1;
-      const productid = productId
-      console.log("product id", productid)
-
-
-
-      const postUrl = '/quantity-update';
-
-
-
-      const data = {
-        quantity: selectedQuantity,
-        productid: productid
-      };
-
-
-      fetch(postUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-        .then(response => {
-          if (response.ok) {
-
-            console.log('POST request was successful');
-            window.location.reload()
-          } else {
-
-            console.error('POST request failed');
-          }
-        })
-        .catch(error => {
-
-          console.error('Network error:', error);
-        });
-    }
-
-
-    
-
-
-
-
-    function deleteAddress(addressIndex, userId) {
-      // Create an object with the data to send in the request body
-      const requestData = {
-        addressIndex: addressIndex,
-        userId: userId
-      };
-
-
-      fetch('/delete-address', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-      })
-        .then(response => {
-          if (response.ok) {
-            // Address deleted successfully, you can update the UI as needed
-            location.reload(); // Reload the page or update the UI
-          } else {
-            // Handle error, e.g., show an error message to the user
-            console.error('Failed to delete address');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const addressCheckboxes = document.querySelectorAll('.address-checkbox');
-      const paymentCheckboxes = document.querySelectorAll('input[name="paymentMethod"]');
-      const placeOrderButton = document.getElementById('placeOrderButton');
-      const useWalletCheckbox = document.getElementById('useWallet');
-      const onlinePaymentCheckbox = document.getElementById('onlinePayment');
-      const cashOnDeliveryCheckbox = document.getElementById('cashOnDelivery');
-      const walletOption = document.getElementById('walletOption');
-      let displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
-      const totalpriceInput = document.querySelector('input[name="totalprice"]');
-      const walletBalance = parseFloat('<%= user.wallet.balance.toFixed(2) %>');
-      const discount = document.getElementById('discount')
-
-      
-
-      useWalletCheckbox.style.display = 'none';
-      walletOption.style.display = 'none';
-
-  
-
-      addressCheckboxes.forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-          addressCheckboxes.forEach(function (otherCheckbox) {
-            if (otherCheckbox !== checkbox) {
-              otherCheckbox.checked = false; 
-
-            }
-            
-          });
-        });
-      });
-
-      cashOnDeliveryCheckbox.addEventListener('change', function () {
-        if (cashOnDeliveryCheckbox.checked) {    
-          useWalletCheckbox.checked = false; 
-
-        }
-
-      
-        button.style.display = "block";
-
-      });
-
-      useWalletCheckbox.addEventListener('change', function () {
-        const totalprice = parseFloat('<%= totalprice.toFixed(2) %>');
+        console.log("the amount", amount)
 
         if (useWalletCheckbox.checked) {
-          let discountedPrice = 1
-
-
-           if(displayedTotalPriceElement.innerText > walletBalance){
-                  console.log("entering to here")
-                 discountedPrice = displayedTotalPriceElement.innerText- walletBalance
-                 console.log("here",discountedPrice)
-           }
-          displayedTotalPriceElement.innerText = discountedPrice.toFixed(2);
-          totalpriceInput.value = discountedPrice;
-        } else {
-          displayedTotalPriceElement.innerText = parseFloat(totalprice-discount.innerText);
-          totalpriceInput.value = totalprice;
+          alert('remove the applied wallet');
+          return;
         }
+
+
+        if (!couponCode) {
+          alert('Please enter a coupon code');
+          return;
+        }
+
+        try {
+
+
+          const dataBody = {
+            couponCode: couponCode,
+            amount: amount
+
+          }
+          fetch('/apply-coupon', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              dataBody
+            }),
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Coupon code application failed');
+              }
+
+              return response.json();
+            })
+            .then(result => {
+
+              button.style.display = "none";
+
+              const updatedTotalPrice = result.totalprice.toFixed(2);
+
+              console.log("the total d", result.discountamount)
+              displayedTotalPriceElement.innerText = updatedTotalPrice;
+              discount.innerText = result.discountamount
+
+            })
+            .catch(error => {
+              console.error('Error applying coupon code:', error);
+              alert('Error applying coupon code. Please try again.');
+            });
+        } catch (error) {
+          console.error('Error applying coupon code:', error);
+          alert('Error applying coupon code. Please try again.');
+        }
+      }
+
+
+
+      $(document).ready(function () {
+
+        $(".remove-button").on("click", function () {
+
+          const productId = $(this).data("product-id");
+
+          $.ajax({
+            url: "/remove-from-cart",
+            method: "POST",
+            data: { productId: productId },
+            success: function (response) {
+
+              console.log("Product removed from cart.");
+              window.location.reload()
+            },
+            error: function (error) {
+              console.error("Error removing product from cart:", error);
+            },
+          });
+        });
       });
 
-      placeOrderButton.addEventListener('click', function () {
 
-        console.log("entring to ---click")
-        const selectedAddress = document.querySelector('.address-checkbox:checked');
-        const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
-        const selectedproductId = document.querySelector('input[name="productId"]');
-        const totalpriceElement = document.getElementById('displayedTotalPrice');
-        const discount = document.getElementById('discount')
-        
-          
-        const totalprice = parseFloat(totalpriceElement.innerText);
+      function copycoupon(i) {
+        console.log(i)
+        navigator.clipboard.writeText(i);
+        const copyButton = document.getElementById('k');
+        copyButton.textContent = "Copied!";
+        setTimeout(() => {
+          copyButton.textContent = "Copy";
+        }, 5000);
+      };
 
-        const alltotal = document.querySelector('input[name="alltotal"]');
-      
-        console.log("000000====", alltotal.value);
-        const alltotalvalue = alltotal.value
-        
-        const discountvalue = discount.innerText 
+      function quantityChanged(selectElement, index) {
 
-        if (!selectedAddress) {
-          Swal.fire({
-            icon: "!",
-            title: "failed",
-            text: "add address"
-          });
-          return;
-        }
 
-        if (!selectedPaymentMethod) {
-          Swal.fire({
-            icon: "!",
-            title: "failed",
-            text: "select payment"
-          });
-          return;
-        }
+        const selectedQuantity = selectElement.value || 1;
+        const productindex = index
 
-        const selectedAddressId = selectedAddress.getAttribute('data-address-id');
-        const selectedPaymentValue = selectedPaymentMethod.value;
-        const productId = selectedAddressId.value;
+
+        const postUrl = '/quantity-update';
 
 
 
-        let orderData = {
-          addressId: selectedAddressId,
-          paymentMethod: selectedPaymentValue,
-          productId: productId,
-          amount: totalprice,
-          alltotal: alltotalvalue,
-          discount:discountvalue
+        const data = {
+          quantity: selectedQuantity,
+          index: productindex
         };
 
 
-        console.log("----", orderData)
+        fetch(postUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+          .then(response => {
+            if (response.ok) {
 
-        fetch('/ordercheckout', {
+              console.log('POST request was successful');
+              window.location.reload()
+            } else {
+
+              console.error('POST request failed');
+            }
+          })
+          .catch(error => {
+
+            console.error('Network error:', error);
+          });
+      }
+
+
+
+      function quantityChanged2(selectElement, productId) {
+        console.log("on change 2 is clicked adn enteed")
+        console.log("form the html ", productId)
+        const selectedQuantity = selectElement.value || 1;
+        const productid = productId
+        console.log("product id", productid)
+
+
+
+        const postUrl = '/quantity-update';
+
+
+
+        const data = {
+          quantity: selectedQuantity,
+          productid: productid
+        };
+
+
+        fetch(postUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+          .then(response => {
+            if (response.ok) {
+
+              console.log('POST request was successful');
+              window.location.reload()
+            } else {
+
+              console.error('POST request failed');
+            }
+          })
+          .catch(error => {
+
+            console.error('Network error:', error);
+          });
+      }
+
+
+
+
+
+
+
+      function deleteAddress(addressIndex, userId) {
+        // Create an object with the data to send in the request body
+        const requestData = {
+          addressIndex: addressIndex,
+          userId: userId
+        };
+
+
+        fetch('/delete-address', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestData)
+        })
+          .then(response => {
+            if (response.ok) {
+              // Address deleted successfully, you can update the UI as needed
+              location.reload(); // Reload the page or update the UI
+            } else {
+              // Handle error, e.g., show an error message to the user
+              console.error('Failed to delete address');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const addressCheckboxes = document.querySelectorAll('.address-checkbox');
+        const paymentCheckboxes = document.querySelectorAll('input[name="paymentMethod"]');
+        const placeOrderButton = document.getElementById('placeOrderButton');
+        const useWalletCheckbox = document.getElementById('useWallet');
+        const onlinePaymentCheckbox = document.getElementById('onlinePayment');
+        const cashOnDeliveryCheckbox = document.getElementById('cashOnDelivery');
+        const walletOption = document.getElementById('walletOption');
+        let displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
+        const totalpriceInput = document.querySelector('input[name="totalprice"]');
+        const walletBalance = parseFloat('<%= user.wallet.balance.toFixed(2) %>');
+        const discount = document.getElementById('discount')
+
+
+
+        useWalletCheckbox.style.display = 'none';
+        walletOption.style.display = 'none';
+
+
+
+        addressCheckboxes.forEach(function (checkbox) {
+          checkbox.addEventListener('change', function () {
+            addressCheckboxes.forEach(function (otherCheckbox) {
+              if (otherCheckbox !== checkbox) {
+                otherCheckbox.checked = false;
+
+              }
+
+            });
+          });
+        });
+
+        cashOnDeliveryCheckbox.addEventListener('change', function () {
+          if (cashOnDeliveryCheckbox.checked) {
+            useWalletCheckbox.checked = false;
+
+          }
+
+
+          button.style.display = "block";
+
+        });
+
+        useWalletCheckbox.addEventListener('change', function () {
+          const totalprice = parseFloat('<%= totalprice.toFixed(2) %>');
+
+          if (useWalletCheckbox.checked) {
+            let discountedPrice = 1
+
+
+            if (displayedTotalPriceElement.innerText > walletBalance) {
+              console.log("entering to here")
+              discountedPrice = displayedTotalPriceElement.innerText - walletBalance
+              console.log("here", discountedPrice)
+            }
+            displayedTotalPriceElement.innerText = discountedPrice.toFixed(2);
+            totalpriceInput.value = discountedPrice;
+          } else {
+            displayedTotalPriceElement.innerText = parseFloat(totalprice - discount.innerText);
+            totalpriceInput.value = totalprice;
+          }
+        });
+
+        placeOrderButton.addEventListener('click', function () {
+
+          console.log("entring to ---click")
+          const selectedAddress = document.querySelector('.address-checkbox:checked');
+          const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+          const selectedproductId = document.querySelector('input[name="productId"]');
+          const totalpriceElement = document.getElementById('displayedTotalPrice');
+          const discount = document.getElementById('discount')
+
+
+          const totalprice = parseFloat(totalpriceElement.innerText);
+
+          const alltotal = document.querySelector('input[name="alltotal"]');
+
+          console.log("000000====", alltotal.value);
+          const alltotalvalue = alltotal.value
+
+          const discountvalue = discount.innerText
+
+          if (!selectedAddress) {
+            Swal.fire({
+              icon: "!",
+              title: "failed",
+              text: "add address"
+            });
+            return;
+          }
+
+          if (!selectedPaymentMethod) {
+            Swal.fire({
+              icon: "!",
+              title: "failed",
+              text: "select payment"
+            });
+            return;
+          }
+
+
+          const selectedAddressId = selectedAddress.getAttribute('data-address-id');
+          const selectedPaymentValue = selectedPaymentMethod.value;
+          const productId = selectedAddressId.value;
+
+
+
+          let orderData = {
+            addressId: selectedAddressId,
+            paymentMethod: selectedPaymentValue,
+            productId: productId,
+            amount: totalprice,
+            alltotal: alltotalvalue,
+            discount: discountvalue
+          };
+
+
+          // checking the product quantity and stock
+
+          fetch('/checkingstock', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+            .then(response => response.json())
+            .then(data => {
+              if (data.outofstock) {
+                flag = 1
+                return Swal.fire({
+                  title: 'Out of Stock',
+                  text: `${data.product} is out of stock`,
+                  icon: 'error'
+                });
+              } else if (data.outofquentity) {
+                console.log("coming here to ");
+                flag = 1
+
+                return Swal.fire({
+                  title: 'Out of quantity',
+                  text: `${data.product} quantity is more than its stock`,
+                  icon: 'error'
+                });
+              } else {
+
+                fetch('/ordercheckout', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(orderData),
+                })
+                  .then((response) => {
+                    return response.json();
+                  })
+                  .then((response) => {
+                    if (response.CODsuccess) {
+                      placeorder(orderData);
+                    } else if (response.success) {
+                      console.log("heihe", response.json);
+                      var options = {
+                        "key": "" + response.key_id + "",
+                        "amount": "" + response.amount + "",
+                        "currency": "INR",
+                        "image": "/icons/Logo_short.png",
+                        "order_id": "" + response.order_id + "",
+                        "handler": function (response) {
+                          placeorder(orderData)
+                        },
+                        "theme": {
+                          "color": "#dc3545"
+                        },
+                        "prefill": {
+                          "name": "Gaurav Kumar",
+                          "email": "gaurav.kumar@example.com",
+                          "contact": "9000090000"
+                        },
+                        "notes": {
+                          "address": "Razorpay Corporate Office"
+                        },
+                        "theme": {
+                          "color": "#3399cc"
+                        }
+                      };
+
+
+                      const razorpay = new Razorpay(options);
+                      razorpay.open();
+                    } else {
+                      console.error("it not working");
+                    }
+                  })
+                  .catch((error) => {
+                    console.error('Error:', error);
+                  });
+              }
+            })
+            .catch(error => {
+              console.error('Network error:', error);
+            });
+
+
+
+
+
+
+
+
+          console.log("----", orderData)
+
+        });
+
+        paymentCheckboxes.forEach(function (checkbox) {
+          checkbox.addEventListener('change', function () {
+            paymentCheckboxes.forEach(function (otherCheckbox) {
+              if (otherCheckbox !== checkbox) {
+                otherCheckbox.checked = false;
+              }
+            });
+
+            if (checkbox.value === 'online') {
+              useWalletCheckbox.style.display = 'block';
+              walletOption.style.display = 'block'; // Show the entire wallet option
+            } else {
+              useWalletCheckbox.style.display = 'none';
+              walletOption.style.display = 'none'; // Hide the entire wallet option
+
+              // Reset displayed total amount when changing from online to cash on delivery
+              totalpriceInput.value = parseFloat('<%= totalprice.toFixed(2) %>');
+            }
+          });
+        });
+      });
+
+      function placeorder(orderData) {
+        console.log("----its coming here");
+        console.log("the body is ", orderData);
+
+        fetch('/placeorder', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(orderData),
         })
-          .then((response) => {
-            return response.json();
-          })
-          .then((response) => {
-            if (response.CODsuccess) {
-              placeorder(orderData);
-            } else if (response.success) {
-              console.log("heihe",response.json);
-              var options = {
-                "key": "" + response.key_id + "",
-                "amount": "" + response.amount + "",
-                "currency": "INR",
-                "image": "/icons/Logo_short.png",
-                "order_id": "" + response.order_id + "",
-                "handler": function (response) {
-                  placeorder(orderData)
-                },
-                "theme": {
-                  "color": "#dc3545"
-                },
-                "prefill": {
-                  "name": "Gaurav Kumar",
-                  "email": "gaurav.kumar@example.com",
-                  "contact": "9000090000"
-                },
-                "notes": {
-                  "address": "Razorpay Corporate Office"
-                },
-                "theme": {
-                  "color": "#3399cc"
-                }
-              };
-
-
-              const razorpay = new Razorpay(options);
-              razorpay.open();
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              console.log("The response:", data);
+              window.location.href = "/profile";
             } else {
-              console.error("it not working");
+              console.error("Order placement failed:", data.message);
             }
           })
-          .catch((error) => {
-            console.error('Error:', error);
+          .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
           });
-      });
-
-      paymentCheckboxes.forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-          paymentCheckboxes.forEach(function (otherCheckbox) {
-            if (otherCheckbox !== checkbox) {
-              otherCheckbox.checked = false;
-            }
-          });
-
-          if (checkbox.value === 'online') {
-            useWalletCheckbox.style.display = 'block';
-            walletOption.style.display = 'block'; // Show the entire wallet option
-          } else {
-            useWalletCheckbox.style.display = 'none';
-            walletOption.style.display = 'none'; // Hide the entire wallet option
-
-            // Reset displayed total amount when changing from online to cash on delivery
-            totalpriceInput.value = parseFloat('<%= totalprice.toFixed(2) %>');
-          }
-        });
-      });
-    });
-
-    function placeorder(orderData) {
-      console.log("----its coming here");
-      console.log("the body is ", orderData);
-
-      fetch('/placeorder', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(orderData),
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            console.log("The response:", data);
-            window.location.href = "/profile";
-          } else {
-            console.error("Order placement failed:", data.message);
-          }
-        })
-        .catch(error => {
-          console.error('There was a problem with the fetch operation:', error);
-        });
-    }
+      }
 
 
 
 
-  </script>
+
+
+
+    </script>
 
 
 

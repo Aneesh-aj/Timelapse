@@ -55,6 +55,7 @@ const forgotpassword = (req, res) => {
 const homepageview = async (req, res) => {
 
     try {
+       
         console.log("home showing")
         const product = await productModel.find({}).limit(4)
         const banner = await bannerModel.find({}).sort({ index: 1 });
@@ -66,7 +67,7 @@ const homepageview = async (req, res) => {
     }
 
 }
-
+ 
 const profileView = async (req, res) => {
 
     try {
@@ -139,6 +140,7 @@ const loginPost = async (req, res) => {
             req.session.email = req.body.email
             req.session.user_name = user.name
             const Token = req.session.email
+            
             res.redirect("/home")
         } else {
             res.render("login", { errorMessage: "Incorrect email or password. Please try again." })
@@ -1633,5 +1635,36 @@ const refferalpost = async (req,res)=>{
 }
 
 
+const checkingstock = async (req, res) => {
+    try {
+      console.log("checking stock");
+  
+      const user = await usersModel.findOne({ email: req.session.email }).populate('cart.product_id');
+      console.log("the user", user.cart[0].product_id.stock);
+  
+      let outOfStockProduct = null;
+      let outOfQuantityProduct = null;
+  
+      for (let i = 0; i < user.cart.length; i++) {
+        if (user.cart[i].product_id.stock === 0) {
+          outOfStockProduct = user.cart[i].product_name;
+        } else if (user.cart[i].product_id.stock < user.cart[i].quantity) {
+          outOfQuantityProduct = user.cart[i].product_name;
+        }
+      }
+  
+      if (outOfStockProduct) {
+        return res.json({ outofstock: true, product: outOfStockProduct });
+      } else if (outOfQuantityProduct) {
+        return res.json({ outofquantity: true, product: outOfQuantityProduct });
+      }
+  
+      console.log("after loop");
+      res.json({});
+    } catch (error) {
+      res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+    }
+  };
+  
 
-module.exports = {refferalpost,passwordchangingpost,passwordchange, invoiceget, applycoupn, returnOrder, wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails, ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }
+module.exports = {checkingstock,refferalpost,passwordchangingpost,passwordchange, invoiceget, applycoupn, returnOrder, wallet, ordercheckout, deletewishlist, addingtocart, wishlist, addtoWishlist, verificationPassword, otpverifyPassword, forgotpasswordpost, forgotpassword, cancelOrder, userOrderdetails, ordersPage, checkoutaddressEdit, placeorder, addressEdit, deleteAddress, newaddress, checkoutView, quantityUpdate, edituserDetalis, addAdress, removeincart, addToCart, cart, verificatioinResend, productPageview, showCollection, landing, homepageview, profileView, profilePost, loginView, loginPost, userLogout, singupView, signupPost, verficatiionPost, verification }

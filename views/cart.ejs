@@ -7,137 +7,155 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css" class="style">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@12.0.0/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@12.0.0/dist/sweetalert2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>cart</title>
 </head>
 
 <body>
-   <%- include('navbar2.ejs')%>
-  <content class="nav-height">
-    <div class="container-fluid d-flex justify-content-center " style="background-color: #F1F3F6;">
-      <div class=" d-sm-block d-lg-flex justify-content-center w-100">
-        <div class="cart-div   h-auto  ">
-          <div class="">
-            <div class="   rounded-1 h-25 w-100">
-              <h1 class=" heading  p-3">my cart</h1>
-            </div>
-            <% const cart=user.cart %>
+  <%- include('navbar2.ejs')%>
+    <content class="nav-height">
+      <div class="container-fluid d-flex justify-content-center " style="background-color: #F1F3F6;">
+        <div class=" d-sm-block d-lg-flex justify-content-center w-100">
+          <div class="cart-div   h-auto  ">
+            <div class="">
+              <div class="   rounded-1 h-25 w-100">
+                <h1 class=" heading  p-3">my cart</h1>
+              </div>
+              <% const cart=user.cart %>
 
 
-              <% for (let i=0; i < cart.length; i++) { %>
-                <hr>
-                <div class="rounded-1 w-100 d-flex mb-3 pb-3">
-                  <div class="d-flex  justify-content-center cart-image-center" >
-                    <div class=" cart-image" style=" background-image: url('/filename/<%= cart[i].product_id.product_image[0] %>');">
-                     
-                    </div>
-                  </div>
-                  <div class="" style="width: 75%; height: 10rem;">
-                    <div class="w-100 h-25">
-                      <h4>
-                        <%= cart[i].product_id.product_name %>
-                      </h4>
-                    </div>
-                    <div class="w-100 h-25">
-                      <p class="">color : <%=cart[i].product_id.strap_color %>
-                      </p>
+                <% for (let i=0; i < cart.length; i++) { %>
+                  <hr>
+                  <div class="rounded-1 w-100 d-flex mb-3 pb-3">
+                    <div class="d-flex  justify-content-center cart-image-center">
+                      <div class=" cart-image"
+                        style=" background-image: url('/filename/<%= cart[i].product_id.product_image[0] %>');">
 
-                    </div>
-                    <div class="w-100 h-25">
-                      <h5 class="proudct-price">&#8377 
-
-                        <%  if(cart[i].product_id.price == cart[i].product_id.sellingprice){ %>
-                                            
-                          <span class=""><%=cart[i].product_id.sellingprice %></span>
-                          <% }else{ %>
-                              <span style="color: rgb(6, 6, 6);"><%= cart[i].product_id.sellingprice %> </span>
-                              <span style="color: red;text-decoration: line-through;"><%= cart[i].product_id.price %></span>
-                        <% } %>
-                      </h5>
-
-                    </div>
-                    <div class="w-100 h-25 d-flex ">
-                      <div class=" quatity-select">
-                        <select  class="w-100  bt-class "  name="quantity" onchange="quantityChanged(this,'<%=i%>')">
-                          <option selected disabled>Qty:<%= cart[i].quantity %></option>
-                         <% let count = cart[i].product_id.stock %>
-                          <% if(count > 10 ){ %>
-                            <%   count = 10  %>
-                         <% }%>
-                          <% for (let j = 1; j <= count; j++){ %>
-                            
-                              <option><%=j %></option>
-                            
-                          <% } %>
-                          
-
-                        </select>
-                      </div>
-                      <hr>
-                      <div>
-                        <button class="remove-button ms-2 btn btn-outline-primary"
-                          data-product-id="<%= cart[i].product_id._id %>">Remove</button>
                       </div>
                     </div>
+                    <div class="" style="width: 75%; height: 10rem;">
+                      <div class="w-100 h-25">
+                        <h4>
+                          <%= cart[i].product_id.product_name %>
+                        </h4>
+                      </div>
+                      <div class="w-100 h-25">
+                        <p class="">color : <%=cart[i].product_id.strap_color %>
+                        </p>
+
+                      </div>
+                      <div class="w-100 h-25">
+                        <h5 class="proudct-price">&#8377
+
+                          <% if(cart[i].product_id.price==cart[i].product_id.sellingprice){ %>
+
+                            <span class="">
+                              <%=cart[i].product_id.sellingprice %>
+                            </span>
+                            <% }else{ %>
+                              <span style="color: rgb(6, 6, 6);">
+                                <%= cart[i].product_id.sellingprice %>
+                              </span>
+                              <span style="color: red;text-decoration: line-through;">
+                                <%= cart[i].product_id.price %>
+                              </span>
+                              <% } %>
+                        </h5>
+
+                      </div>
+                      <div class="w-100 h-25 d-flex ">
+                        <div class=" quatity-select">
+                          <select class="w-100  bt-class " name="quantity" onchange="quantityChanged(this,'<%=i%>')">
+                            <option selected disabled>Qty:<%= cart[i].quantity %>
+                            </option>
+                            <% let count=cart[i].product_id.stock %>
+                              <% if(count> 10 ){ %>
+                                <% count=10 %>
+                                  <% }%>
+                                    <% for (let j=1; j <=count; j++){ %>
+
+                                      <option>
+                                        <%=j %>
+                                      </option>
+
+                                      <% } %>
+
+
+                          </select>
+                        </div>
+                        <hr>
+                        <div>
+                          <button class="remove-button ms-2 btn btn-outline-primary"
+                            data-product-id="<%= cart[i].product_id._id %>">Remove</button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                <% }; %>
+                  <% }; %>
 
-          </div>
-        </div>
-        <div class="cart-div2">
-          <div class="cart-priceDetails p-3">
-            <h4>PRICE DETAILS</h4>
-          </div>
-          <hr>
-          <div class="cart-priceDetails  d-flex">
-            <div class="cart-priceSub ">
-              <p>price(items)</p>
-            </div>
-            <div class="cart-priceSub2 ">
-              <p><%=totalprice%></p>
             </div>
           </div>
-          <div class="cart-priceDetails  d-flex">
-            <div class="cart-priceSub ">
-              <p>discount</p>
+          <div class="cart-div2">
+            <div class="cart-priceDetails p-3">
+              <h4>PRICE DETAILS</h4>
             </div>
-            <div class="cart-priceSub2 ">
-              <p>----</p>
+            <hr>
+            <div class="cart-priceDetails  d-flex">
+              <div class="cart-priceSub ">
+                <p>price(items)</p>
+              </div>
+              <div class="cart-priceSub2 ">
+                <p>
+                  <%=totalprice%>
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="cart-priceDetails d-flex">
-            <div class="cart-priceSub">
-              <p>Delivery charge</p>
+            <div class="cart-priceDetails  d-flex">
+              <div class="cart-priceSub ">
+                <p>discount</p>
+              </div>
+              <div class="cart-priceSub2 ">
+                <p>----</p>
+              </div>
             </div>
-            <div class="cart-priceSub2 ">
-              <p>---</p>
+            <div class="cart-priceDetails d-flex">
+              <div class="cart-priceSub">
+                <p>Delivery charge</p>
+              </div>
+              <div class="cart-priceSub2 ">
+                <p>---</p>
+              </div>
             </div>
-          </div>
-          <hr>
-          <div class="cart-priceDetails  d-flex">
-            <div class="cart-priceSub">
-              <p>Total price</p>
+            <hr>
+            <div class="cart-priceDetails  d-flex">
+              <div class="cart-priceSub">
+                <p>Total price</p>
+              </div>
+              <div class="cart-priceSub2 ">
+                <p>
+                  <%=totalprice%>
+                </p>
+              </div>
             </div>
-            <div class="cart-priceSub2 ">
-              <p><%=totalprice%></p>
-            </div>
-          </div>
             <div class="d-flex justify-content-center">
-              <a href="/checkout" class="btn btn-primary h-100 w-100 ms-2 me-2">Check out</a>
+              <input type="hidden" class="cartproduct" value="<%=user.cart%>">
+              <button onclick="checkout()" class="btn btn-primary h-100 w-100 ms-2 me-2">Check out</button>
             </div>
+          </div>
         </div>
       </div>
-    </div>
-  </content>
-  <footer>
-    <div class="container-fluid footer-color">
-      <div class="container d-flex ">
+    </content>
+    <footer>
+      <div class="container-fluid footer-color">
+        <div class="container d-flex ">
 
-        <div class="footer-div1 d-flex justify-content-center">
-          <h1 class="heading  pt-4">About us</h1>
+          <div class="footer-div1 d-flex justify-content-center">
+            <h1 class="heading  pt-4">About us</h1>
+          </div>
         </div>
-       </div>
         <div class="footer-div1">
 
           <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
@@ -148,81 +166,133 @@
         </div>
 
       </div>
-    </div>
-    <div class="container-fluid footer-color d-flex justify-content-center">
-      <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
-    </div>
-  </footer>
+      </div>
+      <div class="container-fluid footer-color d-flex justify-content-center">
+        <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <script>
-    $(document).ready(function () {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-      $(".remove-button").on("click", function () {
+    <script>
+      $(document).ready(function () {
 
-        const productId = $(this).data("product-id");
+        $(".remove-button").on("click", function () {
 
-        $.ajax({
-          url: "/remove-from-cart",
-          method: "POST",
-          data: { productId: productId },
-          success: function (response) {
+          const productId = $(this).data("product-id");
 
-            console.log("Product removed from cart.");
-            window.location.reload()
-          },
-          error: function (error) {
-            console.error("Error removing product from cart:", error);
-          },
+          $.ajax({
+            url: "/remove-from-cart",
+            method: "POST",
+            data: { productId: productId },
+            success: function (response) {
+
+              console.log("Product removed from cart.");
+              window.location.reload()
+            },
+            error: function (error) {
+              console.error("Error removing product from cart:", error);
+            },
+          });
         });
       });
-    });
 
 
-    function quantityChanged(selectElement,index) {
-
-     
-    const selectedQuantity = selectElement.value || 1;
-    const productindex = index
-    
-    
-    const postUrl = '/quantity-update';
+      function quantityChanged(selectElement, index) {
 
 
-    
-    const data = {
-        quantity: selectedQuantity,
-        index : productindex
-    };
+        const selectedQuantity = selectElement.value || 1;
+        const productindex = index
 
-   
-    fetch(postUrl, {
-        method: 'POST',
-        headers: {
+
+        const postUrl = '/quantity-update';
+
+
+
+        const data = {
+          quantity: selectedQuantity,
+          index: productindex
+        };
+
+
+        fetch(postUrl, {
+          method: 'POST',
+          headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (response.ok) {
-            
-            console.log('POST request was successful');
-            window.location.reload()
-        } else {
-           
-            console.error('POST request failed');
-        }
-    })
-    .catch(error => {
+          },
+          body: JSON.stringify(data)
+        })
+          .then(response => {
+            if (response.ok) {
+
+              console.log('POST request was successful');
+              window.location.reload()
+            } else {
+
+              console.error('POST request failed');
+            }
+          })
+          .catch(error => {
+
+            console.error('Network error:', error);
+          });
+      }
+
+      function checkout() {
+
+        const cartproduct = document.querySelector('.cartproduct')
         
-        console.error('Network error:', error);
-    });
-}
+        const cart = cartproduct.value
+
+        console.log("----",cart)
+        
+        if(!cart){
+        return  Swal.fire({
+                title: 'Empty Cart',
+                text: 'The cart is empty, You cant checkout',
+                icon: 'error'
+              });
+        }
+        
+
+        fetch('/checkingstock', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(response => response.json()) 
+          .then(data => {
+            if (data.outofstock) {
+              Swal.fire({
+                title: 'Out of Stock',
+                text: `${data.product} is out of stock`,
+                icon: 'error'
+              });
+            } else if (data.outofquentity) {
+              console.log("coming here to ");
+              Swal.fire({
+                title: 'Out of quantity',
+                text: `${data.product} quantity is more than its stock`,
+                icon: 'error'
+              });
+            } else {
+              console.log("coming to else");
+              window.location.href='/checkout'
+            }
+          })
+          .catch(error => {
+            console.error('Network error:', error);
+          });
+
+
+      }
 
 
 
-  </script>
+    </script>
 
 
 
