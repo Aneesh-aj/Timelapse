@@ -38,5 +38,6 @@ router.post("/removeBanner",controller.removeBannerImage)
 router.post("/report",controller.chartreport)
 router.get("/salesreport",adminMiddleware.isadmin,controller.salesreport)
 router.post('/watchtype-exist',controller.watchtypechecking)
+router.post("/brand-exist",controller.brandexist)
 
 module.exports = router

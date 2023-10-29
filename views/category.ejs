@@ -228,19 +228,20 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form method="post" action="/admin/category/brands" onsubmit="return validatebrands()">
+          <form method="post" action="/admin/category/brands" for="brand" onsubmit="return validatebrands()">
             <div class="modal-body">
               <div class="form-group">
-                <label for="categoryName">Watch Brand</label>
+                <label for="brandCategory">Brand Name</label>
                 <input type="text" name="brand_category" placeholder="Enter Brand Name">
+                <div class="error"></div>
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-              <button type="submit" class="btn btn-primary">Add Category</button>
+              <button type="submit" class="btn btn-primary">Add Brand</button>
             </div>
           </form>
+          
         </div>
       </div>
 
@@ -315,7 +316,7 @@ function validateWatchtype() {
     errorElement.textContent = "";
     
     const inputValue = document.querySelector("[name='watch_type']").value.trim();
-
+     
     if (inputValue === "") {
         errorElement.textContent = "Watch type cannot be empty.";
         return false; 
@@ -368,41 +369,52 @@ function validateWatchtype() {
 
 
 
-  function validatebrands() {
+function validatebrands() {
+    console.log("coming here");
+    const errorElement = document.querySelector("[for='brand'] .error");
+    errorElement.textContent = "";
 
-    const name = document.getElementById('brandCategory');
-    const errorDisplay = name.nextElementSibling; 
-
-    const nameValue = name.value.trim();
-
-    if (nameValue === '') {
-      setError(name, 'brand name is required');
-      return false; 
-      setSuccess(name);
+    const inputValue = document.querySelector("[name='brand_category']").value.trim();
+    let inputValueLowercase = inputValue.toLowerCase()
+    if (inputValue === "") {
+        errorElement.textContent = "brand can't be empty.";
+        return false;
     }
 
+    const data = {
+        inputvalue: inputValueLowercase,
+    }
 
-    return true;
-  }
+    fetch('/admin/brand-exist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw  Error('Network response was not ok');
+        }
+    })
+    .then(data => {
+        if (data.Exist) {
+            console.log("the if")
+            errorElement.textContent = "Brand name already exists.";
+        } else if (data.NotExist) {
+            console.log("the else")
+            document.querySelector("[for='brand']").submit();
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+    });
 
+    return false;
+}
 
-  function setError(element, message) {
-    const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('.error');
-
-    errorDisplay.innerText = message;
-    inputControl.classList.add('error');
-    inputControl.classList.remove('success');
-  }
-
-  function setSuccess(element) {
-    const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('.error');
-
-    errorDisplay.innerText = '';
-    inputControl.classList.add('success');
-    inputControl.classList.remove('error');
-  }
 
 
   function openEditModal(currentWatchType, currentId) {

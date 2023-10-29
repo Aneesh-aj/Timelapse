@@ -837,8 +837,34 @@ const watchtypechecking = async (req,res)=>{
 
 
 
+const brandexist = async (req,res)=>{
+    try{
+
+      const inputvalue = req.body.inputvalue
+
+      console.log("--inputvlaue",inputvalue)
+  
+      const brands = await  brandModel.find({})
+  
+      for(let i=0;i < brands.length;i++){
+            console.log("in the loop",brands[i].brand_category.toLowerCase())
+           if(inputvalue == brands[i].brand_category.toLowerCase().trim()){
+                return res.json({Exist:true})
+           }
+      }
+  
+      console.log("its not found")
+      res.json({NotExist:true})  
+
+    }catch(error){
+      res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
+    }
+}
 
 
 
 
-module.exports = {watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }
+
+
+module.exports = {brandexist,watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }
