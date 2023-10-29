@@ -661,7 +661,6 @@ const banneradding = async (req, res) => {
 
       console.log("Banner updated:", updatedBanner);
 
-      // Send a JSON response indicating success
       res.json({ success: true, message: 'Banner image uploaded successfully' });
 
   } catch (error) {
