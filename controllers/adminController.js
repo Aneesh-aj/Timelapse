@@ -342,12 +342,11 @@ const categoryGet = async (req, res) => {
 
 const watchtypeAdding = async (req, res) => {
   try {
-    console.log("oooooITS here guyzz")
+    console.log("oooooITS here guyzz",req.body.watch_type)
     
-    const watchType = await watchTypeModel.find({ watch_type: req.body.watch_type })
-    console.log("watchtype =>", watchType)
-    const checking = req.body.watch_type
-    if (watchType.length === 0 && checking != 0) {
+    const watchType = await watchTypeModel.findOne({ watch_type: req.body.watch_type })
+   
+    if (!watchType) {
       await watchTypeModel.create({ watch_type: req.body.watch_type, list: true })
       return  res.redirect("/admin/category")
     } else {
@@ -355,6 +354,7 @@ const watchtypeAdding = async (req, res) => {
     }
   }
   catch (error) {
+    console.log(error)
     res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
   }
@@ -363,9 +363,13 @@ const watchtypeAdding = async (req, res) => {
 const watchtypeEdit = async (req, res) => {
   try {
 
+    console.log("edit controller")
+
     const id = req.body._id
     console.log("the id ", id)
-    const watchType = await watchTypeModel.updateOne({ _id: id }, { $set: { watch_type: req.body.watch_type } })
+    console.log("offer",req.body.offer)
+    const offer = parseFloat(req.body.offer);
+    const watchType = await watchTypeModel.updateOne({ _id: id }, { $set: { watch_type: req.body.watch_type,offer:offer } })
     console.log("updated value", watchType)
     res.redirect("/admin/category")
 
@@ -858,5 +862,25 @@ const brandexist = async (req,res)=>{
 }
 
 
+const brandedit = async (req,res)=>{
+   try{
+      
+    console.log("edit controller")
 
-module.exports = {brandexist,watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }
+    const id = req.body._id
+    console.log("the id ", id)
+    console.log("offer",req.body.offer)
+    const offer = parseFloat(req.body.offer);
+    const brands = await brandModel.updateOne({ _id: id }, { $set: { brand_category: req.body.brand_category,offer:offer } })
+    console.log("updated value",brands)
+    res.redirect("/admin/category")
+      
+   }catch(error){
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
+   }
+}
+
+
+
+module.exports = {brandedit,brandexist,watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }

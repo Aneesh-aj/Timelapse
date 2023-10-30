@@ -16,7 +16,8 @@ const productSchema = mongoose.Schema({
     discountedprice:{type:Number},    
     strap_color:{type:String, required:false},
     watch_case:{type:String , required:false},
-    sellingprice:{type:Number}
+    sellingprice:{type:Number},
+    categoryoffer:{type:Number}
 
 })
 

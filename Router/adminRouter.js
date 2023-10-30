@@ -39,5 +39,6 @@ router.post("/report",controller.chartreport)
 router.get("/salesreport",adminMiddleware.isadmin,controller.salesreport)
 router.post('/watchtype-exist',controller.watchtypechecking)
 router.post("/brand-exist",controller.brandexist)
+router.post("/category/brandedit",controller.brandedit)
 
 module.exports = router
