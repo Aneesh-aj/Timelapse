@@ -775,7 +775,7 @@ function CopyToClipboard(containerid) {
             .then(result => {
 
 
-              if (result.sucess) {
+              if (result.success) {
                 button.style.display = "none";
 
                 const updatedTotalPrice = result.totalprice.toFixed(2);
@@ -797,6 +797,13 @@ function CopyToClipboard(containerid) {
                   title: "outof range",
                   text: "products amount is in outof range"
                 });
+              }else if(result.nocoupon){
+                console.log("its getting here")
+                Swal.fire({
+                  icon: "error",
+                  title: "invalid coupon",
+                  text: "there is no coupon with this coupon code"
+                });
               }
 
 
@@ -807,6 +814,7 @@ function CopyToClipboard(containerid) {
               alert('Error applying coupon code. Please try again.');
             });
         } catch (error) {
+          console.log("catch")
           console.error('Error applying coupon code:', error);
           alert('Error applying coupon code. Please try again.');
         }

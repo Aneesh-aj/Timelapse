@@ -1516,35 +1516,31 @@ const applycoupn = async (req, res) => {
 
 
         console.log("---code", code)
-        console.log("----", amount)
+        console.log("----amoutn", amount)
 
         const coupon = await couponModel.findOne({ coupon_code: code })
-        console.log("its coupn", coupon.coupon_value)
-
-       if( amount >= coupon.min_amount && amount <= coupon.max_amount){
-        if (coupon && coupon.coupon_value) {
-
-            
-
-            const totalprice = parseFloat(amount) - parseFloat(coupon.coupon_value);
-            let discountamount = parseFloat(coupon.coupon_value)
-
-            console.log("d--------", discountamount)
-
-          return  res.json({success:true, totalprice, discountamount })
-        } else {
-            console.log('Invalid coupon or no discount amount');
-           return  res.status(400).json({invalidcoupon:true, error: 'Invalid coupon or no discount amount' });
-        }
-       }else{
-          return  res.json({pricemissmatched:true,error:"amount is outof coupon range"})
-       }
 
 
-
-      
+        if (coupon) {
+            if (coupon.coupon_value) {
+              const totalprice = parseFloat(amount) - parseFloat(coupon.coupon_value);
+              let discountamount = parseFloat(coupon.coupon_value);
+              return res.json({ success: true, totalprice, discountamount });
+            } else {
+           
+              console.log('Invalid coupon or no discount amount');
+              return res.status(400).json({ invalidcoupon: true, error: 'Invalid coupon or no discount amount' });
+            }
+          } else {
+       
+            console.log('No coupon found');
+            return res.json({ nocoupon: true });
+          }
+          
 
     } catch (error) {
+        console.log("ots errpr ")
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
