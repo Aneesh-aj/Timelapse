@@ -19,6 +19,63 @@
     crossorigin="anonymous"></script>
   <title>checkout</title>
 </head>
+<style>
+   .copiedtext {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(-1em);
+        color: #000;
+        transition: all .500s;
+    }
+
+    .copied .copiedtext {
+        opacity: 1;
+        transform: translateY(-4em);
+    }
+
+    /* Some Generic styles */
+    .body {
+        text-align: center;
+        font-family: "Open Sans", Helvetica, Arial, sans-serif;
+        color: #444;
+        line-height: 1.6;
+    }
+
+    .h1 {
+        margin: 1.75em auto 1.25em;
+    }
+
+
+    [id="cleared"] {
+        margin-top: 4em;
+    }
+
+    .button1 {
+        font-size: 1em;
+        font-family: "Open Sans", Helvetica, Arial, sans-serif;
+        position: relative;
+        padding: 8px 10px;
+        border: 2px dotted black;
+        font-size: 0.835em;
+        text-transform: uppercase;
+        letter-spacing: 0.125em;
+        font-weight: bold;
+        color: #000;
+        background: #fff;
+        transition: background .275s;
+    }
+
+    .button1:hover,
+    .button1:focus {
+        background: #e9e8e8;
+        color: #131313;
+        cursor: pointer;
+    }
+</style>
 
 <body>
   <%- include('navbar.ejs') %>
@@ -338,10 +395,17 @@
                             </p>
                             <p>coupon worth : <%= coupon[i].coupon_value %>
                             </p>
-                            <p>min amont to apply coupon : <%=coupon[i].min_amount %>
+                            <p>min amount to apply coupon : <%=coupon[i].min_amount %>
                             </p>
-                            <button class="copy-button" onclick="copycoupon('<%=coupon[i].coupon_code %>')">Copy Coupon
-                              Code</button>
+                            <p>max amount to apply coupon : <%=coupon[i].max_amount %>
+                            </p>
+                        
+                              <button class="button1" title="Copy promo code" id="copy"
+                              onClick="CopyToClipboard('to-copy')">
+                              <div id="to-copy">
+                                <%=coupon[i].coupon_code %>
+                              </div><span class="copiedtext" aria-hidden="true">Copied</span>
+                          </button>
                           </div>
                         </div>
                         <% } %>
@@ -555,6 +619,7 @@
 
 
 
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
       crossorigin="anonymous"></script>
@@ -600,6 +665,46 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
     <script>
+function CopyToClipboard(containerid) {
+    var container = document.getElementById(containerid);
+    
+    // Create a range and a selection
+    var range = document.createRange();
+    var selection = window.getSelection();
+
+    // Select the text in the container
+    range.selectNodeContents(container);
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    try {
+        // Attempt to copy the selected text to the clipboard
+        document.execCommand("copy");
+        console.log("Text copied to clipboard");
+        
+        // Remove the selection
+        selection.removeAllRanges();
+        
+        // Add "Copied" text after click
+        var copiedText = container.nextElementSibling;
+        copiedText.style.visibility = "visible";
+
+        // Toggle the "copied" class on the button to apply styles
+        var button = container.parentElement; // Get the button element
+        button.classList.add("copied"); // Add the "copied" class
+
+        setTimeout(function () {
+            copiedText.style.visibility = "hidden";
+
+            // Remove the "copied" class after a delay
+            button.classList.remove("copied"); // Remove the "copied" class
+        }, 2000);
+    } catch (err) {
+        console.error("Unable to copy text to clipboard: ", err);
+    }
+}
+
+
 
       async function applycoupon() {
         const couponCodeInput = document.getElementById('couponCodeInput');
@@ -611,6 +716,11 @@
 
         console.log("-----cu ", discount)
 
+
+        console.log("--------")
+        console.log("displayedTotalamount", displayedTotalPriceElement.value)
+        console.log("amount", amount)
+        console.log("------------")
         const discountingamount = discount.innerText
         console.log("-", discountingamount)
 
@@ -620,15 +730,23 @@
         console.log("the amount", amount)
 
         if (useWalletCheckbox.checked) {
-          alert('remove the applied wallet');
-          return;
+          return Swal.fire({
+            icon: "error",
+            title: "Remove Wallet",
+            text: "coupon only can applie before using the wallet"
+          });
         }
 
 
         if (!couponCode) {
-          alert('Please enter a coupon code');
-          return;
+          return Swal.fire({
+            icon: "error",
+            title: "Enter coupon code",
+            text: "enter any valid coupon code"
+          });
         }
+
+
 
         try {
 
@@ -656,13 +774,32 @@
             })
             .then(result => {
 
-              button.style.display = "none";
 
-              const updatedTotalPrice = result.totalprice.toFixed(2);
+              if (result.sucess) {
+                button.style.display = "none";
 
-              console.log("the total d", result.discountamount)
-              displayedTotalPriceElement.innerText = updatedTotalPrice;
-              discount.innerText = result.discountamount
+                const updatedTotalPrice = result.totalprice.toFixed(2);
+
+                console.log("the total d", result.discountamount)
+                displayedTotalPriceElement.innerText = updatedTotalPrice;
+                discount.innerText = result.discountamount
+              }
+              else if (result.invalidcoupon) {
+                Swal.fire({
+                  icon: "error",
+                  title: "invalid coupon",
+                  text: "this coupon code is not valid"
+                });
+
+              } else if (result.pricemissmatched) {
+                return Swal.fire({
+                  icon: "error",
+                  title: "outof range",
+                  text: "products amount is in outof range"
+                });
+              }
+
+
 
             })
             .catch(error => {
@@ -700,16 +837,7 @@
       });
 
 
-      function copycoupon(i) {
-        console.log(i)
-        navigator.clipboard.writeText(i);
-        const copyButton = document.getElementById('k');
-        copyButton.textContent = "Copied!";
-        setTimeout(() => {
-          copyButton.textContent = "Copy";
-        }, 5000);
-      };
-
+   
       function quantityChanged(selectElement, index) {
 
 
