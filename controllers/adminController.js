@@ -307,7 +307,7 @@ const productAdding = async (req, res) => {
         discountedprice: req.body.offer,
         sellingprice:req.body.price - req.body.offer
       });
-
+ 
 
       await newProduct.save();
 
@@ -405,9 +405,10 @@ const brandsAdding = async (req, res) => {
 
   console.log("its comeing to brand route ", req.body.brand_category)
   try {
+    const offer = parseInt(req.body.offer)
     const brand = await brandModel.find({ brand_category: req.body.brand_category })
     if (brand.length === 0) {
-      await brandModel.create({ brand_category: req.body.brand_category, list: true })
+      await brandModel.create({ brand_category: req.body.brand_category, list: true ,offer:offer})
     } else {
       res.redirect("admin/category")
     }

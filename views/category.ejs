@@ -237,6 +237,40 @@
                     <h2>Brand</h2>
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCategoryModalRight">Add
                       Category</button>
+                      <div class="modal fade" id="addCategoryModalRight" tabindex="-1" role="dialog"
+                      aria-labelledby="addCategoryModalLabelRight" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <form method="post" action="/admin/category/brands" for="brand" onsubmit="return validatebrands()">
+                            <div class="modal-body">
+                              <div class="form-group">
+                                <label for="brandCategory">Brand Name</label>
+                                <input type="text" class="input-control ps-3" name="brand_category" placeholder="Enter Brand Name">
+                                <div class="error"></div>
+                                <label class="pt-4" for="editCategoryoffers">Offer (%)</label>
+                                <input type="text"  class="input-control ps-3" name="offer" value="" class="form-control" id="editCategoryoffers" placeholder="offer">
+                                <div class="error" id="offerError">
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Add Brand</button>
+                            </div>
+                          </form>
+                
+                        </div>
+                      </div>
+                
+                
+                    </div>
+                  </div>
+
                     <div class="table-responsive">
                       <table class="table table-bordered">
                         <thead>
@@ -335,35 +369,7 @@
  
 
 
-    <div class="modal fade" id="addCategoryModalRight" tabindex="-1" role="dialog"
-      aria-labelledby="addCategoryModalLabelRight" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form method="post" action="/admin/category/brands" for="brand" onsubmit="return validatebrands()">
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="brandCategory">Brand Name</label>
-                <input type="text" name="brand_category" placeholder="Enter Brand Name">
-                <div class="error"></div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Add Brand</button>
-            </div>
-          </form>
 
-        </div>
-      </div>
-
-
-    </div>
 
     <!-- Edit Watch Type Modal -->
 
@@ -397,8 +403,6 @@
         </div>
       </div>
     </div>
-
-
 
 
 
@@ -545,50 +549,71 @@ fetch('/admin/watchtype-exist', {
 
 
   function validatebrands() {
-    console.log("coming here");
+    console.log("hey it  the validation brnads")
     const errorElement = document.querySelector("[for='brand'] .error");
-    errorElement.textContent = "";
+    const offerInput = document.querySelector("[name='offer']");
+    const offerError = document.getElementById("offerError");
+
+    offerError.textContent = '';
+    errorElement.textContent = '';
 
     const inputValue = document.querySelector("[name='brand_category']").value.trim();
-    let inputValueLowercase = inputValue.toLowerCase()
-    if (inputValue === "") {
-      errorElement.textContent = "brand can't be empty.";
-      return false;
-    }
+    let inputValueLowercase = inputValue.toLowerCase();
 
-    const data = {
-      inputvalue: inputValueLowercase,
+    
+    const offerValue = offerInput.value;
+
+    console.log("the offer value")
+    console.log("the inputvalue",inputValue)
+    
+    if (offerValue !== '') {
+      console.log("first if")
+      if (!/^(100|[1-9]?\d)%$/.test(offerValue)) {
+        offerError.textContent = 'Please enter a valid offer percentage (0% to 100%).';
+        offerInput.focus();
+        return false;
+      }
     }
+    
+    if (inputValue === '') {
+      console.log("sendon if")
+        errorElement.textContent = "Brand name can't be empty.";
+        return false;
+    }else{
+      console.log("else ")
+      const data = {
+        inputvalue: inputValueLowercase,
+    };
 
     fetch('/admin/brand-exist', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
     })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw Error('Network response was not ok');
-        }
-      })
-      .then(data => {
-        if (data.Exist) {
-          console.log("the if")
-          errorElement.textContent = "Brand name already exists.";
-        } else if (data.NotExist) {
-          console.log("the else")
-          document.querySelector("[for='brand']").submit();
-        }
-      })
-      .catch(error => {
-        console.error('Fetch error:', error);
-      });
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
+        .then(data => {
+            if (data.Exist) {
+                errorElement.textContent = "Brand name already exists.";
+            } else if (data.NotExist) {
+                document.querySelector("[for='brand']").submit();
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+    }
+   
 
     return false;
-  }
+}
 
 
 
