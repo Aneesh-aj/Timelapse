@@ -784,8 +784,8 @@ const chartreport = async (req, res) => {
 
       if (allReports[year]) {
         allReports[year].monthlyAmounts[month - 1] = deliveredOrderAmount;
-      }
-    });
+      }      
+    });   
 
     console.log("the final ---------------------", allReports);
     res.json({ allReports });

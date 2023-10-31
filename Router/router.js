@@ -14,13 +14,13 @@ const controller = require("../controllers/userController")
 const userMiddleware = require('../middleware/isuser')
 const { civicinfo } = require("googleapis/build/src/apis/civicinfo")
 
-
+       
 router.get("/" ,userMiddleware.checkUserStatus,controller.landing)
 router.get("/home",userMiddleware.checkUserStatus,controller.homepageview)
 router.post("/profile",userMiddleware.checkUserStatus,userMiddleware.currentuser,controller.profilePost)
 router.get("/profile",userMiddleware.checkUserStatus,userMiddleware.currentuser,controller.profileView)
 router.get("/login",controller.loginView)
-router.post("/login",controller.loginPost)
+router.post("/login",controller.loginPost) 
 router.post("/logout",controller.userLogout)
 router.get("/signup",userMiddleware.checkUserStatus, controller.singupView)
 router.post("/signup",controller.signupPost)

@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <title>Product-adding</title>
-</head>
+</head>   
 <body>
       <%- include('navbar2.ejs') %>
    <content class="nav-height">
@@ -62,8 +62,9 @@
                     <div class="line"></div>
                  </div>
                </div>
+               <!-- admin/product-managment/adding -->
                <div class="profile-div2  " style="height: auto; margin-bottom: 15px;">             
-                    <form method="post" action="/admin/product-managment/adding" enctype="multipart/form-data">
+                    <form method="" action="" enctype="multipart/form-data" onsubmit=" return validateForm()">
                         <div class="w-100 h-100 ">
                             <div class="w-100 d-flex ">
                              <div class="product-img mt-5">
@@ -71,8 +72,11 @@
                                       <h5>product-image:</h5>
                                  </div>
                                  <div class=" " style="width: 60%; height: 5rem; margin-left: 5rem; background-color: rgb(163, 163, 163); border: black solid 1px;">
-                                    <input class="w-100 h-100" type="file" accept=".jpg, .jpeg, .png , .webp" onchange="checkImageCount()" name="filename" multiple>
+                                    <input class="w-100 h-100 ps-3" id="image" type="file" accept=".jpg, .jpeg, .png , .webp" onchange="checkImageCount()" name="filename" multiple>
+                                    <span class="error-message" id="image_error"></span>
+
                                 </div>
+                                
                                  
                              </div>
                              <div class="product-img-side mt-5">
@@ -80,37 +84,46 @@
                                      <h5>product-name:</h5>
                                  </div>
                                  <div class=" " style="width: 60%; height: 2.5rem;  ">
-                                      <input class="w-100 h-100 "for="proudct_name" name="product_name" required style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" >
+                                      <input class="w-100 h-100 ps-3"for="proudct_name" name="product_name" id="product_name"  style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" >
+
+                                      <span class="error-message" id="product_name_error"></span>
+
                                  </div>
+                                  
                                  <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
                                      <h5>product price:</h5>
                                  </div>
                                  <div class=" " style="width: 60%; height: 2.5rem; ">
-                                      <input onchange="amountcheking()" class="w-100 h-100 "for="price" name="price" required style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" >
+                                      <input onchange="amountcheking()" id="price" class="w-100 h-100 ps-3"for="price" name="price"  style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" >
+                                      <span class="error-message" id="price_error"></span>
+
                                  </div>
                                  <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
                                      <h5>Category:</h5>
                                  </div>
                                  <div class=" " style="width: 60%; height: 2.5rem; ">
                                       <!-- <input class="w-100 h-100 " style="border-radius: 3px; background-color: rgb(237, 237, 237);"> -->
-                                      <select class="form-select w-100 h-100" name="watch_type" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" aria-label="Default select example">
-                                        <option selected>add watch type</option>
+                                      <select class="form-select w-100 h-100" name="watch_type" id="watch_type" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" aria-label="Default select example">
                                         <% for (let i = 0; i < watchtype.length; i++) { %>
                                           <option value="<%= watchtype[i]._id %>"<%= product.watch_type && product.watch_type._id.toString() === watchtype[i]._id.toString() ? ' selected' : '' %>><%= watchtype[i].watch_type %></option>
                                         <% } %>
                                       </select>
-                                      
+                                      <span class="error-message" id="watch_type_error"></span>
+
                                  </div>
                                  <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
                                      <h5>Brand</h5>
                                  </div>
                                  <div class=" " style="width: 60%; height: 2.5rem; ">
-                                    <select class="form-select w-100 h-100"  name="brand" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" aria-label="Default select example">
-                                          
+                                    <select class="form-select w-100 h-100" id="brand" name="brand" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" aria-label="Default select example">
+                                        
+
                                         <% for (let i = 0; i < brands.length; i++) { %>
                                           <option value="<%= brands[i]._id %>"<%= product.brand && product.brand._id.toString() === brands[i]._id.toString() ? ' selected' : '' %>><%= brands[i].brand_category %></option>
                                         <% } %>
                                       </select>
+                                      <span class="error-message" id="brand_error"></span>
+
                                       
                                  </div>
          
@@ -121,43 +134,87 @@
                                   <h5>product Discription</h5>
                                </div>
                                <div class="" style="width: 60%;    ">
-                                  <input class="w-100  " for="discription" name="discription" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); height: 7rem;" >
+                                  <input type="text" class="w-100" id="discription"  name="discription" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); height: 7rem;" >
+                                  <span class="error-message" id="discription_error"></span>
+
                              </div>
                          
                               <div class="product-img2">
-                                 <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Display type  :</h5>
-                                     <input class="w-100 h-100 ps-3" for="display_type" placeholder="display type" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); " name="display_type" >
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Strap color   :</h5>
-                                     <input placeholder="strap color" class="w-100 h-100 ps-3" for="strap_color" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="strap_color">
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Dial color    :</h5>
-                                     <input class="w-100 h-100 ps-3"  placeholder="dial color" for="dial_color" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="dial_color">
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Gender        :</h5>
-                                     <input placeholder="gender" class="w-100 h-100 ps-3" for="gender" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="gender">
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Shape         :</h5>
-                                     <input placeholder="shape" class="w-100 h-100 ps-3 " for="shape" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="shape" >
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Case          :</h5>
-                                     <input placeholder="case meterail" class="w-100 h-100 ps-3" for="watch_case" style=" border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="watch_case">
-                                   </div>
-                                    <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                        <h5 class= "d-flex align-items-center text-details product-img-side2">Stock         :</h5>
-                                        <input placeholder="stock" class="w-100 h-100 ps-3" for="stock" style=" border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="stock">
-                                     </div>
-                                     <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                        <h5 class= "d-flex align-items-center text-details product-img-side2">Offer        :</h5>
-                                        <input class="w-100 h-100 ps-3" onchange="amountcheking()" for="offer" id="offer" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="offer" placeholder="flate offer  ">
-                                     </div>
+                                <div class="mt-3 d-flex" style="height: 3rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Display type:</h5>
+                                      <div class="w-100">
+                                        <input class="w-100 h-75 ps-3" for="display_type" placeholder="display type" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="display_type">
+                                        <span class="error-message " id="display_type_error"></span>
+                                      </div>
+                                </div>
+                            
+                                <!-- Strap Color -->
+                                <div class="mt-3 d-flex" style="height: 3rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Strap color:</h5>
+                                 <div class="w-100">
+                                    <input class="w-100 h-75 ps-3" for="strap_color" placeholder="strap color" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="strap_color">
+                                    <span class="error-message" id="strap_color_error"></span>
+                                 </div>
+                                </div>
+                            
+                                <!-- Dial Color -->
+                                <div class="mt-3 d-flex" style="height: 3rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Dial color:</h5>
+                                    <div class="w-100">
+                                        <input class="w-100 h-75 ps-3" for="dial_color" placeholder="dial color" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="dial_color">
+                                        <span class="error-message" id="dial_color_error"></span>
+                                    </div>
+                                </div>
+                            
+                                <!-- Gender -->
+                                <div class="mt-3 d-flex" style="height: 3rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Gender:</h5>
+                                  
+                                      <div class="w-100">
+                                        <input class="w-100 h-75 ps-3" for="gender" placeholder="gender" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2)" name="gender">
+                                        <span class="error-message" id="gender_error"></span>
+                                      </div>
                                      
+                                </div>
+                            
+                                <!-- Shape -->
+                                <div class="mt-3 d-flex" style="height:3rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Shape:</h5>
+                                     <div class="w-100">
+                                        <input class="w-100 h-75 ps-3" for="shape" placeholder="shape" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="shape">
+                                        <span class="error-message" id="shape_error"></span>
+                                     </div>
+                                </div>
+                            
+                                <!-- Case Material -->
+                                <div class="mt-3 d-flex" style="height: 3rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Case Material:</h5>
+                                     <div class="w-100">
+                                        <input class="w-100 h-75 ps-3" for="watch_case" placeholder="case material" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="watch_case">
+                                        <span class="error-message" id="watch_case_error"></span>
+                                     </div>
+                                </div>
+                            
+                                <!-- Stock -->
+                                <div class="mt-3 d-flex" style="height: 3rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Stock:</h5>
+                                     <div class="w-100">
+                                        <input class="w-100 h-75 ps-3" for="stock" placeholder="stock" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="stock">
+                                        <span class="error-message" id="stock_error"></span>
+                                     </div>
+                                </div>
+                            
+                                <!-- Offer -->
+                                <div class="mt-3 d-flex" style="height: 3rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Offer:</h5>
+                                     <div class="w-100">
+                                              
+                                        <input class="w-100 h-75 ps-3" onchange="amountChecking()" for="offer" id="offer" placeholder="flat offer" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="offer">
+                                        <span class="error-message" id="offer_error"></span>
+                                     </div>
+                                  
+                                </div>
+                            
                                     
                                     <div class="  d-flex justify-content-center m-4">
                                     <button type="submit"  style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); background-color: rgb(49, 49, 252);">add product</button>
@@ -215,7 +272,7 @@
               
             
             if(parseInt(offer.value) >= parseInt(price.value) - 3){
-                Swal.fire({
+             return   Swal.fire({
                     icon:'error',
                     title:'invalid offer',
                     text:'offer amount should be less than price'
@@ -223,6 +280,190 @@
                 document.getElementById('offer').value = 0
             }
         }
+
+        
+        
+function validateForm() {
+   
+        
+        var image = document.querySelector('input[name="filename"]')
+        var file = document.querySelector('input[type="file"]')
+        var productName = document.querySelector('input[name="product_name"]');
+    var watchType = document.querySelector('select[name="watch_type"]')
+    var price = document.querySelector('input[name="price"]');
+    var brand = document.querySelector('select[name="brand"]');
+
+    var discription = document.querySelector('input[name="discription"]');
+    var displayType = document.querySelector('input[name="display_type"]');
+    var strapColor = document.querySelector('input[name="strap_color"]');
+    var dialColor = document.querySelector('input[name="dial_color"]');
+    var gender = document.querySelector('input[name="gender"]');
+    var shape = document.querySelector('input[name="shape"]');
+    var watchCase = document.querySelector('input[name="watch_case"]');
+    var stock = document.querySelector('input[name="stock"]');
+    var offer = document.querySelector('input[name="offer"]');
+
+    var nameRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\s]+$/;
+
+    var priceRegex = /^\d+(\.\d{1,2})?$/; // Numeric with up to two decimal places
+    var offerRegex = /^\d+(\.\d{1,2})?$/; // Numeric with up to two decimal places
+    var discriptionError = document.querySelector('#discription_error');
+    var imageError = document.querySelector('#image_error');
+
+    console.log("-1")
+     console.log("image",image.length)
+     
+     console.log(file.files,"???")
+     
+
+     var errorMessages = [];
+     
+     console.log(0)
+     
+     function showError(inputElement, errorMessage) {
+         var errorSpan = inputElement.nextElementSibling; // Assumes the error span follows the input
+         if (!errorSpan) {
+             errorSpan = document.createElement('span');
+             errorSpan.className = 'error-message';
+             inputElement.parentNode.appendChild(errorSpan);
+            }
+            errorSpan.textContent = errorMessage;
+            inputElement.classList.add('error');
+        }
+        
+        function clearError(inputElement) {
+            var errorSpan = inputElement.nextElementSibling;
+            if (errorSpan) {
+                errorSpan.textContent = '';
+                inputElement.classList.remove('error');
+            }
+        }
+
+        if (!image.value) {
+            console.log("inside image")
+            showError(image, 'Please select an image.');
+            errorMessages.push('Please select an image.');
+        } else {
+            clearError(image);
+        }
+
+        if(file.files.length >1 && file.files.length <4){
+            console.log("inside else")
+            showError(image, 'Please select  4 images.');
+            errorMessages.push('Please select 4 images.');
+        }
+        console.log("another -1")
+    
+    
+        if (productName.value.trim() === '' || !nameRegex.test(productName.value.trim())) {
+            showError(productName, 'Please enter a valid product name.');
+            errorMessages.push('Please enter a valid product name.');
+        } else {
+            clearError(productName);
+        }
+
+        console.log(1)
+
+    if (price.value.trim() === '' || !priceRegex.test(price.value.trim())) {
+        showError(price, 'Please enter a valid product price (e.g., 12.34).');
+        errorMessages.push('Please enter a valid product price (e.g., 12.34).');
+    } else {
+        clearError(price);
+    }
+    console.log(2)
+
+    if (watchType.value === 'add watch type') {
+            showError(watchType, 'Please select a watch type.');
+            errorMessages.push('Please select a watch type.');
+        } else {
+            clearError(watchType);
+        }
+
+        // Validate brand
+        if (brand.value === '') {
+            showError(brand, 'Please select a brand.');
+            errorMessages.push('Please select a brand.');
+        } else {
+            clearError(brand);
+        }
+
+        console.log(3)
+
+ 
+
+    if (discription.value.trim() === '') {
+    discriptionError.textContent = 'Please enter a product description.';
+    errorMessages.push('Please enter a product description.');
+} else {
+    clearError(discription);
+}
+    console.log(4)
+    
+    if (displayType.value.trim() === '') {
+        showError(displayType, 'Please enter a display type.');
+        errorMessages.push('Please enter a display type.');
+    } else {
+        clearError(displayType);
+    }
+    console.log(5)
+
+    if (strapColor.value.trim() === '') {
+        showError(strapColor, 'Please enter a strap color.');
+        errorMessages.push('Please enter a strap color.');
+    } else {
+        clearError(strapColor);
+    }
+
+    if (dialColor.value.trim() === '') {
+        showError(dialColor, 'Please enter a dial color.');
+        errorMessages.push('Please enter a dial color.');
+    } else {
+        clearError(dialColor);
+    }
+
+    if (gender.value.trim() === '') {
+        showError(gender, 'Please enter a gender.');
+        errorMessages.push('Please enter a gender.');
+    } else {
+        clearError(gender);
+    }
+
+    if (shape.value.trim() === '') {
+        showError(shape, 'Please enter a shape.');
+        errorMessages.push('Please enter a shape.');
+    } else {
+        clearError(shape);
+    }
+
+    if (watchCase.value.trim() === '') {
+        showError(watchCase, 'Please enter a watch case material.');
+        errorMessages.push('Please enter a watch case material.');
+    } else {
+        clearError(watchCase);
+    }
+
+    if (stock.value.trim() === '' || isNaN(stock.value.trim())) {
+        showError(stock, 'Please enter a valid stock quantity.');
+        errorMessages.push('Please enter a valid stock quantity.');
+    } else {
+        clearError(stock);
+    }
+
+    if (offer.value.trim() !== '' && !offerRegex.test(offer.value.trim())) {
+        showError(offer, 'Please enter a valid offer amount.');
+        errorMessages.push('Please enter a valid offer amount.');
+    } else {
+        clearError(offer);
+    }
+     
+    amountcheking()
+
+    return false;
+    
+}
+
+
+
 
    </script>
 </body>

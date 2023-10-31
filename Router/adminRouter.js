@@ -6,14 +6,14 @@ const { render } = require("ejs")
 const controller = require("../controllers/adminController")
 const bannerupload = require("../config/banner")
 const adminMiddleware = require("../middleware/isAdmin")
-
-
+      
+               
 router.get("/",adminMiddleware.isadmin, controller.adminpageView )
 router.get("/logout",controller.adminLogout)
 
 router.get("/product-managment",adminMiddleware.isadmin, controller.productManagment)
 router.get("/user-managment",adminMiddleware.isadmin,controller.userManagment)
-
+      
 router.get("/product-managment/add-product",adminMiddleware.isadmin,controller.addProduct)
 router.get("/product-managment/edit/:id",adminMiddleware.isadmin,controller.editProduct)
 router.post("/product-managment/edit/submit",controller.editedProduct)

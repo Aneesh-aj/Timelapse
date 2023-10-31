@@ -16,7 +16,7 @@ const orderSchema = mongoose.Schema({
      country:{type:String},
       state:{type:String},
       town:{type:String},
-      locality:{type:String},
+      locality:{type:String},  
       paymentMethod:{type:String},
       pincode:{type:Number},
       orderdate:{type:Date},
