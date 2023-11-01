@@ -65,4 +65,5 @@ router.post('/passwordchangingpost',controller.passwordchangingpost)
 router.post("/refferalpost",controller.refferalpost)
 router.post('/checkingstock',controller.checkingstock)
 
+
 module.exports = router

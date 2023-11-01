@@ -1,479 +1,601 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>    <link rel="stylesheet" href="/style.css" class="style">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/style.css" class="style">
     <title>Product-adding</title>
 </head>
+
 <body>
     <%- include('navbar2.ejs') %>
-   <content class="nav-height">
-       <div class="container-fluid   " id="body-color">
-           <div class=" d-flex h-auto  profile-main">
-               <div class="profile-div ">
-                    <div class="profile-photo d-flex align-items-center ">
-                        <div class=" hii d-flex justify-content-center align-items-center">
-                             <div class="profile-picture " style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;"></div>
-                        </div>
-                        <div class=" hello d-flex align-items-center">
-                         <span><a href="/admin" style="text-decoration: none; outline: none; color: black;"  >Admin</a></span>
-                        </div>
-                    </div>
-                    <div class="profile-selection">
-                     <div class="selector  d-flex align-items-center">
-                        <div class=" hii d-flex align-items-center justify-content-center">
-                               <div class="selector-image" style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); "></div>
-                       </div>
-                        <div class="hello d-flex align-items-center">
-                                <span>order details</span>
-                         </div>
-                     </div>
-                     <div class="line"></div>
-                     <div class="selector  d-flex align-items-center">
-                      <div class=" hii  d-flex align-items-center justify-content-center">
-                             <div class="selector-image" style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); "></div>
-                     </div>
-                      <div class=" hello d-flex align-items-center">
-                               <span>product</span>
-                       </div>
-                     </div>
-                     <div class="line"></div>
-                     <div class="selector  d-flex align-items-center align-items-center">
-                         <div class="hii d-flex justify-content-center align-items-center">
-                             <div class="selector-image bg-light" style="background-image: url(https://6cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
-                         </div>
-                      <div class="hello d-flex align-items-center">
-                                <span>user</span>
-                         </div>
-                      </div>
-                     <div class="line"></div>
-                     <div class="selector  d-flex align-items-center align-items-center">
-                      <div class="hii d-flex justify-content-center align-items-center">
-                          <div class="selector-image bg-light" style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
-                        </div>
-                        <div class="hello d-flex align-items-center">
-                            <span>Coupen</span>
-                        </div>
-                    </div>
-                     <div class="line"></div>
-                  </div>
-                </div>
-                <div class="profile-div2 me-5 " style="height: auto; margin-bottom: 15px;">             
-                    <form action="/admin/product-managment/edit/submit?id=<%=product._id %>" method="post" enctype="multipart/form-data"onsubmit=" return validateForm()" >
-                        <div class="w-100 h-100 ">
-                            <div class="w-100 d-flex ">
-                           
-                            </div> 
-                            <div class="w-100 mt-3 " style="padding-left: 5rem;">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                     edit Image
-                                  </button>
-                            <div class="product-img-side mt-3">
-                                <div class=" d-flex " style="width: 60%; height: 2.5rem; ">
-                                    <h5>product-name:</h5>
+        <content class="nav-height">
+            <div class="container-fluid   " id="body-color">
+                <div class=" d-flex h-auto  profile-main">
+                    <div class="profile-div ">
+                        <div class="profile-photo d-flex align-items-center ">
+                            <div class=" hii d-flex justify-content-center align-items-center">
+                                <div class="profile-picture "
+                                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/3001/3001764.png); background-repeat: no-repeat; background-size: cover;">
                                 </div>
-                                <div class=" " style="width: 60%; height: 2.5rem;  ">
-                                     <input class="w-100 h-100 ps-3" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"  name="product_name" value="<%=product.product_name %>">
-                                     <input type="hidden" name="_id" value="<%= product._id %>">
-                                     <span class="error-message" id="product_name_error"></span>
-
-                                           
-                                </div>
-                                <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
-                                    <h5>product price:</h5>
-                                </div>
-                                <div class=" " style="width: 60%; height: 2.5rem; ">
-                                   <input onchange="amountcheking()" class="w-100 h-100 ps-3"for="price" name="price" value="<%= product.price %>" required style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" >
-                                   <span class="error-message" id="price_error"></span>
-
-                               </div>
-                                <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
-                                    <h5>Category:</h5>
-                                </div>
-                                <div class=" " style="width: 60%; height: 2.5rem; ">
-                                     <!-- <input class="w-100 h-100 " style="border-radius: 3px; background-color: rgb(237, 237, 237);"> -->
-                                     <select class="form-select w-100 h-100 "  name="watch_type" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" aria-label="Default select example">
-                                       <option value="<%= product.watch_type ? product.watch_type._id : '' %>"><%= product.watch_type ? product.watch_type.watch_type : '' %></option>
-                                       <% for(let i=0; i < watchtype.length ;i++){ %>
-                                           <option value="<%= watchtype[i]._id %>"><%= watchtype[i].watch_type %></option>
-                                       <% } %>
-                                     </select>
-                                     <span class="error-message" id="watch_type_error"></span>
-
-                                </div>
-                                <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
-                                    <h5>Brand</h5>
-                                </div>
-                                <div class="mb-4 " style="width: 60%; height: 2.5rem; ">
-                                   <select class="form-select w-100 h-100 "  name="brand" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" aria-label="Default select example">
-                                       <option value="<%= product.brand ? product.brand._id : '' %>"><%= product.brand ? product.brand.brand_category : '' %></option>
-                                       <% for(let i=0; i < brands.length ;i++){ %>
-                                           <option value="<%= brands[i]._id %>"><%= brands[i].brand_category %></option>
-                                       <% } %>
-                                     </select>
-                                     <span class="error-message" id="brand_error"></span>
-
-                               </div>
-        
-                            </div>  
-                               <div class=" " style="width: 60%; height: 2.5rem;  ">
-                                  <h5>product Discription</h5>
-                               </div>
-                               <div class="" style="width: 60%;    ">
-                                  <input class="w-100  ps-3" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); height: 7rem;" name="discription" value="<%=product.discription %>">
-                                  <span class="error-message" id="discription_error"></span>
-
-                             </div>
-                         
-                              <div class="product-img2">
-                                 <div class=" mt-3  d-flex  " style="height: 3rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Display type  :</h5>
-                                      <div class="w-100">
-                                        <input class="w-100 h-75 ps-3" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"name="display_type" value="<%= product.display_type %>">
-                                        <span class="error-message " id="display_type_error"></span>
-   
-                                      </div>
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 3rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Strap color   :</h5>
-                                     <div class="w-100">
-                                        <input class="w-100 h-75 ps-3" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="strap_color" value="<%= product.strap_color %>">
-                                        <span class="error-message" id="strap_color_error"></span>
-   
-                                     </div>
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 3rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Dial color    :</h5>
-                                      <div class="w-100">
-                                        <input class="w-100 h-75 ps-3" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"name="dial_color" value="<%= product.dial_color %>">
-                                        <span class="error-message" id="dial_color_error"></span>
-   
-                                      </div>
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 3rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Gender        :</h5>
-                                     <div class="w-100">
-                                        <input class="w-100 h-75 ps-3 " style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="gender" value="<%= product.gender %>">
-                                        <span class="error-message" id="gender_error"></span>
-   
-                                     </div>
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 3rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Shape         :</h5>
-                                     <div class="w-100">
-                                        <input class="w-100 h-75 ps-3" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="shape" value="<%= product.shape %>">
-                                        <span class="error-message" id="shape_error"></span>
-                                     </div>
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height:3rem;  ">
-                                     <h5 class= "d-flex align-items-center text-details product-img-side2">Case          :</h5>
-                                     <div class="w-100">
-                                        <input class="w-100 h-75 ps-3 " style="  border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="watch_case" value="<%= product.watch_case%>">
-                                        <span class="error-message" id="watch_case_error"></span>
-   
-                                     </div>
-                                  </div>
-                                  <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
-                                    <h5 class= "d-flex align-items-center text-details product-img-side2">Offer        :</h5>
-                                   <div class="w-100">
-                                    <input class="w-100 h-100 ps-3" onchange="amountcheking()" for="offer" id="offer" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" placeholder="flate offer  " name="offer" value="<%=product.discountedprice %>" >
-                                    <span class="error-message" id="offer_error"></span>
-
-                                   </div>
-                                 </div>
-                                  <div class=" mt-3  d-flex  " style="height: 3rem;  ">
-                                    <h5 class= "d-flex align-items-center text-details product-img-side2">Stock         :</h5>
-                                    <div class="w-100">
-                                        <input class="w-100 h-75 ps-3 " for="stock" style="  border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="stock" value="<%=product.stock %>">
-                                        <span class="error-message" id="stock_error"></span>
-    
-                                    </div>
-
-                                  </div>
-                                 
-             
-                                  <div class="  d-flex justify-content-center m-4"><button type="submit" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); background-color: rgb(49, 49, 252);">Add product</button></div>
-                              </div>
-                          </div>
-                       </div>
-                    </form>
-                  
-                </div>
-               
-            </div>
-        
-       </div>
-       
-
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-         <form action="/deleteproductimage" method="post">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                   <%for(let i=0;i < 4;i++){ %>
-                        <div class="w-100 ps-5 d-flex " style="height: 12rem;">
-                            <div class=" h-100 bg-warning" style="width: 40%;object-fit: contain;">
-                                 <img class="h-100 w-100" src="/filename/<%=product.product_image[i] %>">
+                            </div>
+                            <div class=" hello d-flex align-items-center">
+                                <span><a href="/admin"
+                                        style="text-decoration: none; outline: none; color: black;">Admin</a></span>
                             </div>
                         </div>
-                        <hr class="m-2">
-                  <% }%>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-         </form>
-      </div>
-    </div>
-  </div>
-       
-   </content>
-   <footer>
-      <div class="container-fluid footer-color">
-         <div class="container d-flex ">
-               <div class="">
-                    <div class="footer-div1 d-flex justify-content-center">
-                         <h1 class="heading  pt-4">About us</h1>
+                        <div class="profile-selection">
+                            <div class="selector  d-flex align-items-center">
+                                <div class=" hii d-flex align-items-center justify-content-center">
+                                    <div class="selector-image"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/8089/8089114.png); ">
+                                    </div>
+                                </div>
+                                <div class="hello d-flex align-items-center">
+                                    <span>order details</span>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="selector  d-flex align-items-center">
+                                <div class=" hii  d-flex align-items-center justify-content-center">
+                                    <div class="selector-image"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/4379/4379608.png); ">
+                                    </div>
+                                </div>
+                                <div class=" hello d-flex align-items-center">
+                                    <span>product</span>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="selector  d-flex align-items-center align-items-center">
+                                <div class="hii d-flex justify-content-center align-items-center">
+                                    <div class="selector-image bg-light"
+                                        style="background-image: url(https://6cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
+                                    </div>
+                                </div>
+                                <div class="hello d-flex align-items-center">
+                                    <span>user</span>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="selector  d-flex align-items-center align-items-center">
+                                <div class="hii d-flex justify-content-center align-items-center">
+                                    <div class="selector-image bg-light"
+                                        style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); ">
+                                    </div>
+                                </div>
+                                <div class="hello d-flex align-items-center">
+                                    <span>Coupen</span>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                        </div>
                     </div>
-                   <div class="footer-div1">
-                
-                       <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch Universe, we're passionate about bringing you the finest selection of watches that blend elegance, precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's most stunning watches with watch enthusiasts and collectors alike.</p>
-                       
-                   </div>
-               </div>
-         </div>
-      </div>
-      <div class="container-fluid footer-color d-flex justify-content-center">
-        <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
-      </div>
-   </footer>
-   <script>
-           
-function validateForm() {
-   
-        
-   var image = document.querySelector('input[name="filename"]')
-   var file = document.querySelector('input[type="file"]')
-   var productName = document.querySelector('input[name="product_name"]');
-var watchType = document.querySelector('select[name="watch_type"]')
-var price = document.querySelector('input[name="price"]');
-var brand = document.querySelector('select[name="brand"]');
+                    <div class="profile-div2 me-5 " style="height: auto; margin-bottom: 15px;">
+                        <form action="/admin/product-managment/edit/submit?id=<%=product._id %>" method="post"
+                            enctype="multipart/form-data" onsubmit=" return validateForm()">
+                            <div class="w-100 h-100 ">
+                                <div class="w-100 d-flex ">
 
-var discription = document.querySelector('input[name="discription"]');
-var displayType = document.querySelector('input[name="display_type"]');
-var strapColor = document.querySelector('input[name="strap_color"]');
-var dialColor = document.querySelector('input[name="dial_color"]');
-var gender = document.querySelector('input[name="gender"]');
-var shape = document.querySelector('input[name="shape"]');
-var watchCase = document.querySelector('input[name="watch_case"]');
-var stock = document.querySelector('input[name="stock"]');
-var offer = document.querySelector('input[name="offer"]');
-
-var nameRegex = /^(?=.*[A-Za-z])[A-Za-z\d\s]*[A-Za-z][A-Za-z\d\s]*$/;
+                                </div>
+                                <div class="w-100 mt-3 " style="padding-left: 5rem;">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
+                                        edit Image
+                                    </button>
+                                    <div class="product-img-side mt-3">
+                                        <div class=" d-flex " style="width: 60%; height: 2.5rem; ">
+                                            <h5>product-name:</h5>
+                                        </div>
+                                        <div class=" " style="width: 60%; height: 2.5rem;  ">
+                                            <input class="w-100 h-100 ps-3"
+                                                style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                name="product_name" value="<%=product.product_name %>">
+                                            <input type="hidden" name="_id" value="<%= product._id %>">
+                                            <span class="error-message" id="product_name_error"></span>
 
 
-var priceRegex = /^\d+(\.\d{1,2})?$/; // Numeric with up to two decimal places
-var offerRegex = /^\d+(\.\d{1,2})?$/; // Numeric with up to two decimal places
-var discriptionError = document.querySelector('#discription_error');
-var imageError = document.querySelector('#image_error');
+                                        </div>
+                                        <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
+                                            <h5>product price:</h5>
+                                        </div>
+                                        <div class=" " style="width: 60%; height: 2.5rem; ">
+                                            <input onchange="amountcheking()" class="w-100 h-100 ps-3" for="price"
+                                                name="price" value="<%= product.price %>" required
+                                                style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
+                                            <span class="error-message" id="price_error"></span>
 
-console.log("-1")
-console.log("image",image.length)
+                                        </div>
+                                        <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
+                                            <h5>Category:</h5>
+                                        </div>
+                                        <div class=" " style="width: 60%; height: 2.5rem; ">
+                                            <!-- <input class="w-100 h-100 " style="border-radius: 3px; background-color: rgb(237, 237, 237);"> -->
+                                            <select class="form-select w-100 h-100 " name="watch_type"
+                                                style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                aria-label="Default select example">
+                                                <option value="<%= product.watch_type ? product.watch_type._id : '' %>">
+                                                    <%= product.watch_type ? product.watch_type.watch_type : '' %>
+                                                </option>
+                                                <% for(let i=0; i < watchtype.length ;i++){ %>
+                                                    <option value="<%= watchtype[i]._id %>">
+                                                        <%= watchtype[i].watch_type %>
+                                                    </option>
+                                                    <% } %>
+                                            </select>
+                                            <span class="error-message" id="watch_type_error"></span>
 
-console.log(file.files,"???")
+                                        </div>
+                                        <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
+                                            <h5>Brand</h5>
+                                        </div>
+                                        <div class="mb-4 " style="width: 60%; height: 2.5rem; ">
+                                            <select class="form-select w-100 h-100 " name="brand"
+                                                style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                aria-label="Default select example">
+                                                <option value="<%= product.brand ? product.brand._id : '' %>">
+                                                    <%= product.brand ? product.brand.brand_category : '' %>
+                                                </option>
+                                                <% for(let i=0; i < brands.length ;i++){ %>
+                                                    <option value="<%= brands[i]._id %>">
+                                                        <%= brands[i].brand_category %>
+                                                    </option>
+                                                    <% } %>
+                                            </select>
+                                            <span class="error-message" id="brand_error"></span>
 
+                                        </div>
 
-var errorMessages = [];
+                                    </div>
+                                    <div class=" " style="width: 60%; height: 2.5rem;  ">
+                                        <h5>product Discription</h5>
+                                    </div>
+                                    <div class="" style="width: 60%;    ">
+                                        <input class="w-100  ps-3"
+                                            style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); height: 7rem;"
+                                            name="discription" value="<%=product.discription %>">
+                                        <span class="error-message" id="discription_error"></span>
 
-console.log(0)
+                                    </div>
 
-function showError(inputElement, errorMessage) {
-    var errorSpan = inputElement.nextElementSibling; // Assumes the error span follows the input
-    if (!errorSpan) {
-        errorSpan = document.createElement('span');
-        errorSpan.className = 'error-message';
-        inputElement.parentNode.appendChild(errorSpan);
-       }
-       errorSpan.textContent = errorMessage;
-       inputElement.classList.add('error');
-   }
-   
-   function clearError(inputElement) {
-       var errorSpan = inputElement.nextElementSibling;
-       if (errorSpan) {
-           errorSpan.textContent = '';
-           inputElement.classList.remove('error');
-       }
-   }
+                                    <div class="product-img2">
+                                        <div class=" mt-3  d-flex  " style="height: 3rem;  ">
+                                            <h5 class="d-flex align-items-center text-details product-img-side2">Display
+                                                type :</h5>
+                                            <div class="w-100">
+                                                <input class="w-100 h-75 ps-3"
+                                                    style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                    name="display_type" value="<%= product.display_type %>">
+                                                <span class="error-message " id="display_type_error"></span>
 
-   if (!image.value) {
-       console.log("inside image")
-       showError(image, 'Please select an image.');
-       errorMessages.push('Please select an image.');
-   } else {
-       clearError(image);
-   }
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3  d-flex  " style="height: 3rem;  ">
+                                            <h5 class="d-flex align-items-center text-details product-img-side2">Strap
+                                                color :</h5>
+                                            <div class="w-100">
+                                                <input class="w-100 h-75 ps-3"
+                                                    style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                    name="strap_color" value="<%= product.strap_color %>">
+                                                <span class="error-message" id="strap_color_error"></span>
 
-   if(file.files.length >1 && file.files.length <4){
-       console.log("inside else")
-       showError(image, 'Please select  4 images.');
-       errorMessages.push('Please select 4 images.');
-   }
-   console.log("another -1")
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3  d-flex  " style="height: 3rem;  ">
+                                            <h5 class="d-flex align-items-center text-details product-img-side2">Dial
+                                                color :</h5>
+                                            <div class="w-100">
+                                                <input class="w-100 h-75 ps-3"
+                                                    style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                    name="dial_color" value="<%= product.dial_color %>">
+                                                <span class="error-message" id="dial_color_error"></span>
 
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3  d-flex  " style="height: 3rem;  ">
+                                            <h5 class="d-flex align-items-center text-details product-img-side2">Gender
+                                                :</h5>
+                                            <div class="w-100">
+                                                <input class="w-100 h-75 ps-3 "
+                                                    style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                    name="gender" value="<%= product.gender %>">
+                                                <span class="error-message" id="gender_error"></span>
 
-   if (productName.value.trim() === '' || !nameRegex.test(productName.value.trim())) {
-       showError(productName, 'Please enter a valid product name.');
-       errorMessages.push('Please enter a valid product name.');
-   } else {
-       clearError(productName);
-   }
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3  d-flex  " style="height: 3rem;  ">
+                                            <h5 class="d-flex align-items-center text-details product-img-side2">Shape :
+                                            </h5>
+                                            <div class="w-100">
+                                                <input class="w-100 h-75 ps-3"
+                                                    style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                    name="shape" value="<%= product.shape %>">
+                                                <span class="error-message" id="shape_error"></span>
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3  d-flex  " style="height:3rem;  ">
+                                            <h5 class="d-flex align-items-center text-details product-img-side2">Case :
+                                            </h5>
+                                            <div class="w-100">
+                                                <input class="w-100 h-75 ps-3 "
+                                                    style="  border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                    name="watch_case" value="<%= product.watch_case%>">
+                                                <span class="error-message" id="watch_case_error"></span>
 
-   console.log(1)
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3  d-flex  " style="height: 2.5rem;  ">
+                                            <h5 class="d-flex align-items-center text-details product-img-side2">Offer :
+                                            </h5>
+                                            <div class="w-100">
+                                                <input class="w-100 h-100 ps-3" onchange="amountcheking()" for="offer"
+                                                    id="offer"
+                                                    style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                    placeholder="flate offer  " name="offer"
+                                                    value="<%=product.discountedprice %>">
+                                                <span class="error-message" id="offer_error"></span>
 
-if (price.value.trim() === '' || !priceRegex.test(price.value.trim())) {
-   showError(price, 'Please enter a valid product price (e.g., 12.34).');
-   errorMessages.push('Please enter a valid product price (e.g., 12.34).');
-} else {
-   clearError(price);
-}
-console.log(2)
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3  d-flex  " style="height: 3rem;  ">
+                                            <h5 class="d-flex align-items-center text-details product-img-side2">Stock :
+                                            </h5>
+                                            <div class="w-100">
+                                                <input class="w-100 h-75 ps-3 " for="stock"
+                                                    style="  border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                    name="stock" value="<%=product.stock %>">
+                                                <span class="error-message" id="stock_error"></span>
 
-if (watchType.value === 'add watch type') {
-       showError(watchType, 'Please select a watch type.');
-       errorMessages.push('Please select a watch type.');
-   } else {
-       clearError(watchType);
-   }
+                                            </div>
 
-   // Validate brand
-   if (brand.value === '') {
-       showError(brand, 'Please select a brand.');
-       errorMessages.push('Please select a brand.');
-   } else {
-       clearError(brand);
-   }
-
-   console.log(3)
-
-
-
-if (discription.value.trim() === '') {
-discriptionError.textContent = 'Please enter a product description.';
-errorMessages.push('Please enter a product description.');
-} else {
-clearError(discription);
-}
-console.log(4)
-
-if (displayType.value.trim() === '') {
-   showError(displayType, 'Please enter a display type.');
-   errorMessages.push('Please enter a display type.');
-} else {
-   clearError(displayType);
-}
-console.log(5)
-
-if (strapColor.value.trim() === '') {
-   showError(strapColor, 'Please enter a strap color.');
-   errorMessages.push('Please enter a strap color.');
-} else {
-   clearError(strapColor);
-}
-
-if (dialColor.value.trim() === '') {
-   showError(dialColor, 'Please enter a dial color.');
-   errorMessages.push('Please enter a dial color.');
-} else {
-   clearError(dialColor);
-}
-
-if (gender.value.trim() === '') {
-   showError(gender, 'Please enter a gender.');
-   errorMessages.push('Please enter a gender.');
-} else {
-   clearError(gender);
-}
-
-if (shape.value.trim() === '') {
-   showError(shape, 'Please enter a shape.');
-   errorMessages.push('Please enter a shape.');
-} else {
-   clearError(shape);
-}
-
-if (watchCase.value.trim() === '') {
-   showError(watchCase, 'Please enter a watch case material.');
-   errorMessages.push('Please enter a watch case material.');
-} else {
-   clearError(watchCase);
-}
-
-if (stock.value.trim() === '' || isNaN(stock.value.trim())) {
-   showError(stock, 'Please enter a valid stock quantity.');
-   errorMessages.push('Please enter a valid stock quantity.');
-} else {
-   clearError(stock);
-}
-
-if (offer.value.trim() !== '' && !offerRegex.test(offer.value.trim())) {
-   showError(offer, 'Please enter a valid offer amount.');
-   errorMessages.push('Please enter a valid offer amount.');
-} else {
-   clearError(offer);
-}
-
-
-
-return false;
-
-}
+                                        </div>
 
 
+                                        <div class="  d-flex justify-content-center m-4"><button type="submit"
+                                                style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); background-color: rgb(49, 49, 252);">Add
+                                                product</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
 
 
 
-    function checkImageCount() {
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
 
-           console.log("enterring")
-         const input = document.querySelector('input[type="file"]');
-         const selectedFiles = input.files;
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <%for(let i=0;i < 4;i++){ %>
+                                <div class="w-100 d-flex ps-5 d-flex " style="height: 12rem;">
+                                    <div class=" h-100 bg-warning" style="width: 40%;object-fit: contain;">
+                                        <img class="h-100 w-100" src="/filename/<%=product.product_image[i] %>">
+                                    </div>
+                                    <div>
+                                        <%if(product.product_image[i]){ %>
+                                            <button class="btn btn-primary"
+                                                onclick="removeBanner('<%=i%>')">remove</button>
 
-         if (selectedFiles.length > 4) {
-              Swal.fire({
-                 icon: 'error',
-                 title: 'Oops...',
-                 text: 'You can select up to 4 images.',
-             });
-             input.value = null; // Clear the input
-         }
-     }
-     function amountcheking(){
-         const price = document.querySelector('input[name="price"]')
-         const offer = document.querySelector('input[name="offer"]')
-          
+                                            <%}else{ %>
+                                                <input type="file" name="files" id="fileInput<%=i%>"
+                                                    style="display: none;" onchange="uploadImage('<%=i%>')">
+                                                <button class=""
+                                                    onclick="document.getElementById('fileInput<%=i%>').click(); return false;">add
+                                                    banner</button>
+                                                <% } %>
+                                    </div>
+                                    <input type="hidden" class="id" name="id" value="<%=product._id%>">
+                                </div>
 
-           
-         
-         if(parseInt(offer.value) >= parseInt(price.value) - 3){
-             Swal.fire({
-                 icon:'error',
-                 title:'invalid offer',
-                 text:'offer amount should be less than price'
-             })
-             document.getElementById('offer').value = 0
-         }
-     }
+                                <hr class="m-2">
 
-</script>
+                                <% }%>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </content>
+        <footer>
+            <div class="container-fluid footer-color">
+                <div class="container d-flex ">
+                    <div class="">
+                        <div class="footer-div1 d-flex justify-content-center">
+                            <h1 class="heading  pt-4">About us</h1>
+                        </div>
+                        <div class="footer-div1">
+
+                            <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite
+                                timepieces. At Watch Universe, we're passionate about bringing you the finest selection
+                                of watches that blend elegance, precision, and style.Our journey started with a love for
+                                craftsmanship and a desire to share the world's most stunning watches with watch
+                                enthusiasts and collectors alike.</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid footer-color d-flex justify-content-center">
+                <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+            </div>
+        </footer>
+        <script>
+
+            async function uploadImage(index) {
+                var fileInput = document.getElementById(`fileInput${index}`);
+                var id = document.querySelector('.id').value
+                var file = fileInput.files[0];
+
+                if (file) {
+                    var formData = new FormData();
+                    formData.append('image', file);
+                    formData.append('index', index);
+                    formData.append('id', id)
+
+                    try {
+                        const response = await fetch('/admin/producteditimage', {
+                            method: 'POST',
+                            body: formData,
+                        });
+
+                        if (response.ok) {
+                            console.log(`Image ${index} uploaded successfully`);
+                            location.reload();
+                        } else {
+                            // Handle error response
+                            console.error(`Error uploading image ${index}`);
+                        }
+                    } catch (error) {
+                        // Handle network or other errors
+                        console.error(`Error uploading image ${index}: ${error}`);
+                    }
+                } else {
+                    // No file selected
+                    console.log('Please select an image');
+                }
+            }
+
+
+            function validateForm() {
+
+
+                var image = document.querySelector('input[name="filename"]')
+                var file = document.querySelector('input[type="file"]')
+                var productName = document.querySelector('input[name="product_name"]');
+                var watchType = document.querySelector('select[name="watch_type"]')
+                var price = document.querySelector('input[name="price"]');
+                var brand = document.querySelector('select[name="brand"]');
+
+                var discription = document.querySelector('input[name="discription"]');
+                var displayType = document.querySelector('input[name="display_type"]');
+                var strapColor = document.querySelector('input[name="strap_color"]');
+                var dialColor = document.querySelector('input[name="dial_color"]');
+                var gender = document.querySelector('input[name="gender"]');
+                var shape = document.querySelector('input[name="shape"]');
+                var watchCase = document.querySelector('input[name="watch_case"]');
+                var stock = document.querySelector('input[name="stock"]');
+                var offer = document.querySelector('input[name="offer"]');
+
+                var nameRegex = /^(?=.*[A-Za-z])[A-Za-z\d\s]*[A-Za-z][A-Za-z\d\s]*$/;
+
+
+                var priceRegex = /^\d+(\.\d{1,2})?$/; // Numeric with up to two decimal places
+                var offerRegex = /^\d+(\.\d{1,2})?$/; // Numeric with up to two decimal places
+                var discriptionError = document.querySelector('#discription_error');
+                var imageError = document.querySelector('#image_error');
+
+                console.log("-1")
+                console.log("image", image.length)
+
+                console.log(file.files, "???")
+
+
+                var errorMessages = [];
+
+                console.log(0)
+
+                function showError(inputElement, errorMessage) {
+                    var errorSpan = inputElement.nextElementSibling; // Assumes the error span follows the input
+                    if (!errorSpan) {
+                        errorSpan = document.createElement('span');
+                        errorSpan.className = 'error-message';
+                        inputElement.parentNode.appendChild(errorSpan);
+                    }
+                    errorSpan.textContent = errorMessage;
+                    inputElement.classList.add('error');
+                }
+
+                function clearError(inputElement) {
+                    var errorSpan = inputElement.nextElementSibling;
+                    if (errorSpan) {
+                        errorSpan.textContent = '';
+                        inputElement.classList.remove('error');
+                    }
+                }
+
+                if (!image.value) {
+                    console.log("inside image")
+                    showError(image, 'Please select an image.');
+                    errorMessages.push('Please select an image.');
+                } else {
+                    clearError(image);
+                }
+
+                if (file.files.length > 1 && file.files.length < 4) {
+                    console.log("inside else")
+                    showError(image, 'Please select  4 images.');
+                    errorMessages.push('Please select 4 images.');
+                }
+                console.log("another -1")
+
+
+                if (productName.value.trim() === '' || !nameRegex.test(productName.value.trim())) {
+                    showError(productName, 'Please enter a valid product name.');
+                    errorMessages.push('Please enter a valid product name.');
+                } else {
+                    clearError(productName);
+                }
+
+                console.log(1)
+
+                if (price.value.trim() === '' || !priceRegex.test(price.value.trim())) {
+                    showError(price, 'Please enter a valid product price (e.g., 12.34).');
+                    errorMessages.push('Please enter a valid product price (e.g., 12.34).');
+                } else {
+                    clearError(price);
+                }
+                console.log(2)
+
+                if (watchType.value === 'add watch type') {
+                    showError(watchType, 'Please select a watch type.');
+                    errorMessages.push('Please select a watch type.');
+                } else {
+                    clearError(watchType);
+                }
+
+                // Validate brand
+                if (brand.value === '') {
+                    showError(brand, 'Please select a brand.');
+                    errorMessages.push('Please select a brand.');
+                } else {
+                    clearError(brand);
+                }
+
+                console.log(3)
+
+
+
+                if (discription.value.trim() === '') {
+                    discriptionError.textContent = 'Please enter a product description.';
+                    errorMessages.push('Please enter a product description.');
+                } else {
+                    clearError(discription);
+                }
+                console.log(4)
+
+                if (displayType.value.trim() === '') {
+                    showError(displayType, 'Please enter a display type.');
+                    errorMessages.push('Please enter a display type.');
+                } else {
+                    clearError(displayType);
+                }
+                console.log(5)
+
+                if (strapColor.value.trim() === '') {
+                    showError(strapColor, 'Please enter a strap color.');
+                    errorMessages.push('Please enter a strap color.');
+                } else {
+                    clearError(strapColor);
+                }
+
+                if (dialColor.value.trim() === '') {
+                    showError(dialColor, 'Please enter a dial color.');
+                    errorMessages.push('Please enter a dial color.');
+                } else {
+                    clearError(dialColor);
+                }
+
+                if (gender.value.trim() === '') {
+                    showError(gender, 'Please enter a gender.');
+                    errorMessages.push('Please enter a gender.');
+                } else {
+                    clearError(gender);
+                }
+
+                if (shape.value.trim() === '') {
+                    showError(shape, 'Please enter a shape.');
+                    errorMessages.push('Please enter a shape.');
+                } else {
+                    clearError(shape);
+                }
+
+                if (watchCase.value.trim() === '') {
+                    showError(watchCase, 'Please enter a watch case material.');
+                    errorMessages.push('Please enter a watch case material.');
+                } else {
+                    clearError(watchCase);
+                }
+
+                if (stock.value.trim() === '' || isNaN(stock.value.trim())) {
+                    showError(stock, 'Please enter a valid stock quantity.');
+                    errorMessages.push('Please enter a valid stock quantity.');
+                } else {
+                    clearError(stock);
+                }
+
+                if (offer.value.trim() !== '' && !offerRegex.test(offer.value.trim())) {
+                    showError(offer, 'Please enter a valid offer amount.');
+                    errorMessages.push('Please enter a valid offer amount.');
+                } else {
+                    clearError(offer);
+                }
+
+
+
+                return false;
+
+            }
+
+
+
+
+
+            function checkImageCount() {
+
+                console.log("enterring")
+                const input = document.querySelector('input[type="file"]');
+                const selectedFiles = input.files;
+
+                if (selectedFiles.length > 4) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'You can select up to 4 images.',
+                    });
+                    input.value = null; // Clear the input
+                }
+            }
+            function amountcheking() {
+                const price = document.querySelector('input[name="price"]')
+                const offer = document.querySelector('input[name="offer"]')
+
+
+
+
+                if (parseInt(offer.value) >= parseInt(price.value) - 3) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'invalid offer',
+                        text: 'offer amount should be less than price'
+                    })
+                    document.getElementById('offer').value = 0
+                }
+            }
+
+        </script>
 </body>
+
 </html>

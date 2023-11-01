@@ -40,5 +40,6 @@ router.get("/salesreport",adminMiddleware.isadmin,controller.salesreport)
 router.post('/watchtype-exist',controller.watchtypechecking)
 router.post("/brand-exist",controller.brandexist)
 router.post("/category/brandedit",controller.brandedit)
+router.post("/producteditimage",uploadImages.single('image'),controller.productimageedit)
 
 module.exports = router

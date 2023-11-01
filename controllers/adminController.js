@@ -887,6 +887,26 @@ const brandedit = async (req,res)=>{
    }
 }
 
+const productimageedit = async (req, res) => {
+  try {
+      if (!req.file) {
+          return res.status(400).send('No file uploaded.');
+      }
 
+      const { index } = req.body;
+      console.log(req.body.id) // Assuming the index is sent in the request body
 
-module.exports = {brandedit,brandexist,watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }
+      const product = await productModel.findOne({_id:req.body.id}); // Use findOne instead of find to get a single document
+
+      product.product_image[index] = req.file.filename;
+
+      await product.save(); // Save the updated product object
+
+      res.json({ success: true, message: 'Banner image uploaded successfully' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+  }
+};
+
+module.exports = {productimageedit,brandedit,brandexist,watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }
