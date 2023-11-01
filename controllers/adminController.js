@@ -909,4 +909,31 @@ const productimageedit = async (req, res) => {
   }
 };
 
-module.exports = {productimageedit,brandedit,brandexist,watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }
+const removepicture = async (req,res)=>{
+   try{
+    
+      const product = await productModel.findOne({_id:req.body.id,})
+
+      if (product) {
+        // Check if the index is valid
+        if (req.body.index >= 0 && req.body.index < product.product_image.length) {
+          product.product_image.splice(req.body.index, 1); // Remove one element at the specified index
+          await product.save();
+          console.log(`Image at index ${req.body.index} deleted.`);
+        } else {
+          console.log(`Invalid index: ${req.body.index}`);
+        }
+      } else {
+        console.log('Product not found.');
+      }
+
+      res.status(200).json({ success: true, message: 'Banner image removed successfully' });
+
+
+   }catch(error){
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
+   }
+}
+
+module.exports = {removepicture,productimageedit,brandedit,brandexist,watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }

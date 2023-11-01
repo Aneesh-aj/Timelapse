@@ -41,5 +41,6 @@ router.post('/watchtype-exist',controller.watchtypechecking)
 router.post("/brand-exist",controller.brandexist)
 router.post("/category/brandedit",controller.brandedit)
 router.post("/producteditimage",uploadImages.single('image'),controller.productimageedit)
+router.post("/removepicture",controller.removepicture)
 
 module.exports = router

@@ -286,7 +286,7 @@
                         <div class="modal-body">
                             <%for(let i=0;i < 4;i++){ %>
                                 <div class="w-100 d-flex ps-5 d-flex " style="height: 12rem;">
-                                    <div class=" h-100 bg-warning" style="width: 40%;object-fit: contain;">
+                                    <div class=" h-100 " style="width: 40%;object-fit: contain;background-color: grey;">
                                         <img class="h-100 w-100" src="/filename/<%=product.product_image[i] %>">
                                     </div>
                                     <div>
@@ -297,9 +297,10 @@
                                             <%}else{ %>
                                                 <input type="file" name="files" id="fileInput<%=i%>"
                                                     style="display: none;" onchange="uploadImage('<%=i%>')">
-                                                <button class=""
+                                                <button class="btn btn-primary"
                                                     onclick="document.getElementById('fileInput<%=i%>').click(); return false;">add
-                                                    banner</button>
+                                                    <picture></picture>
+                                                </button>
                                                 <% } %>
                                     </div>
                                     <input type="hidden" class="id" name="id" value="<%=product._id%>">
@@ -344,40 +345,7 @@
         </footer>
         <script>
 
-            async function uploadImage(index) {
-                var fileInput = document.getElementById(`fileInput${index}`);
-                var id = document.querySelector('.id').value
-                var file = fileInput.files[0];
-
-                if (file) {
-                    var formData = new FormData();
-                    formData.append('image', file);
-                    formData.append('index', index);
-                    formData.append('id', id)
-
-                    try {
-                        const response = await fetch('/admin/producteditimage', {
-                            method: 'POST',
-                            body: formData,
-                        });
-
-                        if (response.ok) {
-                            console.log(`Image ${index} uploaded successfully`);
-                            location.reload();
-                        } else {
-                            // Handle error response
-                            console.error(`Error uploading image ${index}`);
-                        }
-                    } catch (error) {
-                        // Handle network or other errors
-                        console.error(`Error uploading image ${index}: ${error}`);
-                    }
-                } else {
-                    // No file selected
-                    console.log('Please select an image');
-                }
-            }
-
+           
 
             function validateForm() {
 
@@ -593,6 +561,64 @@
                     })
                     document.getElementById('offer').value = 0
                 }
+            }
+                
+            async function uploadImage(index) {
+                var fileInput = document.getElementById(`fileInput${index}`);
+                var id = document.querySelector('.id').value
+                var file = fileInput.files[0];
+
+                if (file) {
+                    var formData = new FormData();
+                    formData.append('image', file);
+                    formData.append('index', index);
+                    formData.append('id', id)
+
+                    try {
+                        const response = await fetch('/admin/producteditimage', {
+                            method: 'POST',
+                            body: formData,
+                        });
+
+                        if (response.ok) {
+                            console.log(`Image ${index} uploaded successfully`);
+                            location.reload();
+                        } else {
+                            // Handle error response
+                            console.error(`Error uploading image ${index}`);
+                        }
+                    } catch (error) {
+                        // Handle network or other errors
+                        console.error(`Error uploading image ${index}: ${error}`);
+                    }
+                } else {
+                    // No file selected
+                    console.log('Please select an image');
+                }
+            }
+
+
+            function removeBanner(index) {
+                const id = document.querySelector('.id').value
+                console.log("JS is coming here");
+
+                fetch('/admin/removepicture', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ index: index ,id:id}),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error removing banner ${index}`);
+                        }
+                        console.log(`Banner ${index} removed successfully`);
+                        window.location.reload()
+                    })
+                    .catch(error => {
+                        console.error(error.message);
+                    });
             }
 
         </script>
