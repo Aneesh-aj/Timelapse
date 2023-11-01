@@ -278,6 +278,11 @@ const productListing = async (req, res) => {
 
 const productAdding = async (req, res) => {
   try {
+
+
+   console.log("it entred---------------------------")
+   console.log("--body------------------",req.body)
+
     upload.array("filename")(req, res, async function (err) {
       if (err) {
         // Handle any multer errors here
@@ -296,7 +301,7 @@ const productAdding = async (req, res) => {
         list: true,
         price: req.body.price,
         brand: req.body.brand,
-        description: req.body.description,
+        discription: req.body.description,
         display_type: req.body.display_type,
         product_image: filenames,
         dial_color: req.body.dial_color,

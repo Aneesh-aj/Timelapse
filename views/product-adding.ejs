@@ -64,7 +64,7 @@
                </div>
                <!-- admin/product-managment/adding -->
                <div class="profile-div2  " style="height: auto; margin-bottom: 15px;">             
-                    <form method="" action="" enctype="multipart/form-data" onsubmit=" return validateForm()">
+                    <form method="post" action="/admin/product-managment/adding" enctype="multipart/form-data" onsubmit=" return validateForm()">
                         <div class="w-100 h-100 ">
                             <div class="w-100 d-flex ">
                              <div class="product-img mt-5">
@@ -195,6 +195,15 @@
                                      </div>
                                 </div>
                             
+                                <div class="mt-3 d-flex" style="height: 3rem;">
+                                    <h5 class="d-flex align-items-center text-details product-img-side2">Offer:</h5>
+                                     <div class="w-100">
+                                              
+                                        <input class="w-100 h-75 ps-3" onchange="amountcheking()" for="offer" id="offer" placeholder="flat offer" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="offer">
+                                        <span class="error-message" id="offer_error"></span>
+                                     </div>
+                                  
+                                </div>
                                 <!-- Stock -->
                                 <div class="mt-3 d-flex" style="height: 3rem;">
                                     <h5 class="d-flex align-items-center text-details product-img-side2">Stock:</h5>
@@ -205,15 +214,6 @@
                                 </div>
                             
                                 <!-- Offer -->
-                                <div class="mt-3 d-flex" style="height: 3rem;">
-                                    <h5 class="d-flex align-items-center text-details product-img-side2">Offer:</h5>
-                                     <div class="w-100">
-                                              
-                                        <input class="w-100 h-75 ps-3" onchange="amountChecking()" for="offer" id="offer" placeholder="flat offer" style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);" name="offer">
-                                        <span class="error-message" id="offer_error"></span>
-                                     </div>
-                                  
-                                </div>
                             
                                     
                                     <div class="  d-flex justify-content-center m-4">
@@ -264,22 +264,7 @@
                 input.value = null; // Clear the input
             }
         }
-        function amountcheking(){
-            const price = document.querySelector('input[name="price"]')
-            const offer = document.querySelector('input[name="offer"]')
-             
-
-              
-            
-            if(parseInt(offer.value) >= parseInt(price.value) - 3){
-             return   Swal.fire({
-                    icon:'error',
-                    title:'invalid offer',
-                    text:'offer amount should be less than price'
-                })
-                document.getElementById('offer').value = 0
-            }
-        }
+        
 
         
         
@@ -303,7 +288,8 @@ function validateForm() {
     var stock = document.querySelector('input[name="stock"]');
     var offer = document.querySelector('input[name="offer"]');
 
-    var nameRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\s]+$/;
+    var nameRegex = /^(?=.*[A-Za-z])[A-Za-z\d\s]*[A-Za-z][A-Za-z\d\s]*$/;
+
 
     var priceRegex = /^\d+(\.\d{1,2})?$/; // Numeric with up to two decimal places
     var offerRegex = /^\d+(\.\d{1,2})?$/; // Numeric with up to two decimal places
@@ -456,12 +442,32 @@ function validateForm() {
         clearError(offer);
     }
      
-    amountcheking()
+   
 
     return false;
     
 }
 
+
+function amountcheking(){
+            const price = document.querySelector('input[name="price"]')
+            const offer = document.querySelector('input[name="offer"]')
+             
+
+              
+            
+            if(parseInt(offer.value) >  parseInt(price.value) - 3){
+                Swal.fire({
+                    icon:'error',
+                    title:'invalid offer',
+                    text:'offer amount should be less than price'
+                })
+                document.getElementById('offer').value = 0
+            }
+
+            return false
+            
+        }
 
 
 
