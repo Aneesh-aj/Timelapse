@@ -29,7 +29,6 @@ router.get("/resend-otp",userMiddleware.checkUserStatus,controller.verificatioin
 router.get("/cart",userMiddleware.checkUserStatus,userMiddleware.currentuser,controller.cart)
  
 router.post("/remove-from-cart",userMiddleware.checkUserStatus,controller.removeincart)
-
 router.post("/api/add-to-cart",userMiddleware.checkUserStatus,controller.addToCart)
 router.post("/add-address",userMiddleware.checkUserStatus,controller.addAdress)
 router.post("/profile/edit",userMiddleware.checkUserStatus,controller.edituserDetalis)
