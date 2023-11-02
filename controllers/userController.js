@@ -302,10 +302,8 @@ const verficatiionPost = async (req, res) => {
     }
 }
 
-// Example route for OTP resend
 const verificatioinResend = (async (req, res) => {
     try {
-        // Generate a new OTP
         const newOtp = otpGenerator.generate(4, { digits: true, upperCase: false, specialChars: false });
 
 
