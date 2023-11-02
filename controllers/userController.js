@@ -26,9 +26,6 @@ const RAXORPAY_SCRETE_KEY = process.env.RAXORPAY_SECRET_KEY
 
 
 
-
-
-
 const landing = (req, res) => {
     res.redirect("/home")
 }
@@ -305,9 +302,6 @@ const verficatiionPost = async (req, res) => {
 const verificatioinResend = (async (req, res) => {
     try {
         const newOtp = otpGenerator.generate(4, { digits: true, upperCase: false, specialChars: false });
-
-
-
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
@@ -1261,8 +1255,8 @@ const forgotpasswordpost = async (req, res) => {
             const transporter = nodemailer.createTransport({
                 service: "Gmail",
                 auth: {
-                    user: "jinugg79@gmail.com",
-                    pass: "hghszzjandqlqobr"
+                    user: EMAIL,
+                    pass: PASSWORD
                 }
             })
 
