@@ -25,9 +25,7 @@ router.get("/verification",userMiddleware.checkUserStatus,controller.verificatio
 router.get("/collection", controller.showCollection)
 router.get("/product",userMiddleware.checkUserStatus,controller.productPageview)
 router.get("/resend-otp",userMiddleware.checkUserStatus,controller.verificatioinResend)
-
 router.get("/cart",userMiddleware.checkUserStatus,userMiddleware.currentuser,controller.cart)
- 
 router.post("/remove-from-cart",userMiddleware.checkUserStatus,controller.removeincart)
 router.post("/api/add-to-cart",userMiddleware.checkUserStatus,controller.addToCart)
 router.post("/add-address",userMiddleware.checkUserStatus,controller.addAdress)
