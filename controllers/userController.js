@@ -989,18 +989,27 @@ const placeorder = async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
+        console.log(req.body.useWallet,"wallet-----------------")
+
 
         if (paymentMethod === "online") {
-            if (req.body.alltotal > req.body.amount) {
+            if (req.body.alltotal > req.body.amount && req.body.useWallet == true) {
+                console.log("entring here")
                 let minus = req.body.alltotal - req.body.amount
+                
+                if(user.wallet.balance - minus <=0){
+                }else{
 
-                user.wallet.balance = user.wallet.balance - minus
-                await user.save()
+                    user.wallet.balance =  user.wallet.balance - minus
+                    await user.save()
+                   
+                }
 
-                amount = (totalamount - req.body.discount) - 1
+                amount = (totalamount - req.body.discount)
             }
         }
-
+        console.log("req.body.alltotal",req.body.alltotal)
+        console.log("req.body.amount",req.body.amount)
 
         let neworder
 
@@ -1145,9 +1154,12 @@ const userOrderdetails = async (req, res) => {
             productdiscount += (order.product[i].quantity*order.product[i].price) - order.product[i].totalPrice
             coupondiscount += order.product[i].totalPrice
             expectedtotal += order.product[i].quantity*order.product[i].price
+            console.log("------------------>")
+
         }
 
         coupondiscount = coupondiscount - order.totalamount
+        console.log("the coupn",coupondiscount,"and teh coupoundis",order.totalamount,"also",coupondiscount - order.totalamount)
         
         console.log("product otot",productdiscount)
         res.render("userOrderDetails", { product, order,productdiscount ,coupondiscount,expectedtotal})
@@ -1455,8 +1467,20 @@ const ordercheckout = async (req, res) => {
         console.log("it coming to ordercheout post")
 
         console.log("--------th body", req.body)
+       const user = await usersModel.findOne({email:req.session.email})
+        const currentuser = req.body.cartValue
 
 
+        if(currentuser.length != user.cart.length){
+               return res.json({change:true})
+        }
+
+        for(let i=0;i < user.cart.length;i++){
+             if(currentuser[i].quantity != user.cart[i].quantity){
+                 return res.json({change:true})
+             }
+        }
+       
 
         if (req.body.paymentMethod == "cod") {
             console.log("entering")
@@ -1519,12 +1543,38 @@ const applycoupn = async (req, res) => {
         console.log("----amoutn", amount)
 
         const coupon = await couponModel.findOne({ coupon_code: code })
+         
+        const currentDate = new Date();
+        const couponExpireDate = new Date(coupon.expire_date);
+        
+        if (currentDate > couponExpireDate) {
+            return res.json({ expired: true }); // Coupon has not expired
+        } 
+        console.log("currentdate",currentDate,"prevousedate",coupon.expire_date)
 
+        
+        if(coupon.min_amount > parseInt(amount) || coupon.max_amount < parseInt(amount)){
+            return res.json({conditionnotmatched:true})
+        }
 
         if (coupon) {
+            console.log("-----min",coupon.min_amount)
+            console.log("------max",coupon.max_amount)
+             
+
             if (coupon.coupon_value) {
-              const totalprice = parseFloat(amount) - parseFloat(coupon.coupon_value);
-              let discountamount = parseFloat(coupon.coupon_value);
+              let  totalprice 
+              let discountamount 
+                
+              if(coupon.coupon_type == 'flate'){
+                totalprice = parseFloat(amount) - parseFloat(coupon.coupon_value);
+                discountamount = parseFloat(coupon.coupon_value);
+              }else{
+                  discountamount = parseFloat(amount)*(parseFloat(coupon.coupon_value)/100)
+                  console.log("the amount",discountamount)
+                totalprice = parseFloat(amount) - discountamount;
+              }
+
               return res.json({ success: true, totalprice, discountamount });
             } else {
            

@@ -20,61 +20,61 @@
   <title>checkout</title>
 </head>
 <style>
-   .copiedtext {
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        text-align: center;
-        opacity: 0;
-        transform: translateY(-1em);
-        color: #000;
-        transition: all .500s;
-    }
+  .copiedtext {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-1em);
+    color: #000;
+    transition: all .500s;
+  }
 
-    .copied .copiedtext {
-        opacity: 1;
-        transform: translateY(-4em);
-    }
+  .copied .copiedtext {
+    opacity: 1;
+    transform: translateY(-4em);
+  }
 
-    /* Some Generic styles */
-    .body {
-        text-align: center;
-        font-family: "Open Sans", Helvetica, Arial, sans-serif;
-        color: #444;
-        line-height: 1.6;
-    }
+  /* Some Generic styles */
+  .body {
+    text-align: center;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    color: #444;
+    line-height: 1.6;
+  }
 
-    .h1 {
-        margin: 1.75em auto 1.25em;
-    }
+  .h1 {
+    margin: 1.75em auto 1.25em;
+  }
 
 
-    [id="cleared"] {
-        margin-top: 4em;
-    }
+  [id="cleared"] {
+    margin-top: 4em;
+  }
 
-    .button1 {
-        font-size: 1em;
-        font-family: "Open Sans", Helvetica, Arial, sans-serif;
-        position: relative;
-        padding: 8px 10px;
-        border: 2px dotted black;
-        font-size: 0.835em;
-        text-transform: uppercase;
-        letter-spacing: 0.125em;
-        font-weight: bold;
-        color: #000;
-        background: #fff;
-        transition: background .275s;
-    }
+  .button1 {
+    font-size: 1em;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    position: relative;
+    padding: 8px 10px;
+    border: 2px dotted black;
+    font-size: 0.835em;
+    text-transform: uppercase;
+    letter-spacing: 0.125em;
+    font-weight: bold;
+    color: #000;
+    background: #fff;
+    transition: background .275s;
+  }
 
-    .button1:hover,
-    .button1:focus {
-        background: #e9e8e8;
-        color: #131313;
-        cursor: pointer;
-    }
+  .button1:hover,
+  .button1:focus {
+    background: #e9e8e8;
+    color: #131313;
+    cursor: pointer;
+  }
 </style>
 
 <body>
@@ -284,80 +284,82 @@
                 <% } else{ %>
 
                   <% const cart=user.cart %>
-                    <% for (let i=0; i < cart.length; i++) { %>
+                    <% const cartJSON=JSON.stringify(user.cart) %>
+                      <input type="hidden" class="cart" name="cartvalue" value="<%= cartJSON %>">
+                      <% for (let i=0; i < cart.length; i++) { %>
 
-                      <div class="rounded-1 w-100 d-flex pt-3 pb-3">
-                        <div class="d-flex justify-content-center" style="width: 25%; height: 9rem;">
-                          <div class="" style="width: 8rem; height: 11rem; object-fit: contain;">
-                            <% if (cart[i].product_id && cart[i].product_id.product_image.length> 0) { %>
-                              <img style="height: 100%; width: 85%;"
-                                src="/filename/<%= cart[i].product_id.product_image[0] %>">
-                              <% } %>
-                          </div>
-                        </div>
-                        <div class="" style="width: 75%; height: 10rem;">
-                          <div class="w-100 h-25">
-                            <h4>
-                              <%= cart[i].product_id.product_name %>
-                            </h4>
-                          </div>
-                          <div class="w-100 h-25">
-                            <p class="">color : <%=cart[i].product_id.strap_color %>
-                            </p>
-
-                          </div>
-                          <div class="w-100 h-25">
-                            <h5 class="proudct-price">&#8377
-                              <% if(cart[i].product_id.price==cart[i].product_id.sellingprice){ %>
-
-                                <span class="">
-                                  <%=cart[i].product_id.sellingprice %>
-                                </span>
-                                <% }else{ %>
-                                  <span style="color: rgb(6, 6, 6);">
-                                    <%= cart[i].product_id.sellingprice %>
-                                  </span>
-                                  <span style="color: red;text-decoration: line-through;">
-                                    <%= cart[i].product_id.price %>
-                                  </span>
-                                  <% } %>
-                            </h5>
-
-                          </div>
-                          <div class="w-100 h-25 d-flex ">
-                            <div class=" quatity-select">
-                              <select class="w-100  bt-class " name="quantity"
-                                onchange="quantityChanged(this,'<%=i%>')">
-                                <option selected disabled>Qty:<%= cart[i].quantity %>
-                                </option>
-
-                                <% let count=cart[i].product_id.stock %>
-                                  <% if(count> 10 ){ %>
-                                    <% count=10 %>
-                                      <% }%>
-                                        <% for (let j=1; j <=count; j++){ %>
-
-                                          <option>
-                                            <%=j %>
-                                          </option>
-
-                                          <% } %>
-
-
-
-                              </select>
-                            </div>
-
-                            <div>
-                              <button class="remove-button ms-2 btn btn-outline-primary"
-                                data-product-id="<%= cart[i].product_id._id %>">Remove</button>
+                        <div class="rounded-1 w-100 d-flex pt-3 pb-3">
+                          <div class="d-flex justify-content-center" style="width: 25%; height: 9rem;">
+                            <div class="" style="width: 8rem; height: 11rem; object-fit: contain;">
+                              <% if (cart[i].product_id && cart[i].product_id.product_image.length> 0) { %>
+                                <img style="height: 100%; width: 85%;"
+                                  src="/filename/<%= cart[i].product_id.product_image[0] %>">
+                                <% } %>
                             </div>
                           </div>
+                          <div class="" style="width: 75%; height: 10rem;">
+                            <div class="w-100 h-25">
+                              <h4>
+                                <%= cart[i].product_id.product_name %>
+                              </h4>
+                            </div>
+                            <div class="w-100 h-25">
+                              <p class="">color : <%=cart[i].product_id.strap_color %>
+                              </p>
+
+                            </div>
+                            <div class="w-100 h-25">
+                              <h5 class="proudct-price">&#8377
+                                <% if(cart[i].product_id.price==cart[i].product_id.sellingprice){ %>
+
+                                  <span class="">
+                                    <%=cart[i].product_id.sellingprice %>
+                                  </span>
+                                  <% }else{ %>
+                                    <span style="color: rgb(6, 6, 6);">
+                                      <%= cart[i].product_id.sellingprice %>
+                                    </span>
+                                    <span style="color: red;text-decoration: line-through;">
+                                      <%= cart[i].product_id.price %>
+                                    </span>
+                                    <% } %>
+                              </h5>
+
+                            </div>
+                            <div class="w-100 h-25 d-flex ">
+                              <div class=" quatity-select">
+                                <select class="w-100  bt-class " name="quantity"
+                                  onchange="quantityChanged(this,'<%=i%>')">
+                                  <option selected disabled>Qty:<%= cart[i].quantity %>
+                                  </option>
+
+                                  <% let count=cart[i].product_id.stock %>
+                                    <% if(count> 10 ){ %>
+                                      <% count=10 %>
+                                        <% }%>
+                                          <% for (let j=1; j <=count; j++){ %>
+
+                                            <option>
+                                              <%=j %>
+                                            </option>
+
+                                            <% } %>
+
+
+
+                                </select>
+                              </div>
+
+                              <div>
+                                <button class="remove-button ms-2 btn btn-outline-primary"
+                                  data-product-id="<%= cart[i].product_id._id %>">Remove</button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <hr>
-                      <% }; %>
-                        <% }%>
+                        <hr>
+                        <% }; %>
+                          <% }%>
 
             </div>
 
@@ -399,13 +401,14 @@
                             </p>
                             <p>max amount to apply coupon : <%=coupon[i].max_amount %>
                             </p>
-                        
-                              <button class="button1" title="Copy promo code" id="copy"
-                              onClick="CopyToClipboard('to-copy')">
-                              <div id="to-copy">
-                                <%=coupon[i].coupon_code %>
-                              </div><span class="copiedtext" aria-hidden="true">Copied</span>
-                          </button>
+
+                            <button class="button1" title="Copy promo code" onClick="CopyToClipboard(this)">
+                              <div data-coupon-code="<%= coupon[i].coupon_code %>">
+                                <%= coupon[i].coupon_code %>
+                              </div>
+                              <span class="copiedtext" aria-hidden="true">Copied</span>
+                            </button>
+
                           </div>
                         </div>
                         <% } %>
@@ -665,44 +668,26 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
     <script>
-function CopyToClipboard(containerid) {
-    var container = document.getElementById(containerid);
-    
-    // Create a range and a selection
-    var range = document.createRange();
-    var selection = window.getSelection();
+      function CopyToClipboard(button) {
+        var container = button.querySelector('[data-coupon-code]');
+        var textToCopy = container.getAttribute('data-coupon-code');
 
-    // Select the text in the container
-    range.selectNodeContents(container);
-    selection.removeAllRanges();
-    selection.addRange(range);
+        navigator.clipboard.writeText(textToCopy)
+          .then(function () {
+            console.log("Text copied to clipboard: " + textToCopy);
+            var copiedText = button.querySelector('.copiedtext');
+            copiedText.style.visibility = "visible";
+            button.classList.add("copied");
+            setTimeout(function () {
+              copiedText.style.visibility = "hidden";
+              button.classList.remove("copied");
+            }, 1000);
+          })
+          .catch(function (err) {
+            console.error("Unable to copy text to clipboard: ", err);
+          });
+      }
 
-    try {
-        // Attempt to copy the selected text to the clipboard
-        document.execCommand("copy");
-        console.log("Text copied to clipboard");
-        
-        // Remove the selection
-        selection.removeAllRanges();
-        
-        // Add "Copied" text after click
-        var copiedText = container.nextElementSibling;
-        copiedText.style.visibility = "visible";
-
-        // Toggle the "copied" class on the button to apply styles
-        var button = container.parentElement; // Get the button element
-        button.classList.add("copied"); // Add the "copied" class
-
-        setTimeout(function () {
-            copiedText.style.visibility = "hidden";
-
-            // Remove the "copied" class after a delay
-            button.classList.remove("copied"); // Remove the "copied" class
-        }, 1000);
-    } catch (err) {
-        console.error("Unable to copy text to clipboard: ", err);
-    }
-}
 
 
 
@@ -773,7 +758,21 @@ function CopyToClipboard(containerid) {
               return response.json();
             })
             .then(result => {
+              if (result.conditionnotmatched) {
+                Swal.fire({
+                  icon: "error",
+                  title: "invalid coupon",
+                  text: "amount is not maching the condtion"
+                });
+              }
 
+              if (result.expired) {
+                Swal.fire({
+                  icon: "error",
+                  title: "coupon expired",
+                  text: "the given coupon is expired"
+                });
+              }
 
               if (result.success) {
                 button.style.display = "none";
@@ -797,7 +796,7 @@ function CopyToClipboard(containerid) {
                   title: "outof range",
                   text: "products amount is in outof range"
                 });
-              }else if(result.nocoupon){
+              } else if (result.nocoupon) {
                 console.log("its getting here")
                 Swal.fire({
                   icon: "error",
@@ -845,7 +844,7 @@ function CopyToClipboard(containerid) {
       });
 
 
-   
+
       function quantityChanged(selectElement, index) {
 
 
@@ -1037,6 +1036,11 @@ function CopyToClipboard(containerid) {
           const selectedproductId = document.querySelector('input[name="productId"]');
           const totalpriceElement = document.getElementById('displayedTotalPrice');
           const discount = document.getElementById('discount')
+          const wallet = document.getElementById('useWallet');
+          const useWallet = wallet.checked;
+          const cartValue = document.querySelector('input[name="cartvalue"]').value;
+
+
 
 
           const totalprice = parseFloat(totalpriceElement.innerText);
@@ -1079,7 +1083,9 @@ function CopyToClipboard(containerid) {
             productId: productId,
             amount: totalprice,
             alltotal: alltotalvalue,
-            discount: discountvalue
+            discount: discountvalue,
+            useWallet: useWallet,
+            cartValue: JSON.parse(cartValue),
           };
 
 
@@ -1122,6 +1128,17 @@ function CopyToClipboard(containerid) {
                     return response.json();
                   })
                   .then((response) => {
+                    if (response.change) {
+                      Swal.fire({
+                        title: 'change has been found',
+                        text: "a change has been found in the cart,please refresh it ",
+                        icon: 'error'
+                      })
+                        .then(() => {
+                          window.location.reload()
+                        })
+                    }
+
                     if (response.CODsuccess) {
                       placeorder(orderData);
                     } else if (response.success) {
@@ -1215,7 +1232,19 @@ function CopyToClipboard(containerid) {
           .then(data => {
             if (data.success) {
               console.log("The response:", data);
-              window.location.href = "/profile";
+              Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'Your order has been placed successfully.',
+                showConfirmButton: false, // Hide the "OK" button
+                showCancelButton: true,
+                cancelButtonText: 'Go to My Orders',
+                cancelButtonColor: 'blue',  // Text on the button
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = "/profile";                }
+              });
+              
             } else {
               console.error("Order placement failed:", data.message);
             }

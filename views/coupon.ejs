@@ -285,19 +285,21 @@
                 document.getElementById("coupon-date-error").textContent = "";
 
                 // Client-side validation
-                const couponCode = document.getElementById("coupon-code").value;
+                const couponCode = document.getElementById("coupon-code").value.trim()
                 const couponType = document.getElementById("coupon-type").value;
-                const couponValue = parseFloat(document.getElementById("coupon-value").value);
-                const min = parseFloat(document.getElementById("min").value);
-                const max = parseFloat(document.getElementById("max").value);
+                const couponValue = parseFloat(document.getElementById("coupon-value").value.trim());
+                const min = parseFloat(document.getElementById("min").value.trim());
+                const max = parseFloat(document.getElementById("max").value.trim());
                 const couponDate = document.getElementById("coupon-date").value;
 
                 let hasErrors = false;
 
                 if (!couponCode) {
+                    console.log()
                     document.getElementById("coupon-code-error").textContent = "Coupon code is required.";
                     hasErrors = true;
                 }
+
 
                 if (!couponType) {
                     document.getElementById("coupon-type-error").textContent = "Coupon type is required.";

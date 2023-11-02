@@ -14,6 +14,9 @@ const { render } = require("ejs");
 const bannerModel = require("../model/banner-Model");
 const { assuredworkloads } = require("googleapis/build/src/apis/assuredworkloads");
 
+
+
+
 const adminpageView =  async (req, res) => {
  
   try{ 
@@ -230,7 +233,7 @@ const editedProduct = async (req, res) => {
         product.gender = req.body.gender;
         product.price = req.body.price;
         product.brand = req.body.brand;
-        product.description = req.body.description; // Corrected field name
+        product.discription = req.body.discription; // Corrected field name
         product.display_type = req.body.display_type;
         product.dial_color = req.body.dial_color;
         product.shape = req.body.shape;
@@ -243,6 +246,19 @@ const editedProduct = async (req, res) => {
 
         // Save the updated product
         await product.save();
+
+
+        const brands = await brandModel.findOne({_id:req.body.brand})
+      
+        const products = await productModel.find({brand:req.body.brand})
+  
+      for(let  i=0;i < products.length;i++){
+         if(products[i].discountedprice < (products[i].price*(brands.offer/100))){
+             products[i].sellingprice = products[i].price - (products[i].price*(brands.offer/100))
+             await products[i].save()
+         }
+      }
+
         res.redirect("/admin/product-managment");
       } catch (error) {
         console.error(error);
@@ -301,7 +317,7 @@ const productAdding = async (req, res) => {
         list: true,
         price: req.body.price,
         brand: req.body.brand,
-        discription: req.body.description,
+        discription: req.body.discription,
         display_type: req.body.display_type,
         product_image: filenames,
         dial_color: req.body.dial_color,
@@ -315,6 +331,18 @@ const productAdding = async (req, res) => {
  
 
       await newProduct.save();
+
+      const brands = await brandModel.findOne({_id:req.body.brand})
+      
+      const products = await productModel.find({brand:req.body.brand})
+
+    for(let  i=0;i < products.length;i++){
+       if(products[i].discountedprice < (products[i].price*(brands.offer/100))){
+           products[i].sellingprice = products[i].price - (products[i].price*(brands.offer/100))
+           await products[i].save()
+       }
+    }
+    
 
       console.log("Data is added successfully");
       res.redirect("/admin/product-managment");
@@ -414,6 +442,8 @@ const brandsAdding = async (req, res) => {
     const brand = await brandModel.find({ brand_category: req.body.brand_category })
     if (brand.length === 0) {
       await brandModel.create({ brand_category: req.body.brand_category, list: true ,offer:offer})
+     
+       
     } else {
       res.redirect("admin/category")
     }
@@ -877,7 +907,20 @@ const brandedit = async (req,res)=>{
     console.log("the id ", id)
     console.log("offer",req.body.offer)
     const offer = parseFloat(req.body.offer);
+    console.log("its here")
     const brands = await brandModel.updateOne({ _id: id }, { $set: { brand_category: req.body.brand_category,offer:offer } })
+     
+    const products = await productModel.find({brand:id})
+    console.log("produtss",products)
+
+    for(let  i=0;i < products.length;i++){
+       if(products[i].discountedprice < (products[i].price*(offer/100))){
+            console.log("products name",products[i].product_name)
+           products[i].sellingprice = products[i].price - (products[i].price*(offer/100))
+           await products[i].save()
+       }
+    }
+    
     console.log("updated value",brands)
     res.redirect("/admin/category")
       
@@ -913,19 +956,9 @@ const removepicture = async (req,res)=>{
    try{
     
       const product = await productModel.findOne({_id:req.body.id,})
-
-      if (product) {
-        // Check if the index is valid
-        if (req.body.index >= 0 && req.body.index < product.product_image.length) {
-          product.product_image.splice(req.body.index, 1); // Remove one element at the specified index
-          await product.save();
-          console.log(`Image at index ${req.body.index} deleted.`);
-        } else {
-          console.log(`Invalid index: ${req.body.index}`);
-        }
-      } else {
-        console.log('Product not found.');
-      }
+      
+      product.product_image[req.body.index] = ""
+      product.save()
 
       res.status(200).json({ success: true, message: 'Banner image removed successfully' });
 
