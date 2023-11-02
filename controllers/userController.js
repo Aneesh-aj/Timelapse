@@ -1278,9 +1278,6 @@ const forgotpasswordpost = async (req, res) => {
 
             res.redirect("/verificationPassword")
         }
-
-
-
     } catch (error) {
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
