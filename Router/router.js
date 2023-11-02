@@ -1,11 +1,7 @@
 const express = require("express")
 const router= express.Router()
 const nocache = require("nocache")
-
-
 const {render} = require("ejs")
-
-
 const usersModel = require("../model/users-model")
 const adminsModel = require("../model/admin-model")
 const session = require("express-session")
