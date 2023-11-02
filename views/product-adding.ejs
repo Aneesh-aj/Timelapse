@@ -397,18 +397,19 @@
                     showError(image, 'Please select an image.');
                     errorMessages.push('Please select an image.');
                 } else {
-                    clearError(image);
-                }
-
-              
-                console.log("another -1")
-                if (file.files.length !== 4) {
+                    if (file.files.length !== 4) {
                     console.log("it gerrin inside")
                     showError(image, 'Please select exactly 4 images.');
                     errorMessages.push('Please select exactly 4 images.');
                 } else {
                     clearError(image);
                 }
+                    
+                }
+
+              
+                console.log("another -1")
+                
 
 
                 if (productName.value.trim() === '' || !nameRegex.test(productName.value.trim(displayType.value.trim()))) {
