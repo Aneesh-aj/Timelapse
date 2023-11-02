@@ -183,6 +183,19 @@ body{
     opacity: 0;
     transition: all .5s ease;
 }
+.resetbtn{
+    display: none;
+     width: 15rem;
+     height: 2.5rem;
+     border: 1px solid;
+     color:#007bff;
+     border-radius: 5px;
+
+  }
+  .resetbtn:hover{
+    color: white;
+    background-color: #007bff;
+  }
 
 .sidebar.open .logo_details .icon,
 .sidebar.open .logo_details .logo_name {

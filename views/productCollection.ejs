@@ -159,7 +159,7 @@
 
                         </h1>
                     </div>
-                    <div class="container-fluid" id="body-color">
+                    <div class="container-fluid ps-lg-4 pe-lg-3" id="body-color">
                         <div class="row d-flex gap-1 pt-3 row-arrange ">
                             <% for (let i=0; i < database.length; i++) { %>
                                 <div class="product-card ">
@@ -226,27 +226,31 @@
 
                     <!-- Pagination Links -->
                     <div class="d-flex justify-content-center p-4">
-
-                        <% if(totalPages !=1){ %>
+                        <% if (totalPages > 1) { %>
+                            <!-- Show pagination -->
                             <div class="pagination">
-                                <% if (currentPage> 1) { %>
+                                <!-- Display Previous button if not on the first page -->
+                                <% if (currentPage > 1) { %>
                                     <a href="?page=<%= currentPage - 1 %>" class="page-link">&laquo; Previous</a>
-                                    <% } %>
-
-                                        <% for (let i=1; i <=totalPages; i++) { %>
-                                            <a href="?page=<%= i %>"
-                                                class="page-link <%= i === currentPage ? 'active' : '' %>">
-                                                <%= i %>
-                                            </a>
-                                            <% } %>
-
-                                                <% if (currentPage < totalPages) { %>
-                                                    <a href="?page=<%= currentPage + 1 %>" class="page-link">Next
-                                                        &raquo;</a>
-                                                    <% } %>
+                                <% } %>
+                        
+                                <!-- Display page numbers for each page -->
+                                <% for (let i = 1; i <= totalPages; i++) { %>
+                                    <a href="?page=<%= i %>" class="page-link <%= i === currentPage ? 'active' : '' %>">
+                                        <%= i %>
+                                    </a>
+                                <% } %>
+                        
+                                <!-- Display Next button if not on the last page -->
+                                <% if (currentPage < totalPages) { %>
+                                    <a href="?page=<%= currentPage + 1 %>" class="page-link">Next &raquo;</a>
+                                <% } %>
                             </div>
-
-                            <% } %>
+                           
+                        <% } else { %>
+                            <!-- No need to show pagination -->
+                        <% } %>
+                        
 
                     </div>
 

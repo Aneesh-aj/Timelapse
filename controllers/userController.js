@@ -380,24 +380,38 @@ const showCollection = async (req, res) => {
                 { brand: { $in: await brandModel.find({ brand_category: regex }, '_id') } }
             ];
         }
+        const itemsPerPage = 8; // Define itemsPerPage before using it
+        const skip = (page - 1) * itemsPerPage;
 
-        const database = await productModel.find(filterQuery).populate("watch_type").limit(8);
-        const totalItems = database.length;
-        const totalPages = Math.ceil(totalItems / 8);
-        const skip = (page - 1) * 8;
-        const slicedData = database.slice(skip, skip + 8);
+        const database = await productModel.find(filterQuery).populate("watch_type").skip(skip)
+        .limit(itemsPerPage).exec();
+
+        const totalItems = await productModel.countDocuments(filterQuery); // Count total items
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+        // Correct setting of currentPage
+        let currentPage = page;
+        if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
+
+        const slicedData = database;
 
         if (watchType.length != 0) {
             var watch = await watchtypeModel.findOne({ _id: watchType }, { watch_type: 1 });
         }
 
-        res.render("productCollection", { database: slicedData, watchtype, watch, totalPages, currentPage: page, pr1, pr2, gender, watchType, searchvalue, message });
+        console.log("totalItems:", totalItems);
+        console.log("totalPages:", totalPages);
+        console.log("currentPage:", currentPage);
+
+        res.render("productCollection", { database, slicedData, totalPages, currentPage, watchtype, watch, pr1, pr2, gender, watchType, searchvalue, message });
     } catch (error) {
         console.error("Error in showCollection route:", error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
-
     }
 };
+
 
 
 const wallet = async (req, res) => {
@@ -719,19 +733,22 @@ const checkoutView = async (req, res) => {
 
 
         let totalprice = 0
+        let totalpriceChecking =0
         console.log("befroe  the condition ", totalprice)
         if (!singleproductid) {
             for (let i = 0; i < user.cart.length; i++) {
                 totalprice += user.cart[i].sellingprice * user.cart[i].quantity
+                totalpriceChecking += user.cart[i].sellingprice * user.cart[i].quantity
             }
             console.log("total price from the cart products", totalprice)
         } else {
             if (req.session.quantity) {
                 totalprice += singleproduct.sellingprice * req.session.quantity
-
+                totalpriceChecking+= singleproduct.sellingprice * req.session.quantity
                 console.log("total price form session", totalprice)
             } else {
                 totalprice += singleproduct.sellingprice
+                totalpriceChecking += singleproduct.sellingprice * req.session.quantity
                 console.log("total price form else session", totalprice)
             }
         }
@@ -757,7 +774,7 @@ const checkoutView = async (req, res) => {
 
         const coupon = await couponModel.find({})
         let discountamount = 0
-        res.render("checkoutpage", { discountamount, user, qnt, coupon, totalprice, address, singleproduct, singleproductid })
+        res.render("checkoutpage", { discountamount,totalpriceChecking, user, qnt, coupon, totalprice, address, singleproduct, singleproductid })
 
     } catch (error) {
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));

@@ -75,6 +75,8 @@
     color: #131313;
     cursor: pointer;
   }
+ 
+  
 </style>
 
 <body>
@@ -415,7 +417,7 @@
 
                     </div>
                   </div>
-
+                   <input type="hidden" class="checking" name="totalchecking" value="<%=totalpriceChecking%>">
                 </div>
               </div>
               <hr>
@@ -471,6 +473,7 @@
                   <p id="displayedTotalPrice">
                     <button class="btn btn-outline-warning applybtn" onclick="applycoupon()">apply</button>
                   </p>
+                  <button class=" resetbtn" onclick=" resetcoupon()">reset</button>
                 </div>
                 <input type="hidden" name="alltotal" value="<%=totalprice%>">
               </div>
@@ -688,7 +691,29 @@
           });
       }
 
+     function resetcoupon(){
+      const resetButton = document.querySelector('.resetbtn');
+      var button = document.querySelector('.applybtn');
+      const checking = document.querySelector('.checking').value
+      const discount = document.getElementById('discount')
+      const displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
+      const useWalletCheckbox = document.getElementById('useWallet');
 
+
+      if (useWalletCheckbox.checked) {
+          return Swal.fire({
+            icon: "error",
+            title: "Remove Wallet",
+            text: "coupon only can applie before using the wallet"
+          });
+        }
+        
+         displayedTotalPriceElement.innerText = checking;
+         discount.innerText = 0
+         button.style.display = "block";
+          resetButton.style.display = "none"; // Show the reset button
+
+     }
 
 
       async function applycoupon() {
@@ -698,6 +723,8 @@
         const displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
         const amount = displayedTotalPriceElement.innerText;
         const discount = document.getElementById('discount')
+        const resetButton = document.querySelector('.resetbtn');
+
 
         console.log("-----cu ", discount)
 
@@ -776,6 +803,8 @@
 
               if (result.success) {
                 button.style.display = "none";
+                resetButton.style.display = "block"; // Show the reset button
+
 
                 const updatedTotalPrice = result.totalprice.toFixed(2);
 
