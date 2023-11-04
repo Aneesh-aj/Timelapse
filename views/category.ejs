@@ -192,7 +192,7 @@
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
-                                    <form method="post" action="/admin/category/edit?id=<%=watchtype[i].watch_type %>"
+                                    <form method="post"for='watchtypes' action="/admin/category/edit?id=<%=watchtype[i].watch_type %>"
                                       onsubmit="return validateForm('<%=i%>')">
                                       <div class="modal-body">
                                         <div class="form-group">
@@ -202,6 +202,7 @@
                                             id="editCategoryName<%=i%>" placeholder="<%=watchtype[i].watch_type %>">
                                           <input type="hidden" value="<%= watchtype[i]._id %>" name="_id"
                                             id="editCategoryId<%= i %>">
+                                            <input type="hidden" id="forwatchtype" name="watchtypes" value="<%=watchtype %>">
                                           <div class="error2" id="watchTypeError<%=i%>"></div>
 
                                         </div>
@@ -439,7 +440,9 @@
     console.log("coming here")
     const watchTypeInput = document.querySelector(`#editCategoryName${formIndex}`);
     const watchTypeError = document.getElementById(`watchTypeError${formIndex}`);
-    
+    const types = document.getElementById('forwatchtype').value
+    console.log("valiate form")
+
     
     watchTypeError.textContent = '';
     
@@ -450,7 +453,42 @@
       return false;
     }
 
-    return true;
+     let inputValueLowercase = watchTypeInput.value.trim().toLowerCase()
+     console.log("the lowe",inputValueLowercase)
+
+    const data = {
+  inputvalue: inputValueLowercase,
+}
+
+fetch('/admin/watchtype-exist', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+})
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Network response was not ok');
+    }
+  })
+  .then(data => {
+    if (data.Exist) {
+
+      console.log("the if")
+      watchTypeError.textContent = 'New Watch Type is required';
+      watchTypeInput.focus();
+      return false;
+    } else if (data.NotExist) {
+      console.log("the else")
+      document.querySelector("[for='watchtypes']").submit();
+
+    }
+  })
+
+    return false
   }
 
 
@@ -489,6 +527,8 @@
 
   function validateWatchtype() {
     console.log("coming here");
+
+    console.log("validateWatchtype")
     const errorElement = document.querySelector(".error");
     errorElement.textContent = "";
 
