@@ -578,18 +578,15 @@ const updateStatus = async (req, res) => {
 
     if (updated) {
 
-      if (updated.paymentMethod == "online") {
-        console.log("entering case1")
-        console.log("----------", updated.status)
-
+      
 
         if (newstatus == "returned") {
 
           console.log("entering case 2");
-          user.wallet.balance = updated.totalamount
+          user.wallet.balance += updated.totalamount
           await user.save()
         }
-      }
+      
     }
 
     console.log("------updated status", user)

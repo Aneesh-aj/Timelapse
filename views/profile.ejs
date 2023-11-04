@@ -4,13 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-  <!-- Add this in the <head> section -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Add this before the closing </body> tag -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="style.css" class="style">
   <title>login</title>
@@ -25,8 +23,7 @@
     <content>
 
 
-      <div class="container-fluid d-flex justify-content-lg-center "
-        style="padding-top: 5rem;" id="body-color">
+      <div class="container-fluid d-flex justify-content-lg-center " style="padding-top: 5rem;" id="body-color">
         <div class="container-width ">
           <%- include('sidebar.ejs') %>
             <section class="home-section ">
@@ -115,16 +112,13 @@
                       </div>
 
                       <div class="profile-newbtn-div">
-                        <button type="button" class="profile-add-button  " data-bs-toggle="modal"
-                          data-bs-target="#addAddressModal">
-                          add Address
-                        </button>
+
                       </div>
                     </div>
                   </div>
 
                 </div>
-              
+
                 <div class="h-auto w-100 mt-2 box-shadows">
 
                   <% for(let i=0; i < address.address.length;i++){ %>
@@ -135,23 +129,24 @@
                           <button class="accordion-button hov bg-transparent no-focus-outline" type="button"
                             data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="false"
                             aria-controls="collapse<%=i%>">
-                            Adress <%= i+1 %>
+                            Adress <%=i+1 %>
                           </button>
 
                         </h2>
-                        <div id="collapse<%= i %>" class="accordion-collapse collapse"
-                          data-bs-parent="#accordionExample">
+                        <div id="collapse<%=i%>" class="accordion-collapse collapse" data-bs-parent="#accordionExample"
+                          style=" z-index: 1049;">
                           <div class="accordion-body">
 
                             <div class="col-lg-12  ">
                               <div class="card ">
                                 <div class="bg-white d-flex  pe-5  pt-3 rounded-3 d-flex align-items-center">
                                   <h2 class="heading"> Address</h2>
-
+                               
                                   <button type="button" class="address-edit-button" data-bs-toggle="modal"
-                                    data-bs-target="#myModals<%=i%>">
-                                    Edit
-                                  </button>
+                                    data-bs-target="#myModals<%=i%>" >Edit</button>
+
+                                    
+                
                                   <!-- <button type="button" class="btn btn-outline-primary h-50" onclick="deleteAddress('<%= i %>')">
                                     delete
                             </button> -->
@@ -246,17 +241,19 @@
 
 
                     </div>
-                    <div class="modal fade" id="myModals<%=i%>" tabindex="-1" aria-hidden="true">
+                    <div class="modal fade" id="myModals<%= i %>" tabindex="-1" aria-labelledby="exampleModalLabel<%= i %>" aria-hidden="true"
+                      >
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <!-- Modal Header -->
                           <div class="modal-header">
-                            <h5 class="modal-title">Edit Address</h5>
+                            <h5 class="modal-title fs-5" id="exampleModalLabel<%= i %>">Edit Address</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <!-- Modal Body -->
+                          <div class="modal-body">
                           <form method="post" action="/editAddress">
-                            <div class="modal-body">
+                            
                               <div class="mb-3">
                                 <label for="address" class="col-form-label">Address:</label>
                                 <input type="text" class="form-control" id="address" name="address1"
@@ -313,7 +310,7 @@
                                   placeholder="<%= address.address[i].locality %>">
                               </div>
 
-                            </div>
+                            
 
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -321,8 +318,12 @@
                             </div>
                           </form>
                         </div>
+                        </div>
                       </div>
                     </div>
+
+                    
+
 
                     <% } %>
 
@@ -336,7 +337,7 @@
       <!-- Button trigger modal -->
 
 
-      <!-- Modal -->
+
 
       <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -349,49 +350,51 @@
 
             <!-- Modal Body -->
             <div class="modal-body">
-              <form action="/profile/edit" method="post">
+              <form action="/profile/edit" method="post" id="profileEditForm">
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">Name:</label>
-                  <input type="text" name="name" class="form-control" id="recipient-name"
-                    placeholder="<%= user.name %>">
+                  <input type="text" name="name" class="form-control" id="recipient-name" value="<%= user.name %>"
+                    placeholder="<%= user.name %>" required>
+                  <div class="text-danger" id="name-error"></div>
                   <input type="hidden" name="userid" value="<%= userid._id %>">
                 </div>
                 <div class="mb-3">
-                  <label for="message-text" class="col-form-label">second name:</label>
-                  <input type="text" name="second_name" class="form-control" placeholder="<%= user.second_name %>">
+                  <label for="message-text" class="col-form-label">Second Name:</label>
+                  <input type="text" name="second_name" class="form-control" value="<%= user.second_name %>"
+                    placeholder="<%= user.second_name %>" required>
+                  <div class="text-danger" id="second-name-error"></div>
                 </div>
                 <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Mobile number:</label>
-                  <input type="text" name="number" class="form-control" placeholder="<%= user.number %>">
+                  <label for="message-text" class="col-form-label">Mobile Number:</label>
+                  <input type="text" name="number" class="form-control" value="<%= user.number %>"
+                    placeholder="<%= user.number %>" required>
+                  <div class="text-danger" id="number-error"></div>
                 </div>
                 <div class="mb-3">
                   <label class="mb-3">Gender:</label>
-                  <select class="form-control " name="gender" id="" aria-placeholder="<%= user.gender %>">
-
-                    <option value="male">male</option>
-                    <option value="female">women</option>
-                    <option value="other">other</option>
+                  <select class="form-control" name="gender" id="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
                   </select>
+                  <div class="text-danger" id="gender-error"></div>
                 </div>
-            </div>
+                <div class="text-danger" id="validation-errors"></div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" onclick="validateForm()">Save changes</button>
+                </div>
+              </form>
 
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
+
+
             </div>
-            </form>
           </div>
         </div>
       </div>
 
 
-
-      <!-- second-->
-
-
-
-      <!-- Second Modal -->
 
 
       <div class="modal fade" id="addAddressModal" tabindex="-1" aria-hidden="true">
@@ -403,59 +406,66 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- Modal Body -->
-            <form action="/add-address" method="post">
+            <form action="/add-address" method="post" id="addAddressForm">
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="address" class="col-form-label">Address:</label>
-                  <input type="text" class="form-control" name="address1" id="newAddress">
+                  <label for="newAddress" class="col-form-label">Address:</label>
+                  <input type="text" class="form-control" name="address1" id="newAddress" required>
+                  <div class="text-danger" id="address-error"></div>
                   <input type="hidden" name="userid" value="<%= userid._id %>">
                 </div>
                 <div class="mb-3">
-                  <label for="Country" class="col-form-label">Country</label>
-                  <select name="country" id="newCountry" class="form-control">
+                  <label for="newCountry" class="col-form-label">Country:</label>
+                  <select name="country" id="newCountry" class="form-control" required>
                     <option value="india">India</option>
                     <option value="srilanka">Sri Lanka</option>
                     <option value="America">America</option>
                     <option value="china">China</option>
                   </select>
+                  <div class="text-danger" id="country-error"></div>
                 </div>
                 <div class="mb-3">
-                  <label for="State" class="col-form-label">State</label>
-                  <select name="state" id="newState" class="form-control">
+                  <label for="newState" class="col-form-label">State:</label>
+                  <select name="state" id="newState" class="form-control" required>
                     <option value="kerala">Kerala</option>
                     <option value="karnataka">Karnataka</option>
                     <option value="tamilnadu">Tamil Nadu</option>
                     <option value="maharashtra">Maharashtra</option>
                   </select>
+                  <div class="text-danger" id="state-error"></div>
                 </div>
                 <div class="mb-3 d-flex">
                   <div class="flex-grow-1">
-                    <label for="district" class="col-form-label">District:</label>
-                    <select name="district" id="newDistrict" class="form-control">
+                    <label for="newDistrict" class="col-form-label">District:</label>
+                    <select name="district" id="newDistrict" class="form-control" required>
                       <option value="malappuram">Malappuram</option>
                       <option value="kozhikode">Kozhikode</option>
                       <option value="wayanad">Wayanad</option>
                       <option value="kannur">Kannur</option>
                     </select>
+                    <div class="text-danger" id="district-error"></div>
                   </div>
                   <div class="flex-grow-1 ps-3">
-                    <label for="pincode" class="col-form-label">Pincode:</label>
-                    <input type="text" class="form-control" id="newPincode">
+                    <label for="newPincode" class="col-form-label">Pincode:</label>
+                    <input type="text" class="form-control" id="newPincode" required>
+                    <div class="text-danger" id="pincode-error"></div>
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label class="col-form-label">Town:</label>
-                  <input class="form-control" name="town" id="newTown">
+                  <label for="newTown" class="col-form-label">Town:</label>
+                  <input class="form-control" name="town" id="newTown" required>
+                  <div class="text-danger" id="town-error"></div>modal-backdrop fade show
                 </div>
                 <div>
-                  <label class="col-form-label">Locality:</label>
-                  <input class="form-control" name="locality" id="newLocality">
+                  <label for="newLocality" class="col-form-label">Locality:</label>
+                  <input class="form-control" name="locality" id="newLocality" required>
+                  <div class="text-danger" id="locality-error"></div>
                 </div>
               </div>
               <!-- Modal Footer -->
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save Address</button>
+                <button type="button" class="btn btn-primary" onclick="validateAddAddressForm()">Save Address</button>
               </div>
             </form>
           </div>
@@ -487,11 +497,110 @@
         <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
       </div>
     </footer>
-
-    <!-- Button to trigger the modal -->
-
-
     <script>
+
+      function validateAddAddressForm() {
+        const address = document.getElementById('newAddress').value;
+        const country = document.getElementById('newCountry').value;
+        const state = document.getElementById('newState').value;
+        const district = document.getElementById('newDistrict').value;
+        const pincode = document.getElementById('newPincode').value;
+        const town = document.getElementById('newTown').value;
+        const locality = document.getElementById('newLocality').value;
+
+        clearErrorMessages();
+
+        let valid = true;
+
+        if (!address || address.trim() === '') {
+          showError('address-error', 'Address is required.');
+          valid = false;
+        }
+        if (!country || country.trim() === '') {
+          showError('country-error', 'Country is required.');
+          valid = false;
+        }
+        if (!state || state.trim() === '') {
+          showError('state-error', 'State is required.');
+          valid = false;
+        }
+        if (!district || district.trim() === '') {
+          showError('district-error', 'District is required.');
+          valid = false;
+        }
+        if (!pincode || !/^\d+$/.test(pincode)) {
+          showError('pincode-error', 'Please enter a valid Pincode.');
+          valid = false;
+        }
+        if (!town || town.trim() === '') {
+          showError('town-error', 'Town is required.');
+          valid = false;
+        }
+        if (!locality || locality.trim() === '') {
+          showError('locality-error', 'Locality is required.');
+          valid = false;
+        }
+
+        if (valid) {
+          document.getElementById('addAddressForm').submit();
+        }
+      }
+
+      function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        errorElement.textContent = message;
+      }
+
+      function clearErrorMessages() {
+        const errorElements = document.querySelectorAll('.text-danger');
+        errorElements.forEach((element) => {
+          element.textContent = '';
+        });
+      }
+
+
+
+      function validateForm() {
+        const name = document.getElementById('recipient-name').value;
+        const secondName = document.querySelector('input[name="second_name"]').value;
+        const number = document.querySelector('input[name="number"]').value;
+        const gender = document.querySelector('#gender').value;
+
+        // Clear previous error messages
+        document.getElementById('name-error').textContent = '';
+        document.getElementById('second-name-error').textContent = '';
+        document.getElementById('number-error').textContent = '';
+        document.getElementById('gender-error').textContent = '';
+        document.getElementById('validation-errors').textContent = '';
+
+        let valid = true;
+
+        if (!name || name.trim() === '') {
+          valid = false;
+          document.getElementById('name-error').textContent = 'Name is required.';
+        }
+        if (!secondName || secondName.trim() === '') {
+          valid = false;
+          document.getElementById('second-name-error').textContent = 'Second Name is required.';
+        }
+        if (!number || number.trim() === '' || !/^\d+$/.test(number)) {
+          valid = false;
+          document.getElementById('number-error').textContent = 'Please enter a valid Mobile Number.';
+        }
+        if (gender === '') {
+          valid = false;
+          document.getElementById('gender-error').textContent = 'Please select a Gender.';
+        }
+
+        if (valid) {
+          // Form is valid, submit it
+          document.getElementById('profileEditForm').submit();
+        } else {
+          document.getElementById('validation-errors').textContent = 'Please fix the errors above before submitting.';
+        }
+      }
+
+
 
       function deleteAddress(addressIndex, userId) {
         // Create an object with the data to send in the request body

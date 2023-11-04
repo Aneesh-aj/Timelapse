@@ -126,7 +126,6 @@
                                       <option value="<%=order[i].status %>" selected><%=order[i].status %></option>
                                           <%if(order[i].status !='shipped' && order[i].status !='return-pending' && order[i].status != 'return-conformed'){ %>
                                                 
-                                          <option value="cancelled">Cancel</option>
                                     
                                          <% } %> 
                                       <% if (order[i].status =='pending') { %>

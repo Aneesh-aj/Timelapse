@@ -340,6 +340,7 @@ const verificatioinResend = (async (req, res) => {
 const showCollection = async (req, res) => {
     try {
         const watchtype = await watchtypeModel.find({ list: true });
+        
 
         const page = parseInt(req.query.page) || 1;
         const pr1 = parseInt(req.query.price1) || 0;
@@ -349,6 +350,8 @@ const showCollection = async (req, res) => {
         const searchvalue = req.query.searchvalue || '';
 
         let filterQuery = { list: true };
+        
+        
         var message;
 
         if (pr1 !== 0 || pr2 !== Infinity) {
@@ -375,8 +378,42 @@ const showCollection = async (req, res) => {
         const itemsPerPage = 8; // Define itemsPerPage before using it
         const skip = (page - 1) * itemsPerPage;
 
-        const database = await productModel.find(filterQuery).populate("watch_type").skip(skip)
-        .limit(itemsPerPage).exec();
+        const database = await productModel.aggregate([
+            {
+              $match: {
+                list: true, // Filter products with list: true
+              },
+            },
+            {
+              $lookup: {
+                from: 'watchtypes',
+                localField: 'watch_type',
+                foreignField: '_id',
+                as: 'watch_type',
+              },
+            },
+            {
+              $lookup: {
+                from: 'brands',
+                localField: 'brand',
+                foreignField: '_id',
+                as: 'brand',
+              },
+            },
+            {
+              $match: {
+                'watch_type.list': true, // Filter watch types with list: true
+                'brand.list': true, // Filter brands with list: true
+              },
+            },
+            {
+              $skip: skip,
+            },
+            {
+              $limit: itemsPerPage,
+            },
+          ]);
+  console.log("the database",database)
 
         const totalItems = await productModel.countDocuments(filterQuery); // Count total items
         const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -392,6 +429,7 @@ const showCollection = async (req, res) => {
         if (watchType.length != 0) {
             var watch = await watchtypeModel.findOne({ _id: watchType }, { watch_type: 1 });
         }
+        console.log("database",database)
 
         console.log("totalItems:", totalItems);
         console.log("totalPages:", totalPages);

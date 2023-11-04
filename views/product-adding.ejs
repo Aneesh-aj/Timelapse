@@ -11,6 +11,22 @@
 
     <title>Product-adding</title>
 </head>
+<style>
+     .image-div {
+            width: 150px;
+            height: 100px;
+            overflow: hidden;
+            margin: 5px;
+            background-color:rgb(220, 218, 218);
+        }
+
+        .image-div img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+</style>
 
 <body>
     <%- include('navbar2.ejs') %>
@@ -86,80 +102,98 @@
                                         <div class=" " style="width: 60%; height: 2.5rem; margin-left: 5rem;">
                                             <h5>product-image:</h5>
                                         </div>
-                                        <div class=" "
-                                            style="width: 60%; height: 5rem; margin-left: 5rem; background-color: rgb(163, 163, 163); border: black solid 1px;">
-                                            <input class="w-100 h-100 ps-3" id="image" type="file"
-                                                accept=".jpg, .jpeg, .png , .webp" onchange="checkImageCount()"
-                                                name="filename" multiple>
-                                            <span class="error-message" id="image_error"></span>
+                                        <div class="d-flex">
+                                            <div class="d-flex "
+                                                style="width: 25%; height: 3rem; margin-left: 5rem; background-color: rgb(163, 163, 163); border: black solid 1px;">
+                                                <input class="w-100 h-100 " id="image" type="file"
+                                                    accept=".jpg, .jpeg, .png , .webp" id="image"
+                                                    onchange="checkImageCount()" name="filename" multiple>
 
+
+                                                <span class="error-message" id="image_error"></span>
+
+                                            </div>
+                                            <div class="flex-container img-con">
+                                                <div id="imageContainer1" class="image-div p-2"></div>
+                                                <div id="imageContainer2" class="image-div p-2"></div>
+                                                <div id="imageContainer3" class="image-div  p-2"></div>
+                                                <div id="imageContainer4" class="image-div  p-2"></div>
+                                            </div>
                                         </div>
+
 
 
                                     </div>
-                                    <div class="product-img-side mt-5">
-                                        <div class=" d-flex " style="width: 60%; height: 2.5rem; ">
-                                            <h5>product-name:</h5>
+                                    <div class="product-img-side d-flex  mt-5">
+                                        <div class=" w-50">
+                                            <div class=" d-flex " style="width: 100%; height: 2.5rem; ">
+                                                <h5>product-name:</h5>
+                                            </div>
+                                            <div class=" " style="width: 100%; height: 2.5rem;  ">
+                                                <input class="w-100 h-100 ps-3" for="proudct_name" name="product_name"
+                                                    id="product_name"
+                                                    style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
+
+                                                <span class="error-message" id="product_name_error"></span>
+
+                                            </div>
+
+                                            <div class=" " style="width: 100%; height: 2.5rem;margin-top: 20px;">
+                                                <h5>product price:</h5>
+                                            </div>
+                                            <div class=" " style="width: 100%; height: 2.5rem; ">
+                                                <input onchange="amountcheking()" id="price" class="w-100 h-100 ps-3"
+                                                    for="price" name="price"
+                                                    style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
+                                                <span class="error-message" id="price_error"></span>
+
+                                            </div>
+                                            <div class=" " style="width:100%; height: 2.5rem;margin-top: 20px;">
+                                                <h5>Category:</h5>
+                                            </div>
+                                            <div class=" " style="width: 100%; height: 2.5rem; ">
+                                                <!-- <input class="w-100 h-100 " style="border-radius: 3px; background-color: rgb(237, 237, 237);"> -->
+                                                <select class="form-select w-100 h-100" name="watch_type"
+                                                    id="watch_type"
+                                                    style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                    aria-label="Default select example">
+                                                    <% for (let i=0; i < watchtype.length; i++) { %>
+                                                        <option value="<%= watchtype[i]._id %>" <%=product.watch_type &&
+                                                            product.watch_type._id.toString()===watchtype[i]._id.toString()
+                                                            ? ' selected' : '' %>><%= watchtype[i].watch_type %>
+                                                        </option>
+                                                        <% } %>
+                                                </select>
+                                                <span class="error-message" id="watch_type_error"></span>
+
+                                            </div>
+                                            <div class=" " style="width: 100%; height: 2.5rem;margin-top: 20px;">
+                                                <h5>Brand</h5>
+                                            </div>
+                                            <div class=" " style="width: 100%; height: 2.5rem; ">
+                                                <select class="form-select w-100 h-100" id="brand" name="brand"
+                                                    style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
+                                                    aria-label="Default select example">
+
+
+                                                    <% for (let i=0; i < brands.length; i++) { %>
+                                                        <option value="<%= brands[i]._id %>" <%=product.brand &&
+                                                            product.brand._id.toString()===brands[i]._id.toString()
+                                                            ? ' selected' : '' %>><%= brands[i].brand_category %>
+                                                        </option>
+                                                        <% } %>
+                                                </select>
+                                                <span class="error-message" id="brand_error"></span>
+
+
+                                            </div>
+
                                         </div>
-                                        <div class=" " style="width: 60%; height: 2.5rem;  ">
-                                            <input class="w-100 h-100 ps-3" for="proudct_name" name="product_name"
-                                                id="product_name"
-                                                style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
 
-                                            <span class="error-message" id="product_name_error"></span>
-
-                                        </div>
-
-                                        <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
-                                            <h5>product price:</h5>
-                                        </div>
-                                        <div class=" " style="width: 60%; height: 2.5rem; ">
-                                            <input onchange="amountcheking()" id="price" class="w-100 h-100 ps-3"
-                                                for="price" name="price"
-                                                style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
-                                            <span class="error-message" id="price_error"></span>
-
-                                        </div>
-                                        <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
-                                            <h5>Category:</h5>
-                                        </div>
-                                        <div class=" " style="width: 60%; height: 2.5rem; ">
-                                            <!-- <input class="w-100 h-100 " style="border-radius: 3px; background-color: rgb(237, 237, 237);"> -->
-                                            <select class="form-select w-100 h-100" name="watch_type" id="watch_type"
-                                                style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
-                                                aria-label="Default select example">
-                                                <% for (let i=0; i < watchtype.length; i++) { %>
-                                                    <option value="<%= watchtype[i]._id %>" <%=product.watch_type &&
-                                                        product.watch_type._id.toString()===watchtype[i]._id.toString()
-                                                        ? ' selected' : '' %>><%= watchtype[i].watch_type %>
-                                                    </option>
-                                                    <% } %>
-                                            </select>
-                                            <span class="error-message" id="watch_type_error"></span>
-
-                                        </div>
-                                        <div class=" " style="width: 60%; height: 2.5rem;margin-top: 20px;">
-                                            <h5>Brand</h5>
-                                        </div>
-                                        <div class=" " style="width: 60%; height: 2.5rem; ">
-                                            <select class="form-select w-100 h-100" id="brand" name="brand"
-                                                style="border-radius: 3px; border: 0.4px rgb(190, 189, 189) solid; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"
-                                                aria-label="Default select example">
-
-
-                                                <% for (let i=0; i < brands.length; i++) { %>
-                                                    <option value="<%= brands[i]._id %>" <%=product.brand &&
-                                                        product.brand._id.toString()===brands[i]._id.toString()
-                                                        ? ' selected' : '' %>><%= brands[i].brand_category %>
-                                                    </option>
-                                                    <% } %>
-                                            </select>
-                                            <span class="error-message" id="brand_error"></span>
-
-
-                                        </div>
-
+                                        <div id="imageContainer" class="p-2"
+                                            style="width: 100px;height: 100px; object-fit: contain;"></div>
                                     </div>
+
                                 </div>
                                 <div class="w-100 " style="padding-left: 5rem;">
                                     <div class=" " style="width: 60%; height: 2.5rem;  ">
@@ -273,7 +307,7 @@
                                             </div>
                                         </div>
 
-                                        
+
 
                                         <div class="  d-flex justify-content-center m-4">
                                             <button type="submit"
@@ -318,6 +352,7 @@
 
                 console.log("enterring")
                 const input = document.querySelector('input[type="file"]');
+                const imageInput = document.getElementById("image");
                 const selectedFiles = input.files;
 
                 if (selectedFiles.length > 4) {
@@ -328,6 +363,22 @@
                     });
                     input.value = null;
                 }
+
+                for (let i = 0; i < imageInput.files.length; i++) {
+        const file = imageInput.files[i];
+        
+        // Check if the selected file is an image
+        if (file.type.startsWith("image/")) {
+            const imageDiv = document.getElementById("imageContainer" + (i + 1)); // Generate unique id
+            imageDiv.innerHTML = ''; // Clear the previous image
+            
+            const imageElement = document.createElement("img");
+            imageElement.src = URL.createObjectURL(file);
+            imageElement.alt = file.name;
+
+            imageDiv.appendChild(imageElement);
+        }
+    }
             }
 
 
@@ -356,8 +407,8 @@
                 var nameRegex = /^(?=.*[A-Za-z])[A-Za-z\d\s]*[A-Za-z][A-Za-z\d\s]*$/;
 
 
-                var priceRegex = /^\d+(\.\d{1,2})?$/; 
-                var offerRegex = /^\d+(\.\d{1,2})?$/; 
+                var priceRegex = /^\d+(\.\d{1,2})?$/;
+                var offerRegex = /^\d+(\.\d{1,2})?$/;
                 var namesRegex = /^[A-Za-z]+$/i
 
                 var discriptionError = document.querySelector('#discription_error');
@@ -398,18 +449,18 @@
                     errorMessages.push('Please select an image.');
                 } else {
                     if (file.files.length !== 4) {
-                    console.log("it gerrin inside")
-                    showError(image, 'Please select exactly 4 images.');
-                    errorMessages.push('Please select exactly 4 images.');
-                } else {
-                    clearError(image);
-                }
-                    
+                        console.log("it gerrin inside")
+                        showError(image, 'Please select exactly 4 images.');
+                        errorMessages.push('Please select exactly 4 images.');
+                    } else {
+                        clearError(image);
+                    }
+
                 }
 
-              
+
                 console.log("another -1")
-                
+
 
 
                 if (productName.value.trim() === '' || !nameRegex.test(productName.value.trim(displayType.value.trim()))) {
@@ -436,7 +487,7 @@
                     clearError(watchType);
                 }
 
-               
+
                 if (brand.value === '') {
                     showError(brand, 'Please select a brand.');
                     errorMessages.push('Please select a brand.');
