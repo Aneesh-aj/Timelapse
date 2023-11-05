@@ -301,7 +301,6 @@ const productAdding = async (req, res) => {
 
     upload.array("filename")(req, res, async function (err) {
       if (err) {
-        // Handle any multer errors here
         console.error(err);
         return res.status(400).json({ error: "File upload failed." });
       }
