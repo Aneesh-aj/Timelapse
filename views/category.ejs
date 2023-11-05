@@ -123,9 +123,9 @@
                     <h2>Watch Type</h2>
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCategoryModalLeft">Add
                       Category</button>
-                      <div class="modal fade" id="addCategoryModalLeft" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="addCategoryModalLeft" tabindex="-1" role="dialog"
                       aria-labelledby="addCategoryModalLabelLeft" aria-hidden="true">
-                
+
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -134,7 +134,8 @@
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                          <form method="post" action="/admin/category" for="watchtype" onsubmit="return validateWatchtype();">
+                          <form method="post" action="/admin/category" for="watchtype"
+                            onsubmit="return validateWatchtype();">
                             <div class="modal-body">
                               <div class="form-group">
                                 <label for="categoryName">Watch type</label>
@@ -142,7 +143,7 @@
                                 <input type="text" class="input-control" name="watch_type" value="" class="form-control"
                                   id="categoryName" placeholder="Enter watch type ">
                                 <input type="hidden" name="" value=""> <!-- Add this hidden input -->
-                
+
                                 <div class="error"></div>
                               </div>
                             </div>
@@ -192,17 +193,18 @@
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
-                                    <form method="post"for='watchtypes' action="/admin/category/edit?id=<%=watchtype[i].watch_type %>"
+                                    <form method="post" for="watchtypes"
+                                      action="/admin/category/edit?id=<%=watchtype[i]._id%>"
                                       onsubmit="return validateForm('<%=i%>')">
                                       <div class="modal-body">
                                         <div class="form-group">
                                           <label for="editCategoryName">New Watch Type</label>
                                           <input type="text" class="input-control" name="watch_type"
-                                            value="<%=watchtype[i].watch_type %>" class="form-control"
+                                            value="" class="form-control"
                                             id="editCategoryName<%=i%>" placeholder="<%=watchtype[i].watch_type %>">
-                                          <input type="hidden" value="<%= watchtype[i]._id %>" name="_id"
+                                          <input type="hidden" value="<%=watchtype[i]._id%>" name="_id"
                                             id="editCategoryId<%= i %>">
-                                            <input type="hidden" id="forwatchtype" name="watchtypes" value="<%=watchtype %>">
+                                      
                                           <div class="error2" id="watchTypeError<%=i%>"></div>
 
                                         </div>
@@ -238,7 +240,7 @@
                     <h2>Brand</h2>
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCategoryModalRight">Add
                       Category</button>
-                      <div class="modal fade" id="addCategoryModalRight" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="addCategoryModalRight" tabindex="-1" role="dialog"
                       aria-labelledby="addCategoryModalLabelRight" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -248,60 +250,65 @@
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                          <form method="post" action="/admin/category/brands" for="brand" onsubmit="return validatebrands()">
+                          <form method="post" action="/admin/category/brands" for="brand"
+                            onsubmit="return validatebrands()">
                             <div class="modal-body">
                               <div class="form-group">
                                 <label for="brandCategory">Brand Name</label>
-                                <input type="text" class="input-control ps-3" name="brand_category" placeholder="Enter Brand Name">
+                                <input type="text" class="input-control ps-3" name="brand_category"
+                                  placeholder="Enter Brand Name">
                                 <div class="error"></div>
                                 <label class="pt-4" for="editCategoryoffers">Offer (%)</label>
-                                <input type="text"  class="input-control ps-3" name="offer" value="" class="form-control" id="editCategoryoffers" placeholder="offer">
+                                <input type="text" class="input-control ps-3" name="offer" value="" class="form-control"
+                                  id="editCategoryoffers" placeholder="offer">
                                 <div class="error" id="offerError">
+                                </div>
                               </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Add Brand</button>
-                            </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Add Brand</button>
+                              </div>
                           </form>
-                
+
                         </div>
                       </div>
-                
-                
+
+
                     </div>
                   </div>
 
-                    <div class="table-responsive">
-                      <table class="table table-bordered">
-                        <thead>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+
+                          <th>Name</th>
+                          <th>offer(%)</th>
+                          <th>Edit</th>
+                          <th>List</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Add your right table data here -->
+                        <%for(let i=0; i < brands.length ;i++){ %>
                           <tr>
 
-                            <th>Name</th>
-                            <th>offer(%)</th>
-                            <th>Edit</th>
-                            <th>List</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <!-- Add your right table data here -->
-                          <%for(let i=0; i < brands.length ;i++){ %>
-                            <tr>
+                            <td>
+                              <%= brands[i].brand_category %>
+                            </td>
+                            <td>
+                              <%=brands[i].offer%>
+                            </td>
 
-                              <td>
-                                <%= brands[i].brand_category %>
-                              </td>
-                              <td>
-                                <%=brands[i].offer%>
-                              </td>
+                            <td>
+                              <button class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                                data-target="#editCategoryModals<%= i %>">
+                                Edit
+                              </button>
 
-                              <td> 
-                                <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#editCategoryModals<%= i %>">
-                                  Edit
-                                </button>
-                                
-                                
-                                <div class="modal fade" id="editCategoryModals<%= i %>" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+
+                              <div class="modal fade" id="editCategoryModals<%= i %>" tabindex="-1" role="dialog"
+                                aria-labelledby="editCategoryModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -310,46 +317,54 @@
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
-                                    <form method="post" action="/admin/category/brandedit" onsubmit="return validateForm2('<%= i %>')">
+                                    <form method="post" action="/admin/category/brandedit"
+                                      onsubmit="return validateForm2('<%= i %>')">
                                       <div class="modal-body">
                                         <div class="form-group">
                                           <label for="editCategoryNames<%=i%>">New Watch Type</label>
-                                          <input type="text" class="input-control ps-3" name="brand_category" value="<%=brands[i].brand_category %>" class="form-control" id="editCategoryNames<%= i %>" placeholder="<%= brands[i].brand_category %>">
-                                          <input type="hidden" value="<%=brands[i]._id %>" name="_id" id="editCategoryId<%= i %>">
+                                          <input type="text" class="input-control ps-3" name="brand_category"
+                                            value="<%=brands[i].brand_category %>" class="form-control"
+                                            id="editCategoryNames<%= i %>"
+                                            placeholder="<%= brands[i].brand_category %>">
+                                          <input type="hidden" value="<%=brands[i]._id %>" name="_id"
+                                            id="editCategoryId<%= i %>">
                                           <div class="error2" id="brandError<%= i %>"></div>
                                           <label class="pt-4" for="editCategoryoffers<%= i %>">Offer (%)</label>
-                                          <input type="text" class="input-control ps-3" name="offer" value="<%= brands[i].offer %>" class="form-control" id="editCategoryoffers<%= i %>" placeholder="<%= brands[i].offer %>">
+                                          <input type="text" class="input-control ps-3" name="offer"
+                                            value="<%= brands[i].offer %>" class="form-control"
+                                            id="editCategoryoffers<%= i %>" placeholder="<%= brands[i].offer %>">
                                           <div class="error2" id="offerError<%= i %>">
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button class="btn btn-primary" type="submit">Save Changes</button>
-                                      </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                          <button class="btn btn-primary" type="submit">Save Changes</button>
+                                        </div>
                                     </form>
                                   </div>
                                 </div>
                               </div>
-                              
 
 
-                              </td>
-                              <td><a href="/admin/category/brand-list?_id=<%= encodeURIComponent(brands[i]._id) %>"
-                                  class="btn btn-info btn-sm">
-                                  <%= brands[i].list ? 'List' : 'Unlist' %>
-                                </a></td>
-                            </tr>
-                            <% } %>
-                        </tbody>
-                      </table>
-                    </div>
+
+                            </td>
+                            <td><a href="/admin/category/brand-list?_id=<%= encodeURIComponent(brands[i]._id) %>"
+                                class="btn btn-info btn-sm">
+                                <%= brands[i].list ? 'List' : 'Unlist' %>
+                              </a></td>
+                          </tr>
+                          <% } %>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
-
             </div>
+
           </div>
         </div>
+      </div>
 
 
 
@@ -367,7 +382,7 @@
     <!-- Button trigger modal -->
 
 
- 
+
 
 
 
@@ -443,9 +458,9 @@
     const types = document.getElementById('forwatchtype').value
     console.log("valiate form")
 
-    
+
     watchTypeError.textContent = '';
-    
+
 
     if (watchTypeInput.value.trim() === '') {
       watchTypeError.textContent = 'New Watch Type is required';
@@ -453,73 +468,73 @@
       return false;
     }
 
-     let inputValueLowercase = watchTypeInput.value.trim().toLowerCase()
-     console.log("the lowe",inputValueLowercase)
+    let inputValueLowercase = watchTypeInput.value.trim().toLowerCase()
+    console.log("the lowe", inputValueLowercase)
 
     const data = {
-  inputvalue: inputValueLowercase,
-}
-
-fetch('/admin/watchtype-exist', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(data),
-})
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error('Network response was not ok');
+      inputvalue: inputValueLowercase,
     }
-  })
-  .then(data => {
-    if (data.Exist) {
 
-      console.log("the if")
-      watchTypeError.textContent = 'New Watch Type is required';
-      watchTypeInput.focus();
-      return false;
-    } else if (data.NotExist) {
-      console.log("the else")
-      document.querySelector("[for='watchtypes']").submit();
+    fetch('/admin/watchtype-exist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      })
+      .then(data => {
+        if (data.Exist) {
 
-    }
-  })
+          console.log("the if")
+          watchTypeError.textContent = 'New Watch Type is required';
+          watchTypeInput.focus();
+          return false;
+        } else if (data.NotExist) {
+          console.log("the else")
+          document.querySelector(`form[action="/admin/category/edit?id=${types}"]`).submit();
+
+        }
+      })
 
     return false
   }
 
 
   function validateForm2(index) {
-  const brandCategoryInput = document.querySelector(`#editCategoryNames${index}`);
-  const offerInput = document.querySelector(`#editCategoryoffers${index}`);
-  const brandError = document.getElementById(`brandError${index}`);
-  const offerError = document.getElementById(`offerError${index}`);
+    const brandCategoryInput = document.querySelector(`#editCategoryNames${index}`);
+    const offerInput = document.querySelector(`#editCategoryoffers${index}`);
+    const brandError = document.getElementById(`brandError${index}`);
+    const offerError = document.getElementById(`offerError${index}`);
 
-  // Clear previous error messages
-  brandError.textContent = '';
-  offerError.textContent = '';
+    // Clear previous error messages
+    brandError.textContent = '';
+    offerError.textContent = '';
 
-  // Validate New Watch Type (non-empty)
-  if (brandCategoryInput.value.trim() === '') {
-    brandError.textContent = 'New Watch Type is required';
-    brandCategoryInput.focus();
-    return false;
+    // Validate New Watch Type (non-empty)
+    if (brandCategoryInput.value.trim() === '') {
+      brandError.textContent = 'New Watch Type is required';
+      brandCategoryInput.focus();
+      return false;
+    }
+
+    // Validate Offer (%) for a valid percentage
+    const offerValue = offerInput.value;
+    if (offerValue && !/^(100|[1-9]?[0-9])%$/.test(offerValue)) {
+      offerError.textContent = 'Please enter a valid offer percentage (0% to 100%).';
+      offerInput.focus();
+      return false;
+    }
+
+    // Form is valid, allow submission
+    return true;
   }
-
-  // Validate Offer (%) for a valid percentage
-  const offerValue = offerInput.value;
-  if (offerValue && !/^(100|[1-9]?[0-9])%$/.test(offerValue)) {
-    offerError.textContent = 'Please enter a valid offer percentage (0% to 100%).';
-    offerInput.focus();
-    return false;
-  }
-
-  // Form is valid, allow submission
-  return true;
-}
 
 
 
@@ -533,56 +548,56 @@ fetch('/admin/watchtype-exist', {
     errorElement.textContent = "";
 
     const inputValue = document.querySelector("[name='watch_type']").value.trim();
-     
-    console.log("inpuvalue",inputValue)
+
+    console.log("inpuvalue", inputValue)
     if (inputValue === "") {
       errorElement.textContent = "Watch type cannot be empty.";
       return false;
-    }else if (!isNaN(inputValue)) {
+    } else if (!isNaN(inputValue)) {
       errorElement.textContent = "Watch type cannot be a number.";
       return false;
-    }else{
+    } else {
       const inputValueLowercase = inputValue.toLowerCase();
 
-const data = {
-  inputvalue: inputValueLowercase,
-}
+      const data = {
+        inputvalue: inputValueLowercase,
+      }
 
-fetch('/admin/watchtype-exist', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(data),
-})
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error('Network response was not ok');
+      fetch('/admin/watchtype-exist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Network response was not ok');
+          }
+        })
+        .then(data => {
+          if (data.Exist) {
+
+            console.log("the if")
+            errorElement.textContent = "Watch type already exists.";
+            return false;
+          } else if (data.NotExist) {
+            console.log("the else")
+            document.querySelector("[for='watchtype']").submit();
+
+          }
+        })
+        .catch(error => {
+          console.error('Fetch error:', error);
+          return false; // Handle fetch errors by preventing form submission
+        });
+
+
     }
-  })
-  .then(data => {
-    if (data.Exist) {
-
-      console.log("the if")
-      errorElement.textContent = "Watch type already exists.";
-      return false;
-    } else if (data.NotExist) {
-      console.log("the else")
-      document.querySelector("[for='watchtype']").submit();
-
-    }
-  })
-  .catch(error => {
-    console.error('Fetch error:', error);
-    return false; // Handle fetch errors by preventing form submission
-  });
 
 
-    }
-
-   
     return false
   }
 
@@ -600,12 +615,12 @@ fetch('/admin/watchtype-exist', {
     const inputValue = document.querySelector("[name='brand_category']").value.trim();
     let inputValueLowercase = inputValue.toLowerCase();
 
-    
+
     const offerValue = offerInput.value;
 
     console.log("the offer value")
-    console.log("the inputvalue",inputValue)
-    
+    console.log("the inputvalue", inputValue)
+
     if (offerValue !== '') {
       console.log("first if")
       if (!/^(100|[1-9]?\d)%$/.test(offerValue)) {
@@ -614,46 +629,46 @@ fetch('/admin/watchtype-exist', {
         return false;
       }
     }
-    
+
     if (inputValue === '') {
       console.log("sendon if")
-        errorElement.textContent = "Brand name can't be empty.";
-        return false;
-    }else{
+      errorElement.textContent = "Brand name can't be empty.";
+      return false;
+    } else {
       console.log("else ")
       const data = {
         inputvalue: inputValueLowercase,
-    };
+      };
 
-    fetch('/admin/brand-exist', {
+      fetch('/admin/brand-exist', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-    })
+      })
         .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Network response was not ok');
-            }
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Network response was not ok');
+          }
         })
         .then(data => {
-            if (data.Exist) {
-                errorElement.textContent = "Brand name already exists.";
-            } else if (data.NotExist) {
-                document.querySelector("[for='brand']").submit();
-            }
+          if (data.Exist) {
+            errorElement.textContent = "Brand name already exists.";
+          } else if (data.NotExist) {
+            document.querySelector("[for='brand']").submit();
+          }
         })
         .catch(error => {
-            console.error('Fetch error:', error);
+          console.error('Fetch error:', error);
         });
     }
-   
+
 
     return false;
-}
+  }
 
 
 

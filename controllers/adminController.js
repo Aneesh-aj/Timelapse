@@ -397,13 +397,22 @@ const watchtypeEdit = async (req, res) => {
   try {
 
     console.log("edit controller")
+    console.log("entering to the form ")
 
     const id = req.body._id
+    console.log("valuess",req.body.watch_type)
     console.log("the id ", id)
-    console.log("offer",req.body.offer)
-    const offer = parseFloat(req.body.offer);
-    const watchType = await watchTypeModel.updateOne({ _id: id }, { $set: { watch_type: req.body.watch_type,offer:offer } })
-    console.log("updated value", watchType)
+
+
+    console.log("the query params",req.query.id)
+
+    const watchType = await watchTypeModel.findOneAndUpdate(
+      { _id: id },
+      { $set: { watch_type: req.body.watch_type } },
+      { new: true } 
+    );
+        console.log("updated value", watchType)
+    
     res.redirect("/admin/category")
 
   } catch (error) {
