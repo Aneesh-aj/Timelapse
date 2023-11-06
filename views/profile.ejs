@@ -241,88 +241,78 @@
 
 
                     </div>
-                    <div class="modal fade" id="myModals<%= i %>" tabindex="-1" aria-labelledby="exampleModalLabel<%= i %>" aria-hidden="true"
-                      >
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <!-- Modal Header -->
-                          <div class="modal-header">
-                            <h5 class="modal-title fs-5" id="exampleModalLabel<%= i %>">Edit Address</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <!-- Modal Body -->
-                          <div class="modal-body">
-                          <form method="post" action="/editAddress">
-                            
-                              <div class="mb-3">
-                                <label for="address" class="col-form-label">Address:</label>
-                                <input type="text" class="form-control" id="address" name="address1"
-                                  placeholder="<%=address.address[i].first_address %>">
-                                <input type="hidden" name="userid" value="<%=userid._id %>">
-                                <input type="hidden" name="addressid" value="<%= address.address[i]._id %>">
-                              </div>
-                              <div class="mb-3">
-                                <label for="Country" class="col-form-label">Country</label>
-                                <select name="country" id="" class="form-control"
-                                  aria-placeholder="<%= address.address[i].country %>">
 
-                                  <option value="india">india</option>
-                                  <option value="srilanka">srilanka</option>
-                                  <option value="America">America</option>
-                                  <option value="china"> China</option>
-                                </select>
-                              </div>
-                              <div class="mb-3">
-                                <label for="State" class="col-form-label">Country</label>
-                                <select name="state" id="" class="form-control"
-                                  aria-placeholder="<%= address.address[i].state %>">
-
-                                  <option value="kerala">kerala</option>
-                                  <option value="karnataka">karnataka</option>
-                                  <option value="tamilnadu">tamilnadu</option>
-                                  <option value="maharashtra"> maharashtra</option>
-                                </select>
-                              </div>
-                              <div class="mb-3 d-flex">
-                                <div class="flex-grow-1">
-                                  <label for="district" class="col-form-label">District:</label>
-                                  <select name="district" id="district" class="form-control"
-                                    aria-placeholder="<%=address.address[i].district%>">
-                                    <option value="malappuram">Malappuram</option>
-                                    <option value="kozhikode">Kozhikode</option>
-                                    <option value="wayanad">Wayanad</option>
-                                    <option value="kannur">Kannur</option>
-                                  </select>
-                                </div>
-                                <div class="flex-grow-1 ps-3">
-                                  <label for="pincode" class="col-form-label">Pincode:</label>
-                                  <input type="text" class="form-control" id="pincode"
-                                    placeholder="<%= address.address[i].pincode %>">
-                                </div>
-                              </div>
-                              <div class="mb-3">
-                                <label class="col-form-label">Town:</label>
-                                <input class="form-control" name="town" placeholder="<%= address.address[i].town%>">
-                              </div>
-                              <div>
-                                <label class="col-form-label">Locality:</label>
-                                <input class="form-control" name="locality"
-                                  placeholder="<%= address.address[i].locality %>">
-                              </div>
-
-                            
-
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                          </form>
-                        </div>
-                        </div>
-                      </div>
-                    </div>
+           
 
                     
+
+
+
+                    <!-- <form method="post" action="/editAddress">
+                            
+                      <div class="mb-3">
+                        <label for="address" class="col-form-label">Address:</label>
+                        <input type="text" class="form-control" id="address" name="address1"
+                          placeholder="<%=address.address[i].first_address %>">
+                        <input type="hidden" name="userid" value="<%=userid._id %>">
+                        <input type="hidden" name="addressid" value="<%= address.address[i]._id %>">
+                      </div>
+                      <div class="mb-3">
+                        <label for="Country" class="col-form-label">Country</label>
+                        <select name="country" id="" class="form-control"
+                          aria-placeholder="<%= address.address[i].country %>">
+
+                          <option value="india">india</option>
+                          <option value="srilanka">srilanka</option>
+                          <option value="America">America</option>
+                          <option value="china"> China</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="State" class="col-form-label">Country</label>
+                        <select name="state" id="" class="form-control"
+                          aria-placeholder="<%= address.address[i].state %>">
+
+                          <option value="kerala">kerala</option>
+                          <option value="karnataka">karnataka</option>
+                          <option value="tamilnadu">tamilnadu</option>
+                          <option value="maharashtra"> maharashtra</option>
+                        </select>
+                      </div>
+                      <div class="mb-3 d-flex">
+                        <div class="flex-grow-1">
+                          <label for="district" class="col-form-label">District:</label>
+                          <select name="district" id="district" class="form-control"
+                            aria-placeholder="<%=address.address[i].district%>">
+                            <option value="malappuram">Malappuram</option>
+                            <option value="kozhikode">Kozhikode</option>
+                            <option value="wayanad">Wayanad</option>
+                            <option value="kannur">Kannur</option>
+                          </select>
+                        </div>
+                        <div class="flex-grow-1 ps-3">
+                          <label for="pincode" class="col-form-label">Pincode:</label>
+                          <input type="text" class="form-control" id="pincode"
+                            placeholder="<%= address.address[i].pincode %>">
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="col-form-label">Town:</label>
+                        <input class="form-control" name="town" placeholder="<%= address.address[i].town%>">
+                      </div>
+                      <div>
+                        <label class="col-form-label">Locality:</label>
+                        <input class="form-control" name="locality"
+                          placeholder="<%= address.address[i].locality %>">
+                      </div>
+
+                    
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </form> -->
 
 
                     <% } %>
@@ -333,6 +323,30 @@
 
         </div>
       </div>
+
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+     
 
       <!-- Button trigger modal -->
 

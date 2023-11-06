@@ -336,11 +336,9 @@ const verificatioinResend = (async (req, res) => {
         res.redirect('/verification'); // Handle the error gracefully
     }
 });
-
 const showCollection = async (req, res) => {
     try {
         const watchtype = await watchtypeModel.find({ list: true });
-        
 
         const page = parseInt(req.query.page) || 1;
         const pr1 = parseInt(req.query.price1) || 0;
@@ -350,8 +348,7 @@ const showCollection = async (req, res) => {
         const searchvalue = req.query.searchvalue || '';
 
         let filterQuery = { list: true };
-        
-        
+
         var message;
 
         if (pr1 !== 0 || pr2 !== Infinity) {
@@ -372,48 +369,52 @@ const showCollection = async (req, res) => {
             const regex = new RegExp(searchvalue, 'i');
             filterQuery.$and = [
                 { product_name: { $regex: regex } },
-                { brand: { $in: await brandModel.find({ brand_category: regex }, '_id') } }
+                { brand: { $in: await brandModel.find({ brand_category: regex }, '_id') }}
             ];
         }
+
+        console.log("filterQuery:", filterQuery);
+
         const itemsPerPage = 8; // Define itemsPerPage before using it
         const skip = (page - 1) * itemsPerPage;
 
         const database = await productModel.aggregate([
             {
-              $match: {
-                list: true, // Filter products with list: true
-              },
+                $match: filterQuery, // Use filterQuery here
             },
             {
-              $lookup: {
-                from: 'watchtypes',
-                localField: 'watch_type',
-                foreignField: '_id',
-                as: 'watch_type',
-              },
+                $lookup: {
+                    from: 'watchtypes',
+                    localField: 'watch_type',
+                    foreignField: '_id',
+                    as: 'watch_type',
+                },
             },
             {
-              $lookup: {
-                from: 'brands',
-                localField: 'brand',
-                foreignField: '_id',
-                as: 'brand',
-              },
+                $lookup: {
+                    from: 'brands',
+                    localField: 'brand',
+                    foreignField: '_id',
+                    as: 'brand',
+                },
             },
             {
-              $match: {
-                'watch_type.list': true, // Filter watch types with list: true
-                'brand.list': true, // Filter brands with list: true
-              },
+                $match: {
+                    'watch_type.list': true, // Filter watch types with list: true
+                    'brand.list': true, // Filter brands with list: true
+                },
             },
             {
-              $skip: skip,
+                $skip: skip,
             },
             {
-              $limit: itemsPerPage,
+                $limit: itemsPerPage,
             },
-          ]);
-  console.log("the database",database)
+            // Add any other necessary aggregation stages here
+        ]);
+
+        // Debugging: Print database to check if the filtered data is as expected
+        console.log("database:", database);
 
         const totalItems = await productModel.countDocuments(filterQuery); // Count total items
         const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -429,7 +430,6 @@ const showCollection = async (req, res) => {
         if (watchType.length != 0) {
             var watch = await watchtypeModel.findOne({ _id: watchType }, { watch_type: 1 });
         }
-        console.log("database",database)
 
         console.log("totalItems:", totalItems);
         console.log("totalPages:", totalPages);
@@ -441,7 +441,6 @@ const showCollection = async (req, res) => {
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 };
-
 
 
 const wallet = async (req, res) => {
