@@ -54,9 +54,12 @@ const homepageview = async (req, res) => {
     try {
        
         console.log("home showing")
-        const product = await productModel.find({}).limit(4)
+        const product = await productModel.find({list:true}).sort({_id:1}).limit(4)
         const banner = await bannerModel.find({}).sort({ index: 1 });
-        res.render("homePage", { product, banner })
+        const men = await productModel.find({gender:"men",list:true}).sort({_id:-1}).limit(4)
+        const women = await productModel.find({gender:'women',list:true}).sort({_id:-1}).limit(4)
+        const user = await usersModel.findOne({email:req.session.email})
+        res.render("homePage", { user,men,product, banner,women})
 
     } catch (error) {
         console.error(error, "9")
@@ -338,6 +341,9 @@ const verificatioinResend = (async (req, res) => {
 });
 const showCollection = async (req, res) => {
     try {
+          console.log("its comihg to collection")
+
+
         const watchtype = await watchtypeModel.find({ list: true });
 
         const page = parseInt(req.query.page) || 1;
@@ -346,6 +352,7 @@ const showCollection = async (req, res) => {
         const gender = req.query.gender || '';
         const watchType = req.query.watch_type || '';
         const searchvalue = req.query.searchvalue || '';
+        console.log("the search query")
 
         let filterQuery = { list: true };
 
@@ -364,14 +371,18 @@ const showCollection = async (req, res) => {
                 filterQuery.watch_type = new mongoose.Types.ObjectId(watchType);
             }
         }
-
+        console.log("filter query before",filterQuery)
         if (searchvalue !== '') {
             const regex = new RegExp(searchvalue, 'i');
-            filterQuery.$and = [
-                { product_name: { $regex: regex } },
-                { brand: { $in: await brandModel.find({ brand_category: regex }, '_id') }}
+            filterQuery.$or = [
+                { product_name: { $regex: regex } }, // Search in the products collection
+                { brand_category: { $regex: regex } } // Search in the brands collection
             ];
         }
+        
+        
+        
+        
 
         console.log("filterQuery:", filterQuery);
 
@@ -433,8 +444,8 @@ const showCollection = async (req, res) => {
         console.log("totalItems:", totalItems);
         console.log("totalPages:", totalPages);
         console.log("currentPage:", currentPage);
-
-        res.render("productCollection", { database, slicedData, totalPages, currentPage, watchtype, watch, pr1, pr2, gender, watchType, searchvalue, message });
+        const user = await usersModel.findOne({email:req.session.email})
+        res.render("productCollection", { user,database, slicedData, totalPages, currentPage, watchtype, watch, pr1, pr2, gender, watchType, searchvalue, message });
     } catch (error) {
         console.error("Error in showCollection route:", error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));

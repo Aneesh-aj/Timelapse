@@ -8,7 +8,13 @@
     <title>login</title>
 </head>
 <body>
-
+    <style>
+        #timer {
+            font-size: 24px;
+            color: #007BFF;
+            margin-right: 10px;
+        }
+    </style>
    <content>
        <div class="container-fluid   " id="body-color">
            <div class="container-xl d-flex h-auto  profile-main">
@@ -32,14 +38,57 @@
                                 </div>
                             </form>
                             <div class="form-link">
-                                <span><a href="/resend-otp" class="link signup-link">Resend OTP</a></span>
+                                <span id="timer"></span>
+                                <a href="/resend-otp" class="btn btn-primary link signup-link" id="resend-otp-button" style="display: none;">Resend OTP</a>
                             </div>
+                            
+                            
+                            
                         </div>
                     </div>
                </div>
        </div>
        
    </content>
-  
+   <script>
+    function startTimer(duration, timerDisplay, resendButton) {
+        let timer = duration;
+        const timerInterval = setInterval(function () {
+            let minutes = parseInt(timer / 60, 10);
+            let seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            timerDisplay.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                clearInterval(timerInterval);
+                timerDisplay.style.display = "none";
+                resendButton.style.display = "inline";
+            }
+        }, 1000);
+    }
+
+    window.onload = function () {
+        const oneAndHalfMinutes = 90; // 1.5 minutes in seconds
+        const timerDisplay = document.getElementById("timer");
+        const resendButton = document.getElementById("resend-otp-button");
+
+        // Start the timer for 1.5 minutes when OTP is sent
+        startTimer(oneAndHalfMinutes, timerDisplay, resendButton);
+
+        resendButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            timerDisplay.style.display = "inline";
+            resendButton.style.display = "none";
+            // Start the timer again when "Resend OTP" is clicked
+            startTimer(oneAndHalfMinutes, timerDisplay, resendButton);
+        });
+    };
+</script>
+
+
+
 </body>
 </html>

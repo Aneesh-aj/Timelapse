@@ -15,18 +15,15 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/boxicons/2.0.7/css/boxicons.min.css">
 
   <link rel="stylesheet" href="/style.css" class="style">
-  <link rel="stylesheet" href="/style.css" class="style">
   <title>user product-managment</title>
 </head>
 
 <body>
 
- 
-  <%- include('navbar.ejs') %>
-  <content class="nav-height" >
+   <%- include('navbar.ejs') %>
 
+  <content class="nav-height">
     <div class="banner-height w-100" >
-
 
       <div id="carouselExampleAutoplaying" class="carousel slide banner-height" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -152,9 +149,109 @@
         </div>
       </div>
     </div>
-    <div class="banner-2 bg-white">
+   
+    <div class="white ">
+      <div class=" d-flex bg-white justify-content-center">
+        <h1 class="latest-product-text p-2  pt-lg-5">Latest Men watches</h1>
+      </div>
+      <div class="container pt-3">
+        <div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-4 g-3 ">
+          <% for(let i=0;i < men.length; i++) {%>
+            <div class="col mb-3">
+              <div class="card">
+                <div class="card-body latest-product-card"
+                  style="background-image: url(/filename/<%=men[i].product_image[0]%>);aspect-ratio: 1;"></div>
+                <div class="">
+                  <div class=" d-flex latest-product-subdiv ">
+                    <label class="latest-product-subtext">
+                      <%=men[i].product_name %>
+                    </label>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <a href="/product?id=<%=men[i]._id%>" class="rounded-1 home-cardbuttonview home-card-text2">
+                      <label class="home-card-text2">view</label>
+
+                      <svg class="svg-size2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);">
+                        <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z">
+                        </path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <%} %>
+
+        </div>
+      </div>
+    </div>
+    <div class="bg-white " style="height:3rem; width: 100%;">
+
+    </div>
+    <div class="white ">
+      <div class=" d-flex bg-white justify-content-center">
+        <h1 class="latest-product-text p-2  pt-lg-5">Latest womens watches</h1>
+      </div>
+      <div class="container pt-3">
+        <div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-4 g-3 ">
+          <% for(let i=0;i < women.length; i++) {%>
+            <div class="col mb-3">
+              <div class="card">
+                <div class="card-body latest-product-card"
+                  style="background-image: url(/filename/<%=women[i].product_image[0]%>);aspect-ratio: 1;"></div>
+                <div class="">
+                  <div class=" d-flex latest-product-subdiv ">
+                    <label class="latest-product-subtext">
+                      <%=women[i].product_name %>
+                    </label>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <a href="/product?id=<%=women[i]._id%>" class="rounded-1 home-cardbuttonview home-card-text2">
+                      <label class="home-card-text2">view</label>
+
+                      <svg class="svg-size2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);">
+                        <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z">
+                        </path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <%} %>
+
+        </div>
+      </div>
     </div>
   </content>
+  <footer>
+    <div class="container-fluid footer-color">
+      <div class="container d-flex ">
+        <div class="">
+          <div class="footer-div1 d-flex justify-content-center">
+            <h1 class="heading  pt-4">About us</h1>
+          </div>
+          <div class="footer-div1">
+
+            <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch
+              Universe, we're passionate about bringing you the finest selection of watches that blend elegance,
+              precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's
+              most stunning watches with watch enthusiasts and collectors alike.</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid footer-color d-flex justify-content-center">
+      <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+    </div>
+  </footer>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

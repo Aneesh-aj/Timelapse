@@ -3,67 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Document</title>
     <link rel="stylesheet" href="/style2.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
-
 </head>
 <body>
         <header class=" header  w-100" id="header" >
-            <nav class="navbar " style="width: 90%;">
+            <nav class="navbar container">
                <a href="" class="brand">TimeLapse</a>
                <div class="burger" id="burger">
-                  <span class="burger-line"></span>
+                  <span class="burger-line"></span>  
                   <span class="burger-line"></span>
                   <span class="burger-line"></span>
                </div>
                <span class="overlay"></span>
                <div class="menu" id="menu">
                   <ul class="menu-inner">
-                     <li> 
-
-                           <div class="input-group rounded">
-                              <input type="search" class="form-control rounded" id="searching" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                              <span class="input-group-text border-0" id="search-addon">
-                                <i class="bx bx-search " onclick="search()"></i>
-                              </span>
-                            </div>
-                        
-                     </li>
                      <li class="menu-item"><a class="menu-link" href="/home">Home</a></li>
                      <li class="menu-item"><a class="menu-link" href="/collection">collection</a></li>
                      <li class="menu-item"><a class="menu-link" href="/collection?gender=men">mens</a></li>
                      <li class="menu-item"><a class="menu-link" href="/collection?gender=women">women</a></li>
                      <li class="menu-item"><a class="menu-link" href="/collection?gender=kids">kids</a></li>
-                     <li class="menu-item ">
-                        <div>
-                           <%if(user){ %>
-                              <button class="btn btn-primary mb-1" id="postButton">logout</button>                   
-   
-                           <%}%>
-                        </div>
-                  </li>
-                   
+                     <li class="menu-item"><a class="menu-link" href="/profile">profile</a></li>
+
+
                   </ul>
                </div>
-               <span>
-                  <ul class="menu-inner2">
-                     <%if(user){%>
-                        <li class="menu-item  "><a class="menu-link" href="/cart"><img src="/shopping-cart (3).png" alt=""></a></li>
-
-                        <%}%>
-                     <li class="menu-item "><a class="menu-link" href="/profile"><img src="/user.png" alt=""></a></li>
-                    
-                  </ul>
-               </span>
-              
+               <span><i class="bx bx-search search-toggle"></i></span>
+               <div class="search-block">
+                  <form class="search-form">
+                     <span><i class="bx bx-arrow-back search-cancel"></i></span>
+                     <input type="search" name="search" class="search-input" placeholder="Search here...">
+                  </form>
+               </div>
+               <div>
+                    <button class="btn btn-primary" id="postButton2">logout</button>                   
+               </div>
             </nav>
          </header>
     <script>
 
-
-document.getElementById('postButton').addEventListener('click', function() {
+document.getElementById('postButton2').addEventListener('click', function() {
   fetch('/logout', {
     method: 'POST',
     headers: {
@@ -91,13 +70,7 @@ document.getElementById('postButton').addEventListener('click', function() {
 });
 
 
-      function search(){
-          const inputvalue = document.getElementById('searching').value
-          console.log("search key",inputvalue)
-          
-          window.location.href=`/collection?searchvalue=${inputvalue}`
 
-      }
         // Open and Close Navbar Menu
 const navbarMenu = document.getElementById("menu");
 const burgerMenu = document.getElementById("burger");
