@@ -410,16 +410,15 @@ const showCollection = async (req, res) => {
             {
                 $limit: itemsPerPage,
             },
-            // Add any other necessary aggregation stages here
+            
         ]);
 
-        // Debugging: Print database to check if the filtered data is as expected
         console.log("database:", database);
 
         const totalItems = await productModel.countDocuments(filterQuery); // Count total items
         const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-        // Correct setting of currentPage
+     
         let currentPage = page;
         if (currentPage > totalPages) {
             currentPage = totalPages;
