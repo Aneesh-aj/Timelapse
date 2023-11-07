@@ -776,6 +776,9 @@ const checkoutView = async (req, res) => {
         console.log("befroe  the condition ", totalprice)
         if (!singleproductid) {
             for (let i = 0; i < user.cart.length; i++) {
+                console.log("i and totalprice",i,"-",totalprice)
+                console.log("and teh other think like sellinprice",user.cart[i].sellingprice )
+                console.log("and the other qnt ",user.cart[i].quantity)
                 totalprice += user.cart[i].sellingprice * user.cart[i].quantity
                 totalpriceChecking += user.cart[i].sellingprice * user.cart[i].quantity
             }
@@ -810,7 +813,7 @@ const checkoutView = async (req, res) => {
         console.log("and the user id is ", user._id)
 
 
-
+      console.log("the total",totalprice)
         const coupon = await couponModel.find({})
         let discountamount = 0
         res.render("checkoutpage", { discountamount,totalpriceChecking, user, qnt, coupon, totalprice, address, singleproduct, singleproductid })

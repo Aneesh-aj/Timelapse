@@ -75,6 +75,23 @@
     color: #131313;
     cursor: pointer;
   }
+
+  @media screen and (max-width:500px) {
+   
+     .header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  z-index: -1 !important;
+  margin: 0 auto;
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-medium);
+}
+
+  }
+
  
   
 </style>
@@ -83,17 +100,17 @@
   <%- include('navbar.ejs') %>
     <content class="nav-height">
       <div class="container-fluid d-flex justify-content-center " style="background-color: #F1F3F6;">
-        <div class="container d-flex  justify-content-center">
+        <div class="container  d-lg-flex  justify-content-center">
           <div class=" checkout-div   h-auto  ">
 
             <div class=" bx-sh mb-3 rounded-1  w-100" style="height:auto;">
               <div class="d-flex j  pt-3 pe-3 ps-3">
                 <div class="w-50">
-                  <h5>order address</h5>
+                  <h5 class="order-heading">order address</h5>
                 </div>
                 <div class=" w-50 d-flex justify-content-end">
 
-                  <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                  <button type="button" class="btn btn-outline-primary mb-2" data-toggle="modal"
                     data-target="#exampleModalnew">
                     add
                   </button>
@@ -107,19 +124,26 @@
                     <div class=" d-flex  p-3">
                       <div class="w-75 d-flex align-items-center">
                         <input type="checkbox" class="me-2 address-checkbox" data-address-id="<%= address[i]._id %>">
-                        <%= address[i].first_address %>,
+                         <p class="product-para m-0 p-0">
+                          <%= address[i].first_address %>,
                           <%= address[i].country %>,
                             <%= address[i].state %>,
                               <%= address[i].town %>
+                         </p>
                       </div>
 
-                      <div class="d-flex justify-content-end w-25">
-                        <button type="button" class="btn btn-outline-primary me-2" data-toggle="modal"
+                      <div class="d-lg-flex justify-content-end w-25">
+                        <div class="">
+                          <button type="button" class="btn  mb-2  btn-outline-primary me-2" data-toggle="modal"
                           data-target="#exampleModalCenter<%=i%>">
                           edit
                         </button>
-                        <button class="btn btn-primary"
+                        </div>
+                        <div>
+                          <button class="btn btn-primary"
                           onclick="deleteAddress( '<%=i%>', '<%=user._id %>')">delete</button>
+                        </div>
+          
                       </div>
                     </div>
 
@@ -208,15 +232,15 @@
             </div>
             <div class="h-auto bx-sh">
               <% if(singleproduct){ %>
-                <div class="rounded-1 w-100 d-flex pt-3 pb-3">
-                  <div class="d-flex justify-content-center " style="width: 25%; height: 8rem;">
-                    <div class="bg-danger" style="width: 6rem; height: 6rem; object-fit: contain;">
+                <div class="rounded-1 w-100 d-flex pt-3  pb-lg-3 pb-sm-0 pb-md-0">
+                  <div class="checkout-img-main " >
+                    <div class="checkout-img" >
                       <% if (singleproduct) { %>
                         <img class="checkout-image" src="/filename/<%=singleproduct.product_image[0] %>">
                         <% } %>
                     </div>
                   </div>
-                  <div class="" style="width: 75%; height: 10rem;">
+                  <div class="checkout-cart-div" >
                     <div class="w-100 h-25">
                       <h4>
                         <%= singleproduct.product_name %>
@@ -290,28 +314,28 @@
                       <input type="hidden" class="cart" name="cartvalue" value="<%= cartJSON %>">
                       <% for (let i=0; i < cart.length; i++) { %>
 
-                        <div class="rounded-1 w-100 d-flex pt-3 pb-3">
-                          <div class="d-flex justify-content-center" style="width: 25%; height: 9rem;">
-                            <div class="" style="width: 8rem; height: 11rem; object-fit: contain;">
+                        <div class="rounded-1 bg- w-100 d-flex pt-3 pb-lg-3 pb-sm-0 pb-md-0">
+                          <div class="checkout-img-main" >
+                            <div class="checkout-img">
                               <% if (cart[i].product_id && cart[i].product_id.product_image.length> 0) { %>
                                 <img style="height: 100%; width: 85%;"
                                   src="/filename/<%= cart[i].product_id.product_image[0] %>">
                                 <% } %>
                             </div>
                           </div>
-                          <div class="" style="width: 75%; height: 10rem;">
-                            <div class="w-100 h-25">
+                          <div class="checkout-cart-div">
+                            <div class="w-100 h-25 ">
                               <h4>
                                 <%= cart[i].product_id.product_name %>
                               </h4>
                             </div>
-                            <div class="w-100 h-25">
+                            <div class="w-100 h-25 ">
                               <p class="">color : <%=cart[i].product_id.strap_color %>
                               </p>
 
                             </div>
-                            <div class="w-100 h-25">
-                              <h5 class="proudct-price">&#8377
+                            <div class="w-100 h-25 ">
+                              <h5 class="proudct-price ">&#8377
                                 <% if(cart[i].product_id.price==cart[i].product_id.sellingprice){ %>
 
                                   <span class="">
@@ -328,7 +352,7 @@
                               </h5>
 
                             </div>
-                            <div class="w-100 h-25 d-flex ">
+                            <div class="w-100 h-25 d-flex  ">
                               <div class=" quatity-select">
                                 <select class="w-100  bt-class " name="quantity"
                                   onchange="quantityChanged(this,'<%=i%>')">
@@ -380,8 +404,8 @@
                     coupons
                   </button>
 
-                  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-                    aria-labelledby="offcanvasExampleLabel">
+                  <div class="offcanvas offcanvas-start zth-index" tabindex="-1" id="offcanvasExample"
+                    aria-labelledby="offcanvasExampleLabel" >
                     <div class="offcanvas-header">
                       <h5 class="offcanvas-title heading" id="offcanvasExampleLabel">coupons</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
