@@ -36,7 +36,60 @@ body{
     height: 400px;
     background-position: center;
  }
+ .input-box2{
+    border: #000 solid 1px;
+    padding-left: 10px;
+    width: 75%;
+    border-radius: 1rem;
+    height:2rem;
+
+    
+ }
+ .delete-wishlist{
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.8rem;
+}
+.adding-cart{
+    
+    width: 2rem;
+    height: 2rem;
+}
+.showing-img{
+    width: 6rem;
+    height: 9rem;
+    margin: 2rem;
+}
+
+ .amount-h2{
+    font-family: 'Roboto', sans-serif;
+     font-weight: 800;
+     font-size: 20px;
+     color: red;
+     text-decoration: line-through;
+}
+ .wishlist-maindiv{
+    padding:2rem;
+    display: flex;
+    justify-content: space-evenly;
+  }
+ .wallet-label{
+    font-size: 40px;
+    font-weight: bolder;
+}
+.wishlist-div{
+    height: 3rem;
+    width: 3.4rem;
+}
+.wishlist-div2{
+    width: 50%;
+    padding-left: 1rem;
+}
  
+.amount-h1{
+    font-family: 'Roboto', sans-serif;
+     font-weight: 800;
+}
  
  .four_zero_four_bg h1{
  font-size:80px;
@@ -1992,7 +2045,14 @@ footer {
 }
 
 @media screen and (max-width: 690px) {
+    .input-box2{
+        border: #000 solid 1px;
+        padding-left: 10px;
+        width: 75%;
+        border-radius: 1rem;
+        height:2rem;
     
+     }
 
     .home-card {
         border-radius: 3px;
@@ -2067,6 +2127,13 @@ footer {
 
 
 @media screen and (max-width:550px) {
+    .side-subdiv{
+        min-height: 18vh;
+        width: 100%;
+        display:none !important;
+        border-radius: 3px;
+    
+    }
     .checkout-div {
         width: 100%;
         height: autob;
@@ -2593,6 +2660,10 @@ footer {
         position: relative;
 
     }
+    .wallet-label{
+        font-size: 20px;
+        font-weight: bolder;
+    }
 
     .profile-selection {
         width: 100%;
@@ -2634,18 +2705,6 @@ footer {
     }
 
 
-    .sidebar {
-
-        min-height: 100vh;
-        width: 60px;
-        padding-right: 12px;
-
-        background-color: var(--color-default);
-        transition: all .5s ease;
-        position: absolute;
-        z-index: 2;
-
-    }
 
     .home-section {
         position: static;
@@ -2662,6 +2721,46 @@ footer {
         /* z-index: 2; */
     }
 
+   
+
+
+
+
+
+  
+
+
+
+    .side-subdiv{
+        min-height: 18vh;
+        width: 100%;
+        display:none !important;
+        border-radius: 3px;
+    
+    }
+    .side-subdiv2{
+        background-color: white;
+        margin-top: 0.5rem;
+        padding-top: 0.2rem;
+        height: 80vh;
+        border-radius: 5px;
+        
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.0);
+        
+    }
+
+    .sidebar {
+
+        min-height: 100vh;
+        width: 60px;
+        padding-right: 12px;
+
+        background-color: var(--color-white);
+        transition: all .5s ease;
+        position: absolute;
+        z-index: 2;
+
+    }
     .sidebar.open {
         position: absolute;
         width: 210px;
@@ -2673,6 +2772,7 @@ footer {
         display: flex;
         align-items: center;
         position: relative;
+        display: none;
     }
 
     .sidebar .logo_details .icon {
@@ -2691,7 +2791,7 @@ footer {
     }
 
     .sidebar i {
-        color: var(--color-white);
+        color: var(--color-black);
         height: 60px;
         line-height: 60px;
         min-width: 0px;
@@ -2889,9 +2989,166 @@ footer {
         color: white;
         font-weight: bolder;
     }
+
+    .input-box2{
+        border: #000 solid 1px;
+        padding-left: 10px;
+        width: 75%;
+        border-radius: 1rem;
+        height:2rem;
+        margin-bottom: 0.5rem;
+    
+     }
+    .wallet-label{
+        font-size: 20px;
+        font-weight: bolder;
+    }
+    
+
+    .wishlist-div2{
+        width: 80%;
+        padding-left: 2rem;
+    }
+    .amount-h1{
+        font-family: 'Roboto', sans-serif;
+         font-weight: 800;
+         font-size: 20px;
+    }
+    .amount-h2{
+        font-family: 'Roboto', sans-serif;
+         font-weight: 800;
+         font-size: 15px;
+         color: red;
+         text-decoration: line-through;
+    }
+    .wishlist-maindiv{
+      padding:1rem;
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .delete-wishlist{
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.5rem;
+    }
+    .adding-cart{
+        
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    .card-text{
+        font-size: 13px;
+    }
+    .product-lab{
+        color: rgb(128, 128, 128);
+        margin: 0;
+    }
+    .product-para{
+        padding-left: 0.5rem;
+        font-size: 20px;
+        font-weight: 900;
+        color: rgb(32, 32, 32);
+       
+    }
+    .showing-img{
+        width: 3rem;
+        height: 5rem;
+        margin: 0rem;
+    }
+     
+    .footer-para{
+        font-size: 10px;
+    }
+    .footer-subpara{
+        font-size: 12px;
+        padding: 1rem;
+    }
+    
+  
+
+  
 }
 
 @media screen and (max-width:400px) {
+    .product-lab{
+        color: rgb(128, 128, 128);
+        margin: 0;
+    }
+    .product-para{
+        padding-left: 0.5rem;
+        font-size: 20px;
+        font-weight: 900;
+        color: rgb(32, 32, 32);
+       
+    }
+    .showing-img{
+        width: 3rem;
+        height: 5rem;
+        margin: 0rem;
+    }
+    
+    .footer-para{
+        font-size: 10px;
+    }
+    .footer-subpara{
+        font-size: 12px;
+        padding: 1rem;
+    }
+    .card-text{
+        font-size: 12px;
+    }
+    .delete-wishlist{
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.5rem;
+    }
+    .adding-cart{
+        
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    .wallet-label{
+        font-size: 18px;
+        font-weight: bolder;
+    }
+    .amount-h1{
+        font-family: 'Roboto', sans-serif;
+         font-weight: 800;
+         font-size: 20px;
+    }
+    .amount-h2{
+        font-family: 'Roboto', sans-serif;
+         font-weight: 800;
+         font-size: 15px;
+         color: red;
+         text-decoration: line-through;
+    }
+    .wishlist-maindiv{
+      padding:1rem;
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .wishlist-div2{
+        width: 80%;
+        padding-left: 1rem;
+    }
+    .wishlist-div{
+        height: 3rem;
+        width: 3.4rem;
+    }
+    .input-box2{
+        border: #000 solid 1px;
+        padding-left: 10px;
+        width: 75%;
+        border-radius: 1rem;
+        height:2rem;
+        margin-bottom: 0.5rem;
+    
+     }
+    .wallet-label{
+        font-size: 20px;
+        font-weight: bolder;
+    }
     .profile-wallet{
         display: block;
         
@@ -2946,7 +3203,7 @@ footer {
     .side-subdiv2{
         background-color: white;
         margin-top: 0.5rem;
-        padding-top: 1rem;
+        padding-top: 0.2rem;
         height: 80vh;
         border-radius: 5px;
         
@@ -3511,19 +3768,7 @@ footer {
         width: 100%;
         /* background-color: rgb(139, 233, 131); */
     }
-    .sidebar {
-
-        min-height: 100vh;
-        width: 60px;
-        padding-right: 12px;
-
-        background-color: var(--color-white);
-        transition: all .5s ease;
-        position: absolute;
-        z-index: 2;
-
-    }
-
+    
     .home-section {
         position: static;
         /* background-color: var(--color-body); */
@@ -3538,7 +3783,19 @@ footer {
         
         /* z-index: 2; */
     }
+    
+    .sidebar {
 
+        min-height: 100vh;
+        width: 60px;
+        padding-right: 12px;
+
+        background-color: var(--color-white);
+        transition: all .5s ease;
+        position: absolute;
+        z-index: 2;
+
+    }
     .sidebar.open {
         position: absolute;
         width: 210px;

@@ -1,7 +1,7 @@
 const express = require("express")
 const session = require("express-session")
 const mongoose = require("mongoose")
-const nocache = require("nocache")
+const nocache = require('nocache')
 
 
 const app = express()
@@ -35,12 +35,18 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 
+app.use(nocache())
+app.use((req, res, next) => {
+    res.set("Cache-control", "no-store,no-cache")
+    next()
+})
 
 // const { admin } = require("googleapis/build/src/apis/admin");
 app.use(cookieParser())
 app.use("/",require("./Router/router"))
 
 app.use("/admin", require("./Router/adminRouter"))
+
 
 
 app.use("/internalerror",(req,res)=>{
@@ -55,5 +61,9 @@ app.use((req,res)=>{
     res.status(404)
     res.render("errorpage")
 })
+
+
+
+
 
 app.listen(3000,()=>console.log("http://localhost:3000"))

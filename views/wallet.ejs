@@ -87,13 +87,13 @@
                 <div class="container-width ">
                     <%- include('sidebar.ejs') %>
                         <section class="home-section ">
-                            <div class="profile-div3  bg-white  pt-3 d-flex justify-content-center">
+                            <div class="profile-div3  h-auto bg-white pt-3 d-flex justify-content-center">
                                 <div class="w-100 box-shadows rounded-2 bg-white pt-1 pb-3 ps-2 profile-wallet">
                                     <div class="wallet-container d-flex justify-content-center">
                                         <div class=" wallet-head  " style=" ">
                                             <div class="wallet-head-div  d-flex justify-content-center"
                                                 style="background-color: rgb(237, 241, 241);">
-                                                Wallet
+                                               <label class="wallet-label" for="">wallet</label>
                                             </div>
                                             <div class="w-100 ">
                                                 <div class="wallet-div2   d-flex align-items-center ">
@@ -124,15 +124,15 @@
                                             <h1 class="w-100 heading">Refferel code</h1>
                                         </div>
                                         <div class="w-100 d-flex justify-content-center">
-                                            <div class=" " style="width: 50%;  ">
+                                            <div class=" wallet-width" style="  ">
                                                 <p>Apply the refferel code of you frieds , get the perk of 100rs and
                                                     enjoy your shoping experience</p>
                                                 <form id="referralForm">
                                                     
                                                       <%if(user.wallet.reffered == true){ %>
-                                                        <input class="w-75 rounded-2"  style="height: 2rem;" contenteditable="false" placeholder="Reffered" >
+                                                        <input class="input-box2" contenteditable="false" placeholder="Reffered" >
                                                     <% } else{%>
-                                                        <input class="w-75 rounded-2" style="height: 2rem;" type="text"
+                                                        <input class="input-box2" placeholder="Enter Refferal code" type="text"
                                                         name="code">
                                                         <input type="hidden" name="userReferralCode"
                                                         value="<%= user.wallet.refferalcode %>">

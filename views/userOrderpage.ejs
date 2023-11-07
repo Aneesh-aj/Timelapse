@@ -27,43 +27,46 @@
                     <div class="white  profile-div3 h-auto mb-2  " style="height: 42.3rem;">
                         <div class=" w-100 ">
                             <div class="col-lg-12 usr-details">
-                                <div class="card ps-5 pb-3 pt-3">
+                                <div class="card ps-3 box-shadows2 pb-3 pt-3">
                                     <h1 class="heading"> order list</h1>
                     
                                 </div>
                             </div>
                             
                             <% for (let i = user.order.length -1; i >=0; i--) { %>
-                                <div class="card">
+                                <div class="card h-auto mt-3">
                                   <div class="card-body">
                                     <div class="border rounded pb-2">
-                                      <div class="ps-4 p-2 border bg-light">
-                                        <h5 class="card-title">order <%= i + 1 %></h5>
-                                        <div class="d-flex">
-                                          <p class="col-6 card-text">order ID: <a class="text-decoration-none"><%= user.order[i]._id %></a></p>
-                                          <p class="col-6 card-text">order Date: <%= user.order[i].createdAt.toLocaleString() %></p>
+                                      <div class=" border p-2 bg-light">
+                                         <div class="d-flex justify-content-center">
+                                          <h5 class="card-title ">order <%= i + 1 %></h5>
+
+                                         </div>
+                                        <div class="">
+                                          <p class="col-sm-12  col-md-12 p-2 m-0 col-lg-6 card-text ">order ID: <a class="text-decoration-none"><%= user.order[i]._id %></a></p>
+                                          <p class=" col-sm-12 col-md-12 col-lg-6 p-2 m-0 card-text">order Date: <%= user.order[i].createdAt.toLocaleString() %></p>
                                         </div>
                                       </div>
-                                      <div class="ps-4">
+                                      <div class="ps-4 ">
                                         <p class="card-text">No. of items: <%= user.order[i].product.length %></p>
                                         <p class="card-text">Amount: <%= user.order[i].totalamount %></p>
                                         <p class="card-text">Payment method: <%= user.order[i].paymentMethod %></p>
-                                        <div class="d-flex">
-                                          <div>
+                                      
+                                          <div class="col-6">
                                             <label for="status-select">Status: <%= user.order[i].status %></label>
                                           </div>
-                                          <div class="col-6">
+                                          <div class="">
                                             <div class="d-flex justify-content-end">
-                                              <a class="btn btn-primary" href="/order/orderdetails?id=<%=user.order[i]._id %>">viewOrder</a>
+                                              <a class="btn btn-primary m-2" href="/order/orderdetails?id=<%=user.order[i]._id %>">viewOrder</a>
                                               <% if(user.order[i].status != "cancelled" && user.order[i].status !="Delivered" && user.order[i].status != "Shipped"){ %>
-                                                <button class="btn btn-danger" onclick="cancelOrder('<%= user.order[i]._id %>')">Cancel</button>
+                                                <button class="btn btn-danger m-2" onclick="cancelOrder('<%= user.order[i]._id %>')">Cancel</button>
                                               <% } %>
                                               <% if(user.order[i].status == 'Delivered') { %>
-                                                <button class="btn btn-warning" onclick="orderreturnRequest('<%=user.order[i]._id %>')">return</button>
+                                                <button class="btn btn-warning m-2" onclick="orderreturnRequest('<%=user.order[i]._id %>')">return</button>
                                               <% } %>
                                             </div>
                                           </div>
-                                        </div>
+                                       
                                       </div>
                                     </div>
                                   </div>
@@ -96,7 +99,7 @@
                     </div>
                     <div class="footer-div1">
 
-                        <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At
+                        <p class="p-2 footer-para">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At
                             Watch
                             Universe, we're passionate about bringing you the finest selection of watches that blend
                             elegance,
@@ -109,7 +112,7 @@
             </div>
         </div>
         <div class="container-fluid footer-color d-flex justify-content-center">
-            <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+            <p class="footer-subpara">&copy; 2023 All rights reserved.Desined by Aneesh</p>
         </div>
     </footer>
 

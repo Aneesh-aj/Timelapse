@@ -19,181 +19,221 @@
 </head>
 
 <body>
-    <%- include ('navbar.ejs') %>
+  <style>
+   
+    .profile-div3 {
+      width: 100%;
+    }
+
+    .container-width {
+      width: 100%;
+    }
+
+
+@media screen and (max-width:500px) {
+
+    td{
+      font-size: 10px;
+    }
+}
+
+
+  </style>
+  <%- include ('navbar.ejs') %>
     <content>
-  
-           
-    <div class="container-fluid d-flex justify-content-lg-center "  style="padding-top: 5rem;" id="body-color">
-      <div class="container-width ">  
-             <%- include('sidebar.ejs') %>
-             <section class="home-section ">
-    
-                    <div class="white  profile-div3   h-auto mb-3 " style="height: 42.3rem;">
-                        <div class="p-5">
-                            <div class="w-100">
-                              <h1>Order Details</h1>
+
+
+      <div class="container-fluid d-flex justify-content-lg-center " style="padding-top: 5rem;" id="body-color">
+        <div class="container-width bg-white p-3 ">
+
+          <div class="w-100 profile-div3   h-auto mb-3 " style="height: auto;">
+            <div class="">
+              <div class="w-100">
+                <h1>Order Details</h1>
+              </div>
+              <hr>
+              <div class=" row d-flex justify-content-center gap-2">
+                <div class="box-shadows2 col-lg-5 col-md-12 col-sm-12 p-3">
+                  <h1 class="heading">Order information</h1>
+                  <hr>
+                  <div class="d-flex">
+                    <label for="" class="product-lab">Order id:</label>
+                    <p class="product-para"> <%= order._id%>
+                    </p>
+                  </div>
+                  <div class="d-flex">
+                    <label for="" class="product-lab"> Date :</label><label class="product-para">
+                      <%= order.createdAt.toLocaleString()%>
+                    </label>
+                  </div>
+                  <div class-="d-flex">
+                    <label for="" class="product-lab">Payment Method : </label>
+                    <label class="product-para">
+                      <%= order.paymentMethod %>
+                    </label>
+                  </div>
+
+                  <div>
+                    <label for="" class="product-lab">Status :</label><label class="product-para" for=""><%=order.status %></label>
+                  </div>
+
+                </div>
+                <div class="box-shadows2 col-lg-5 col-md-12 col-sm-12 p-3 ">
+                  <h1 class="heading">Shipping information</h1>
+                  <hr>
+                  <p>Name: <%=order.user_id.name %>
+                  </p>
+                  <!-- <P>Address:  <%=order.first_address%>,<%= order.country%>,<%=order.state %>,<%= order.town %>,<%= order.locality %></P> -->
+                  <p>Phone: <%= order.user_id.number %>
+                  </p>
+                </div>
+              </div>
+              <hr>
+              <div>
+                <h1 class="heading">Order items</h1>
+              </div>
+              <table class="table-responsive">
+
+                <tr>
+                  <th>No</th>
+                  <th>image</th>
+                  <th>proudct</th>
+                  <th>price</th>
+                  <th>quantity</th>
+                  <th>Total</th>
+                </tr>
+
+                <tbody>
+                  <%locals.product.product || "" %>
+                    <%if(locals.product.product.length){%>
+                      <% for(let i=0; i < product.product.length;i++){ %>
+                        <tr class="border-bottom ">
+                          <td>
+                            <%=i+1 %>
+                          </td>
+                          <td>
+                            <div style=" object-fit: contain;" class="showing-img">
+                              <img style="width: 100%; height: 100%;"
+                                src="/filename/<%=product.product[i].product_id.product_image[0] %>">
                             </div>
-                            <hr>
-                            <div class="d-flex justify-content-center">
-                              <div class="w-50 ">
-                                <h1 class="heading">Order information</h1>
-                
-                                <p>Order id:  <%= order._id%></p>
-                                <p>Date :   <%= order.createdAt.toLocaleString()%></p>
-                                <p>Payment Method :  <%= order.paymentMethod %></p>
-                                <p>Status :  <%=order.status %></p>
-                              </div>
-                              <div class="w-50 ">
-                                <h1 class="heading">Shipping information</h1>
-                                <p>Name:     <%=order.user_id.name %></p>
-                                <P>Address:  <%=order.first_address%>,<%= order.country%>,<%=order.state %>,<%= order.town %>,<%= order.locality %></P>
-                                <p>Phone:    <%= order.user_id.number %></p>
-                              </div>
-                            </div>
-                            <hr>
-                            <div>
-                              <h1 class="heading">Order items</h1>
-                            </div>
-                            <table>
-                
-                              <tr>
-                                <th>No</th>
-                                <th>image</th>
-                                <th>proudct</th>
-                                <th>price</th>
-                                <th>quantity</th>
-                                <th>Total</th>
-                              </tr>
-                
-                              <tbody>
-                                <%locals.product.product || "" %>
-                                  <%if(locals.product.product.length){%>
-                                    <% for(let i=0; i < product.product.length;i++){ %>
-                                      <tr class="border-bottom ">
-                                        <td>
-                                          <%=i+1 %>
-                                        </td>
-                                        <td>
-                                          <div style="width: 6rem; height: 9rem; object-fit: contain;" class="m-2" >
-                                            <img style="width: 100%; height: 100%;"
-                                              src="/filename/<%=product.product[i].product_id.product_image[0] %>">
-                                          </div>
-                                        </td>
-                                        <td>
-                                          <%=product.product[i].product_id.product_name %>,<%=product.product[i].product_id.dial_color%>
-                                              <%=product.product[i].product_id.watch_case %>
-                                        </td>
-                                        <td>
-                                            <%= product.product[i].price %>
-                                        </td>
-                                        <td>
-                                            <%=product.product[i].quantity%>
-                                        </td>
-                                        <td>
-                                          <%=product.product[i].totalPrice %>
-                                        </td>
-                                        
-                                          
-                                      </tr>
-                                  
-                                     
-                                      
-                                      <% }%>
-                                      
-                                        <%}%>
-                
-                                         
-                                          <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td>Total without Discount :</td>
-                                            <td><%=expectedtotal %></td>
-                                           
-                                            <td>product offer discount :</td>
-                                            <td>
-                                                <%=productdiscount %>
-                                            </td>
-            
-                                          </tr>
-                                          <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>coupon discount :</td>
-                                            <td>
-                                             <%= coupondiscount %>
-                                            </td>
-            
-                                          </tr>
-                                          <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                              Total Amount :
-                                            </td>
-                                            <td>
-                                              <%=order.totalamount %>
-                                            </td>
-                                          </tr>
-                
-                              </tbody>
-                            </table>
-                
-                          </div>
-                       <div class="p-3">  <a class="btn btn-primary" href="/invoice?productid=<%=order._id%>">invoice</a>
-                       </div>
-                    </div>
-            </section>
-  
+                          </td>
+                          <td>
+                            <%=product.product[i].product_id.product_name %>,
+                              <%=product.product[i].product_id.dial_color%>
+                                <%=product.product[i].product_id.watch_case %>
+                          </td>
+                          <td>
+                            <%= product.product[i].price %>
+                          </td>
+                          <td>
+                            <%=product.product[i].quantity%>
+                          </td>
+                          <td>
+                            <%=product.product[i].totalPrice %>
+                          </td>
+
+
+                        </tr>
+
+
+
+                        <% }%>
+
+                          <%}%>
+
+
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td>Total without Discount :</td>
+                              <td>
+                                <%=expectedtotal %>
+                              </td>
+
+                              <td>product offer discount :</td>
+                              <td>
+                                <%=productdiscount %>
+                              </td>
+
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>coupon discount :</td>
+                              <td>
+                                <%= coupondiscount %>
+                              </td>
+
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>
+                                Total Amount :
+                              </td>
+                              <td>
+                                <%=order.totalamount %>
+                              </td>
+                            </tr>
+
+                </tbody>
+              </table>
+
+            </div>
+            <div class="p-3"> <a class="btn btn-primary" href="/invoice?productid=<%=order._id%>">invoice</a>
+            </div>
           </div>
-          </div>
-  
+
+        </div>
+      </div>
+
       <!-- Button trigger modal -->
-  
-  
+
+
       <!-- Modal -->
-  
-    </footer>
 
-    <!-- Button to trigger the modal -->
+      </footer>
+
+      <!-- Button to trigger the modal -->
 
 
-    <script>
+      <script>
 
         function deleteAddress(addressIndex, userId) {
-            // Create an object with the data to send in the request body
-            const requestData = {
-                addressIndex: addressIndex,
-                userId: userId
-            };
+          // Create an object with the data to send in the request body
+          const requestData = {
+            addressIndex: addressIndex,
+            userId: userId
+          };
 
 
-            fetch('/delete-address', {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json' 
-                },
-                body: JSON.stringify(requestData) 
+          fetch('/delete-address', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+          })
+            .then(response => {
+              if (response.ok) {
+
+                location.reload();
+              } else {
+
+                console.error('Failed to delete address');
+              }
             })
-                .then(response => {
-                    if (response.ok) {
-                        
-                        location.reload(); 
-                    } else {
-                       
-                        console.error('Failed to delete address');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            .catch(error => {
+              console.error('Error:', error);
+            });
         }
 
-    </script>
+      </script>
 
 
 </body>

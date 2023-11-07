@@ -1218,7 +1218,9 @@ const userOrderdetails = async (req, res) => {
         console.log("the coupn",coupondiscount,"and teh coupoundis",order.totalamount,"also",coupondiscount - order.totalamount)
         
         console.log("product otot",productdiscount)
-        res.render("userOrderDetails", { product, order,productdiscount ,coupondiscount,expectedtotal})
+
+        const user = await usersModel.findOne({email:req.session.email})
+        res.render("userOrderDetails", { user,product, order,productdiscount ,coupondiscount,expectedtotal})
 
     } catch (error) {
         console.log(error)

@@ -45,46 +45,44 @@
                   <% for(let i=0; i < user.wishlist.length;i++){ %>
 
                     <div class="">
-                      <div class="accordion-item p-4 d-flex justify-content-evenly">
-                        <div class="" style="height: 3rem; width: 3.9rem;" style="object-fit: contain;">
+                      <div class="accordion-item wishlist-maindiv ">
+                        <div class="wishlist-div" style="object-fit: contain;">
                           <img src="/filename/<%=user.wishlist[i].product_id.product_image[0] %>"
                             style="">
                         </div>
-                        <div class="ps-5 w-50">
-                          <div class="w-100">
+                        <div class="wishlist-div2 ">
+                          <div class="w-100 ">
                             <j class="" style="font-family: 'Roboto', sans-serif; font-weight: 600;">
                               <%=user.wishlist[i].product_id.product_name %>-<%=user.wishlist[i].product_id.gender %>
                             </j>
                           </div>
                           <div class="w-100  price-g">Best price</div>
                           <div class="w-100">
-                            <h3 class="" style="font-family: 'Roboto', sans-serif; font-weight: 800;"> &#8377; 
+                            <h3 class="amount-h1" > &#8377; 
                                 <%  if(user.wishlist[i].product_id.price == user.wishlist[i].product_id.sellingprice){ %>
                                             
                                   <span class=""><%=user.wishlist[i].product_id.sellingprice %></span>
                                   <% }else{ %>
                                       <span style="color: rgb(6, 6, 6);"><%= user.wishlist[i].product_id.sellingprice %> </span>
-                                      <span style="color: red;text-decoration: line-through;"><%= user.wishlist[i].product_id.price %></span>
+                                      <span style=""><label class="amount-h2"  for=""><%= user.wishlist[i].product_id.price %></label></span>
                                 <% } %>
 
                             </h3>
                           </div>
                         </div>
-                        <div class="w-25  d-flex  align-items-center">
-                          <div class="d-flex w-100 h-25 justify-content-end align-content-center ">
-                          </div>
-                        </div>
-                        <div class="d-flex ps-2 align-items-center justify-content-end  w-25">
+                      
+                        <div class="d-flex  align-items-center justify-content-end  w-25">
 
-                          <div class="d-flex w-100  justify-content-end ">
-                            <button type="button"
-                              onclick="addinCart('<%=user.wishlist[i].product_id._id%>','<%= user.wishlist[i].product_id.product_name%>','<%=user.wishlist[i].product_id.price %>')"
-                              class="p-1  border-0  bg-white" style="width:3rem; height: 2.5rem;"> <img
-                                class="w-100 h-100 bg-white " src="/cart-shopping.svg"></button>
-                            <button class="p-1 border-0 bg-white"
-                              onclick="removeWishlist('<%= user.wishlist[i].product_id._id %>')"
-                              style="width:4rem; height: 2.5rem;"><img class="w-50  h-100 bg-white "
-                                src="/delete.png"></button>
+                          <div class="d-flex justify-content-end ">
+                           
+
+                              <div class="delete-wishlist ">
+                                  <img src="/cart-shopping.svg" onclick="addinCart('<%=user.wishlist[i].product_id._id%>','<%= user.wishlist[i].product_id.product_name%>','<%=user.wishlist[i].product_id.price %>')" alt="">
+                              </div>
+                              <div class="adding-cart " onclick="removeWishlist('<%= user.wishlist[i].product_id._id %>')" >
+                                   <img src="/delete.png" alt="">
+                              </div>
+                            
 
                           </div>
                         </div>
@@ -92,7 +90,7 @@
 
 
                     </div>
-                    <hr>
+                    <hr class="m-0">
 
                     <% } %>
 

@@ -85,6 +85,10 @@ img {
   padding: 0 1.25rem;
   
 }
+.wallet-width{
+   width: 50%;
+}
+
 
 .brand {
   font-family: inherit;
@@ -287,8 +291,19 @@ img {
   .menu-inner2{
     display: flex;
     flex-direction: row;
-    column-gap: 0.3rem;
+    column-gap: 0.7rem;
     margin: 1.25rem;
   }
+  .para{
+    width: 90%;
+    height: 8rem;
+    background-color: aqua;
+    padding: 0px;
+    margin: 0px;
+    font-size: 15px;
+  }
+  .wallet-width{
+    width: 80%;
+ }
   
 }

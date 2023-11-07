@@ -13,7 +13,7 @@
 <body>
   <%- include('navbar2.ejs') %>
     <content class="nav-height">
-      <div class="container-fluid d-flex justify-content-center" id="body-color">
+      <div class="container-fluid d-flex justify-content-center ps-2" id="body-color">
         <div class=" d-flex h-auto d-flex justify-content-center w-100 profile-main">
           <div class="profile-div ms-2 ">
             <div class="profile-photo d-flex align-items-center ">
@@ -82,11 +82,20 @@
                 </div>
               </div>
               <div class="line"></div>
-
+              <div class="selector  d-flex align-items-center align-items-center">
+                <div class="hii d-flex justify-content-center align-items-center">
+                  <div class="selector-image bg-light"
+                    style="background-image: url(https://cdn-icons-png.flaticon.com/128/2435/2435281.png); "></div>
+                </div>
+                <div class="hello d-flex align-items-center">
+                  <span><a href="/admin/banners"
+                      style="text-decoration: none; outline: none; color: black;">Banners</a></span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="profile-div2 me-2 w-100  ">
-            <div class="w-100  d-flex justify-content-evenly p-4" style="height: 14rem;">
+          <div class="profile-div2 p-4 me-2 mb-3 w-100 h-auto ">
+            <div class="w-100  d-flex justify-content-evenly p-4" style="height:auto;">
               <div class="card box-shadows2" style="width: 18rem;">
                 <div class="card-body  ">
                   <div class=" w-100 d-flex justify-content-center">
@@ -99,7 +108,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card box-shadows2" style="width: 18rem;">
+              <div class="card box-shadows2" style="width: 16rem;">
                     <div class="card-body  ">
                   <div class=" w-100 d-flex justify-content-center">
                     <h5 class="card-title mt-2 me-4"> Total revenou</h5>
@@ -141,7 +150,7 @@
               </div>
             </div>
 
-            <div class="m-5  me-5  d-flex justify-content-between">
+            <div class="m-3  me-5  d-flex justify-content-between">
               <select style="width: 5rem; height: 2rem;" id="yearSelect" onchange="onYearChange()">
                 <% allYears.forEach(year=> { %>
                   <option value="<%= year %>">
@@ -151,15 +160,20 @@
               </select>
               <a href="/admin/salesreport" class="btn btn-primary">sales report</a>
             </div>
-            <div class="d-flex ">
-              <div class="ps-4 pe-5  " style="width: 90%;">
-                <canvas id="myChart"></canvas>
+             <div class="ps-5 justify-content-center">
+              <div class="d-flex justify-content-center box-shadows2 p-3" style="height: 500px; width: 100%; object-fit: cover;">
+                <div class="ps-4 pe-5  " style="width: 90%;">
+                  <canvas id="myChart"></canvas>
+                </div>
+  
               </div>
+              <div class="d-flex mt-3 justify-content-center box-shadows2 p-3" style="height: 500px; width: 100%; object-fit: cover;">
 
-              <div class="ps-4 pe-5" style="width: 90%;">
+              <div class="ps-4 pe-5 " style="width: 90%;">
                 <canvas id="myAmountchart"></canvas>
               </div>
             </div>
+             </div>
           </div>
         </div>
       </div>
@@ -216,11 +230,11 @@
         const values = data.allReports[selectedYear].monthlyOrders;
         const amount = data.allReports[selectedYear].monthlyAmounts;
         const returned = data.allReports[selectedYear].monthlyOrderReturned
+        const delivered = data.allReports[selectedYear].monthlyOrdersCount;
+        
+        console.log("delivereed orders",delivered)
 
-
-        console.log("--next", values);
-        console.log("----next2", amount);
-        console.log("---next3", selectedYear);
+      
 
         const months = [
           'January', 'February', 'March', 'April',
@@ -243,14 +257,26 @@
               data: values,
               fill: false,
               borderColor: 'rgb(75, 192, 192)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)', // Specify the fill color with alpha transparency
+
               borderWidth: 1
             }, {
-              label: 'Monthly Orders',
+              label: 'Monthly order returned',
               data: returned,
               fill: false,
               borderColor: 'red',
+              backgroundColor: 'rgba(255, 0, 0, 0.2)', // Specify the fill color with alpha transparency
+
               borderWidth: 1
-            }],
+            }, {
+              label: 'Monthly Delivered orders',
+              data: delivered,
+              fill: false,
+              borderColor: 'green',
+              backgroundColor: 'rgba(0, 128, 0, 0.2)', // Specify the fill color with alpha transparency
+
+              borderWidth: 1
+            }]
 
 
           },

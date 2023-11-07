@@ -974,4 +974,31 @@ const removepicture = async (req,res)=>{
    }
 }
 
-module.exports = {removepicture,productimageedit,brandedit,brandexist,watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }
+const downloadSalesReport = async (req, res) => {
+  const { startDate, endDate } = req.query
+  console.log(startDate,endDate, "fsedfasdeef");
+  try {
+      const salesResult = await orderModel.find({
+          status: 'Delivered',
+          createdAt: { $gte: startDate, $lte: endDate },
+      }).populate('user_id')
+
+      console.log("--------",salesResult)
+
+      const data = salesResult.map((order) => ({
+          date: order.createdAt.toISOString().substring(0, 10),
+          orderId: order._id,
+          username: order.user_id.name + order.user_id.second_name,
+          paymentMethod: order.paymentMethod,
+          totalAmount: order.totalamount,
+      }));
+      console.log("data passed",data)
+
+      res.json(data);
+  }
+  catch (error) {
+      console.log('Error at download sales report', error);
+      res.send('Error at downloading sales report')
+  }
+}
+module.exports = {downloadSalesReport,removepicture,productimageedit,brandedit,brandexist,watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }
