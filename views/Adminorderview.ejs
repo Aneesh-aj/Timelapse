@@ -119,9 +119,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%  for(let i=0; i < order.length; i++){ %>
+                       <%let j=1 %>
+                        <%  for(let i=order.length-1; i >=0; i--){ %>
                             <tr>
-                                <td><%= i+1 %></td>
+                                <td><%= j++%></td>
                                 <td><%= order[i].createdAt.toLocaleString() %></td>
                                 <td><a class="text-decoration-none" href="/admin/orders/orderdetails?id=<%=order[i]._id %>"><%= order[i]._id %></a></td>
                                 <td><%=order[i].product.length %></td>
@@ -144,6 +145,9 @@
                                           <% if (order[i].status == 'Conform') { %>
                                               <option value="packed">Packed</option>
                                           <% } %>
+                                          <% if (order[i].status == 'cancel-pending') { %>
+                                            <option value="cancelled">confirm cancell</option>
+                                        <% } %>
                                           <% if (order[i].status =='packed') { %>
                                               <option value="shipped">Shipped</option>
                                           <% } %>

@@ -77,23 +77,20 @@
   }
 
   @media screen and (max-width:500px) {
-   
-     .header {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: auto;
-  z-index: -1 !important;
-  margin: 0 auto;
-  background-color: var(--color-white);
-  box-shadow: var(--shadow-medium);
-}
+
+    .header {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: auto;
+      z-index: -1 !important;
+      margin: 0 auto;
+      background-color: var(--color-white);
+      box-shadow: var(--shadow-medium);
+    }
 
   }
-
- 
-  
 </style>
 
 <body>
@@ -124,26 +121,26 @@
                     <div class=" d-flex  p-3">
                       <div class="w-75 d-flex align-items-center">
                         <input type="checkbox" class="me-2 address-checkbox" data-address-id="<%= address[i]._id %>">
-                         <p class="product-para m-0 p-0">
+                        <p class="product-para m-0 p-0">
                           <%= address[i].first_address %>,
-                          <%= address[i].country %>,
-                            <%= address[i].state %>,
-                              <%= address[i].town %>
-                         </p>
+                            <%= address[i].country %>,
+                              <%= address[i].state %>,
+                                <%= address[i].town %>
+                        </p>
                       </div>
 
                       <div class="d-lg-flex justify-content-end w-25">
                         <div class="">
                           <button type="button" class="btn  mb-2  btn-outline-primary me-2" data-toggle="modal"
-                          data-target="#exampleModalCenter<%=i%>">
-                          edit
-                        </button>
+                            data-target="#exampleModalCenter<%=i%>">
+                            edit
+                          </button>
                         </div>
                         <div>
                           <button class="btn btn-primary"
-                          onclick="deleteAddress( '<%=i%>', '<%=user._id %>')">delete</button>
+                            onclick="deleteAddress( '<%=i%>', '<%=user._id %>')">delete</button>
                         </div>
-          
+
                       </div>
                     </div>
 
@@ -233,14 +230,14 @@
             <div class="h-auto bx-sh">
               <% if(singleproduct){ %>
                 <div class="rounded-1 w-100 d-flex pt-3  pb-lg-3 pb-sm-0 pb-md-0">
-                  <div class="checkout-img-main " >
-                    <div class="checkout-img" >
+                  <div class="checkout-img-main ">
+                    <div class="checkout-img">
                       <% if (singleproduct) { %>
-                        <img class="checkout-image" src="/filename/<%=singleproduct.product_image[0] %>">
+                        <img style="height: 100%; width: 85%;" src="/filename/<%=singleproduct.product_image[0] %>">
                         <% } %>
                     </div>
                   </div>
-                  <div class="checkout-cart-div" >
+                  <div class="checkout-cart-div">
                     <div class="w-100 h-25">
                       <h4>
                         <%= singleproduct.product_name %>
@@ -315,7 +312,7 @@
                       <% for (let i=0; i < cart.length; i++) { %>
 
                         <div class="rounded-1 bg- w-100 d-flex pt-3 pb-lg-3 pb-sm-0 pb-md-0">
-                          <div class="checkout-img-main" >
+                          <div class="checkout-img-main">
                             <div class="checkout-img">
                               <% if (cart[i].product_id && cart[i].product_id.product_image.length> 0) { %>
                                 <img style="height: 100%; width: 85%;"
@@ -405,7 +402,7 @@
                   </button>
 
                   <div class="offcanvas offcanvas-start zth-index" tabindex="-1" id="offcanvasExample"
-                    aria-labelledby="offcanvasExampleLabel" >
+                    aria-labelledby="offcanvasExampleLabel">
                     <div class="offcanvas-header">
                       <h5 class="offcanvas-title heading" id="offcanvasExampleLabel">coupons</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -441,7 +438,7 @@
 
                     </div>
                   </div>
-                   <input type="hidden" class="checking" name="totalchecking" value="<%=totalpriceChecking%>">
+                  <input type="hidden" class="checking" name="totalchecking" value="<%=totalpriceChecking%>">
                 </div>
               </div>
               <hr>
@@ -715,29 +712,29 @@
           });
       }
 
-     function resetcoupon(){
-      const resetButton = document.querySelector('.resetbtn');
-      var button = document.querySelector('.applybtn');
-      const checking = document.querySelector('.checking').value
-      const discount = document.getElementById('discount')
-      const displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
-      const useWalletCheckbox = document.getElementById('useWallet');
+      function resetcoupon() {
+        const resetButton = document.querySelector('.resetbtn');
+        var button = document.querySelector('.applybtn');
+        const checking = document.querySelector('.checking').value
+        const discount = document.getElementById('discount')
+        const displayedTotalPriceElement = document.getElementById('displayedTotalPrice');
+        const useWalletCheckbox = document.getElementById('useWallet');
 
 
-      if (useWalletCheckbox.checked) {
+        if (useWalletCheckbox.checked) {
           return Swal.fire({
             icon: "error",
             title: "Remove Wallet",
             text: "coupon only can applie before using the wallet"
           });
         }
-        
-         displayedTotalPriceElement.innerText = checking;
-         discount.innerText = 0
-         button.style.display = "block";
-          resetButton.style.display = "none"; // Show the reset button
 
-     }
+        displayedTotalPriceElement.innerText = checking;
+        discount.innerText = 0
+        button.style.display = "block";
+        resetButton.style.display = "none"; // Show the reset button
+
+      }
 
 
       async function applycoupon() {
@@ -1091,7 +1088,23 @@
           const discount = document.getElementById('discount')
           const wallet = document.getElementById('useWallet');
           const useWallet = wallet.checked;
-          const cartValue = document.querySelector('input[name="cartvalue"]').value;
+
+          let cartValue
+          let productId  
+          try{
+           productId = selectedproductId.value
+          }catch(error){
+            cartValue = document.querySelector('input[name="cartvalue"]').value;
+          }
+          console.log("jjfjfj",productId)
+          if(!productId){
+
+             cartValue = document.querySelector('input[name="cartvalue"]').value;
+          }else{
+            cartValue =0
+          }
+
+          
 
 
 
@@ -1104,6 +1117,8 @@
           const alltotalvalue = alltotal.value
 
           const discountvalue = discount.innerText
+
+          console.log("its coming her for the address")
 
           if (!selectedAddress) {
             Swal.fire({
@@ -1126,8 +1141,7 @@
 
           const selectedAddressId = selectedAddress.getAttribute('data-address-id');
           const selectedPaymentValue = selectedPaymentMethod.value;
-          const productId = selectedAddressId.value;
-
+          
 
 
           let orderData = {
@@ -1142,9 +1156,8 @@
           };
 
 
-          // checking the product quantity and stock
 
-          fetch('/checkingstock', {
+          fetch(`/checkingstock?productId=${productId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -1292,12 +1305,14 @@
                 showConfirmButton: false, // Hide the "OK" button
                 showCancelButton: true,
                 cancelButtonText: 'Go to My Orders',
-                cancelButtonColor: 'blue',  // Text on the button
+                cancelButtonColor: 'blue', // Text on the button
               }).then((result) => {
-                if (result.isConfirmed) {
-                  window.location.href = "/profile";                }
-              });
+                   
+                
+                  window.location.href = "/order";
               
+              });
+
             } else {
               console.error("Order placement failed:", data.message);
             }

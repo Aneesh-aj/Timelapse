@@ -1175,7 +1175,7 @@ const placeorder = async (req, res) => {
 
         res.status(201).json({ message: ' stored successfully', success: true });
     } catch (error) {
-
+        console.log(error)
         console.error('Error storing address:', error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
@@ -1239,7 +1239,7 @@ const cancelOrder = async (req, res) => {
 
 
         const orderid = req.query.orderId
-        const updated = await orderModel.findOneAndUpdate({ _id: orderid }, { $set: { status: "cancelled" } });
+        const updated = await orderModel.findOneAndUpdate({ _id: orderid }, { $set: { status: "cancel-pending",cancelOrderReason:req.query.reason } });
 
 
 
@@ -1257,7 +1257,7 @@ const returnOrder = async (req, res) => {
         console.log("enteringggnnnnn")
         const orderid = req.query.orderId
 
-        const updated = await orderModel.findOneAndUpdate({ _id: orderid }, { $set: { status: "return-pending" } })
+        const updated = await orderModel.findOneAndUpdate({ _id: orderid }, { $set: { status: "return-pending",returnOrderReason:req.query.reason} })
 
         console.log("its updated -", updated)
         res.json({ message: "order return request sented" })
@@ -1528,17 +1528,19 @@ const ordercheckout = async (req, res) => {
         console.log("--------th body", req.body)
        const user = await usersModel.findOne({email:req.session.email})
         const currentuser = req.body.cartValue
+         if(!req.body.productId){
 
-
-        if(currentuser.length != user.cart.length){
-               return res.json({change:true})
-        }
-
-        for(let i=0;i < user.cart.length;i++){
-             if(currentuser[i].quantity != user.cart[i].quantity){
-                 return res.json({change:true})
+             if(currentuser.length != user.cart.length){
+                    return res.json({change:true})
              }
-        }
+     
+             for(let i=0;i < user.cart.length;i++){
+                  if(currentuser[i].quantity != user.cart[i].quantity){
+                      return res.json({change:true})
+                  }
+             }
+         }
+
        
 
         if (req.body.paymentMethod == "cod") {
@@ -1753,6 +1755,10 @@ const refferalpost = async (req,res)=>{
 const checkingstock = async (req, res) => {
     try {
       console.log("checking stock");
+      if(req.query.productId){
+         return     res.json({});
+      }
+
   
       const user = await usersModel.findOne({ email: req.session.email }).populate('cart.product_id');
       console.log("the user", user.cart[0].product_id.stock);
@@ -1777,6 +1783,7 @@ const checkingstock = async (req, res) => {
       console.log("after loop");
       res.json({});
     } catch (error) {
+        console.log(error)
       res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
   };

@@ -2,192 +2,313 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <!-- Add this in the <head> section -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <!-- Add this in the <head> section -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Add this before the closing </body> tag -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+  <!-- Add this before the closing </body> tag -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+  <script src="path/to/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="style.css" class="style">
-    <title>login</title>
+
+  <link rel="stylesheet" href="style.css" class="style">
+  <title>login</title>
 </head>
 
 <body>
-    <%- include('navbar.ejs') %>
+  <%- include('navbar.ejs') %>
     <content class="nav-height">
-        <div class="container-fluid d-flex justify-content-center pt-3   " id="body-color">
-            <div class="container-width">
-                <%- include('sidebar.ejs') %>
-                <section class="home-section ">
+      <div class="container-fluid d-flex justify-content-center pt-3   " id="body-color">
+        <div class="container-width">
+          <%- include('sidebar.ejs') %>
+            <section class="home-section ">
 
-                    <div class="white  profile-div3 h-auto mb-2  " style="height: 42.3rem;">
-                        <div class=" w-100 ">
-                            <div class="col-lg-12 usr-details">
-                                <div class="card ps-3 box-shadows2 pb-3 pt-3">
-                                    <h1 class="heading"> order list</h1>
-                    
-                                </div>
-                            </div>
-                            
-                            <% for (let i = user.order.length -1; i >=0; i--) { %>
-                                <div class="card h-auto mt-3">
-                                  <div class="card-body">
-                                    <div class="border rounded pb-2">
-                                      <div class=" border p-2 bg-light">
-                                         <div class="d-flex justify-content-center">
-                                          <h5 class="card-title ">order <%= i + 1 %></h5>
+              <div class="white  profile-div3 h-auto mb-2  " style="height: 42.3rem;">
+                <div class=" w-100 ">
+                  <div class="col-lg-12 usr-details">
+                    <div class="card ps-3 box-shadows2 pb-3 pt-3">
+                      <h1 class="heading"> order list</h1>
 
-                                         </div>
-                                        <div class="">
-                                          <p class="col-sm-12  col-md-12 p-2 m-0 col-lg-6 card-text ">order ID: <a class="text-decoration-none"><%= user.order[i]._id %></a></p>
-                                          <p class=" col-sm-12 col-md-12 col-lg-6 p-2 m-0 card-text">order Date: <%= user.order[i].createdAt.toLocaleString() %></p>
-                                        </div>
-                                      </div>
-                                      <div class="ps-4 ">
-                                        <p class="card-text">No. of items: <%= user.order[i].product.length %></p>
-                                        <p class="card-text">Amount: <%= user.order[i].totalamount %></p>
-                                        <p class="card-text">Payment method: <%= user.order[i].paymentMethod %></p>
-                                      
-                                          <div class="col-6">
-                                            <label for="status-select">Status: <%= user.order[i].status %></label>
-                                          </div>
-                                          <div class="">
-                                            <div class="d-flex justify-content-end">
-                                              <a class="btn btn-primary m-2" href="/order/orderdetails?id=<%=user.order[i]._id %>">viewOrder</a>
-                                              <% if(user.order[i].status != "cancelled" && user.order[i].status !="Delivered" && user.order[i].status != "Shipped"){ %>
-                                                <button class="btn btn-danger m-2" onclick="cancelOrder('<%= user.order[i]._id %>')">Cancel</button>
-                                              <% } %>
-                                              <% if(user.order[i].status == 'Delivered') { %>
-                                                <button class="btn btn-warning m-2" onclick="orderreturnRequest('<%=user.order[i]._id %>')">return</button>
-                                              <% } %>
-                                            </div>
-                                          </div>
-                                       
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              <% } %>
-                              
-                              
-                        </div>
-                        
-                       
                     </div>
-                 </section>
-            </div>
+                  </div>
+
+                  <% for (let i=user.order.length -1; i>=0; i--) { %>
+                    <div class="card h-auto mt-3">
+                      <div class="card-body">
+                        <div class="border rounded pb-2">
+                          <div class=" border p-2 bg-light">
+                            <div class="d-flex justify-content-center">
+                              <h5 class="card-title ">order <%= i + 1 %>
+                              </h5>
+
+                            </div>
+                            <div class="">
+                              <p class="col-sm-12  col-md-12 p-2 m-0 col-lg-6 card-text ">order ID: <a
+                                  class="text-decoration-none">
+                                  <%= user.order[i]._id %>
+                                </a></p>
+                              <p class=" col-sm-12 col-md-12 col-lg-6 p-2 m-0 card-text">order Date: <%=
+                                  user.order[i].createdAt.toLocaleString() %>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="ps-4 ">
+                            <p class="card-text">No. of items: <%= user.order[i].product.length %>
+                            </p>
+                            <p class="card-text">Amount: <%= user.order[i].totalamount %>
+                            </p>
+                            <p class="card-text">Payment method: <%= user.order[i].paymentMethod %>
+                            </p>
+
+                            <div class="col-6">
+                              <label for="status-select">Status: <%= user.order[i].status %></label>
+                            </div>
+                            <div class="">
+                              <div class="d-flex justify-content-end">
+                                <a class="btn btn-primary m-2"
+                                  href="/order/orderdetails?id=<%=user.order[i]._id %>">viewOrder</a>
+                                <% if(user.order[i].status !="cancelled" && user.order[i].status !="Delivered" &&
+                                  user.order[i].status !="Shipped" && user.order[i].status !="cancel-pending" &&
+                                  user.order[i].status !="return-pending" ){ %>
+                                  <button class="btn btn-danger m-2"
+                                    onclick="cancelOrder('<%= user.order[i]._id %>','<%=i%>')">Cancel</button>
+                                  <% } %>
+                                    <% if(user.order[i].status=='Delivered' ) { %>
+                                      <button class="btn btn-warning m-2"
+                                        onclick="openReturnModal('<%=i%>')">return</button>
+                                      <% } %>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% } %>
+
+
+                </div>
+
+
+              </div>
+            </section>
         </div>
-
- 
- 
-</content>
-  
+      </div>
 
 
 
+    </content>
 
-    <footer>
-        <div class="container-fluid footer-color">
-            <div class="container d-flex ">
-                <div class="">
+    <!-- Modal -->
+    <% for (let i=user.order.length -1; i>=0; i--) { %>
+      <div class="modal fade" id="exampleModal<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Reason of cancellation<%=i%>
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="text" name="Reason" id="reasonInput<%=i%>" style="width: 100%;height: 5rem;">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" onclick="cancellingOrder('<%= user.order[i]._id %>','<%=i%>')"
+                class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }%>
+        <% for (let i=user.order.length - 1; i>= 0; i--) { %>
+          <div class="modal fade" id="returnModal<%=i%>" tabindex="-1" aria-labelledby="returnModalLabel<%=i%>"
+            aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="returnModalLabel<%=i%>">Reason for Return</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <input type="text" name="ReturnReason" id="returnReasonInput<%=i%>"
+                    style="width: 100%; height: 5rem;">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" onclick="orderreturnRequest('<%= user.order[i]._id %>','<%=i%>')"
+                    class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%}%>
+
+
+
+
+
+            <footer>
+              <div class="container-fluid footer-color">
+                <div class="container d-flex ">
+                  <div class="">
                     <div class="footer-div1 d-flex justify-content-center">
-                        <h1 class="heading  pt-4">About us</h1>
+                      <h1 class="heading  pt-4">About us</h1>
                     </div>
                     <div class="footer-div1">
 
-                        <p class="p-2 footer-para">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At
-                            Watch
-                            Universe, we're passionate about bringing you the finest selection of watches that blend
-                            elegance,
-                            precision, and style.Our journey started with a love for craftsmanship and a desire to share
-                            the world's
-                            most stunning watches with watch enthusiasts and collectors alike.</p>
+                      <p class="p-2 footer-para">Welcome to Watch Universe, your ultimate destination for exquisite
+                        timepieces.
+                        At
+                        Watch
+                        Universe, we're passionate about bringing you the finest selection of watches that blend
+                        elegance,
+                        precision, and style.Our journey started with a love for craftsmanship and a desire to share
+                        the world's
+                        most stunning watches with watch enthusiasts and collectors alike.</p>
 
                     </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-        <div class="container-fluid footer-color d-flex justify-content-center">
-            <p class="footer-subpara">&copy; 2023 All rights reserved.Desined by Aneesh</p>
-        </div>
-    </footer>
+              </div>
+              <div class="container-fluid footer-color d-flex justify-content-center">
+                <p class="footer-subpara">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+              </div>
+            </footer>
 
-    <!-- Button to trigger the modal -->
-
-
-    <script>
-
-        function deleteAddress(addressIndex, userId) {
-            // Create an object with the data to send in the request body
-            const requestData = {
-                addressIndex: addressIndex,
-                userId: userId
-            };
+            <!-- Button to trigger the modal -->
 
 
-            fetch('/delete-address', {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json' 
-                },
-                body: JSON.stringify(requestData) 
-            })
-                .then(response => {
-                    if (response.ok) {
-                        
-                        location.reload(); 
-                    } else {
-                       
-                        console.error('Failed to delete address');
-                    }
+            <script>
+
+              function deleteAddress(addressIndex, userId) {
+                // Create an object with the data to send in the request body
+                const requestData = {
+                  addressIndex: addressIndex,
+                  userId: userId
+                };
+
+
+                fetch('/delete-address', {
+                  method: 'POST',
+                  credentials: 'include',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(requestData)
                 })
-                .catch(error => {
+                  .then(response => {
+                    if (response.ok) {
+
+                      location.reload();
+                    } else {
+
+                      console.error('Failed to delete address');
+                    }
+                  })
+                  .catch(error => {
                     console.error('Error:', error);
-                });
-        }
+                  });
+              }
 
 
-        function cancelOrder(orderId) {
-    fetch(`/cancel-order?orderId=${orderId}`, {
-      method: 'POST', 
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log(`Order ${orderId} has been cancelled.`);
-          window.location.reload()
-        } else {
-          console.error(`Failed to cancel order ${orderId}.`);
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }
+              function cancelOrder(orderId, index) {
+                console.log("the indexss", index)
+                let myModal = new bootstrap.Modal(document.getElementById(`exampleModal${index}`));
+                myModal.show();
+
+              }
+
+              function cancellingOrder(orderId, index) {
+
+                const modalElement = document.getElementById(`exampleModal${index}`);
+                modalElement.classList.remove('show');
+                modalElement.classList.add('fade');
+                const modalBackdropElement = document.querySelector('.modal-backdrop');
+                if (modalBackdropElement) {
+                  modalBackdropElement.remove();
+                }
+                document.body.classList.remove('modal-open');
+                document.body.style.paddingRight = '';
+                document.body.style.overflow = 'auto';
+
+                const reasonInput = document.getElementById(`reasonInput${index}`);
+                const reason = reasonInput.value;
+
+                fetch(`/cancel-order?orderId=${orderId}&reason=${encodeURIComponent(reason)}`, {
+                  method: 'POST',
+                })
+                  .then((response) => {
+                    if (response.ok) {
+                      console.log(`Order ${orderId} has been cancelled.`);
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'request sented',
+                        text: 'request for cancelling order has been sented!',
+                      }).then(() => {
+                        window.location.reload()
+                      })
+                    } else {
+                      console.error(`Failed to cancel order ${orderId}.`);
+
+                    }
+                  })
+                  .catch((error) => {
+                    console.error('Error:', error);
+                  });
+              }
+
+              function openReturnModal(index) {
+                console.log("coming here")
+                let returnModal = new bootstrap.Modal(document.getElementById(`returnModal${index}`));
+                returnModal.show();
+              }
+
+              function orderreturnRequest(orderId, index) {
 
 
-  function orderreturnRequest(orderId) {
-    fetch(`/returnrequest?orderId=${orderId}`, {
-      method: 'POST', 
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log(`Order ${orderId} has been return order.`);
-          window.location.reload()
-        } else {
-          console.error(`Failed to ${orderId}.`);
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }
+                const returnReasonInput = document.getElementById(`returnReasonInput${index}`);
+                const returnReason = returnReasonInput.value;
+                const modalElement = document.getElementById(`returnModal${index}`);
+    modalElement.classList.remove('show');
+    modalElement.classList.add('fade');
+    const modalBackdropElement = document.querySelector('.modal-backdrop');
+    if (modalBackdropElement) {
+        modalBackdropElement.remove();
+    }
+    document.body.classList.remove('modal-open');
+    document.body.style.paddingRight = '';
+    document.body.style.overflow = 'auto';
+                // console.log(returnReason, "the resaon")
+                // fetch(`/returnrequest?orderId=${orderId}&reason=${encodeURIComponent(returnReason)}`, {
+                //   method: 'POST',
+                // })
+                //   .then((response) => {
+                //     if (response.ok) {
+                //       console.log(`Order ${orderId} has been return order.`);
+                //       Swal.fire({
+                //         icon: 'success',
+                //         title: 'request sented',
+                //         text: 'return request has been sented!',
+                //       }).then(() => {
+                //         window.location.reload()
+                //       })
+                //     } else {
+                //       console.error(`Failed to ${orderId}.`);
+                //     }
+                //   })
+                //   .catch((error) => {
+                //     console.error('Error:', error);
+                //   });
+              }
 
-    </script>
+            </script>
 
 
 </body>

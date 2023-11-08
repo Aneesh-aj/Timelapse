@@ -22,7 +22,9 @@ const orderSchema = mongoose.Schema({
       orderdate:{type:Date},
       totalamount:{type:Number},
       status:{type:String},
-      discountamount:{type:String}
+      discountamount:{type:String},
+      cancelOrderReason:{type:String},
+      returnOrderReason:{type:String}
     
 },{timestamps: true})
 
