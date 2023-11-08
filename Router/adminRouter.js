@@ -43,5 +43,6 @@ router.post("/category/brandedit",controller.brandedit)
 router.post("/producteditimage",uploadImages.single('image'),controller.productimageedit)
 router.post("/removepicture",controller.removepicture)
 router.get("/download-salesReport",controller.downloadSalesReport)
+router.post("/couponedit",controller.couponedit)
 
 module.exports = router

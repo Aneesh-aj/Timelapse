@@ -45,6 +45,12 @@ body{
 
     
  }
+ .description-container {
+    max-height: 300px; /* Set a maximum height for the container */
+    overflow: hidden; /* Hide content that overflows the maximum height */
+}
+
+ 
  .checkout-img-main{
     width: 25%;
     height: 9rem;

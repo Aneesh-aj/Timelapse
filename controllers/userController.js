@@ -474,7 +474,8 @@ const productPageview = async (req, res) => {
         let product = await productModel.findById(id)
         let productimage = await productModel.findOne({ _id: id }, { product_image: 1 })
         if (product) {
-            res.render("productPage", { product, productimage })
+            const user = await usersModel.findOne({email:req.session.email})
+            res.render("productPage", { user,product, productimage })
         } else {
             console.log(" nooooooooooooooooooooooooooooob")
         }

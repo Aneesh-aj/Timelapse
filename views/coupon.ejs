@@ -142,7 +142,7 @@
                                                 <div class="mb-3">
                                                     <label for="recipient-name" class="col-form-label">coupon
                                                         code:</label>
-                                                    <input type="text" name="coupon_code" class="form-control"
+                                                    <input type="text"  name="coupon_code" class="form-control"
                                                         id="coupon-code">
                                                     <span class="error" id="coupon-code-error"></span>
                                                 </div>
@@ -204,6 +204,8 @@
                                         <th>minimum</th>
                                         <th>maximum</th>
                                         <th>expire date</th>
+                                        <th>Active</th>
+                                        <th>edit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -234,6 +236,89 @@
                                                         <% } else { %>
                                                             N/A
                                                             <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (new Date(coupon[i].expire_date) < new Date()) { %>
+                                                    Expired
+                                                <% } else { %>
+                                                    Active
+                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal<%=i%>">
+                                                edit
+                                             </button>
+                                             <div class="modal fade" id="exampleModal<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                             <div class="modal-dialog">
+                                                 <div class="modal-content">
+                                                     <div class="modal-header">
+                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                             aria-label="Close"></button>
+                                                     </div>
+                                                     <div class="modal-body">
+                                                         <form action="/admin/couponedit" method="post"  onsubmit="return validateForm2('<%=i%>')">
+                                                             <div class="mb-3">
+                                                                 <label for="recipient-name" class="col-form-label">coupon
+                                                                     code:</label>
+                                                                 <input type="text" name="coupon_code" value="<%=coupon[i].coupon_code %>" placeholder="<%=coupon[i].coupon_code %>" class="form-control"
+                                                                     id="coupon-code-<%=i%>">
+                                                                     <input type="hidden" value="<%=coupon[i]._id %>"  name="id">
+                                                                 <span class="error" id="coupon-code-error-<%=i%>"></span>
+                                                             </div>
+                                                             <div class="mb-3">
+                                                                 <label for="message-text" class="col-form-label">coupon
+                                                                     type:</label>
+                                                                   
+                                                                 <select name="coupon_type" class="form-control" id="coupon-type-<%=i%>">
+                                                                     <%if(coupon[i].coupon_type == "flate") {%>
+                                                                        <option value="flate" selected>flate</option>
+                                                                        <option value="percent">percent</option>
+                                                                    <% }else if(coupon[i].coupon_type == "percent"){%>
+                                                                        <option value="percent" selected>percent</option>
+                                                                        <option value="flate">flate</option>
+                                                                  <%  }%>
+                                                                 </select>
+                                                                 <span class="error" id="coupon-type-error-<%=i%>"></span>
+                                                             </div>
+                                                             <div class="mb-3">
+                                                                 <label for="message-text" class="col-form-label">coupon
+                                                                     value/percent:</label>
+                                                                 <input type="" name="coupon_value" value="<%=coupon[i].coupon_value %>" class="form-control" placeholder="<%=coupon[i].coupon_value %>"
+                                                                     id="coupon-value-<%=i%>">
+                                                                 <span class="error" id="coupon-value-error-<%=i%>"></span>
+                                                             </div>
+                                                             <div class="mb-3">
+                                                                 <label class="mb-3">min:</label>
+                                                                 <input type="" value="<%=coupon[i].min_amount%>" name="min" class="form-control"  placeholder="<%=coupon[i].min_amount%>" id="min-<%=i%>">
+                                                                 <span class="error" id="min-error-<%=i%>"></span>
+                                                             </div>
+                                                             <div class="mb-3">
+                                                                 <label class="mb-3">max:</label>
+                                                                 <input type="" name="max" value="<%=coupon[i].max_amount%>"  placeholder="<%=coupon[i].max_amount%>" class="form-control" id="max-<%=i%>">
+                                                                 <span class="error" id="max-error-<%=i%>"></span>
+                                                             </div>
+                                                             <div class="mb-3">
+                                                                 <label for="message-text"
+                                                                     class="col-form-label">expire_date: <%=coupon[i].expire_date%></label>
+                                                                 <input type="date" value="" name="coupon_date" placeholder="<%=coupon[i].expire_date%>" class="form-control"
+                                                                     id="coupon-date">
+                                                                 <span class="error" id="coupon-date-error"></span>
+                                                             </div>
+                                                             <div class="modal-footer">
+                                                                 <button type="button" class="btn btn-secondary"
+                                                                     data-bs-dismiss="modal">Close</button>
+                                                                 <button type="submit" class="btn btn-primary">Save changes</button>
+                                                             </div>
+                                                         </form>
+             
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                
                                             </td>
 
 
@@ -396,16 +481,115 @@
                     return false; // Prevent form submission
                 }
 
-                // Server-side validation can be performed on the server-side code.
-                // Ensure that you perform proper server-side validation as well.
+           
 
-                return true; // Form submission allowed
+                return true;
             }
             $(document).ready(function () {
                 $('#example').DataTable({
                     searching: true // Enable searching
                 });
             });
+
+            function validateForm2(index) {
+    // Reset error messages based on the index
+    console.log(1)
+    document.getElementById("coupon-code-error-" + index).textContent = "";
+    document.getElementById("coupon-type-error-" + index).textContent = "";
+    document.getElementById("coupon-value-error-" + index).textContent = "";
+    document.getElementById("min-error-" + index).textContent = "";
+    document.getElementById("max-error-" + index).textContent = "";
+    console.log(2)
+
+    const couponCode = document.getElementById("coupon-code-" + index).value.trim();
+    const couponType = document.getElementById("coupon-type-" + index).value;
+    const couponValue = parseFloat(document.getElementById("coupon-value-" + index).value.trim());
+    const min = parseFloat(document.getElementById("min-" + index).value.trim());
+    const max = parseFloat(document.getElementById("max-" + index).value.trim());
+    
+    console.log(3)
+
+
+    let hasErrors = false;
+
+    if (!couponCode) {
+        document.getElementById("coupon-code-error-" + index).textContent = "Coupon code is required.";
+        hasErrors = true;
+    }
+    console.log(4)
+
+    if (!couponType) {
+        document.getElementById("coupon-type-error-" + index).textContent = "Coupon type is required.";
+        hasErrors = true;
+    }
+    console.log(5)
+
+    if (isNaN(couponValue)) {
+        document.getElementById("coupon-value-error-" + index).textContent = "Coupon value is required";
+        hasErrors = true;
+    }
+    console.log(6)
+
+    if (couponValue <= 0) {
+        document.getElementById("coupon-value-error-" + index).textContent = "Coupon value should be greater than 0";
+        hasErrors = true;
+    }
+    console.log(7)
+
+    if (isNaN(min) || min <= 0) {
+        document.getElementById("min-error-" + index).textContent = "Min value must be a positive number.";
+        hasErrors = true;
+    }
+    console.log(7.1)
+
+    if (isNaN(max) || max <= 0) {
+        document.getElementById("max-error-" + index).textContent = "Max value must be a positive number.";
+        hasErrors = true;
+    }
+    console.log(7)
+
+    if (!max) {
+        document.getElementById("max-error-" + index).textContent = "Maximum value required";
+        hasErrors = true;
+    }
+    console.log(1.1)
+
+    if (!min) {
+        document.getElementById("min-error-" + index).textContent = "Minimum value required";
+        hasErrors = true;
+    }
+
+ 
+    console.log(8)
+
+   
+
+    if (min >= max) {
+        document.getElementById("min-error-" + index).textContent = "Min must be less than max.";
+        hasErrors = true;
+    }
+
+    if (max <= 0) {
+        document.getElementById("max-error-" + index).textContent = "Max value must be greater than 0";
+        hasErrors = true;
+    }
+
+    if (min <= 0) {
+        document.getElementById("min-error-" + index).textContent = "Min value must be greater than 0";
+        hasErrors = true;
+    }
+    console.log(89)
+
+    if (hasErrors) {
+        return false;
+    }
+
+
+
+    return true; // Form submission allowed
+}
+
+
 
 
         </script>

@@ -1001,4 +1001,34 @@ const downloadSalesReport = async (req, res) => {
       res.send('Error at downloading sales report')
   }
 }
-module.exports = {downloadSalesReport,removepicture,productimageedit,brandedit,brandexist,watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }
+
+const couponedit = async (req,res)=>{
+  try{
+
+    const id = req.body.id
+
+    console.log("the body",req.body)
+
+    const coupon = await couponModel.findByIdAndUpdate({_id:id},
+      {$set:{
+        coupon_code:req.body.coupon_code,
+        coupon_type:req.body.coupon_type,
+        coupon_value:req.body.coupon_value,
+        min_amount:req.body.min,
+        max_amount:req.body.max
+      }})
+
+      if(req.body.coupon_date){
+         coupon.expire_date = req.body.coupon_date
+         coupon.save()
+      }
+
+      res.redirect("/admin/coupon")
+
+  }catch(error){
+    res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+  }
+}
+
+
+module.exports = {couponedit,downloadSalesReport,removepicture,productimageedit,brandedit,brandexist,watchtypechecking,salesreport, chartreport,removeBannerImage,bannerpageRendering ,banneradding, addingcoupon, coupon, cancelOrder, updateStatus, adminorderDetails, orderpageview, userBlock, brandList, brandsAdding, watchtypeList, watchtypeEdit, categoryGet, watchtypeAdding, productAdding, productListing, adminpageView, adminLogout, productManagment, userManagment, addProduct, editProduct, editedProduct }

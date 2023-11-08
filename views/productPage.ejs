@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>collection</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css" class="style">
-    <link rel="stylesheet" href="style.css" class="style">
+    <link rel="stylesheet" href="/style.css" class="style">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="/style.css" class="style">
     <title>product </title>
 </head>
 <body>
@@ -35,7 +37,8 @@
                             <div id="myresult" class="img-zoom-result">  </div>
                          </div>
                           <div  class="  w-100  product-buy-wishbutton">
-                                 <a class="btn btn-warning product-button-cart " >Add to cart</a>
+                                 <button class="btn btn-warning product-button-cart "                                                 onclick="addToCart('<%= product._id %>', '<%= product.product_name %>', '<%= product.price %>','<%=product.stock %>')"
+                                    >Add to cart</button>
                                  <a class="btn btn-danger product-button-buynow "  href="/checkout?product_id=<%=product._id%>">Buy now</a>
                          </div>
                     </div>
@@ -82,9 +85,11 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="ps-5">
-                            <h1 class="product-subname">Discription</h1>
-                            <p class="product-para"><%= product.discription %></p>
+                        <div class="ps-lg-5  description-container">
+                            <h1 class="product-subname">Description</h1>
+                            <div class="product-para" style="word-wrap: break-word; ">
+                                <%= product.discription  %>
+                            </div>
                         </div>
                         
                     </div>
@@ -104,18 +109,80 @@
                       </div>
                      <div class="footer-div1">
                   
-                         <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch Universe, we're passionate about bringing you the finest selection of watches that blend elegance, precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's most stunning watches with watch enthusiasts and collectors alike.</p>
+                         <p class="footer-para">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch Universe, we're passionate about bringing you the finest selection of watches that blend elegance, precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's most stunning watches with watch enthusiasts and collectors alike.</p>
                          
                      </div>
                  </div>
            </div>
         </div>
         <div class="container-fluid footer-color d-flex justify-content-center">
-          <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
+          <p class="footer-subpara">&copy; 2023 All rights reserved.Desined by Aneesh</p>
         </div>
      </footer>
     
      <script>
+
+function addToCart(productId, productName, price,stock) {
+            const quantity = 1;
+
+            console.log("console.oog",stock)
+            console.log("producid",productId)
+            console.log("name",productName)
+            console.log("price",price)
+             
+            if(stock <=0){
+              return  Swal.fire({
+                    icon:'error',
+                    tittle:'out of Stock',
+                    text:'product is out of stock'
+                })
+            }
+
+
+            const data = {
+                productId,
+                product_name: productName,
+                quantity,
+                price
+            };
+
+            fetch('/api/add-to-cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(responseData => {
+                    if (responseData.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Product added to cart successfully!',
+                        });
+                    } else if (responseData.noUser) {
+                        window.location.href = "/login"
+                    }
+                   
+                    else if (responseData.outofStock) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Quantity limit',
+                            text: 'You are reached the quantity limit',
+                        });
+                    }
+                    else {
+                        alert('Failed to add the product to the cart.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding to cart:', error);
+                });
+        }
+
+
+      
           function change_image(clickedImage) {
             var mainImage = document.getElementById("myimage");
             var newSrc = clickedImage.getAttribute("src");
