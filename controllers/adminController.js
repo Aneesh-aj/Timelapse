@@ -23,7 +23,6 @@ const adminpageView =  async (req, res) => {
 
 
   if (req.session.admin) {
-    console.log("coming here on the cart report");
 
     const orderData = await orderModel.aggregate([
       {
@@ -87,15 +86,7 @@ const adminpageView =  async (req, res) => {
       ? deliveredProductsAmount[0].totalDeliveredAmount
       : 0;
 
-    console.log(
-      "the final ---------------------",
-      allReports,
-      allYears,
-      totalDeliveredAmount,
-    );
-
-
-    console.log("the final ---------------------", allReports, allYears);
+   
     res.render("adminpage",{allReports,allYears,users,totalorders,products,totalDeliveredAmount})
   } else {
     res.redirect("/home")
@@ -160,7 +151,6 @@ const userManagment = async (req, res) => {
       res.render("user-managment", { database });
     }
   } catch (error) {
-    console.error("Error in userManagment route:", error);
     res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
   }
 };
@@ -170,8 +160,6 @@ const addProduct = async (req, res) => {
      const product = await productModel.find({})
      const watchtype = await watchTypeModel.find({ list: true })
      const brands = await brandModel.find({ list: true })
-     console.log("watch_type is :", watchtype)
-     console.log("brands are : ", brands)
      if (req.session.admin) {
        res.render("product-adding", { product, watchtype, brands })
      }
@@ -185,14 +173,10 @@ const editProduct = async (req, res) => {
     if (req.session.admin) {
       const id = req.params.id
 
-      console.log("here is the edit get page parmas--->", id)
       const product = await productModel.findById(id).populate("brand").populate("watch_type")
       const brands = await brandModel.find({ list: true })
       const watchtype = await watchtypeModel.find({ list: true })
-      console.log("---------------------------------------------------------------------------this query working if it show some value")
-      console.log("itssssssss watdhtyepee :", watchtype)
-      console.log("-----------------------------------------------------------------------------------------------------------------------------------its end ")
-
+     
       res.render("editProduct", { product, brands, watchtype })
     }
   }
@@ -276,7 +260,6 @@ const productListing = async (req, res) => {
   try {
     const productId = req.params.id;
     const product = await productModel.findById(productId);
-    console.log("showing the list true or not :", product.list)
 
     if (product.list === true) {
       await productModel.findByIdAndUpdate(productId, { list: false })
@@ -295,9 +278,6 @@ const productListing = async (req, res) => {
 const productAdding = async (req, res) => {
   try {
 
-
-   console.log("it entred---------------------------")
-   console.log("--body------------------",req.body)
 
     upload.array("filename")(req, res, async function (err) {
       if (err) {
@@ -343,7 +323,6 @@ const productAdding = async (req, res) => {
     }
     
 
-      console.log("Data is added successfully");
       res.redirect("/admin/product-managment");
     });
 
@@ -361,7 +340,6 @@ const categoryGet = async (req, res) => {
     const watchtype = await watchTypeModel.find({})
     const brands = await brandModel.find({})
 
-    console.log("watchtype +++++++++++>>>>", watchtype)
 
     res.render("category", { watchtype, brands })
   } else {
@@ -374,7 +352,6 @@ const categoryGet = async (req, res) => {
 
 const watchtypeAdding = async (req, res) => {
   try {
-    console.log("oooooITS here guyzz",req.body.watch_type)
     
     const watchType = await watchTypeModel.findOne({ watch_type: req.body.watch_type })
    
@@ -386,7 +363,6 @@ const watchtypeAdding = async (req, res) => {
     }
   }
   catch (error) {
-    console.log(error)
     res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
   }
@@ -395,22 +371,13 @@ const watchtypeAdding = async (req, res) => {
 const watchtypeEdit = async (req, res) => {
   try {
 
-    console.log("edit controller")
-    console.log("entering to the form ")
-
     const id = req.body._id
-    console.log("valuess",req.body.watch_type)
-    console.log("the id ", id)
-
-
-    console.log("the query params",req.query.id)
-
+   
     const watchType = await watchTypeModel.findOneAndUpdate(
       { _id: id },
       { $set: { watch_type: req.body.watch_type } },
       { new: true } 
     );
-        console.log("updated value", watchType)
     
     res.redirect("/admin/category")
 
@@ -422,11 +389,8 @@ const watchtypeEdit = async (req, res) => {
 
 const watchtypeList = async (req, res) => {
 
-  console.log("From wathlistig route :", req.query._id)
-
   try {
     const id = await watchTypeModel.findOne({ _id: req.query._id }, { list: 1 })
-    console.log(" it is ", id)
 
     if (id.list) {
       await watchTypeModel.updateOne({ _id: req.query._id }, { $set: { list: false } })
@@ -444,7 +408,6 @@ const watchtypeList = async (req, res) => {
 
 const brandsAdding = async (req, res) => {
 
-  console.log("its comeing to brand route ", req.body.brand_category)
   try {
     const offer = parseInt(req.body.offer)
     const brand = await brandModel.find({ brand_category: req.body.brand_category })
@@ -465,11 +428,9 @@ const brandsAdding = async (req, res) => {
 
 
 const brandList = async (req, res) => {
-  console.log("From brand route =====================> :", req.query._id);
 
   try {
     const isTrue = await brandModel.findOne({ _id: new mongoose.Types.ObjectId(req.query._id) }, { list: 1 });
-    console.log("is it trueee ===========>", isTrue);
 
     if (isTrue.list) {
       await brandModel.updateOne({ _id: new mongoose.Types.ObjectId(req.query._id) }, { $set: { list: false } });
@@ -488,11 +449,9 @@ const brandList = async (req, res) => {
 
 const userBlock = async (req, res) => {
 
-  console.log("From  user block route :", req.query._id)
 
   try {
     const id = await usersModel.findOne({ _id: req.query._id }, { block: 1 })
-    console.log(" it is ", id)
 
     if (id.block) {
       await usersModel.updateOne({ _id: req.query._id }, { $set: { block: false } })
@@ -510,9 +469,7 @@ const userBlock = async (req, res) => {
 const orderpageview = async (req, res) => {
 
   try {
-    console.log("enter to the orderpage")
-
-    console.log("session email  ")
+   
     if (!req.session.admin) {
       res.redirect("/login")
     }
@@ -537,14 +494,10 @@ const adminorderDetails = async (req, res) => {
           res.redirect("/login")
       
         }
-      
         const id = req.query.id
-      
-      
         const product = await orderModel.findOne({ _id: id }, { product: 1, _id: 0 }).populate('product.product_id').exec()
         const order = await orderModel.findOne({ _id: id }, {}).populate('user_id').exec()
       
-        console.log(" the product form the ", order)
         let  productdiscount =0
         let  coupondiscount =0
         let expectedtotal =0
@@ -566,38 +519,22 @@ const adminorderDetails = async (req, res) => {
 
 const updateStatus = async (req, res) => {
   try {
-
-
-    console.log("enterrringggggg-------")
     const orderid = req.body.orderId
     const newstatus = req.body.newStatus
 
-    console.log("jj ", req.body.newStatus);
-
     const updated = await orderModel.findOneAndUpdate({ _id: orderid }, { $set: { status: newstatus } });
     const user = await usersModel.findOne({ _id: updated.user_id })
-    console.log("jjjjjjjjjjjj", updated)
-    console.log("iiiiiii-----", updated.totalamount)
-
-    console.log("the user ", user)
-    console.log("adn ", user.wallet.balance)
-    console.log("paymethod", updated.paymentMethod)
-    console.log("statss", updated.status)
-
     if (updated) {
 
       
 
         if (newstatus == "returned") {
-
-          console.log("entering case 2");
           user.wallet.balance += updated.totalamount
           await user.save()
         }
       
     }
 
-    console.log("------updated status", user)
     res.json({ message: 'Order status updated successfully' });
   } catch (error) {
     res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
@@ -611,10 +548,6 @@ const cancelOrder = async (req, res) => {
 
     const orderid = req.query.orderId
     const updated = await orderModel.findOneAndUpdate({ _id: orderid }, { $set: { status: "Cancelled" } });
-
-
-
-    console.log("----------", updated)
     res.json({ message: "order cancelled" })
 
   } catch (error) {
@@ -640,7 +573,6 @@ const coupon = async (req, res) => {
 
 const addingcoupon = async (req, res) => {
   try {
-    console.log("the body", req.body)
 
     const couponcode = req.body.coupon_code
     const coupondate = req.body.coupon_date
@@ -649,7 +581,6 @@ const addingcoupon = async (req, res) => {
     const min = req.body.min
     const max = req.body.max
 
-    console.log("---body-----",req.body)
 
     const coupon = await couponModel.create({
       coupon_code: couponcode,
@@ -660,7 +591,6 @@ const addingcoupon = async (req, res) => {
       max_amount: max
     })
 
-    console.log("its adding ", coupon)
     res.redirect("/admin/coupon")
 
   } catch (error) {
@@ -673,11 +603,7 @@ const bannerpageRendering = async (req, res) => {
   try {
 
     const banner = await bannerModel.find({})
-
-    console.log("---banner ",banner)
     res.render("bannerpage", { banner});
-
-      
   } catch (error) {
     console.error(error);
     res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
@@ -685,9 +611,6 @@ const bannerpageRendering = async (req, res) => {
 }
 const banneradding = async (req, res) => {
   try {
-      console.log("Entering");
-      console.log("File Details:", req.file);
-
       if (!req.file.filename) {
           return res.status(400).send('No file uploaded.');
       }
@@ -701,9 +624,6 @@ const banneradding = async (req, res) => {
           { banner: filename, index },
           { upsert: true, new: true }
       );
-
-      console.log("Banner updated:", updatedBanner);
-
       res.json({ success: true, message: 'Banner image uploaded successfully' });
 
   } catch (error) {
@@ -716,30 +636,15 @@ const banneradding = async (req, res) => {
 
 const removeBannerImage = async (req, res) => {
   try {
-    console.log("It's coming here");
-
+    
     const { index } = req.body;
-
-    console.log("the index ",index)
-
-    // Assuming you have a mongoose model named bannerModel
     const banner = await bannerModel.findOne({ index:index });
-
-    console.log("its banner ",banner)
-
     if (!banner) {
       return res.status(404).json({ success: false, error: 'Banner not found' });
     }
 
-    console.log("comgingg here 2 ");
-
-
-
-    console.log("comgin here 3");
-
     await bannerModel.findOneAndDelete({ index:index });
 
-    console.log("last portion");
 
     res.status(200).json({ success: true, message: 'Banner image removed successfully' });
   } catch (error) {
@@ -750,8 +655,6 @@ const removeBannerImage = async (req, res) => {
 
 const chartreport = async (req, res) => {
   try {
-    console.log("coming here on the cart report");
-
     const orderData = await orderModel.aggregate([
       {
         $group: {
@@ -826,8 +729,6 @@ const chartreport = async (req, res) => {
         allReports[year].monthlyAmounts[month - 1] = deliveredOrderAmount;
       }      
     });   
-
-    console.log("the final ---------------------", allReports);
     res.json({ allReports });
 
   } catch (error) {
@@ -855,19 +756,14 @@ const watchtypechecking = async (req,res)=>{
    try{
 
     const inputvalue = req.body.inputvalue
-
-    console.log("--inputvlaue",inputvalue)
-
     const watchtypes = await  watchTypeModel.find({})
 
     for(let i=0;i < watchtypes.length;i++){
-          console.log("in the loop",watchtypes[i].watch_type.toLowerCase())
          if(inputvalue == watchtypes[i].watch_type.toLowerCase().trim()){
               return res.json({Exist:true})
          }
     }
 
-    console.log("its not found")
     res.json({NotExist:true})
 
    }catch(error){
@@ -880,20 +776,15 @@ const watchtypechecking = async (req,res)=>{
 const brandexist = async (req,res)=>{
     try{
 
-      const inputvalue = req.body.inputvalue
-
-      console.log("--inputvlaue",inputvalue)
-  
+      const inputvalue = req.body.inputvalue  
       const brands = await  brandModel.find({})
   
       for(let i=0;i < brands.length;i++){
-            console.log("in the loop",brands[i].brand_category.toLowerCase())
            if(inputvalue == brands[i].brand_category.toLowerCase().trim()){
                 return res.json({Exist:true})
            }
       }
   
-      console.log("its not found")
       res.json({NotExist:true})  
 
     }catch(error){
@@ -906,27 +797,20 @@ const brandexist = async (req,res)=>{
 const brandedit = async (req,res)=>{
    try{
       
-    console.log("edit controller")
 
     const id = req.body._id
-    console.log("the id ", id)
-    console.log("offer",req.body.offer)
     const offer = parseFloat(req.body.offer);
-    console.log("its here")
     const brands = await brandModel.updateOne({ _id: id }, { $set: { brand_category: req.body.brand_category,offer:offer } })
      
     const products = await productModel.find({brand:id})
-    console.log("produtss",products)
 
     for(let  i=0;i < products.length;i++){
        if(products[i].discountedprice < (products[i].price*(offer/100))){
-            console.log("products name",products[i].product_name)
            products[i].sellingprice = products[i].price - (products[i].price*(offer/100))
            await products[i].save()
        }
     }
     
-    console.log("updated value",brands)
     res.redirect("/admin/category")
       
    }catch(error){
@@ -942,7 +826,6 @@ const productimageedit = async (req, res) => {
       }
 
       const { index } = req.body;
-      console.log(req.body.id) // Assuming the index is sent in the request body
 
       const product = await productModel.findOne({_id:req.body.id}); // Use findOne instead of find to get a single document
 
@@ -976,14 +859,12 @@ const removepicture = async (req,res)=>{
 
 const downloadSalesReport = async (req, res) => {
   const { startDate, endDate } = req.query
-  console.log(startDate,endDate, "fsedfasdeef");
   try {
       const salesResult = await orderModel.find({
           status: 'Delivered',
           createdAt: { $gte: startDate, $lte: endDate },
       }).populate('user_id')
 
-      console.log("--------",salesResult)
 
       const data = salesResult.map((order) => ({
           date: order.createdAt.toISOString().substring(0, 10),
@@ -992,12 +873,10 @@ const downloadSalesReport = async (req, res) => {
           paymentMethod: order.paymentMethod,
           totalAmount: order.totalamount,
       }));
-      console.log("data passed",data)
 
       res.json(data);
   }
   catch (error) {
-      console.log('Error at download sales report', error);
       res.send('Error at downloading sales report')
   }
 }
@@ -1006,9 +885,6 @@ const couponedit = async (req,res)=>{
   try{
 
     const id = req.body.id
-
-    console.log("the body",req.body)
-
     const coupon = await couponModel.findByIdAndUpdate({_id:id},
       {$set:{
         coupon_code:req.body.coupon_code,

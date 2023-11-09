@@ -52,8 +52,6 @@ const forgotpassword = (req, res) => {
 const homepageview = async (req, res) => {
 
     try {
-       
-        console.log("home showing")
         const product = await productModel.find({list:true}).sort({_id:1}).limit(4)
         const banner = await bannerModel.find({}).sort({ index: 1 });
         const men = await productModel.find({gender:"men",list:true}).sort({_id:-1}).limit(4)
@@ -62,7 +60,6 @@ const homepageview = async (req, res) => {
         res.render("homePage", { user,men,product, banner,women})
 
     } catch (error) {
-        console.error(error, "9")
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 
@@ -154,8 +151,6 @@ const loginPost = async (req, res) => {
 const userLogout = (req, res) => {
      
      try{
-        console.log("coming for logout here")
-
     req.session.destroy()
     res.clearCookie("currentUser")
     res.status(200).json({ success: true });
@@ -188,19 +183,11 @@ const signupPost = async (req, res) => {
             return res.redirect("/signup?error=user%20already%20exists");
         }
         if (user.length === 0) {
-
-
             const otp = otpGenerator.generate(4, { digits: true, upperCase: false, specialChars: false, upperCaseAlphabets: false, lowerCaseAlphabets: false })
             req.session.otp = otp
-
-
-
-
-            console.log("data added to database")
             req.session.email = req.body.email
             req.session.name = req.body.name
             req.session.password = req.body.password
-
 
             const transporter = nodemailer.createTransport({
                 service: "Gmail",
@@ -218,14 +205,9 @@ const signupPost = async (req, res) => {
             }
 
             transporter.sendMail(mailOption, (error, info) => {
-                if (error) {
-                    console.log("error sending email:", error)
-                } else {
-                    console.log("email sent :", info.response)
-                }
+              
             })
             req.session.enter_token = req.body.email
-            console.log("-----------otp----------", req.session.otp)
 
             res.redirect("/verification")
 
@@ -236,8 +218,6 @@ const signupPost = async (req, res) => {
         }
     } catch (error) {
         req.session.signmessage = "admin not found"
-        console.log(error)
-        console.log("in the catch")
         res.redirect("/signup")
     }
 }
@@ -246,13 +226,10 @@ const verification = (req, res) => {
 
     try{
         if (req.session.enter_token) {
-    
-            console.log("otp :--  ", req.session.otp)
-            res.render("otp-sent", { error: false })
+                res.render("otp-sent", { error: false })
         }
 
     }catch(error){
-        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -263,7 +240,6 @@ const verficatiionPost = async (req, res) => {
     try{
         
             if (req.session.otp === req.body.otp) {
-                console.log("the otp is correct")
                 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
                 let code = '';
 
@@ -287,16 +263,12 @@ const verficatiionPost = async (req, res) => {
                 res.redirect("/home")
             } else {
 
-              
-        
-        
                 delete req.session.otp
                 res.render("otp-sent", { error: 'Invalid OTP. Please try again.' })
             }
 
     }catch(error){
-        console.log("hiiiii")
-        console.log(error)
+       
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -321,27 +293,18 @@ const verificatioinResend = (async (req, res) => {
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.log('Error sending email:', error);
-            } else {
-                console.log('Email sent:', info.response);
-            }
+
         });
 
         // Update the session with the new OTP
         req.session.otp = newOtp;
-
-        console.log("=====-------resend otp-------", req.session.otp)
-
         res.redirect('/verification');
     } catch (error) {
-        console.error('Error resending OTP:', error);
         res.redirect('/verification'); // Handle the error gracefully
     }
 });
 const showCollection = async (req, res) => {
     try {
-          console.log("its comihg to collection")
 
 
         const watchtype = await watchtypeModel.find({ list: true });
@@ -352,7 +315,6 @@ const showCollection = async (req, res) => {
         const gender = req.query.gender || '';
         const watchType = req.query.watch_type || '';
         const searchvalue = req.query.searchvalue || '';
-        console.log("the search query")
 
         let filterQuery = { list: true };
 
@@ -371,7 +333,6 @@ const showCollection = async (req, res) => {
                 filterQuery.watch_type = new mongoose.Types.ObjectId(watchType);
             }
         }
-        console.log("filter query before",filterQuery)
         if (searchvalue !== '') {
             const regex = new RegExp(searchvalue, 'i');
             filterQuery.$or = [
@@ -381,11 +342,6 @@ const showCollection = async (req, res) => {
         }
         
         
-        
-        
-
-        console.log("filterQuery:", filterQuery);
-
         const itemsPerPage = 8; // Define itemsPerPage before using it
         const skip = (page - 1) * itemsPerPage;
 
@@ -424,8 +380,6 @@ const showCollection = async (req, res) => {
             
         ]);
 
-        console.log("database:", database);
-
         const totalItems = await productModel.countDocuments(filterQuery); // Count total items
         const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -441,13 +395,9 @@ const showCollection = async (req, res) => {
             var watch = await watchtypeModel.findOne({ _id: watchType }, { watch_type: 1 });
         }
 
-        console.log("totalItems:", totalItems);
-        console.log("totalPages:", totalPages);
-        console.log("currentPage:", currentPage);
         const user = await usersModel.findOne({email:req.session.email})
         res.render("productCollection", { user,database, slicedData, totalPages, currentPage, watchtype, watch, pr1, pr2, gender, watchType, searchvalue, message });
     } catch (error) {
-        console.error("Error in showCollection route:", error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 };
@@ -476,12 +426,9 @@ const productPageview = async (req, res) => {
         if (product) {
             const user = await usersModel.findOne({email:req.session.email})
             res.render("productPage", { user,product, productimage })
-        } else {
-            console.log(" nooooooooooooooooooooooooooooob")
         }
     }
     catch (error) {
-        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 }
@@ -489,7 +436,6 @@ const productPageview = async (req, res) => {
 
 const cart = async (req, res) => {
     try {
-        console.log('resss sesion', req.session.email)
         const user = await usersModel.findOne({ email: req.session.email })
             .populate({
                 path: "cart.product_id",
@@ -499,14 +445,11 @@ const cart = async (req, res) => {
 
         if (!user) {
             totalprice
-            console.log("User not found in the database.");
         }
 
         let totalprice = 0
-        console.log("the cart", user.cart)
         for (let i = 0; i < user.cart.length; i++) {
             user.cart[i].totalPrice = user.cart[i].sellingprice * user.cart[i].quantity
-            console.log("user.cart.totalprice", user.cart[i].totalPrice);
             totalprice += user.cart[i].totalPrice
         }
 
@@ -519,52 +462,30 @@ const cart = async (req, res) => {
 }
 
 
-
-
-
 const addToCart = async (req, res) => {
     try {
 
         if (!req.session.email) {
-            console.log("it comming here")
             return res.json({ noUser: true });
         }
-
         const useremail = req.session.email;
-        console.log("any thing on the seesiionio ", req.session);
-
-        console.log("in the api for add to cart ", useremail)
-        console.log("hiii cooki", req.cookies)
         const { productId, product_name, quantity, price } = req.body;
-
-
         const user = await usersModel.findOne({ email: useremail });
-
         if (!user) {
             return res.status(404).json({ success: false, error: 'User not found' });
         }
 
         const produ = await productModel.findOne({ _id: productId }, {})
-        console.log("--------------------produ", produ)
         const existingProduct = user.cart.find(item => item.product_id.toString() === productId);
-
-
-
 
         if (existingProduct) {
             if ((produ.stock - existingProduct.quantity) === 0) {
-
-                console.log("it entering ")
                 return res.json({ outofStock: true })
             }
             existingProduct.quantity += quantity;
             existingProduct.totalPrice = existingProduct.quantity * existingProduct.sellingprice
-            console.log("---quant", existingProduct.quantity)
-
-            console.log("------totall", produ.totalPrice)
         } else {
 
-            console.log("================>produ.price , produ.quantity", produ.price, produ.quantity)
             user.cart.push({
                 product_id: productId,
                 product_name,
@@ -577,13 +498,8 @@ const addToCart = async (req, res) => {
 
 
         await user.save();
-
-        console.log("============>", user.cart)
-
-
         res.json({ success: true });
     } catch (error) {
-        console.error('Error adding to cart:', error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -598,9 +514,6 @@ const removeincart = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-
-
-
         user.cart = user.cart.filter((item) => item.product_id.toString() !== productId);
         await user.save();
         res.status(200).json({ message: "Product removed from cart" });
@@ -616,19 +529,10 @@ const removeincart = async (req, res) => {
 const addAdress = async (req, res) => {
     try {
 
-        console.log("came to the addres adding route");
         const { address1, country, state, district, town, locality, userid } = req.body;
-
-        console.log("it the body ", req.body);
-
-
-        console.log("user idddd", req.body.userid)
         if (!mongoose.Types.ObjectId.isValid(userid)) {
             return res.status(400).json({ error: 'Invalid user ID' });
         }
-
-
-
         const userId = await usersModel.findOne({ _id: userid });
 
         const result = await usersModel.findOneAndUpdate(
@@ -647,12 +551,8 @@ const addAdress = async (req, res) => {
             }
         );
 
-
-
-        console.log(" the result :", result);
         res.redirect("/profile");
     } catch (error) {
-        console.error(error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 };
@@ -683,19 +583,11 @@ const edituserDetalis = async (req, res) => {
 
 const quantityUpdate = async (req, res) => {
     try {
-
-        console.log("it is from =========the router of quatity update", req.body)
-
         const user = await usersModel.findOne({ email: req.session.email });
 
         const quantity = req.body.quantity
         const index = req.body.index
         const productid = req.body.productid
-
-        console.log("=============req.body.id", productid)
-
-
-
 
         const parsedQuantity = parseInt(quantity, 10);
 
@@ -710,55 +602,32 @@ const quantityUpdate = async (req, res) => {
 
         let totalprice = 0
         if (index) {
-            console.log("it is in the if condition")
 
             for (let i = 0; i < user.cart.length; i++) {
-                console.log("in every quantity inde , qnt", i, user.cart[i].quantity)
                 user.cart[i].totalPrice = user.cart[i].sellingprice * user.cart[i].quantity
                 totalprice += user.cart[i].totalPrice
             }
-            console.log("toal price ", totalprice)
         } else {
-            console.log("it is came to else")
             const product = await productModel.findOne({ _id: productid }, {})
             totalprice += product.sellingprice * parsedQuantity
 
             product.totalPrice = totalprice
             req.session.quantity = parsedQuantity
-
-            console.log("req/sessopm/quamtii-", parsedQuantity)
-            console.log("--------------------session", req.session.quantity)
-            console.log(" the total if the single ", totalprice)
-
         }
 
         await user.save()
         res.status(200).json({ message: 'Quantity updated successfully.', totalprice });
     } catch (error) {
-        console.error('Error updating quantity:', error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
 };
 
 const checkoutView = async (req, res) => {
-
-
-
     try {
-
-
-        console.log("======================> check out viewww")
-        console.log("befreo", req.query)
-        console.log("the query id", req.query.product_id)
         const singleproductid = req.query.product_id
         const singleproduct = await productModel.findOne({ _id: singleproductid }, {})
-        console.log("after the finding product", singleproduct)
-
         req.session.singleproductid = singleproductid
-        console.log('resss sesion', req.session.email)
-
-
 
         const user = await usersModel.findOne({ email: req.session.email })
             .populate({
@@ -767,54 +636,30 @@ const checkoutView = async (req, res) => {
             })
             .exec();
 
-        if (!user) {
-            console.log("User not found in the database.");
-        }
-
-
         let totalprice = 0
         let totalpriceChecking =0
-        console.log("befroe  the condition ", totalprice)
         if (!singleproductid) {
             for (let i = 0; i < user.cart.length; i++) {
-                console.log("i and totalprice",i,"-",totalprice)
-                console.log("and teh other think like sellinprice",user.cart[i].sellingprice )
-                console.log("and the other qnt ",user.cart[i].quantity)
                 totalprice += user.cart[i].sellingprice * user.cart[i].quantity
                 totalpriceChecking += user.cart[i].sellingprice * user.cart[i].quantity
             }
-            console.log("total price from the cart products", totalprice)
         } else {
             if (req.session.quantity) {
                 totalprice += singleproduct.sellingprice * req.session.quantity
                 totalpriceChecking+= singleproduct.sellingprice * req.session.quantity
-                console.log("total price form session", totalprice)
             } else {
                 totalprice += singleproduct.sellingprice
                 totalpriceChecking += singleproduct.sellingprice * req.session.quantity
-                console.log("total price form else session", totalprice)
             }
         }
 
-        console.log(" the user ----->", user, "and also ----", user.address)
         const address = user.address
-
-        console.log("address of user ", address)
-
-        console.log("its caaart  ", user)
-
         let qnt = 1
         if (req.session.quantity) {
             qnt = req.session.quantity
         } else {
             req.session.quantity = qnt
         }
-
-
-        console.log("and the user id is ", user._id)
-
-
-      console.log("the total",totalprice)
         const coupon = await couponModel.find({})
         let discountamount = 0
         res.render("checkoutpage", { discountamount,totalpriceChecking, user, qnt, coupon, totalprice, address, singleproduct, singleproductid })
@@ -830,17 +675,8 @@ const checkoutView = async (req, res) => {
 const newaddress = async (req, res) => {
     try {
 
-        console.log("its entering to the router for  adding the address")
-        console.log("the body id", req.body)
         const { address1, country, state, district, town, locality, userid } = req.body;
-
-        console.log("user id is ", userid)
-
-        // if (!mongoose.Types.ObjectId.isValid(userid)) {
-        //     return res.status(400).json({ error: 'Invalid user ID' });
-        // }
         const user = await usersModel.findOne({ _id: req.body.userid })
-
         const userId = await usersModel.findOne({ _id: userid })
         const result = await usersModel.findOneAndUpdate(
             { _id: userId },
@@ -858,9 +694,6 @@ const newaddress = async (req, res) => {
             }
         );
 
-
-
-        console.log("new addres has been added to database", result)
         res.redirect("/checkout")
     } catch (error) {
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
@@ -871,17 +704,11 @@ const newaddress = async (req, res) => {
 
 const deleteAddress = async (req, res) => {
 
-
-    console.log("it is enering to the delete routr of address")
-
     const addressIndex = req.body.addressIndex;
     const userId = req.body.userId
 
     try {
-        console.log("its user id", userId, addressIndex)
-
         const user = await usersModel.findOne({ _id: userId });
-        console.log("the user by assing", user)
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -898,7 +725,6 @@ const deleteAddress = async (req, res) => {
             return res.status(404).json({ message: 'Address not found or deletion failed' });
         }
     } catch (error) {
-        console.error('Error:', error);
         return  res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -909,8 +735,7 @@ const deleteAddress = async (req, res) => {
 
 const addressEdit = async (req, res) => {
     try {
-        console.log("in the editing router of address");
-        console.log("the req.body", req.body);
+    
         const id = req.body.userid;
         const addressIdToUpdate = req.body.addressid;
 
@@ -954,10 +779,8 @@ const addressEdit = async (req, res) => {
         // Save the updated user document
         const updatedUser = await user.save();
 
-        console.log("User with updated address:", updatedUser);
         return res.redirect("/profile");
     } catch (error) {
-        console.log(error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -969,28 +792,22 @@ const addressEdit = async (req, res) => {
 const checkoutaddressEdit = async (req, res) => {
     try {
 
-        console.log("in the editing router of address");
-        console.log("the req.body", req.body);
+    
         const id = req.body.userid;
 
-        console.log(" the id  id:", id)
         const addressIdToUpdate = req.body.addressid;
-        console.log("the  addres id", addressIdToUpdate)
 
 
         const user = await usersModel.findOne({ _id: id }, {});
 
-        console.log("user datails ", user)
 
         if (!user) {
-            return res.status(404).send("User not found.");
         }
 
 
         const addressToUpdate = user.address.id(addressIdToUpdate);
 
 
-        console.log("addressto update", addressToUpdate)
 
         if (!addressToUpdate) {
             return res.status(404).send("Address not found.");
@@ -1024,10 +841,8 @@ const checkoutaddressEdit = async (req, res) => {
 
 
 
-        console.log("User with updated address++++++++===========>:", updatedUser);
         return res.redirect("/checkout");
     } catch (error) {
-        console.log(error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -1049,12 +864,8 @@ const placeorder = async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        console.log(req.body.useWallet,"wallet-----------------")
-
-
         if (paymentMethod === "online") {
             if (req.body.alltotal > req.body.amount && req.body.useWallet == true) {
-                console.log("entring here")
                 let minus = req.body.alltotal - req.body.amount
                 
                 if(user.wallet.balance - minus <=0){
@@ -1068,18 +879,13 @@ const placeorder = async (req, res) => {
                 amount = (totalamount - req.body.discount)
             }
         }
-        console.log("req.body.alltotal",req.body.alltotal)
-        console.log("req.body.amount",req.body.amount)
+   
 
         let neworder
-
-        console.log("address id", addressId)
 
         const orderaddr = await usersModel.findOne({ email: req.session.email, "address._id": addressId }, { address: 1, _id: 0 })
 
         const orderaddress = orderaddr.address.find(address => address._id.equals(addressId));
-
-
 
         if (productid) {
             const product = await productModel.findOne({ _id: productid }, {})
@@ -1090,7 +896,6 @@ const placeorder = async (req, res) => {
             } else {
                 qnt = 1
             }
-            console.log("after qnt", qnt)
 
             product.stock = product.stock - qnt
             product.save()
@@ -1122,11 +927,9 @@ const placeorder = async (req, res) => {
             neworder.product.push(singlePrd)
             neworder.save()
 
-            console.log(" --- fulll order", neworder)
 
             const singleorder = await usersModel.findOneAndUpdate({ email: req.session.email }, { $push: { order: neworder._id } })
 
-            console.log("the single order ", singleorder)
             delete req.session.singleproductid
 
 
@@ -1138,7 +941,6 @@ const placeorder = async (req, res) => {
 
                 if (!product) {
 
-                    console.log(`Product not found for _id: ${cart[i].product_id}`);
                     continue;
                 }
 
@@ -1147,7 +949,6 @@ const placeorder = async (req, res) => {
                 await product.save();
             }
 
-            console.log("its the cart ", cart)
             const newOrder = await order.create({
                 product: cart,
                 user_id: user._id,
@@ -1161,22 +962,14 @@ const placeorder = async (req, res) => {
                 status: "pending"
 
             });
-
-
-
-            console.log("its the new newOder", newOrder)
             user.cart = [];
             await user.save();
             const orderadd = await usersModel.findOneAndUpdate({ email: req.session.email }, { $push: { order: newOrder._id } })
 
-            console.log("the order added ", orderadd)
         }
-
 
         res.status(201).json({ message: ' stored successfully', success: true });
     } catch (error) {
-        console.log(error)
-        console.error('Error storing address:', error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -1186,13 +979,9 @@ const placeorder = async (req, res) => {
 const ordersPage = async (req, res) => {
     try {
         const user = await usersModel.findOne({ email: req.session.email }).populate("order").exec()
-
         res.render("userOrderpage", { user })
-
-
     } catch (error) {
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
-
     }
 }
 
@@ -1203,8 +992,6 @@ const userOrderdetails = async (req, res) => {
 
         const product = await orderModel.findOne({ _id: id }).populate("product.product_id").exec()
         const order = await orderModel.findOne({ _id: id }, {}).populate('user_id').exec()
-         
-        console.log("---orders",order)
 
         let  productdiscount =0
         let  coupondiscount =0
@@ -1214,20 +1001,16 @@ const userOrderdetails = async (req, res) => {
             productdiscount += (order.product[i].quantity*order.product[i].price) - order.product[i].totalPrice
             coupondiscount += order.product[i].totalPrice
             expectedtotal += order.product[i].quantity*order.product[i].price
-            console.log("------------------>")
 
         }
 
         coupondiscount = coupondiscount - order.totalamount
-        console.log("the coupn",coupondiscount,"and teh coupoundis",order.totalamount,"also",coupondiscount - order.totalamount)
-        
-        console.log("product otot",productdiscount)
-
         const user = await usersModel.findOne({email:req.session.email})
         res.render("userOrderDetails", { user,product, order,productdiscount ,coupondiscount,expectedtotal})
 
     } catch (error) {
-        console.log(error)
+        res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
+
     }
 }
 
@@ -1240,10 +1023,6 @@ const cancelOrder = async (req, res) => {
 
         const orderid = req.query.orderId
         const updated = await orderModel.findOneAndUpdate({ _id: orderid }, { $set: { status: "cancel-pending",cancelOrderReason:req.query.reason } });
-
-
-
-        console.log("----------", updated)
         res.json({ message: "order cancelled" })
 
     } catch (error) {
@@ -1254,12 +1033,10 @@ const cancelOrder = async (req, res) => {
 
 const returnOrder = async (req, res) => {
     try {
-        console.log("enteringggnnnnn")
         const orderid = req.query.orderId
 
         const updated = await orderModel.findOneAndUpdate({ _id: orderid }, { $set: { status: "return-pending",returnOrderReason:req.query.reason} })
 
-        console.log("its updated -", updated)
         res.json({ message: "order return request sented" })
 
     } catch (error) {
@@ -1277,16 +1054,11 @@ const forgotpasswordpost = async (req, res) => {
         const user = await usersModel.find({ email: req.body.email })
         const admin = await adminsModel.find({ email: req.body.email })
 
-        console.log("the user and admin",user,admin)
-
         if (user.length ==0 && admin.length==0) {
-
-            console.log('coming here')
             req.session.errorMessage = "email not found.  Please try again." 
             
             res.redirect("/forgotpassword")
         } else {
-            console.log("but coming here")
             if (user) {
                 req.session.verifyuser = user
             } if (admin) {
@@ -1295,11 +1067,6 @@ const forgotpasswordpost = async (req, res) => {
 
             const otp = otpGenerator.generate(4, { digits: true, upperCase: false, specialChars: false, upperCaseAlphabets: false, lowerCaseAlphabets: false })
             req.session.otp = otp
-
-
-
-
-            console.log("data added to database")
             req.session.email = req.body.email
             req.session.name = req.body.name
             req.session.password = req.body.password
@@ -1321,11 +1088,7 @@ const forgotpasswordpost = async (req, res) => {
             }
 
             transporter.sendMail(mailOption, (error, info) => {
-                if (error) {
-                    console.log("error sending email:", error)
-                } else {
-                    console.log("email sent :", info.response)
-                }
+               
             })
 
 
@@ -1395,9 +1158,7 @@ const addtoWishlist = async (req, res) => {
         if (!user) {
             res.json({ noUser: true })
         }
-        console.log("-----user", user)
-        console.log("-----wishlist", user.wishlist)
-        console.log("-------product ", req.body.productId)
+        
         user.wishlist.push({ product_id: req.body.productId })
 
         user.save()
@@ -1425,19 +1186,13 @@ const wishlist = async (req, res) => {
 
 const addingtocart = async (req, res) => {
     try {
-
-        console.log("adding to the cartt ");
-
         if (!req.session.email) {
-            console.log("it comming here")
             return res.json({ noUser: true });
         }
 
 
         const useremail = req.session.email;
-        console.log("any thing on the seesiionio ", req.session);
-
-        console.log("in the api for add to cart ", useremail)
+       
         const { productId, product_name, quantity, price } = req.body;
 
 
@@ -1448,7 +1203,6 @@ const addingtocart = async (req, res) => {
         }
 
         const produ = await productModel.findOne({ _id: productId }, {})
-        console.log("--------------------produ", produ)
         const existingProduct = user.cart.find(item => item.product_id.toString() === productId);
 
 
@@ -1456,12 +1210,9 @@ const addingtocart = async (req, res) => {
         if (existingProduct) {
             existingProduct.quantity += quantity;
             existingProduct.totalPrice = existingProduct.quantity * existingProduct.price
-            console.log("---quant", existingProduct.quantity)
-
-            console.log("------totall", produ.totalPrice)
+        
         } else {
 
-            console.log("================>produ.price , produ.quantity", produ.price, produ.quantity)
             user.cart.push({
                 product_id: productId,
                 product_name,
@@ -1470,11 +1221,6 @@ const addingtocart = async (req, res) => {
                 totalPrice: produ.price * quantity
             });
         }
-
-
-
-        console.log("============>", user.cart)
-
         const wishlistIndex = user.wishlist.findIndex(
             (item) => item.product_id.toString() === productId
         );
@@ -1484,13 +1230,8 @@ const addingtocart = async (req, res) => {
 
         await user.save();
 
-        console.log("latest user", user)
-
-
-
         res.json({ success: true });
     } catch (error) {
-        console.error('Error adding to cart:', error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -1499,17 +1240,12 @@ const addingtocart = async (req, res) => {
 
 const deletewishlist = async (req, res) => {
     try {
-
-        console.log("entering to --------------")
         const { productId } = req.body;
         const user = await usersModel.findOne({ email: req.session.email });
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-
-
-
         user.wishlist = user.wishlist.filter((item) => item.product_id.toString() !== productId);
         await user.save();
         res.status(200).json({ message: "Product removed from cart" });
@@ -1523,9 +1259,7 @@ const deletewishlist = async (req, res) => {
 
 const ordercheckout = async (req, res) => {
     try {
-        console.log("it coming to ordercheout post")
-
-        console.log("--------th body", req.body)
+       
        const user = await usersModel.findOne({email:req.session.email})
         const currentuser = req.body.cartValue
          if(!req.body.productId){
@@ -1541,10 +1275,7 @@ const ordercheckout = async (req, res) => {
              }
          }
 
-       
-
         if (req.body.paymentMethod == "cod") {
-            console.log("entering")
             res.status(200).send({
                 CODsuccess: true,
             });
@@ -1555,7 +1286,6 @@ const ordercheckout = async (req, res) => {
             let randomNumber = Math.floor(Math.random() * 1000000); // Generate a random number
             let paddedRandomNumber = randomNumber.toString().padStart(6, '0'); // Ensure it's 6 digits long
             let receiptID = `RTN${paddedRandomNumber}`;
-            console.log("entering  so its online payment")
             const options = {
                 amount: amount,
                 currency: "INR",
@@ -1563,9 +1293,6 @@ const ordercheckout = async (req, res) => {
             };
 
             var instance = new Razorpay({ key_id: RAXORPAY_ID_KEY, key_secret: RAXORPAY_SCRETE_KEY })
-
-            console.log("---key_id", RAXORPAY_ID_KEY)
-            console.log("------scer", RAXORPAY_SCRETE_KEY)
 
             instance.orders.create(options, (err, order) => {
                 if (!err) {
@@ -1579,15 +1306,11 @@ const ordercheckout = async (req, res) => {
                         name: req.session.user_name,
                     });
                 } else {
-                    console.log("its and errror")
-                    console.log(err)
-
                     res.status(400).send({ success: false, msg: 'Something went wrong!' })
                 }
             });
         }
     } catch (error) {
-        console.log(error.message)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -1598,11 +1321,6 @@ const applycoupn = async (req, res) => {
     try {
         const code = req.body.dataBody.couponCode;
         const amount = req.body.dataBody.amount;
-
-
-        console.log("---code", code)
-        console.log("----amoutn", amount)
-
         const coupon = await couponModel.findOne({ coupon_code: code })
          
         const currentDate = new Date();
@@ -1611,7 +1329,6 @@ const applycoupn = async (req, res) => {
         if (currentDate > couponExpireDate) {
             return res.json({ expired: true }); // Coupon has not expired
         } 
-        console.log("currentdate",currentDate,"prevousedate",coupon.expire_date)
 
         
         if(coupon.min_amount > parseInt(amount) || coupon.max_amount < parseInt(amount)){
@@ -1619,10 +1336,6 @@ const applycoupn = async (req, res) => {
         }
 
         if (coupon) {
-            console.log("-----min",coupon.min_amount)
-            console.log("------max",coupon.max_amount)
-             
-
             if (coupon.coupon_value) {
               let  totalprice 
               let discountamount 
@@ -1632,26 +1345,22 @@ const applycoupn = async (req, res) => {
                 discountamount = parseFloat(coupon.coupon_value);
               }else{
                   discountamount = parseFloat(amount)*(parseFloat(coupon.coupon_value)/100)
-                  console.log("the amount",discountamount)
                 totalprice = parseFloat(amount) - discountamount;
               }
 
               return res.json({ success: true, totalprice, discountamount });
             } else {
            
-              console.log('Invalid coupon or no discount amount');
               return res.status(400).json({ invalidcoupon: true, error: 'Invalid coupon or no discount amount' });
             }
           } else {
        
-            console.log('No coupon found');
             return res.json({ nocoupon: true });
           }
           
 
     } catch (error) {
-        console.log("ots errpr ")
-        console.log(error)
+       
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -1660,15 +1369,11 @@ const applycoupn = async (req, res) => {
 const invoiceget = async (req, res) => {
     try {
 
-        console.log("query ", req.query.productid)
 
         const order = await orderModel.findOne({ _id: req.query.productid }).populate("product.product_id")
 
-        console.log("---invoice products", order)
-        console.log("after ==", order.product[0].product_id.product_name)
         const user = await usersModel.find({ email: req.session.email })
-        console.log("order---", order.product.name)
-        console.log("user", user)
+       
          let coupondiscount=0
          let subtotal =0
         for(let i=0;i < order.product.length;i++){
@@ -1678,8 +1383,6 @@ const invoiceget = async (req, res) => {
 
         coupondiscount = coupondiscount - order.totalamount
 
-         console.log("the user",user)
-         console.log("the orders",order)
         res.render("invoice", { order, user ,coupondiscount,subtotal})
 
 
@@ -1696,14 +1399,9 @@ const passwordchange = async (req,res)=>{
 
 const passwordchangingpost = async ( req, res)=>{
     try{
-         console.log('entering here')
 
         const email = req.session.email 
-
         const user= await usersModel.findOne({email:email})
-
-        console.log("---user",user)
-
         if(user){
             usersModel.findOneAndUpdate({email:email},{$set:{password:req.body.password}})
             res.redirect("/login")
@@ -1719,26 +1417,17 @@ const passwordchangingpost = async ( req, res)=>{
 
 
 const refferalpost = async (req,res)=>{
-    try{
-    
-        console.log("comming here")
-        
+    try{        
      const code = req.body.userEnteredReferralCode
-
-     console.log("the code",code)
      const user = await usersModel.findOne({'wallet.refferalcode': code});
 
      const currentUser = await usersModel.findOne({email:req.session.email})
-      console.log("the uer",user)
      if(user){
 
         currentUser.wallet.balance += 100
         currentUser.wallet.reffered = true
         
-        await currentUser.save() 
-
-        console.log("coming here",currentUser)
-        
+        await currentUser.save()         
          res.json({success:true})
      }else{
         res.status(404).json({ notfound: true });
@@ -1754,15 +1443,10 @@ const refferalpost = async (req,res)=>{
 
 const checkingstock = async (req, res) => {
     try {
-      console.log("checking stock");
       if(req.query.productId){
          return     res.json({});
       }
-
-  
-      const user = await usersModel.findOne({ email: req.session.email }).populate('cart.product_id');
-      console.log("the user", user.cart[0].product_id.stock);
-  
+      const user = await usersModel.findOne({ email: req.session.email }).populate('cart.product_id');  
       let outOfStockProduct = null;
       let outOfQuantityProduct = null;
   
@@ -1779,11 +1463,8 @@ const checkingstock = async (req, res) => {
       } else if (outOfQuantityProduct) {
         return res.json({ outofquantity: true, product: outOfQuantityProduct });
       }
-  
-      console.log("after loop");
-      res.json({});
+        res.json({});
     } catch (error) {
-        console.log(error)
       res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
   };
