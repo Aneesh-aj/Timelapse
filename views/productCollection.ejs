@@ -11,11 +11,22 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.js"></script>
     <title>productCollection</title>
 </head>
+<style>
+    .error-mess{
+        font-size: 40px !important;
+        font-weight: bolder !important;
+    }
+    @media screen and (max-width:500px) {
+        .error-mess{
+        font-size: 30px !important;
+        font-weight: bolder !important;
+    }
+    }
+</style>
 
 <body>
      <%- include('navbar.ejs') %>
-    <content>
-  
+     <content>  
         <div class="container-fluid   " style="padding-top: 6rem;" id="body-color">
             <div class=" d-flex h-auto flex-column  flex-md-row">
                   <div class="filter-btn-div">
@@ -159,7 +170,8 @@
 
                         </h1>
                     </div>
-                    <div class="container-fluid ps-lg-4 pe-lg-3" id="body-color">
+                    <% if(database.length >0){%>
+                    <div class="container-fluid ps-lg-4 pe-lg-3 " id="body-color">
                         <div class="row d-flex gap-1 pt-3 row-arrange ">
                             <% for (let i=0; i < database.length; i++) { %>
                                 <div class="product-card ">
@@ -222,6 +234,35 @@
                                 <% } %>
                         </div>
                     </div>
+                    <% }else{%>
+                        <div class="container-fluid  bg-white " style="height: 70vh;">
+                            <section class="page_404 h-100 ">
+                                <div class="container d-flex justify-content-center">
+                                    <div class="row w-100">	
+                                    <div class="col-sm-12  ">
+                                    <div class=" text-center">
+                                    <div class="error-mess  four_zero_four_bg ">
+                                        <h1 class="text-center error-mess" >product not found</h1>
+                                    
+                                    
+                                    </div>
+                                    
+                                    <div class="contant_box_404">
+                                    <h3 class="h2">
+                                  There is no Matching product
+                                    </h3>
+                                    
+                                    <p>check some other avaible product!</p>
+                                    
+                                </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                     <% }%>
 
 
                     <!-- Pagination Links -->
@@ -262,8 +303,8 @@
 
 
     </content>
-    <footer>
-        <div class="container-fluid footer-color">
+    <footer style="">
+        <div class="abc-footer container-fluid footer-color">
             <div class="container d-flex ">
                 <div class="">
                     <div class="footer-div1 d-flex justify-content-center">
@@ -281,6 +322,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="container-fluid footer-color d-flex justify-content-center">
             <p class="footer-subpara">&copy; 2023 All rights reserved.Desined by Aneesh</p>
         </div>

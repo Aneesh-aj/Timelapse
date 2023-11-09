@@ -305,101 +305,79 @@ const verificatioinResend = (async (req, res) => {
 });
 const showCollection = async (req, res) => {
     try {
-
-
         const watchtype = await watchtypeModel.find({ list: true });
-
+    
+        console.log("watchtype", watchtype);
+    
         const page = parseInt(req.query.page) || 1;
         const pr1 = parseInt(req.query.price1) || 0;
         const pr2 = parseInt(req.query.price2) || Infinity;
         const gender = req.query.gender || '';
         const watchType = req.query.watch_type || '';
         const searchvalue = req.query.searchvalue || '';
-
+    
         let filterQuery = { list: true };
-
-        var message;
-
+    
         if (pr1 !== 0 || pr2 !== Infinity) {
             filterQuery.price = { $gte: pr1, $lte: pr2 };
         }
-
+    
         if (gender !== '') {
             filterQuery.gender = gender;
         }
-
+    
         if (watchType !== '') {
             if (watchType.length > 0) {
                 filterQuery.watch_type = new mongoose.Types.ObjectId(watchType);
             }
         }
+    
         if (searchvalue !== '') {
             const regex = new RegExp(searchvalue, 'i');
             filterQuery.$or = [
-                { product_name: { $regex: regex } }, // Search in the products collection
-                { brand_category: { $regex: regex } } // Search in the brands collection
+                { product_name: { $regex: regex } },
+                { brand_category: { $regex: regex } }
             ];
         }
-        
-        
-        const itemsPerPage = 8; // Define itemsPerPage before using it
+    
+        const itemsPerPage = 8; 
         const skip = (page - 1) * itemsPerPage;
-
-        const database = await productModel.aggregate([
-            {
-                $match: filterQuery, // Use filterQuery here
-            },
-            {
-                $lookup: {
-                    from: 'watchtypes',
-                    localField: 'watch_type',
-                    foreignField: '_id',
-                    as: 'watch_type',
-                },
-            },
-            {
-                $lookup: {
-                    from: 'brands',
-                    localField: 'brand',
-                    foreignField: '_id',
-                    as: 'brand',
-                },
-            },
-            {
-                $match: {
-                    'watch_type.list': true, // Filter watch types with list: true
-                    'brand.list': true, // Filter brands with list: true
-                },
-            },
-            {
-                $skip: skip,
-            },
-            {
-                $limit: itemsPerPage,
-            },
-            
-        ]);
-
-        const totalItems = await productModel.countDocuments(filterQuery); // Count total items
+    
+        const database = await productModel
+            .find(filterQuery)
+            .populate({
+                path: 'watch_type',
+                match: { $or: [{ list: true }, { _id: null }] },
+            })
+            .populate({
+                path: 'brand',
+                match: { $or: [{ list: true }, { _id: null }] },
+            })
+            .skip(skip)
+            .limit(itemsPerPage);
+    
+        const totalItems = await productModel.countDocuments(filterQuery);
         const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-     
+    
         let currentPage = page;
         if (currentPage > totalPages) {
             currentPage = totalPages;
         }
-
+    
         const slicedData = database;
-
+    
         if (watchType.length != 0) {
             var watch = await watchtypeModel.findOne({ _id: watchType }, { watch_type: 1 });
         }
-
-        const user = await usersModel.findOne({email:req.session.email})
-        res.render("productCollection", { user,database, slicedData, totalPages, currentPage, watchtype, watch, pr1, pr2, gender, watchType, searchvalue, message });
+        console.log("the database", database);
+    
+        const user = await usersModel.findOne({ email: req.session.email });
+        res.render("productCollection", { user, database, slicedData, totalPages, currentPage, watchtype, watch, pr1, pr2, gender, watchType, searchvalue });
     } catch (error) {
+        console.error(error);
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
+    
 };
 
 
