@@ -24,17 +24,16 @@
 
   <content class="nav-height">
     <div class="banner-height w-100" >
-
-      <div id="carouselExampleAutoplaying" class="carousel slide banner-height" data-bs-ride="carousel">
+      <div id="carouselExampleAutoplaying" class="carousel slide banner-height" data-bs-ride="caroufsel">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="/banner/<%=banner[0].banner%>" class="d-block w-100 banner-height" alt="...">
+            <img src="/banner/<%=banner[0]?.banner%>" class="d-block w-100 banner-height" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="/banner/<%=banner[1].banner%>" class="d-block w-100 banner-height" alt="...">
+            <img src="/banner/<%=banner[1]?.banner%>" class="d-block w-100 banner-height" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="/banner/<%=banner[2].banner%>" class="d-block banner-height w-100" alt="...">
+            <img src="/banner/<%=banner[2]?.banner%>" class="d-block banner-height w-100" alt="...">
           </div>
         </div>
       
@@ -47,7 +46,7 @@
       </div>
       <div class="container pt-3">
         <div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-4 g-3 ">
-          <% for(let i=0;i < product.length; i++) {%>
+          <% for(let i=0;i < product?.length; i++) {%>
             <div class="col mb-3">
               <div class="card">
                 <div class="card-body latest-product-card"
@@ -55,7 +54,7 @@
                 <div class="">
                   <div class=" d-flex latest-product-subdiv ">
                     <label class="latest-product-subtext">
-                      <%=product[i].product_name %>
+                      <%=product[i]?.product_name %>
                     </label>
                   </div>
                   <div class="d-flex justify-content-center">

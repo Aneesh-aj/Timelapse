@@ -44,6 +44,7 @@ const forgotpassword = (req, res) => {
         res.render("forgotpassword",{errorMessage})
 
     } catch (error) {
+        console.log(error)
         res.redirect("/internal")
 
     }
@@ -60,6 +61,8 @@ const homepageview = async (req, res) => {
         res.render("homePage", { user,men,product, banner,women})
 
     } catch (error) {
+        console.log(error)
+
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 
@@ -74,6 +77,7 @@ const profileView = async (req, res) => {
         const address = await usersModel.findOne({ email: req.session.email }, { address: 1 })
         res.render("profile", { userid, address, user })
     } catch (error) {
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 
@@ -91,6 +95,7 @@ const profilePost = (req, res) => {
             res.redirect("/login")
         }
     } catch (error) {
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 }
@@ -112,6 +117,7 @@ const loginView = (req, res) => {
         }
 
     }catch(error){
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -122,7 +128,9 @@ const loginPost = async (req, res) => {
 
     try {
         let user = await usersModel.findOne({ email: req.body.email, password: req.body.password })
-        const admin = await adminsModel.findOne({ email: req.body.email, password: req.body.password })
+        console.log(req.body)
+        let admin = await adminsModel.findOne({email:req.body.email,password:req.body.password})
+        console.log("is a admin",admin ,"or the user",user)
 
         if (admin) {
             req.session.admin = req.body.email
@@ -133,7 +141,7 @@ const loginPost = async (req, res) => {
 
         }
         else if (user) {
-
+             console.log(" comming here")
             req.session.email = req.body.email
             req.session.user_name = user.name
             const Token = req.session.email
@@ -143,6 +151,7 @@ const loginPost = async (req, res) => {
             res.render("login", { errorMessage: "Incorrect email or password. Please try again." })
         }
     } catch (error) {
+        console.log(" erorr",error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -155,6 +164,7 @@ const userLogout = (req, res) => {
     res.clearCookie("currentUser")
     res.status(200).json({ success: true });
      }catch(error){
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
      }
@@ -168,6 +178,7 @@ const singupView = (req, res) => {
             res.render("sign-up")
         }
     } catch (error) {
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -213,10 +224,11 @@ const signupPost = async (req, res) => {
 
         }
         else {
-
+            console.log(error)
             res.redirect("/signup", { error: "user currenly exist" })
         }
     } catch (error) {
+        console.log(error)
         req.session.signmessage = "admin not found"
         res.redirect("/signup")
     }
@@ -230,6 +242,7 @@ const verification = (req, res) => {
         }
 
     }catch(error){
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -268,7 +281,7 @@ const verficatiionPost = async (req, res) => {
             }
 
     }catch(error){
-       
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -300,6 +313,7 @@ const verificatioinResend = (async (req, res) => {
         req.session.otp = newOtp;
         res.redirect('/verification');
     } catch (error) {
+        console.log(error)
         res.redirect('/verification'); // Handle the error gracefully
     }
 });
@@ -388,6 +402,7 @@ const wallet = async (req, res) => {
 
         res.render("wallet", {user})
     } catch (error) {
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 }
@@ -407,6 +422,7 @@ const productPageview = async (req, res) => {
         }
     }
     catch (error) {
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
     }
 }
@@ -434,6 +450,7 @@ const cart = async (req, res) => {
         res.render("cart", { user, totalprice })
 
     } catch (error) {
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
@@ -478,6 +495,7 @@ const addToCart = async (req, res) => {
         await user.save();
         res.json({ success: true });
     } catch (error) {
+        console.log(error)
         res.status(500).redirect('/internalerror?err=' + encodeURIComponent(error.message));
 
     }
