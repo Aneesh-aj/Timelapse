@@ -6,11 +6,10 @@ const nocache = require('nocache')
 
 const app = express()
 
-mongoose.connect("mongodb+srv://Aneeshaj:TySgLdTBA3rMeHZy@eventmanagment.0xf9qrw.mongodb.net/?retryWrites=true&w=majority&appName=TimeLaps", {
+mongoose.connect("mongodb+srv://Aneeshaj:TySgLdTBA3rMeHZy@eventmanagment.0xf9qrw.mongodb.net/timelaps?retryWrites=true&w=majority", {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => {
+    useUnifiedTopology: true
+}).then(() => {
     console.log("Connected to the database");
 })
 .catch((error) => {
