@@ -6,7 +6,7 @@ const nocache = require('nocache')
 
 const app = express()
 
-mongoose.connect("mongodb+srv://rajuaneeshp2020:EaLqElGc0ZDaomZO@cluster0.fqviskg.mongodb.net/", {
+mongoose.connect("mongodb+srv://Aneeshaj:TySgLdTBA3rMeHZy@eventmanagment.0xf9qrw.mongodb.net/?retryWrites=true&w=majority&appName=TimeLaps", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
