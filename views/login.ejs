@@ -4,134 +4,169 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css" class="style">
-    <title>login</title>
+    <title>Login</title>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container-fluid {
+            padding: 0;
+        }
+        .profile-main {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .header {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .input-control {
+            margin-bottom: 1rem;
+        }
+        .input-control input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        .input-control .error {
+            color: #dc3545;
+            font-size: 0.875rem;
+        }
+        .button-field {
+            text-align: center;
+        }
+        .button-field button {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .button-field button:hover {
+            background-color: #0056b3;
+        }
+        .form-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .form-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .form-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-   
-   <content>
-       <div class="container-fluid   " id="body-color">
-           <div class="container-xl d-flex h-auto  profile-main ">
-              
-               <div class="login d-flex justify-content-center" >             
+    <div class="container-fluid">
+        <div class="container-xl profile-main">
+            <div class="login">
                 <div class="form white">
-                    <div class="form-content ">
-                        <form action="/login" method="post"  >
-                            <header>LOG-IN</header>
-                            <div class="input-control ">
-                                <label class="text-label pt-3 ">Email</label>
-                                <input  type="email" placeholder="Email" class="input" id="email" name="email" type="email">
+                    <div class="form-content">
+                        <form action="/login" method="post">
+                            <header class="header">LOG-IN</header>
+                            <div class="input-control">
+                                <label class="text-label">Email</label>
+                                <input type="email" placeholder="Email" id="email" name="email">
                                 <div class="error"></div>
                             </div>
-                            <label class="text-label pt-3  ">password</label>
-                            <div class="input-control  ">
-                                <input type="password" placeholder="Password" id="password" class="password" name="password" type="password" >
+                            <div class="input-control">
+                                <label class="text-label">Password</label>
+                                <input type="password" placeholder="Password" id="password" name="password">
                                 <div class="error"></div>
                                 <% if (typeof errorMessage !== 'undefined') { %>
                                     <div class="alert alert-danger" role="alert">
                                         <%= errorMessage %>
                                     </div>
-                                    <% } %>
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                <i class='bx bx-hide eye-icon'></i>
+                                <% } %>
                             </div>
-                            <div class="form-link ">
+                            <div class="form-link">
                                 <a href="/forgotpassword" class="forgot-pass">Forgot password?</a>
                             </div>
-                            <div class="field button-field">
+                            <div class="button-field">
                                 <button type="submit" onclick="return validateLogin()">Login</button>
                             </div>
                         </form>
                         <div class="form-link">
-                            <span>Don't have an account? <a href="/signup"  class="link signup-link">Signup</a></span>
+                            <span>Don't have an account? <a href="/signup" class="link signup-link">Signup</a></span>
                         </div>
                     </div>
-                   
                 </div>
-           </div>
-       </div>
-       
-   </content>
-   <footer>
-      <div class="container-fluid footer-color">
-         <div class="container d-flex ">
-               <div class="">
-                    <div class="footer-div1 d-flex justify-content-center">
-                         <h1 class="heading  pt-4">About us</h1>
-                    </div>
-                   <div class="footer-div1">
-                
-                       <p class="p-2">Welcome to Watch Universe, your ultimate destination for exquisite timepieces. At Watch Universe, we're passionate about bringing you the finest selection of watches that blend elegance, precision, and style.Our journey started with a love for craftsmanship and a desire to share the world's most stunning watches with watch enthusiasts and collectors alike.</p>
-                       
-                   </div>
-               </div>
-         </div>
-      </div>
-      <div class="container-fluid footer-color d-flex justify-content-center">
-        <p class="p-5">&copy; 2023 All rights reserved.Desined by Aneesh</p>
-      </div>
-   </footer>
-   <script>
-             function validateLogin() {
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
+            </div>
+        </div>
+    </div>
+    <script>
+        function validateLogin() {
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
 
-    const setError = (element, message) => {
-        const inputControl = element.parentElement;
-        const errorDisplay = inputControl.querySelector('.error');
+            const setError = (element, message) => {
+                const inputControl = element.parentElement;
+                const errorDisplay = inputControl.querySelector('.error');
 
-        errorDisplay.innerText = message;
-        inputControl.classList.add('error');
-        inputControl.classList.remove('success');
-    }
+                errorDisplay.innerText = message;
+                inputControl.classList.add('error');
+                inputControl.classList.remove('success');
+            }
 
-    const setSuccess = element => {
-        const inputControl = element.parentElement;
-        const errorDisplay = inputControl.querySelector('.error');
+            const setSuccess = element => {
+                const inputControl = element.parentElement;
+                const errorDisplay = inputControl.querySelector('.error');
 
-        errorDisplay.innerText = '';
-        inputControl.classList.add('success');
-        inputControl.classList.remove('error');
-    };
+                errorDisplay.innerText = '';
+                inputControl.classList.add('success');
+                inputControl.classList.remove('error');
+            };
 
-    const isValidEmail = email => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
+            const isValidEmail = email => {
+                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
 
-    const emailValue = email.value.trim();
-    const passwordValue = password.value.trim();
+            const emailValue = email.value.trim();
+            const passwordValue = password.value.trim();
 
-    if (emailValue === '' && passwordValue === '') {
-        setError(email, 'Email is required');
-        setError(password, 'Password is required');
-        return false;
-    } else {
-        if (emailValue === '') {
-            setError(email, 'Email is required');
-        } else if (!isValidEmail(emailValue)) {
-            setError(email, 'Provide a valid email address');
-            return false;
-        } else {
-            setSuccess(email);
+            if (emailValue === '' && passwordValue === '') {
+                setError(email, 'Email is required');
+                setError(password, 'Password is required');
+                return false;
+            } else {
+                if (emailValue === '') {
+                    setError(email, 'Email is required');
+                } else if (!isValidEmail(emailValue)) {
+                    setError(email, 'Provide a valid email address');
+                    return false;
+                } else {
+                    setSuccess(email);
+                }
+
+                if (passwordValue === '') {
+                    setError(password, 'Password is required');
+                    return false;
+                } else {
+                    setSuccess(password);
+                    return true;
+                }
+            }
         }
-
-        if (passwordValue === '') {
-            setError(password, 'Password is required');
-            return false;
-        } else {
-            setSuccess(password);
-            return true;
-        }
-    }
-}
-
-
-   </script>
+    </script>
 </body>
 </html>
